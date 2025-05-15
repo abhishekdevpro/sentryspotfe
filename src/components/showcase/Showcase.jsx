@@ -26,7 +26,7 @@ import { Constant } from "@/utils/constant/constant";
 import ReactQuill from "react-quill";
 import CompanyWTSSection from "./WtsSection";
 import LeadershipTeam from "./LeaderShipTeams";
-import AboutSection from "./AboutSection";
+import AboutSection from "./Aboutsection";
 import WhyChooseUsSection from "./WhyCompanySection";
 import CompanyBenefits from "./CompanyBenefits";
 import JobListings from "./HiringSection";
