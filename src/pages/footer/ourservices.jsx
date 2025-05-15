@@ -1,6 +1,8 @@
 import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import FooterDefault from "@/components/footer/common-footer/index";
 import React from "react";
+import { MdMiscellaneousServices } from "react-icons/md";
+
 export default function OurServices() {
   return (
     <>
@@ -9,11 +11,7 @@ export default function OurServices() {
       <div className="bg-[#051947] py-12 text-center">
         <div className="flex justify-center mb-4">
           {/* Replace with your actual services icon */}
-          <img
-            src="/images/services-icon.png" // ✅ Update with your icon path
-            alt="Services Icon"
-            className="w-12 h-12"
-          />
+          <MdMiscellaneousServices className="w-12 h-12 text-white" />
         </div>
         <h1 className="text-white text-3xl font-bold">Our Services</h1>
       </div>

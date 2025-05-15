@@ -146,6 +146,14 @@ import CareerAdvice from "./pages/footer/careeradvice";
 import SalaryTools from "./pages/footer/salarytools";
 import GrievanceRedressal from "./pages/footer/grievace";
 import SearchJobsApply from "./pages/footer/searchjobapply";
+
+import AIJobMatchApply from "./pages/footer/aijobapply";
+import AIResumeEnhancer from "./pages/footer/aiResumeEnhancer";
+import AICvParsing from "./pages/footer/aiCvParsing";
+import AIResumeBuilder from "./pages/footer/aiResumeBuilder";
+import PrivacyPolicy from "./pages/footer/privacypolicy";
+import TermsAndConditions from "./pages/footer/termsandconditions";
+
 import Showcase from "./pages/showcase";
 
 function App() {
@@ -287,6 +295,24 @@ function App() {
                   <Route
                     path="searchjob-and-apply"
                     element={<SearchJobsApply />}
+                  />
+                  <Route
+                    path="ai-job-match-&-apply"
+                    element={<AIJobMatchApply />}
+                  />
+                  <Route
+                    path="ai-resume-enhancer"
+                    element={<AIResumeEnhancer />}
+                  />
+                  <Route path="ai-cv-parsing" element={<AICvParsing />} />
+                  <Route
+                    path="ai-resume-builder"
+                    element={<AIResumeBuilder />}
+                  />
+                  <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                  <Route
+                    path="terms-and-conditions"
+                    element={<TermsAndConditions />}
                   />
 
                   <Route path="sentry-spot" element={<SentryPage />} />

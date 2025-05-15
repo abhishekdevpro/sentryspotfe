@@ -1,6 +1,7 @@
 import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import FooterDefault from "@/components/footer/common-footer/index";
 import React from "react";
+import { FaMoneyCheckAlt } from "react-icons/fa";
 
 export default function SalaryTools() {
   return (
@@ -10,11 +11,7 @@ export default function SalaryTools() {
       {/* Header Section */}
       <div className="bg-[#051947] py-12 text-center">
         <div className="flex justify-center mb-4">
-          <img
-            src="/images/salary-icon.png" // ✅ Replace with your actual icon path
-            alt="Salary Tools Icon"
-            className="w-12 h-12"
-          />
+          <FaMoneyCheckAlt className="w-12 h-12 text-white" />
         </div>
         <h1 className="text-white text-3xl font-bold">
           Salary Tools for Job Seekers
