@@ -133,6 +133,10 @@ import AllEmployerData from "./components/dashboard-pages/employers-dashboard/em
 import EmployersAllPages from "./pages/employers-dashboard/employer-pages";
 import EmployersListPage from "./pages/employers-dashboard/employer-pages/employerlistpage";
 import Companieslist from "./components/job-listing-pages/job-list-v7/Companieslist";
+
+import UserProfilePage from "./components/PublicProfile/userPublicProfile";
+import PublicProfile from "./components/PublicProfile";
+
 import AboutUs from "./pages/footer/aboutus";
 import OurServices from "./pages/footer/ourservices";
 import OurValues from "./pages/footer/ourvalues";
@@ -142,12 +146,15 @@ import CareerAdvice from "./pages/footer/careeradvice";
 import SalaryTools from "./pages/footer/salarytools";
 import GrievanceRedressal from "./pages/footer/grievace";
 import SearchJobsApply from "./pages/footer/searchjobapply";
+
 import AIJobMatchApply from "./pages/footer/aijobapply";
 import AIResumeEnhancer from "./pages/footer/aiResumeEnhancer";
 import AICvParsing from "./pages/footer/aiCvParsing";
 import AIResumeBuilder from "./pages/footer/aiResumeBuilder";
 import PrivacyPolicy from "./pages/footer/privacypolicy";
 import TermsAndConditions from "./pages/footer/termsandconditions";
+
+import Showcase from "./pages/showcase";
 
 function App() {
   useEffect(() => {
@@ -193,6 +200,7 @@ function App() {
                   <Route path="job-list-v6" element={<JobListPage6 />} /> */}
                   <Route path="job-list-v7" element={<JobListPage7 />} />
                   <Route path="companies-list" element={<Companieslist />} />
+                  <Route path="showcase/:id" element={<Showcase />} />
 
                   <Route path="gauth" element={<Gauth />} />
                   <Route path="/login/login-code" element={<LoginCode />} />
@@ -310,6 +318,7 @@ function App() {
                   <Route path="sentry-spot" element={<SentryPage />} />
                   <Route path="community" element={<Communitypage />} />
                   <Route path="courses" element={<CoursePage />} />
+                  <Route path="public-view" element={<PublicProfile />} />
                   <Route
                     path="course-info/:courseid"
                     element={<CourseDetails />}

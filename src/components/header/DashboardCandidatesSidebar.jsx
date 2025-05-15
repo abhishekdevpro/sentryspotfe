@@ -6,13 +6,14 @@ import { menuToggle } from "../../features/toggle/toggleSlice";
 import candidatesuData from "../../data/candidatesMenuData";
 import { isActiveLink } from "../../utils/linkActiveChecker";
 import { Constant } from "@/utils/constant/constant";
-import { logout } from "@/store/slices/auth";
+import { logout } from "@/store/slices/authSlice";
 
 const DashboardCandidatesSidebar = () => {
   const { pathname } = useLocation();
   const { menu } = useSelector((state) => state.toggle);
   const percentage = 30;
   const navigate = useNavigate();
+  const {userInfo} = useSelector((state)=>state.auth)
 
   const dispatch = useDispatch();
 
@@ -29,8 +30,14 @@ const DashboardCandidatesSidebar = () => {
     // window.location.href = "/login";
   };
 
-  const user = JSON.parse(localStorage.getItem(Constant.USER_INFO));
-  console.log(user,"kkkkk");
+  // const user = JSON.parse(localStorage.getItem(Constant.USER_INFO));
+  console.log(userInfo,"userInfo");
+    const userId = userInfo.id;
+    console.log(userId,"userId");
+    localStorage.setItem('USER_ID', userId); 
+
+  const k = localStorage.getItem('USER_ID');
+  console.log(k,"usekrId");
 
   return (
     <div className={`user-sidebar ${menu ? "sidebar_open" : ""}`}>
@@ -48,8 +55,8 @@ const DashboardCandidatesSidebar = () => {
             <div className="flex-1 h-14 w-auto">
               <img
                 src={
-                  user?.photo
-                    ? `https://api.sentryspot.co.uk${user.photo}`
+                  userInfo?.photo
+                    ? `https://api.sentryspot.co.uk${userInfo.photo}`
                     : "https://statinfer.com/wp-content/uploads/dummy-user.png"
                 }
                 alt="User Avatar"
@@ -57,8 +64,9 @@ const DashboardCandidatesSidebar = () => {
               />
             </div>
             <div className="text-white flex-1 flex-col">
-              <p className="text-white">{user?.first_name || "Anonymous"}</p>
-              <p className="text-white">{user?.profile || "Profile"}</p>
+              <p className="text-white">{userInfo?.first_name || "Anonymous"}</p>
+              <p className="text-white">{userInfo?.profile || "Profile"}</p>
+              <Link to={'/public-view'} className="text-white underline">view </Link>
             </div>
           </div>
         </Link>

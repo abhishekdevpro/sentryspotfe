@@ -179,7 +179,6 @@ const Index = () => {
     { id: 6, title: "Additional", component: <Additionalinformation /> },
     // { id: 7, title: "Languages", component: <LanguageSection /> },
   ];
-  const token = localStorage.getItem("token");
 
   return (
     <div className="page-wrapper dashboard">
@@ -227,28 +226,8 @@ const Index = () => {
             </h4>
             <div className="bg-white p-6 rounded-md">
               <div className="flex justify-between items-center mb-4">
-                {currentStep === 1 && (
+                {currentStep === 0 && (
                   <div className="flex items-center space-x-2">
-                    {/* <label htmlFor="visibility" className="font-bold">
-                      Profile and CV Visibility
-                    </label>
-                    Toggle Switch
-                    <div className="relative">
-                      <input
-                        type="checkbox"
-                        id="visibility"
-                        checked={isToggled}
-                        onChange={() => setIsToggled(!isToggled)}
-                        className="hidden peer"
-                      />
-                      <div className="w-12 h-6 bg-gray-300 rounded-xl shadow-inner peer-checked:bg-blue-500 cursor-pointer">
-                        <div
-                          className={`w-6 h-6 bg-white rounded-full shadow transform transition-transform duration-300 ${
-                            isToggled ? "translate-x-6" : "translate-x-0"
-                          }`}
-                        />
-                      </div>
-                    </div> */}
                     <div className="flex items-center space-x-4">
                       {/* Label */}
                       <label

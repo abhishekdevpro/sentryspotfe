@@ -22,7 +22,7 @@ const CoursePage = () => {
         <div className="auto-container">
           <div className="row">
             <CompanyJobHeader companyId={id}/>
-            <ApplyForm />
+            <ApplyForm companyId={id} />
           </div>
         </div>
       </section>

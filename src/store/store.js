@@ -10,7 +10,8 @@ import candidateSlice from "../features/candidate/candidateSlice";
 import candidateFilterSlice from "../features/filter/candidateFilterSlice";
 import shopSlice from "../features/shop/shopSlice";
 // custom
-import AuthSlice from "./slices/auth";
+// import AuthSlice from "./slices/auth";
+import authSlice from './slices/authSlice.js'
 import { Service } from "./slices/service/index";
 
 export const store = configureStore({
@@ -24,7 +25,7 @@ export const store = configureStore({
     candidateFilter: candidateFilterSlice,
     shop: shopSlice,
     // custom
-    auth: AuthSlice,
+    auth: authSlice,
     [Service.reducerPath]: Service.reducer,
   },
   middleware: (getDefaultMiddleware) =>

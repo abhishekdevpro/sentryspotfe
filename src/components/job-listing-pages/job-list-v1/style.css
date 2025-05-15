@@ -163,6 +163,9 @@
   .HeroSliderone{
       display: none;
   }
+  .HeroSliderone.active {
+  display: block;
+}
   .HeroSliderone img{
       vertical-align: middle;
       width: 100%;

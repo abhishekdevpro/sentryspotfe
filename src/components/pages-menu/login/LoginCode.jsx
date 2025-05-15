@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { Constant } from "@/utils/constant/constant";
+import { useDispatch } from "react-redux";
+import { loginWithOtp } from "@/store/slices/authSlice";
+import axiosInstance from "@/store/slices/service/axiosInstance";
 
 const LoginCode = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const BASE_URL = "https://api.sentryspot.co.uk";
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -31,7 +33,7 @@ const LoginCode = () => {
     } else {
       // Redirect to login if no email found
       toast.error("Email not found. Please login again.");
-      //   navigate("/login");
+      navigate("/login");
     }
   }, [navigate]);
 
@@ -49,15 +51,15 @@ const LoginCode = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        `${BASE_URL}/api/jobseeker/auth/login-otp`,
-        { email, otp }
-      );
-
-      const token = response.data?.data?.token;
-
-      if (token) {
-        localStorage.setItem(Constant.USER_TOKEN, token);
+      // Use the Redux action instead of direct API call
+      const result = await dispatch(loginWithOtp({ email, otp })).unwrap();
+      
+      if (result?.data?.token) {
+        // Store token in localStorage
+        localStorage.setItem(Constant.USER_TOKEN, result.data.token);
+        // Store user info in localStorage
+        localStorage.setItem("userInfo", JSON.stringify(result.data));
+        
         toast.success("Login successful!");
         navigate("/candidates-dashboard/my-profile");
       } else {
@@ -65,10 +67,7 @@ const LoginCode = () => {
       }
     } catch (error) {
       console.error(error);
-      toast.error(
-        error.response?.data?.message || "Invalid OTP. Please try again."
-      );
-      // Do not redirect on error, allow the user to try again
+      toast.error(error.message || "Invalid OTP. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -77,13 +76,13 @@ const LoginCode = () => {
   const handleResendCode = async () => {
     if (!email) {
       toast.error("Email not found. Please login again.");
-      navigate("/");
+      navigate("/login");
       return;
     }
 
     try {
       setLoading(true);
-      const response = await axios.post(`${BASE_URL}/api/user/auth/login-otp`, {
+      const response = await axiosInstance.post("/jobseeker/auth/send-loginotp", {
         email,
       });
 
@@ -105,13 +104,13 @@ const LoginCode = () => {
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         {/* Back Button */}
         <Link
-          to="/"
+          to="/login"
           className="text-blue-600 flex items-center mb-6 hover:text-blue-700"
         >
           <span className="mr-2">←</span> Back
         </Link>
 
-        {/* Logo (Replace with your import or img tag) */}
+        {/* Logo */}
         <div className="flex justify-center mb-6">
           <img
             src="https://htmlsentryspot.vercel.app/img/company_logo.png"

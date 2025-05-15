@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { LoginSchema } from "@/schema/LoginSchema";
-import { toggleSignupDialog } from "@/store/slices/auth";
+import { toggleSignupDialog } from "@/store/slices/authSlice";
 import ActionLoader from "../loader/ActionLoader";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
@@ -17,6 +17,7 @@ import { BASE_URL } from "@/utils/constant/endPoints";
 import { useNavigate } from "react-router-dom";
 import { handleSendOTP } from "@/store/slices/service/authService";
 import { sendOtp } from "@/store/slices/authSlice";
+import { handleGoogleSignIn } from "@/store/slices/service/authService.js";
 
 const Login = ({ setIsLogin }) => {
   const dispatch = useDispatch();
@@ -87,24 +88,34 @@ const Login = ({ setIsLogin }) => {
     handleLogin({ email });
   };
 
+  // const handleGoogleSignin = async () => {
+  //   const url = `${BASE_URL}/api/user/auth/google`;
+
+  //   try {
+  //     const response = await axios.get(url);
+
+  //     if (response.status === 200) {
+  //       console.log("Google sign-in token: ", response.data.data);
+  //       window.open(response.data.data);
+  //     } else {
+  //       toast.error("Google sign-in failed.");
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error(`${err.response?.data?.message || "Google sign-in failed"}`);
+  //   }
+  // };
+
   const handleGoogleSignin = async () => {
-    const url = `${BASE_URL}/api/user/auth/google`;
-
     try {
-      const response = await axios.get(url);
-
-      if (response.status === 200) {
-        console.log("Google sign-in token: ", response.data.data);
-        window.open(response.data.data);
-      } else {
-        toast.error("Google sign-in failed.");
-      }
+      const data = await handleGoogleSignIn();
+      console.log("Google sign-in successful, data:", data);
+      toast.success(data.message ||" Google sign-in successful, data")
     } catch (err) {
-      console.log(err);
-      toast.error(`${err.response?.data?.message || "Google sign-in failed"}`);
+      console.error("Error during Google sign-in:", err.message);
+      toast.error(`${err.message || "Google sign-in failed"}`);
     }
   };
-
   return (
     <Card className="w-[350px] sm:w-[400px] p-2 m-auto shadow-lg">
       <CardHeader>

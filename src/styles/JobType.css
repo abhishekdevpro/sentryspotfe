@@ -1,0 +1,35 @@
+.job-type-container {
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.job-type-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.job-type-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.job-type-item {
+  margin-bottom: 0.5rem;
+}
+
+.job-type-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.job-type-checkbox {
+  margin-right: 0.5rem;
+}
+
+.job-type-name {
+  font-size: 1rem;
+}

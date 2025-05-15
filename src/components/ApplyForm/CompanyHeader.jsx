@@ -216,15 +216,23 @@ const CompanyJobHeader = ({ companyId }) => {
         <div className="w-16 h-16 bg-white rounded-lg shadow-sm flex items-center justify-center">
           {companyData.logo ? (
             <img
-              src={`https://api.sentryspot.co.uk${companyData.logo}`}
+              src={`/images/resource/company-logo/1-1.png`|| '/images/resource/company-logo/1-1.png'}
               alt={`${companyData.company_name} logo`}
               className="w-12 h-12 object-contain"
+              onError={(e) => {
+                e.target.onerror = null; // Prevent infinite loop
+                e.target.src = '/images/resource/company-logo/1-1.png'; // Fallback image
+              }}
             />
           ) : (
             <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-              <span className="text-gray-400 text-xl font-medium">
-                {companyData.company_name?.charAt(0) || '?'}
-              </span>
+             <span
+  className="text-gray-400 text-xl font-medium"
+  dangerouslySetInnerHTML={{
+    __html: companyData.company_name?.charAt(0) || '?'
+  }}
+></span>
+
             </div>
           )}
         </div>
@@ -243,25 +251,38 @@ const CompanyJobHeader = ({ companyId }) => {
         </div>
 
         {/* Job Description with Read More/Less */}
-        {jobDescription && (
-          <div className="mt-2 sm:mt-3">
-            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-              {isDescriptionExpanded ? (
-                <span className="block whitespace-pre-line">{jobDescription}</span>
-              ) : (
-                truncatedDescription
-              )}
-            </p>
-            {jobDescription.split(' ').length > maxWords && (
-              <button 
-                onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-                className="text-sm sm:text-base text-blue-600 hover:text-blue-800 font-medium mt-2 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
-              >
-                {isDescriptionExpanded ? 'Read Less' : 'Read More'}
-              </button>
-            )}
-          </div>
-        )}
+       {jobDescription && (
+  <div className="mt-2 sm:mt-3">
+    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+      {isDescriptionExpanded ? (
+        <span
+          className="block whitespace-pre-line"
+          dangerouslySetInnerHTML={{
+            __html: jobDescription
+          }}
+        />
+      ) : (
+      <span
+  className="block whitespace-pre-line"
+  dangerouslySetInnerHTML={{
+    __html: truncatedDescription
+  }}
+></span>
+
+      )}
+    </p>
+
+    {jobDescription.split(' ').length > maxWords && (
+      <button
+        onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+        className="text-sm sm:text-base text-blue-600 hover:text-blue-800 font-medium mt-2 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+      >
+        {isDescriptionExpanded ? 'Read Less' : 'Read More'}
+      </button>
+    )}
+  </div>
+)}
+
 
         {/* Additional Job Information - can be expanded based on your needs */}
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm sm:text-base">

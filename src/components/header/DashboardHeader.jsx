@@ -115,7 +115,7 @@ import { Button } from "../ui/button";
 import { IoLogOutOutline, IoNotificationsOutline } from "react-icons/io5";
 import axios from "axios";
 import { Bell } from "lucide-react";
-import { logout } from "@/store/slices/auth";
+import { logout } from "@/store/slices/authSlice";
 
 const DashboardHeader = () => {
   const [isOpen, setIsOpen] = useState(false);

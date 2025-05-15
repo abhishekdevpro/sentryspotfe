@@ -9,9 +9,11 @@ import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import FooterDefault from "@/components/footer/common-footer"
+import FullPageLoader from "@/components/loader/FullPageLoader"
+import { Briefcase, Building, MapPin, Users } from "lucide-react";
 const Companieslist = () => {
   const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [jobCount, setJobCount] = useState(0);
   const [countries, setCountries] = useState([]);
@@ -26,6 +28,7 @@ const Companieslist = () => {
 
   useEffect(() => {
     const fetchJobs = async () => {
+      setLoading(true)
       try {
         const token = localStorage.getItem('token');
       
@@ -40,9 +43,12 @@ const Companieslist = () => {
         );
        setJobCount(response.data.data.length);
         setJobs(response.data.data);
-        setLoading(false);
+        
       } catch (error) {
         setError('Failed to fetch jobs');
+        setLoading(false);
+      }
+      finally{
         setLoading(false);
       }
     };
@@ -51,7 +57,8 @@ const Companieslist = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading jobs...</p>;
+    return <FullPageLoader LoadingText="Companies 
+    listing...." />
   }
 
   if (error) {
@@ -92,7 +99,7 @@ const Companieslist = () => {
   const handleClosePopup = () => {
     setShowPopup(false);
   };
-
+console.log(jobs,"jobs");
   return (
     <div className="">
     {/* Sidebar */}
@@ -105,7 +112,7 @@ const Companieslist = () => {
         </p>
       </div>
   
-      <ul className="px-4 lg:px-16">
+      {/* <ul className="px-4 lg:px-16">
         {jobs.map((job) => (
           <div className="job-block-four mb-6" key={job.id}>
             <div className="inner-box flex flex-col md:flex-row text-start p-4 bg-white shadow-md rounded-lg">
@@ -152,7 +159,87 @@ const Companieslist = () => {
             </div>
           </div>
         ))}
+      </ul> */}
+       <div className="w-full max-w-6xl mx-auto">
+      <ul className="px-4 lg:px-6 space-y-6">
+        {jobs.map((job) => (
+          <li key={job.id} className="transition-all duration-300 hover:shadow-lg">
+            <div className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:border-blue-200">
+              <div className="p-6">
+                <div className="flex flex-col md:flex-row items-start gap-6">
+                  {/* Company Logo */}
+                  <div className="flex-shrink-0">
+                    <div className="relative w-20 h-20 rounded-lg overflow-hidden border-2 border-gray-100">
+                      <img
+                        src={job.logo || "/api/placeholder/120/120"}
+                        alt={`${job.company_name} logo`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Job Details */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                      <h3 className="text-xl font-bold text-gray-800 truncate">
+                        <a 
+                          href={`/employers-single-v1/${job.id}`}
+                          className="hover:text-blue-600 transition-colors"
+                        >
+                          {job.company_name}
+                        </a>
+                      </h3>
+                      
+                      {/* <button 
+                        onClick={() => handleApplyNowClick(job.id)}
+                        className="mt-2 md:mt-0 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors"
+                      >
+                        Apply Now
+                      </button> */}
+                    </div>
+                    
+                    {/* Company Industry */}
+                    <div className="flex items-center text-gray-600 mb-2">
+                      <Briefcase size={16} className="mr-2 text-blue-500" />
+                      <span>{job.company_industry?.name || "Industry not specified"}</span>
+                    </div>
+                    
+                    {/* Location */}
+                    <div className="flex items-center text-gray-600 mb-3">
+                      <MapPin size={16} className="mr-2 text-blue-500" />
+                      <span>
+                        {job.city?.name || "City"}, {job.state?.name || "State"}, {job.country?.name || "Country"}
+                      </span>
+                    </div>
+                    
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      <div className="flex items-center px-3 py-1 bg-blue-50 text-blue-700 rounded-xl text-xs">
+                        <Building size={12} className="mr-1" />
+                        {job.company_type?.name || "Unknown"}
+                      </div>
+                      
+                      <div className="flex items-center px-3 py-1 bg-blue-50 text-blue-700 rounded-xl text-xs">
+                        <Users size={12} className="mr-1" />
+                        {job.company_size?.range || "Unknown size"}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        ))}
       </ul>
+      
+      {showPopup && selectedJobId && (
+        <ApplyJobPopup 
+          jobId={selectedJobId} 
+          token={token} 
+          onClose={handleClosePopup} 
+        />
+      )}
+    </div>
     </main>
     <FooterDefault />
   </div>

@@ -1,182 +1,58 @@
-{
-  /*
-  import FormInfoBox from "./FormInfoBox";
-import LogoUpload from "./LogoUpload";
-import ResumeUpload from "./ResumeUpload";
 
-const index = ({ onNext }) => {
-  return (
-    <div className="widget-content">
-     {/* <LogoUpload /> 
-           <ResumeUpload />
-
-
-
- 
- <FormInfoBox />
- 
-</div>
-);
-};
-
-export default index;
-
-  */
-}
-
+import { useState, useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-
-import { useEffect } from "react";
-import React, { useState } from "react";
-import Select from "react-select";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import axios from "axios";
-import Header from "@/components/home-10/Header";
+import { toast } from "react-toastify";
 import { Constant } from "@/utils/constant/constant";
-import { toast, ToastContainer } from "react-toastify";
-import JobTypeDropdown from "./JobTypeDropdown";
-import TitleDropdown from "./TitleDropdown";
-import SectorDropdown from "./SectorDropdown";
-import SalaryRangeDropdown from "./SalaryRangeDropdown";
-import WorkExperienceDropdown from "./WorkExperienceDropdown";
 import ImageUpload from "./ImageUpload";
 import LocationSelector from "./LocationSelector";
 import PreferredLocations from "./PreferdLocations";
+import JobTypeDropdown from "./JobTypeDropdown";
+import TitleDropdown from "./TitleDropdown";
+import SectorDropdown from "./SectorDropdown";
+import WorkExperienceDropdown from "./WorkExperienceDropdown";
 
-const Index = ({ onNext }) => {
+const JobSeekerForm = ({ onNext }) => {
   const token = localStorage.getItem(Constant.USER_TOKEN);
   const baseurl = "https://api.sentryspot.co.uk/api/jobseeker/";
-
-  const current = new Date().toISOString().split("T")[0];
-  const [logImg, setLogImg] = useState(null);
-  const [profileData, setProfileData] = useState("");
-
-  const logImgHander = (event) => {
-    const file = event.target.files[0];
-    if (file && file.type.match("image.*")) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setLogImg(reader.result); // Store the Base64 string of the file
-      };
-    } else {
-      toast.error("Please upload a valid image file.");
-    }
-  };
-
-  // Resetting the image
-  const resetImage = () => {
-    setLogImg(null); // Reset the image to null (default)
-  };
-
-  const personal_details = "personal_details";
-
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [isPhoneVerified, setIsPhoneVerified] = useState(false);
-  const handlePhoneVerification = () => {
-    // Phone verification logic
-    // For example, trigger SMS verification and set verification status
-    if (phoneNumber) {
-      // Simulating a verification process
-      toast.success("Phone number verified!");
-      setIsPhoneVerified(true); // Mark as verified
-    } else {
-      toast.error("Please enter a valid phone number.");
-    }
-  };
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!selectedSector) {
-  //     toast.error("Please select a sector.");
-  //     return;
-  //   }
-  //   if (selectedRoles.length === 0) {
-  //     toast.error("Please select at least one role.");
-  //     return;
-  //   }
+    const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+  const [profileData, setProfileData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [apiData, setApiData] = useState({
+    jobTypes: [],
+    sectors: [],
+    titles: [],
+    workExperience: [],
+    salaryRanges: [],
+  });
 
-  //   const payload = {
-  //     selectedSector,
-  //     selectedRoles,
-  //   };
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
+      job_title: "",
+      sector_id: 0,
+      salary: 0,
+      salaryType: "per month",
+      work_experience_id: 0,
+      profile_visibility: 0,
+      photo_upload:""
 
-  //   console.log("Payload:", payload);
-  //   toast.success("Details saved successfully!");
-  //   const form = e.target;
-  //   console.log(">>>>>>", form);
-  //   const formData = {
-  //     keyword: personal_details,
-  //     photo: logImg,
-  //     first_name: form.first_name.value,
-  //     last_name: form.lastname.value,
-  //     // gender_id: form.gender.value,
-  //     // dob: form.birthdate.value,
-  //     email: form.email.value,
+    },
+  });
 
-  //     phone_number: phoneNumber, // Use the state value here
-
-  //     current_country_id: form.country.value,
-  //     current_state_id: form.state.value,
-  //     current_city_id: form.city.value,
-
-  //     preferred_country_id: form.preferredcountry.value,
-  //     preferred_state_id: form.preferredstate.value,
-  //     preferred_city_id: form.preferredcity.value,
-
-  //     // industry_id: form.industries.value,
-  //     functional_area_id: form.Functional.value,
-  //     // notice_period_id: form.notice_period.value,
-  //     experience_in_month: form.Experiencetype.value,
-  //     annual_salary_id: form.Salarytype.value,
-  //     expected_salary_id: form.expectedSalarytype.value,
-  //   };
-
-  //   try {
-  //     const response = await axios.put(
-  //       "https://api.sentryspot.co.uk/api/jobseeker/user-profile",
-  //       JSON.stringify(formData), // Send as a JSON string
-  //       {
-  //         headers: {
-  //           Authorization: token,
-  //           "Content-Type": "application/json", // Set content type to JSON
-  //         },
-  //       }
-  //     );
-  //     toast.success("Personal Details updated successfully!");
-  //     onNext();
-  //   } catch (error) {
-  //     toast.error("Failed to update profile.");
-  //     console.error("Error updating profile:", error);
-  //   }
-  // };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Validation checks
-    // if (!selectedSector) {
-    //   toast.error("Please select a sector.");
-    //   return;
-    // }
-    // if (selectedRoles.length === 0) {
-    //   toast.error("Please select at least one role.");
-    //   return;
-    // }
-
-    // Creating the payload (optional, for debugging/logging purposes)
-    // const payload = {
-    //   selectedSector,
-    //   selectedRoles,
-    // };
-    // console.log("Payload:", payload);
-
-    // Show success toast
-    toast.success("Details saved successfully!");
-
-    // Move to the next step
-    onNext();
-  };
-
+  // Fetch profile data
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
@@ -185,538 +61,262 @@ const Index = ({ onNext }) => {
             Authorization: token,
           },
         });
-        localStorage.setItem(Constant.USER_INFO,JSON.stringify(response.data.data.personal_details))
-        setProfileData(response.data.data.personal_details);
-        // console.log("Profile Data>>>>:", profileData);
+        const personalDetails = response.data.data.personal_details;
+        localStorage.setItem(
+          Constant.USER_INFO,
+          JSON.stringify(personalDetails)
+        );
+        setProfileData(personalDetails);
+
+        // Set form values from profile data
+        if (personalDetails) {
+          setValue("first_name", personalDetails.first_name || "");
+          setValue("last_name", personalDetails.last_name || "");
+          setValue("email", personalDetails.email || "");
+          setValue("phone", personalDetails.phone || "");
+          setValue("salary", profileData.current_salary);
+          setValue("salaryType", profileData.salary_type || "");
+          setValue("profile_visibility", profileData.profile_visibility || 0);
+
+        }
       } catch (error) {
         console.error("Error fetching profile data:", error);
       }
     };
 
     fetchProfileData();
-  }, []);
-
-  const [workplaceTypes, setWorkplaceTypes] = useState([]);
-  const [selectedWorkplace, setSelectedWorkplace] = useState("");
-
-  useEffect(() => {
-    // Fetch workplace types from API
-    axios
-      .get(`${baseurl}workplace-types`, {
-        headers: {
-          Authorization: token, // Assuming you're storing the token in localStorage
-        },
-      })
-      .then((response) => {
-        setWorkplaceTypes(response.data.data); // Adjust the path according to the response structure
-      })
-      .catch((error) => {
-        console.error("Error fetching workplace types:", error);
-      });
-  }, []);
-
-  const [jobtype, setjobstype] = useState([]);
-  const [selectjobtype, setselectjobtype] = useState("");
-
-  useEffect(() => {
-    axios
-      .get(`${baseurl}job-types`, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((response) => {
-        setjobstype(response.data.data);
-      })
-      .catch((error) => {
-        toast.error(error);
-      });
-  }, []);
-
-  const [Experiencetype, setExperiencetype] = useState([]);
-  const [selectExperiencetype, setselectExperiencetype] = useState("");
-
-  useEffect(() => {
-    axios
-      .get(`${baseurl}experience-level`, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((response) => {
-        setExperiencetype(response.data.data);
-      })
-      .catch((error) => {
-        toast.error(error);
-      });
-  }, []);
-
-  const [Salarytype, setSalarytype] = useState([]);
-  const [selectSalarytype, setselectSalarytype] = useState("");
-
-  useEffect(() => {
-    axios
-      .get(`${baseurl}salary-range`, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((response) => {
-        setSalarytype(response.data.data);
-      })
-      .catch((error) => {
-        toast.error(error);
-      });
-  }, []);
-
-  const [expectedSalarytype, expectedsetSalarytype] = useState([]);
-  const [expectedselectSalarytype, expectedsetselectSalarytype] = useState("");
-
-  useEffect(() => {
-    axios
-      .get(`${baseurl}salary-range`, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((response) => {
-        expectedsetSalarytype(response.data.data);
-      })
-      .catch((error) => {
-        toast.error(error);
-      });
-  }, []);
-
-  const [Gendertype, setGendertype] = useState([]);
-  const [selectGendertype, setselectGendertype] = useState("");
-
-  useEffect(() => {
-    axios
-      .get(`${baseurl}genders`, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((response) => {
-        setGendertype(response.data.data);
-      })
-      .catch((error) => {
-        toast.error(error);
-      });
-  }, []);
-
-  const [Functionaltype, setFunctionaltype] = useState([]);
-  const [selectFunctionaltype, setselectFunctionaltype] = useState("");
-
-  useEffect(() => {
-    axios
-      .get(`${baseurl}functional-area`, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((response) => {
-        setFunctionaltype(response.data.data);
-      })
-      .catch((error) => {
-        toast.error(error);
-      });
-  }, []);
-
-  const [industriestype, setindustriestype] = useState([]);
-  const [selectindustriestype, setselectindustriestype] = useState("");
-
-  useEffect(() => {
-    axios
-      .get(`${baseurl}industries`, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((response) => {
-        setindustriestype(response.data.data);
-      })
-      .catch((error) => {
-        toast.error(error);
-      });
-  }, []);
-
-  const [countries, setCountries] = useState([]);
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
-
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-
-  useEffect(() => {
-    fetchCountries();
-  }, []);
-
-  const fetchCountries = async () => {
-    try {
-      const response = await axios.get(`${baseurl}countries`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      setCountries(response.data.data);
-    } catch (error) {
-      console.error("Error fetching countries:", error);
-    }
-  };
-
-  const fetchStates = async (countryId) => {
-    try {
-      const response = await axios.get(`${baseurl}stats/${countryId}`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      setStates(response.data.data);
-      setCities([]); // Reset cities when country changes
-    } catch (error) {
-      console.error("Error fetching states:", error);
-    }
-  };
-
-  const fetchCities = async (stateId) => {
-    try {
-      const response = await axios.get(`${baseurl}cities/${stateId}`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      setCities(response.data.data);
-    } catch (error) {
-      console.error("Error fetching cities:", error);
-    }
-  };
-
-  const handleCountryChange = (e) => {
-    const countryId = e.target.value;
-    setSelectedCountry(countryId);
-    fetchStates(countryId);
-  };
-
-  const handleStateChange = (e) => {
-    const stateId = e.target.value;
-    setSelectedState(stateId);
-    fetchCities(stateId);
-  };
-
-  const [preferredcountries, preferredsetCountries] = useState([]);
-  const [preferredstates, preferredsetStates] = useState([]);
-  const [preferredcities, preferredsetCities] = useState([]);
-
-  const [preferredselectedCountry, preferredsetSelectedCountry] = useState("");
-  const [preferredselectedState, preferredsetSelectedState] = useState("");
-  const [preferredselectedCity, preferredsetSelectedCity] = useState("");
-
-  useEffect(() => {
-    preferredfetchCountries();
-  }, []);
-
-  const preferredfetchCountries = async () => {
-    try {
-      const response = await axios.get(`${baseurl}countries`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      preferredsetCountries(response.data.data);
-    } catch (error) {
-      console.error("Error fetching countries:", error);
-    }
-  };
-
-  const preferredfetchStates = async (countryId) => {
-    try {
-      const response = await axios.get(`${baseurl}stats/${countryId}`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      preferredsetStates(response.data.data);
-      preferredsetCities([]); // Reset cities when country changes
-    } catch (error) {
-      console.error("Error fetching states:", error);
-    }
-  };
-
-  const preferredfetchCities = async (stateId) => {
-    try {
-      const response = await axios.get(`${baseurl}cities/${stateId}`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      preferredsetCities(response.data.data);
-    } catch (error) {
-      console.error("Error fetching cities:", error);
-    }
-  };
-
-  const preferredhandleCountryChange = (e) => {
-    const countryId = e.target.value;
-    preferredsetSelectedCountry(countryId);
-    preferredfetchStates(countryId);
-  };
-
-  const preferredhandleStateChange = (e) => {
-    const stateId = e.target.value;
-    preferredsetSelectedState(stateId);
-    preferredfetchCities(stateId);
-  };
-
-  const [email, setEmail] = useState("");
-
-  useEffect(() => {
-    // Assuming the user information is stored in localStorage with the key 'XuserInfo'
-    const userInfo = JSON.parse(localStorage.getItem("__XuserInfo"));
-
-    // Set the email from localStorage to the component state
-    if (userInfo && userInfo.email) {
-      setEmail(userInfo.email);
-    }
-  }, []);
-
-  const [data, setData] = useState({
-    jobTypes: [],
-    sectors: [],
-    titles: [],
-    workExperience: [],
-    salaryRanges: [],
-  });
+  }, [setValue]);
 
   // Fetch all necessary data from the API
-  const fetchData = async () => {
-    try {
-      const [
-        jobTypesResponse,
-        sectorsResponse,
-        titlesResponse,
-        workExperienceResponse,
-        salaryRangesResponse,
-      ] = await Promise.all([
-        axios.get(`${baseurl}job-types`, { headers: { Authorization: token } }),
-        axios.get(`https://api.sentryspot.co.uk/api/jobseeker/industries`, {
-          headers: { Authorization: token },
-        }),
-        axios.get(`https://api.sentryspot.co.uk/api/employeer/job-titles`, {
-          headers: { Authorization: token },
-        }),
-        axios.get(`${baseurl}experience-level`, {
-          headers: { Authorization: token },
-        }),
-        axios.get(`${baseurl}salary-range`, {
-          headers: { Authorization: token },
-        }),
-      ]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [
+          jobTypesResponse,
+          sectorsResponse,
+          titlesResponse,
+          workExperienceResponse,
+          salaryRangesResponse,
+        ] = await Promise.all([
+          axios.get(`${baseurl}job-types`, {
+            headers: { Authorization: token },
+          }),
+          axios.get(`https://api.sentryspot.co.uk/api/jobseeker/industries`, {
+            headers: { Authorization: token },
+          }),
+          axios.get(`https://api.sentryspot.co.uk/api/employeer/job-titles`, {
+            headers: { Authorization: token },
+          }),
+          axios.get(`${baseurl}experience-level`, {
+            headers: { Authorization: token },
+          }),
+          axios.get(`${baseurl}salary-range`, {
+            headers: { Authorization: token },
+          }),
+        ]);
 
-      setData({
-        jobTypes: jobTypesResponse.data.data,
-        sectors: sectorsResponse.data.data,
-        titles: titlesResponse.data.data,
-        workExperience: workExperienceResponse.data.data,
-        salaryRanges: salaryRangesResponse.data.data,
-      });
-    } catch (error) {
-      toast.error("Failed to fetch data from API.");
-      console.error("Error fetching data:", error);
+        setApiData({
+          jobTypes: jobTypesResponse.data.data,
+          sectors: sectorsResponse.data.data,
+          titles: titlesResponse.data.data,
+          workExperience: workExperienceResponse.data.data,
+          salaryRanges: salaryRangesResponse.data.data,
+        });
+      } catch (error) {
+        toast.error("Failed to fetch data from API.");
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [token]);
+
+  const handlePhoneVerification = () => {
+    // Phone verification logic
+    const phoneValue = control._formValues.phone_number;
+    if (phoneValue && phoneValue.length > 5) {
+      toast.success("Phone number verified!");
+      setIsPhoneVerified(true);
+    } else {
+      toast.error("Please enter a valid phone number.");
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProfileData((prevData) => ({
-      ...prevData,
-      [name]: value, // Dynamically update the specific field
-    }));
+  const onSubmit = async (data) => {
+    setLoading(true); // Start loading
+    try {
+       const formData = new FormData();
+      console.log("Form data to submit:", data);
+      Object.keys(data).forEach(key => {
+      // Handle file upload separately
+      if (key === 'photo_upload') {
+        if (data[key] instanceof File) {
+          formData.append('photo_upload', data[key]);
+        }
+      } else {
+        // Add other form fields normally
+        formData.append(key, data[key]);
+      }
+    });
+
+
+      const response = await axios.put(
+        `${baseurl}user-profile`,
+        formData, // No need to wrap in { data } unless API expects it like that
+        {
+          headers: {
+            Authorization: token,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success(response.data.message || "Details saved successfully!");
+        onNext(); // Move to next step after success
+      }
+    } catch (error) {
+      console.error("Error in my profile:", error);
+      toast.error(
+        error.response?.data?.message || "Failed to save profile data."
+      );
+    } finally {
+      setLoading(false); // Always stop loading
+    }
+    // onNext()
   };
 
+  // console.log(profileData, "personalDetails");
   return (
-    <form onSubmit={handleSubmit} className="default-form">
-      {/* <ToastContainer /> */}
+    <form onSubmit={handleSubmit(onSubmit)} className="default-form">
       <div className="row">
         {/* Profile Picture Upload */}
-
-        {/* <div className="form-group col-lg-6 col-md-12 flex justify-center">
-          <div>
-            <div className="rounded-full border w-32 h-32 flex items-center justify-center">
-              <input
-                className="uploadButton-input hidden"
-                type="file"
-                name="attachments[]"
-                accept="image/*"
-                id="upload"
-                // required
-                onChange={logImgHander}
-              />
-              <label
-                className="uploadButton-button cursor-pointer flex items-center justify-center"
-                htmlFor="upload"
-              >
-                {logImg ? (
-                  <img
-                    src={logImg}
-                    alt="Uploaded"
-                    className="w-24 h-24 rounded-full object-cover"
-                  />
-                ) : (
-                  <div className="flex flex-col items-center">
-                    <i className="fas fa-camera text-6xl"></i>
+        <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-4">
+            {/* Label */}
+            <label
+              htmlFor="profile_visibility"
+              className="font-bold text-gray-700 cursor-pointer flex items-center"
+            >
+              Profile and CV Visibility
+              {/* Toggle Switch */}
+              <Controller
+                name="profile_visibility"
+                control={control}
+                render={({ field }) => (
+                  <div className="relative ml-4">
+                    <input
+                      type="checkbox"
+                      id="profile_visibility"
+                      {...field}
+                      checked={field.value}
+                      // onChange={(e) => field.onChange(e.target.checked)}
+                       onChange={(e) => field.onChange(e.target.checked ? 1 : 0)}
+                      className="sr-only peer"
+                    />
+                    {/* Toggle Background */}
+                    <div className="w-12 h-6 bg-gray-300 rounded-2xl shadow-inner peer-checked:bg-blue-500 transition-colors duration-300 cursor-pointer">
+                      {/* Toggle Knob */}
+                      <div
+                        className={`absolute top-0 left-0 w-6 h-6 bg-white rounded-full shadow transform transition-transform duration-300 ${
+                          field.value ? "translate-x-6" : "translate-x-0"
+                        }`}
+                      />
+                    </div>
                   </div>
                 )}
-              </label>
-            </div>
-            <div className="cursor-pointer bg-blue-800 w-28 mt-2 py-1 ms-2 text-white text-sm text-center rounded-lg">
-              Add Picture
-            </div>
-
-            {logImg && (
-              <button
-                type="button"
-                onClick={resetImage}
-                className="bg-red-500 text-white mt-2 py-1 px-4 rounded-lg text-sm"
-              >
-                Remove Picture
-              </button>
+              />
+            </label>
+          </div>
+          <div className="relative inline-block">
+            <p
+              className="text border-2 px-2 border-gray-500 rounded-full cursor-pointer"
+              onMouseEnter={() => setIsTooltipVisible(true)}
+              onMouseLeave={() => setIsTooltipVisible(false)}
+            >
+              ℹ
+            </p>
+            {/* Tooltip Content */}
+            {isTooltipVisible && (
+              <div className="absolute left-0 bottom-full mb-1 w-48 p-2 bg-white border border-gray-300 rounded shadow-lg text-black">
+                Activating this shows basic details to employers, including
+                contact details.
+              </div>
             )}
           </div>
-        </div> */}
-        <ImageUpload />
+        </div>
+        <ImageUpload profileData={profileData} setValue={setValue} register={register}/>
         {/* Form Fields */}
         <div className="form-group col-lg-6 col-md-12">
-          <label style={{ fontWeight: "800" }}>First Name*</label>
+          <label className="block mb-1 text-gray-700 font-semibold">
+            First Name*
+          </label>
           <input
             type="text"
-            name="first_name"
-            value={profileData.first_name}
-            onChange={handleChange}
-            required
-            className="border font-light rounded-none mb-4"
+            {...register("first_name", { required: "First name is required" })}
+            className="border font-light rounded-none mb-4 w-full p-2"
           />
-          <label>Last Name*</label>
-          <input
-            type="text"
-            name="lastname"
-            value={profileData.last_name}
-            onChange={handleChange}
-            required
-            className="border rounded-none font-light"
-          />
-        </div>
-
-        {/* <div className="form-group col-lg-6 col-md-12 font-light">
-          <label>Workspace*</label>
-          <select
-            id="workplaceType"
-            value={selectedWorkplace}
-            onChange={(e) => setSelectedWorkplace(e.target.value)}
-          >
-            <option value="">Select a workplace type</option>
-            {workplaceTypes.map((type) => (
-              <option key={type.id} value={type.id}>
-                {type.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
-
-        {/* <div className="form-group col-lg-6 col-md-12 font-light">
-          <label>Job-Type*</label>
-          <select
-            id="jobtype"
-            value={selectjobtype}
-            onChange={(e) => setselectjobtype(e.target.value)}
-          >
-            <option value="">select a job-type</option>
-            {jobtype.map((type) => (
-              <option key={type.id} value={type.id}>
-                {type.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
-
-        {/* <div className="form-group col-lg-6 col-md-12 font-light">
-          <label>Phone Number*</label>
-          <PhoneInput
-            country={"gb"} // Set default country here
-            value={phoneNumber}
-            onChange={(value) => setPhoneNumber(value)}
-            inputStyle={{
-              width: "100%",
-              borderRadius: "10px",
-              border: "none",
-              height: "calc(2.5em + 1rem + 3px)",
-              fontSize: "1rem",
-              lineHeight: "1.5",
-              backgroundColor: "#F0F5F7",
-              backgroundClip: "padding-box",
-            }}
-            containerStyle={{ width: "100%" }}
-            buttonStyle={{
-              borderRadius: "none",
-              border: "none",
-              backgroundColor: "#f8f9fa",
-            }}
-          />
-          
-          <button
-            type="button"
-            disabled={isPhoneVerified}
-            onClick={handlePhoneVerification}
-            className={`${
-              isPhoneVerified ? "cursor-not-allowed" : "cursor-pointer"
-            } bg-blue-600 text-white py-1 px-4 mt-2 rounded-lg`}
-          >
-            Verify
-          </button>
-
-          {isPhoneVerified && (
-            <p className="text-green-500 mt-2">Phone Verified</p>
+          {errors.first_name && (
+            <p className="text-red-500 text-sm">{errors.first_name.message}</p>
           )}
-        </div> */}
+
+          <label className="block mb-1 text-gray-700 font-semibold">
+            Last Name*
+          </label>
+          <input
+            type="text"
+            {...register("last_name", { required: "Last name is required" })}
+            className="border rounded-none font-light w-full p-2"
+          />
+          {errors.last_name && (
+            <p className="text-red-500 text-sm">{errors.last_name.message}</p>
+          )}
+        </div>
+        {/* Phone Number with Controller */}
         <div className="form-group col-lg-6 col-md-12 font-light">
-          <label className="block mb-1 text-gray-700">Phone Number*</label>
-
-          {/* Wrapper to position icon over the input */}
+          <label className="block mb-1 text-gray-700 font-semibold">
+            Phone Number*
+          </label>
           <div className="relative">
-            <PhoneInput
-              country={"gb"}
-              value={phoneNumber}
-              onChange={(value) => setPhoneNumber(value)}
-              inputStyle={{
-                width: "100%",
-                borderRadius: "10px",
-                border: "none",
-                height: "calc(2.5em + 1rem + 3px)",
-                fontSize: "1rem",
-                lineHeight: "1.5",
-                backgroundColor: "#F0F5F7",
-                backgroundClip: "padding-box",
-                paddingRight: isPhoneVerified ? "3rem" : "1rem", // space for icon if verified
-              }}
-              containerStyle={{ width: "100%" }}
-              buttonStyle={{
-                borderRadius: "none",
-                border: "none",
-                backgroundColor: "#f8f9fa",
-              }}
+            <Controller
+              name="phone"
+              control={control}
+              rules={{ required: "Phone number is required" }}
+              render={({ field }) => (
+                <PhoneInput
+                inputmode="numeric"
+                  country={"gb"}
+                  value={field.value}
+                  onChange={field.onChange}
+                  inputStyle={{
+                    width: "100%",
+                    borderRadius: "10px",
+                    border: "none",
+                    height: "calc(2.5em + 1rem + 3px)",
+                    fontSize: "1rem",
+                    lineHeight: "1.5",
+                    backgroundColor: "#F0F5F7",
+                    backgroundClip: "padding-box",
+                    paddingRight: isPhoneVerified ? "3rem" : "1rem",
+                  }}
+                  containerStyle={{ width: "100%" }}
+                  buttonStyle={{
+                    borderRadius: "none",
+                    border: "none",
+                    backgroundColor: "#f8f9fa",
+                  }}
+                />
+              )}
             />
-
-            {/* Show verified icon only if phone is verified */}
             {isPhoneVerified && (
               <i className="fas fa-check absolute right-3 top-1/2 -translate-y-1/2 bg-green-500 text-white p-1.5 rounded-full text-sm shadow-md"></i>
             )}
           </div>
-
-          {/* Show verify button only if not verified */}
+          {errors.phone_number && (
+            <p className="text-red-500 text-sm">
+              {errors.phone_number.message}
+            </p>
+          )}
           {!isPhoneVerified && (
             <button
               type="button"
@@ -727,328 +327,59 @@ const Index = ({ onNext }) => {
             </button>
           )}
         </div>
-
-        {/* <div className="form-group col-lg-6 col-md-12 font-light relative">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={profileData.email}
-            className="email pr-10" // Adding padding to the right so the icon doesn't overlap with text
-            placeholder="Your Email*"
-            required
-            readOnly
-            disabled
-          />
-          <i className="fas fa-check absolute right-2 top-1/2 transform -translate-y-1/2 p-2 mr-2 bg-green-500 text-white rounded-full"></i>
-        </div> */}
+        {/* Email Field (Read-only) */}
         <div className="form-group col-lg-6 col-md-12 font-light relative">
-          <label className="block mb-1 text-gray-700">Email</label>
-
-          {/* Wrapper for input and icon */}
+          <label className="block mb-1 text-gray-700 font-semibold">
+            Email
+          </label>
           <div className="relative">
             <input
               type="email"
-              name="email"
-              value={profileData.email}
+              {...register("email")}
               className="email w-full pr-12 py-2 pl-3 border rounded text-gray-700 bg-gray-100"
-              placeholder="Your Email*"
-              required
               readOnly
               disabled
             />
-            {/* Verified Icon */}
             <i className="fas fa-check absolute right-3 top-1/2 -translate-y-1/2 bg-green-500 text-white p-1.5 rounded-full text-sm shadow-md"></i>
           </div>
         </div>
-
-        {/* <div className="form-group col-lg-6 col-md-12 font-light">
-          <label>Gender*</label>
-          <select
-          id="Gender"
-          name='gender'
-          value={selectGendertype}
-          onChange={(e)=> setselectGendertype(e.target.value)}>
-            <option value="">select a Gender</option>
-            {Gendertype.map((type)=>(
-              <option key={type.id} value={type.id}>
-                {type.name}
-              </option>
-            ))}
-          </select>
-          </div> 
-
+        {/* Location Components */}
+        <LocationSelector
+          className="form-group col-lg-4 col-md-12 font-light"
+          control={control}
+          setValue={setValue}
+          errors={errors}
+          profileData={profileData}
+        />{" "}
+        <PreferredLocations
+          control={control}
+          setValue={setValue}
+          errors={errors}
+          profileData={profileData}
+        />
+        {/* Job Preference Components */}
+        <JobTypeDropdown
+          jobTypes={apiData.jobTypes}
+          control={control}
+          setValue={setValue}
+          errors={errors}
+           profileData={profileData}
+        />
+        <TitleDropdown
+          control={control}
+          setValue={setValue}
+          errors={errors}
+          className="mb-4"
+           profileData={profileData}
+        />
+        <SectorDropdown
+          sectors={apiData.sectors}
+          register={register}
+          errors={errors}
+           profileData={profileData}
+        />
+        {/* Salary Field */}
         <div className="form-group col-lg-6 col-md-12 font-light">
-  <label>DD/MM/YYYY (Optional)</label>
-  <input
-    type="date"
-    name="birthdate"
-    max={current}
-
-    style={{backgroundColor:"#F0F5F7"}}
-    className=" rounded-lg p-2 py-3 text-lg border-0 w-full font-thin"
-    placeholder="Enter BirthDate"
-  />
-</div> */}
-
-        {/* <div className="form-group col-lg-4 col-md-12 font-light">
-          <label className="my-2 mt-4 text-lg">(Current - Location)</label>
-          {/* <label>Country*</label> 
-          <select
-            name="country"
-            value={selectedCountry}
-            onChange={handleCountryChange}
-            required
-          >
-            <option value="">Select Country</option>
-            {countries.map((country) => (
-              <option key={country.id} value={country.id}>
-                {country.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
-        <LocationSelector className="form-group col-lg-4 col-md-12 font-light" />
-        {/* <LocationSelector /> */}
-        <PreferredLocations />
-
-        {/* <div className="form-group col-lg-8 col-md-12 font-light">
-          <label className="my-2 mt-4 text-lg">(Preferred - Location)</label>
-          {/* <label>Country*</label> *
-          <select
-            name="preferredcountry"
-            value={preferredselectedCountry}
-            onChange={preferredhandleCountryChange}
-            required
-          >
-            <option value="">Select Country</option>
-            {preferredcountries.map((country) => (
-              <option key={country.id} value={country.id}>
-                {country.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
-        {/* <div className="form-group col-lg-12 col-md-12 font-light">
-          <label>Job-Type*</label>
-          <div className="job-type-container row">
-            {jobtype.map((type) => (
-              <div
-                key={type.id}
-                className="checkbox-wrapper col-lg-3 flex mt-1 gap-2"
-              >
-                <input
-                  type="checkbox"
-                  id={`jobtype-${type.id}`}
-                  value={type.id}
-                  checked={selectjobtype.includes(type.id)}
-                  onChange={(e) => {
-                    const newSelectedTypes = e.target.checked
-                      ? [...selectjobtype, type.id]
-                      : selectjobtype.filter((id) => id !== type.id);
-                    setselectjobtype(newSelectedTypes);
-                  }}
-                />
-                <label htmlFor={`jobtype-${type.id}`}>{type.name}</label>
-              </div>
-            ))}
-          </div>
-        </div> */}
-        <JobTypeDropdown jobTypes={data.jobTypes} />
-        {/* <div className="form-group col-lg-6 col-md-12 font-light">
-          <label>Job Title*</label>
-          <input
-            type="text"
-            name="job_title"
-            placeholder="eg. Frontend Developer"
-            required
-            className="border font-light rounded-none mb-4"
-          />
-          <select
-            name="job_title"
-            required
-            className="border font-light rounded-none mb-4"
-          >
-            <option value="">Select a job title</option>
-            {titles.map((title) => (
-              <option key={title.id} value={title.id}>
-                {title.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
-        <TitleDropdown titles={data.titles} />
-        {/* 
-        <div className="form-group  col-lg-6 col-md-12 font-light">
-          <label>Select Sector*</label>
-          <select
-            // value={selectedSector}
-            // onChange={handleSectorChange}
-            name="job_sector"
-            className="form-control"
-            required
-          >
-            <option value="">Select a sector</option>
-            {sectors.map((sector) => (
-              <option key={sector.id} value={sector.id}>
-                {sector.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
-        <SectorDropdown sectors={data.sectors} />
-
-        {/* Roles Section */}
-        {/* {selectedSector && selectedSector !== "add-new-sector" && (
-          <div className=" form-group col-lg-6 col-md-12 font-light">
-            <label>Roles in {selectedSector} (select up to 5)</label>
-            <div
-              className="dropdown"
-              onClick={() => setShowRoleDropdown(!showRoleDropdown)}
-            >
-              <button
-                type="button"
-                className="btn btn-secondary dropdown-toggle"
-              >
-                {selectedRoles.length > 0
-                  ? `${selectedRoles.length} roles selected`
-                  : "Select Roles"}
-              </button>
-              {showRoleDropdown && (
-                <div
-                  className="dropdown-menu show role-dropdown"
-                  style={{ maxHeight: "200px", overflowY: "auto" }}
-                >
-                  {[...sectors[selectedSector], ...customRoles].map((role) => (
-                    <label key={role} className="dropdown-item">
-                      <input
-                        type="checkbox"
-                        value={role}
-                        checked={selectedRoles.includes(role)}
-                        onChange={() => handleRoleChange(role)}
-                        className="gap-2"
-                        disabled={
-                          selectedRoles.length === 5 &&
-                          !selectedRoles.includes(role)
-                        }
-                      />
-                      {role}
-                    </label>
-                  ))}
-                </div>
-              )}
-            </div>
-            <small>{5 - selectedRoles.length} roles remaining</small>
-          </div>
-        )} */}
-
-        {/* State Dropdown */}
-        {/* <div className="form-group col-lg-4 col-md-12 font-light">
-          <label>State*</label>
-          <select
-            name="state"
-            value={selectedState}
-            onChange={handleStateChange}
-            required
-          >
-            <option value="">Select State</option>
-            {states.map((state) => (
-              <option key={state.id} value={state.id}>
-                {state.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
-
-        {/* City Dropdown */}
-        {/* <div className="form-group col-lg-4 col-md-12 font-light">
-          <label>City*</label>
-          <select
-            name="city"
-            value={selectedCity}
-            onChange={(e) => setSelectedCity(e.target.value)}
-            required
-          >
-            <option value="">Select City</option>
-            {cities.map((city) => (
-              <option key={city.id} value={city.id}>
-                {city.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
-
-        {/* State Dropdown */}
-        {/* <div className="form-group col-lg-4 col-md-12 font-light">
-          <label>State*</label>
-          <select
-            name="preferredstate"
-            value={preferredselectedState}
-            onChange={preferredhandleStateChange}
-            required
-          >
-            <option value="">Select State</option>
-            {preferredstates.map((state) => (
-              <option key={state.id} value={state.id}>
-                {state.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
-
-        {/* City Dropdown */}
-        {/* <div className="form-group col-lg-4 col-md-12 font-light">
-          <label>City*</label>
-          <select
-            name="preferredcity"
-            value={preferredselectedCity}
-            onChange={(e) => preferredsetSelectedCity(e.target.value)}
-            required
-          >
-            <option value="">Select City</option>
-            {preferredcities.map((city) => (
-              <option key={city.id} value={city.id}>
-                {city.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
-
-        {/* <div className="form-group col-lg-6 col-md-12 font-light">
-          <label>Salary-Range (INR)*</label>
-          <select
-            id="Salarytype"
-            name="Salarytype"
-            value={selectSalarytype}
-            onChange={(e) => setselectSalarytype(e.target.value)}
-          >
-            <option value="">select a Salary</option>
-            {Salarytype.map((type) => (
-              <option key={type.id} value={type.id}>
-                {type.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="form-group col-lg-6 col-md-12 font-light">
-          <label>Expected Salary-Range (INR)*</label>
-          <select
-            id="expectedSalarytype"
-            name="expectedSalarytype"
-            value={expectedselectSalarytype}
-            onChange={(e) => expectedsetselectSalarytype(e.target.value)}
-          >
-            <option value="">select a Salary</option>
-            {expectedSalarytype.map((type) => (
-              <option key={type.id} value={type.id}>
-                {type.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
-        <div className="form-group col-lg-6 col-md-12 font-light">
-          {/* Label */}
           <label className="font-medium">
             Salary*{" "}
             <span className="text-sm text-gray-500">
@@ -1056,33 +387,34 @@ const Index = ({ onNext }) => {
             </span>
           </label>
 
-          {/* Input and Dropdown Container */}
-          <div className=" font-light  row">
-            {/* Input Container */}
-            <div className=" col-lg-6 col-md-12 ">
-              {/* Input Field with Currency Symbol */}
+          <div className="row">
+            <div className="col-lg-6 col-md-12">
               <div className="relative">
-                {/* Currency Symbol */}
-                <span className="absolute  text-center z-10 top-[20%] p-2 left-0 flex items-center text-gray-500">
+                <span className="absolute text-center z-10 top-[20%] p-2 left-0 flex items-center text-gray-500">
                   £
                 </span>
-                {/* Input Field */}
                 <input
                   type="number"
-                  name="salary"
+                  inputMode="numeric"
+                  {...register("salary", {
+                    required: "Salary is required",
+                    min: { value: 1, message: "Salary must be greater than 0" },
+                  })}
                   className="w-full pl-10 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="5000"
-                  required
                 />
               </div>
+              {errors.salary && (
+                <p className="text-red-500 text-sm">{errors.salary.message}</p>
+              )}
             </div>
 
-            {/* Dropdown */}
-            <div className="w-full lg:w-1/2 md:w-full">
+            <div className="col-lg-6 col-md-12">
               <select
-                name="salaryType"
+                {...register("salaryType")}
                 className="w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 px-4 py-2 bg-white text-gray-700"
               >
+                <option value="">Select type</option>
                 <option value="per hour">Per Hour</option>
                 <option value="per month">Per Month</option>
                 <option value="per annum">Per Annum</option>
@@ -1090,68 +422,18 @@ const Index = ({ onNext }) => {
             </div>
           </div>
 
-          {/* Helper Text */}
           <p className="mt-2 text-sm text-gray-500">
             Read our Salary Blog to find out more
           </p>
         </div>
-
-        {/* <div className="form-group col-lg-6 col-md-12 font-light">
-          <label>Notice Period*</label>
-          <input
-            type="text"
-            name="notice_period"
-            placeholder="Notice Period"
-            required
-          />
-        </div> */}
-
-        {/* <div className="form-group col-lg-12 col-md-12 font-light">
-          <label className="font-medium">
-            Work Experience *{" "}
-            <span className="text-sm text-gray-500">
-              How many years of work experience do you have ?
-            </span>
-          </label>
-          <select
-            id="Experiencetype"
-            name="Experiencetype"
-            value={selectExperiencetype}
-            onChange={(e) => setselectExperiencetype(e.target.value)}
-          >
-            <option value="">select a Experience</option>
-            {/* {Experiencetype.map((type) => (
-              <option key={type.id} value={type.id}>
-                {type.name}
-              </option>
-            ))} 
-            <option value="1">0-1 year</option>
-            <option value="2">1-2 years</option>
-            <option value="3">2-3 years</option>
-            <option value="4">3-5 years</option>
-            <option value="5">5-10 years</option>
-            <option value="6">10+ years</option>
-          </select>
-        </div> */}
-        <WorkExperienceDropdown workExperience={data.workExperience} />
-
-        {/* <div className="form-group col-lg-12 col-md-12 font-light">
-          <label>Industries*</label>
-          <select
-            id="industries"
-            name="industries"
-            value={selectindustriestype}
-            onChange={(e) => setselectindustriestype(e.target.value)}
-          >
-            <option value="">select a Industries</option>
-            {industriestype.map((type) => (
-              <option key={type.id} value={type.id}>
-                {type.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
-
+        {/* Work Experience Dropdown */}
+        <WorkExperienceDropdown
+          workExperience={apiData.workExperience}
+          register={register}
+          errors={errors}
+          setValue={setValue}
+          profileData={profileData}
+        />
         {/* Submit Button */}
         <div className="form-group col-lg-6 col-md-12">
           <button type="submit" className="theme-btn btn-style-one bg-blue-900">
@@ -1163,4 +445,4 @@ const Index = ({ onNext }) => {
   );
 };
 
-export default Index;
+export default JobSeekerForm;

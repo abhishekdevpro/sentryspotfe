@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import ApplyJobPopup from "./ApplyJobPopup";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { Constant } from "@/utils/constant/constant";
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { fetchJobList } from "@/store/slices/service/jobService";
 
 const FilterJobsBox = () => {
   const [jobs, setJobs] = useState([]);
@@ -17,8 +17,6 @@ const FilterJobsBox = () => {
   const [states, setStates] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const token = localStorage.getItem(Constant.USER_TOKEN);
-
-
 
   const [filters, setFilters] = useState({
     job_type_id: null,
@@ -99,7 +97,7 @@ const FilterJobsBox = () => {
     // Fetch the list of countries
     const fetchCountries = async () => {
       try {
-        const response = await axios.get('https://api.sentryspot.co.uk/api/jobseeker/countries');
+        const response = await fetchJobList();
         setCountries(response.data.data);
       } catch (error) {
         console.error('Failed to fetch countries', error);
@@ -114,7 +112,7 @@ const FilterJobsBox = () => {
     if (filters.country_id) {
       const fetchStates = async () => {
         try {
-          const response = await axios.get(`https://api.sentryspot.co.uk/api/jobseeker/stats/${filters.country_id}`);
+          const response = await fetchJobList();
           setStates(response.data.data);
         } catch (error) {
           console.error('Failed to fetch states', error);
@@ -127,29 +125,18 @@ const FilterJobsBox = () => {
     }
   }, [filters.country_id]);
 
-
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const queryString = Object.keys(filters)
-          .filter((key) => filters[key])
-          .map((key) => `${key}=${filters[key]}`)
-          .join('&');
-
-        const response = await axios.get(
-          `https://api.sentryspot.co.uk/api/jobseeker/job-list?${queryString}`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-       setJobCount(response.data.data.length);
-        setJobs(response.data.data);
-        setLoading(false);
+        setLoading(true);
+        const response = await fetchJobList(filters);
+        setJobCount(response.data.length);
+        setJobs(response.data);
+        setError(null);
       } catch (error) {
-        setError('Failed to fetch jobs');
+        setError(error.message || 'Failed to fetch jobs');
+        toast.error(error.message || 'Failed to fetch jobs');
+      } finally {
         setLoading(false);
       }
     };
@@ -173,32 +160,20 @@ const FilterJobsBox = () => {
     }));
   };
 
-  const savejob = async(jobId)=>{
+  const savejob = async(jobId) => {
     try {
-      const response = await axios.get(
-        `https://api.sentryspot.co.uk/api/jobseeker/mark-job-favorite/${jobId}`,
-       
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-
+      const response = await fetchJobList();
       if (response.status === 200) {
         toast.success('Your job successfully Saved!');
       } else {
-        toast.error('Failed to job  the job. Please try again.');
+        toast.error('Failed to save the job. Please try again.');
       }
     } catch (error) {
-      toast.error('Error Saving  job:', error);
+      toast.error('Error Saving job:', error);
       toast.error('An error occurred while saving for the job. Please try again.');
     }
   };
   
-
-
-
   const handleApplyNowClick = () => {
     setShowPopup(true);
   };

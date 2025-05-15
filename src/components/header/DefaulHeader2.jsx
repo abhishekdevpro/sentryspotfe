@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import HeaderNavContent from "./HeaderNavContent";
 import { Button } from "../ui/button";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "@/store/slices/auth";
+import { logout } from "@/store/slices/authSlice";
 import { Constant } from "@/utils/constant/constant";
 import logo from "../../../public/company_logo.png";
+import { toast } from "react-hot-toast";
 
 const DefaulHeader2 = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const DefaulHeader2 = () => {
   const [navbar, setNavbar] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   // Close the dropdown if clicking outside
   useEffect(() => {
@@ -40,9 +42,17 @@ const DefaulHeader2 = () => {
   useEffect(() => {
     window.addEventListener("scroll", changeBackground);
   }, []);
-  const logoutHandler = () => {
-    dispatch(logout());
-    navigate("/");
+  const logoutHandler = async () => {
+    try {
+      setIsLoggingOut(true);
+      dispatch(logout());
+      toast.success("Successfully logged out");
+      navigate("/");
+    } catch (error) {
+      toast.error("Error logging out");
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
 
   return (
@@ -139,12 +149,14 @@ const DefaulHeader2 = () => {
                   <Button
                     className="bg-gray-500 p-3 duration-500 hover:bg-[#E60278] ml-4 "
                     title="logout"
-                    // onClick={() => {
-                    //   dispatch(logout());
-                    // }}
                     onClick={logoutHandler}
+                    disabled={isLoggingOut}
                   >
-                    <IoLogOutOutline size={24} />
+                    {isLoggingOut ? (
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    ) : (
+                      <IoLogOutOutline size={24} />
+                    )}
                   </Button>
                 </>
               ) : (

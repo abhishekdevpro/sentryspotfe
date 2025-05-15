@@ -206,13 +206,13 @@ const candidateMenus = [
   //   routePath: "",
   //   active: "",
   // },
-  {
-    id: 15,
-    name: "Change Password",
-    icon: "la-lock",
-    routePath: "/candidates-dashboard/change-password",
-    active: "",
-  },
+  // {
+  //   id: 15,
+  //   name: "Change Password",
+  //   icon: "la-lock",
+  //   routePath: "/candidates-dashboard/change-password",
+  //   active: "",
+  // },
  
   {
     id: 16,

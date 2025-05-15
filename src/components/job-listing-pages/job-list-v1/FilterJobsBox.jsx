@@ -14,6 +14,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CoursesTabs from "./CoursesTabs";
 import toast from "react-hot-toast";
+import HomeBanner from "./HomeBanner";
 
 const FilterJobsBox = () => {
   const [jobs, setJobs] = useState([]);
@@ -142,7 +143,7 @@ const FilterJobsBox = () => {
     <>
       <div>
         <div className="">
-          <div className="container">
+          {/* <div className="container">
             <div className="HomeBannerContent">
               <div className="BannerContent">
                 <h2>One Stop AI Enabled Career Portal</h2>
@@ -161,7 +162,7 @@ const FilterJobsBox = () => {
               <div className="HomeHeroMedia">
                 <div className="HomeSlider">
                   <div className="HeroSliderone">
-                    <img src={home1} alt="Slide 1" />
+                    <img src="https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=" alt="Slide 1" />
                     <div className="BannerText">
                       <div className="BannerTextUpper">
                         <i className="fa-solid fa-medal" />
@@ -237,7 +238,8 @@ const FilterJobsBox = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
+          <HomeBanner />
         </div>
         <div className="ServiceCard">
           <div className="container">

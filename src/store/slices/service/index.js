@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { BASE_URL, VERS, EndpointSlug } from "@/utils/constant/endPoints";
-import { logout } from "../auth";
+import { logout } from "../authSlice";
 import { Constant } from "@/utils/constant/constant";
 
 export const Service = createApi({
