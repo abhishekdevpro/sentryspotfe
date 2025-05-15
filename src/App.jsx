@@ -146,6 +146,7 @@ import CareerAdvice from "./pages/footer/careeradvice";
 import SalaryTools from "./pages/footer/salarytools";
 import GrievanceRedressal from "./pages/footer/grievace";
 import SearchJobsApply from "./pages/footer/searchjobapply";
+import Showcase from "./pages/showcase";
 
 function App() {
   useEffect(() => {
@@ -191,6 +192,7 @@ function App() {
                   <Route path="job-list-v6" element={<JobListPage6 />} /> */}
                   <Route path="job-list-v7" element={<JobListPage7 />} />
                   <Route path="companies-list" element={<Companieslist />} />
+                  <Route path="showcase/:id" element={<Showcase />} />
 
                   <Route path="gauth" element={<Gauth />} />
                   <Route path="/login/login-code" element={<LoginCode />} />

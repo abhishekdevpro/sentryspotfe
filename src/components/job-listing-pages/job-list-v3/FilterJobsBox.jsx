@@ -5,6 +5,8 @@ import { Constant } from "@/utils/constant/constant";
 import toast from "react-hot-toast";
 import ApplyJobModalContent from "@/components/job-single-pages/shared-components/ApplyJobModalContent";
 import ApplyForm from "@/components/ApplyForm/ApplyForm";
+import { BsBriefcase, BsClock, BsGeoAlt, BsBuilding, BsHeart, BsHeartFill, BsBookmark, BsBookmarkFill } from 'react-icons/bs';
+import { FiCalendar, FiAward, FiEye } from 'react-icons/fi';
 
 const LoginModal = ({ onClose }) => {
   return (
@@ -115,7 +117,11 @@ const FilterJobsBox = () => {
         urlParams.toString() ? `?${urlParams.toString()}` : ""
       }`;
 
-      const response = await fetch(apiUrl);
+      const response = await fetch(apiUrl, {
+        headers: {
+          'Authorization': token
+        }
+      });
       const data = await response.json();
 
       setJobs(data.data);
@@ -161,96 +167,164 @@ const FilterJobsBox = () => {
     )
     ?.map((item) => (
       <div
-        className="job-block col-lg-6 col-md-12 col-sm-12 hover:border-2 border-blue-400 hover:rounded-lg"
+        className="col-lg-6 col-md-12 col-sm-12 mb-4"
         key={item.id}
       >
-        <div className="inner-box">
-          <div className="content">
-            <span className="company-logo">
-              <img
-                src={
-                  item.logo ||
-                  "/images/resource/company-logo/1-1.png"
-                }
-                alt="company logo"
-              />
-            </span>
-            <h4>
-              <Link to={`/job-single-v3/${item.id}`}>{item.job_title}</Link>
-            </h4>
+        <div className="bg-white rounded-lg border border-gray-100 p-4 hover:shadow-md transition-shadow h-full">
+          <div className="flex flex-col h-full">
+            <div className="flex-grow">
+              <Link to={`/job-single-v3/${item.id}`} className="block">
+                {/* Company Logo and Title */}
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-12 h-12 flex-shrink-0">
+                    <img
+                      src={item.logo || "/images/resource/company-logo/1-1.png"}
+                      alt="company logo"
+                      className="w-full h-full object-contain rounded-lg"
+                    />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900 hover:text-blue-600 line-clamp-2">
+                      {item.job_title}
+                    </h4>
+                    <div className="flex items-center text-gray-600 text-sm">
+                      <BsBuilding className="mr-1" />
+                      <span className="line-clamp-1">{item.company_name || "Company Not Specified"}</span>
+                    </div>
+                  </div>
+                </div>
 
-            <ul className="job-info">
-             
-              <li>
-                <i className="fas fa-briefcase"></i> {item.job_type_name || "N/A"}
-              </li>
-              <li>
-                <i className="fas fa-level-up-alt"></i>{" "}
-                {item.experience_level_min_name || "N/A"}
-              </li>
-              <li>
-                <i className="fas fa-industry"></i> {item.industry || "Not specified"}
-              </li>
-              <li>
-                <i className="fas fa-tags"></i> {item.job_category_name || "N/A"}
-              </li>
-              <li>
-                <i className="fas fa-cogs"></i> {item.functional_area_name || "N/A"}
-              </li>
-              <li>
-                <i className="fas fa-map-marker-alt"></i>{" "}
-                {item.location || "Location not specified"}
-              </li>
-              <li>
-                <i className="fas fa-calendar-alt"></i> {item.created_at || "N/A"}
-              </li>
-           
-            </ul>
+                {/* Job Type Tags */}
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {item.job_type_name && item.job_type_name.length > 0 ? (
+                    item.job_type_name.map((type, index) => (
+                      <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs flex items-center gap-1">
+                        <BsClock className="w-3 h-3" />
+                        {type}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs flex items-center gap-1">
+                      <BsClock className="w-3 h-3" />
+                      Not Specified
+                    </span>
+                  )}
+                </div>
 
-            <ul className="job-other-info">
-              {item.job_type && <li className="time">{item.job_type}</li>}
-            </ul>
+                {/* Job Categories */}
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {item.job_category_name && item.job_category_name.length > 0 ? (
+                    item.job_category_name.map((category, index) => (
+                      <span key={index} className="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs flex items-center gap-1">
+                        <BsBriefcase className="w-3 h-3" />
+                        {category}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs flex items-center gap-1">
+                      <BsBriefcase className="w-3 h-3" />
+                      Uncategorized
+                    </span>
+                  )}
+                </div>
 
-            <div className="flex">
-              {/* Save Job Button */}
-              <button
-                className="btn"
-                onClick={async () => {
-                  await savejob(item.id);
-                  setFilteredJobs((prevJobs) =>
-                    prevJobs.map((job) =>
-                      job.id === item.id
-                        ? { ...job, is_favorite: !item.is_favorite }
-                        : job
-                    )
-                  );
-                }}
+                {/* Job Details */}
+                <div className="space-y-2">
+                  {/* Location */}
+                  <div className="flex items-center text-gray-500 text-sm">
+                    <BsGeoAlt className="text-gray-600 flex-shrink-0 mr-2" />
+                    <span className="line-clamp-1">
+                      {item.location || item.complete_address || item.city || "Location Not Specified"}
+                      {item.country && `, ${item.country}`}
+                    </span>
+                  </div>
+
+                  {/* Posted Date */}
+                  <div className="flex items-center text-gray-500 text-sm">
+                    <FiCalendar className="text-gray-600 flex-shrink-0 mr-2" />
+                    <span>
+                      {item.created_at ? `Posted ${new Date(item.created_at).toLocaleString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}` : "Posted Date Not Available"}
+                    </span>
+                  </div>
+
+                  {/* Experience Level */}
+                  <div className="flex items-center text-gray-500 text-sm">
+                    <FiAward className="text-gray-600 flex-shrink-0 mr-2" />
+                    <span>
+                      Experience: {item.experience_level_min_name || "Not Specified"}
+                      {item.experience_level_max_name && ` - ${item.experience_level_max_name}`}
+                    </span>
+                  </div>
+
+                  {/* Industry */}
+                  <div className="flex items-center text-gray-500 text-sm">
+                    <BsBuilding className="text-gray-600 flex-shrink-0 mr-2" />
+                    <span>{item.industry || "Industry Not Specified"}</span>
+                  </div>
+
+                  {/* Functional Area */}
+                  <div className="flex items-center text-gray-500 text-sm">
+                    <BsBriefcase className="text-gray-600 flex-shrink-0 mr-2" />
+                    <span>{item.functional_area_name || "Functional Area Not Specified"}</span>
+                  </div>
+                </div>
+              </Link>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex items-center justify-between mt-4 pt-3 border-t">
+              <Link 
+                to={`/job-single-v3/${item.id}`}
+                className="flex items-center gap-2 text-gray-400 hover:text-blue-600 transition-colors p-2 text-sm"
               >
-                {item.is_favorite ? (
-                  <i className="fas fa-heart text-dark"></i> // Marked as favorite
-                ) : (
-                  <i className="far fa-heart text-blue-700"></i> // Not marked as favorite
-                )}
-              </button>
-
-              {/* Apply Job Button */}
-              <button
-                className="btn"
-                onClick={() => {
-                  handleApplyNowClick(item.id);
-                  setFilteredJobs((prevJobs) =>
-                    prevJobs.map((job) =>
-                      job.id === item.id ? { ...job, is_applied: true } : job
-                    )
-                  );
-                }}
-              >
-                {item.is_applied ? (
-                  <i className="far fa-bookmark text-blue-700"></i> // Marked as applied
-                ) : (
-                  <i className="fas fa-bookmark text-dark"></i> // Not marked as applied
-                )}
-              </button>
+                <FiEye className="w-5 h-5" />
+                <span>View Details</span>
+              </Link>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={async () => {
+                    await savejob(item.id);
+                    setFilteredJobs((prevJobs) =>
+                      prevJobs.map((job) =>
+                        job.id === item.id
+                          ? { ...job, is_favorite: !item.is_favorite }
+                          : job
+                      )
+                    );
+                  }}
+                  className="flex items-center gap-2 text-gray-400 hover:text-red-500 transition-colors p-2 text-sm"
+                >
+                  {item.is_favorite ? (
+                    <BsHeartFill className="w-5 h-5 text-red-500" />
+                  ) : (
+                    <BsHeart className="w-5 h-5" />
+                  )}
+                  <span>{item.is_favorite ? "Saved" : "Save"}</span>
+                </button>
+                <button
+                  onClick={() => {
+                    handleApplyNowClick(item.id);
+                    setFilteredJobs((prevJobs) =>
+                      prevJobs.map((job) =>
+                        job.id === item.id ? { ...job, is_applied: true } : job
+                      )
+                    );
+                  }}
+                  className="flex items-center gap-2 text-gray-400 hover:text-blue-600 transition-colors p-2 text-sm"
+                >
+                  {item.is_applied ? (
+                    <BsBookmarkFill className="w-5 h-5 text-blue-600" />
+                  ) : (
+                    <BsBookmark className="w-5 h-5" />
+                  )}
+                  <span>{item.is_applied ? "Applied" : "Apply"}</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -258,20 +332,25 @@ const FilterJobsBox = () => {
     ));
 
   if (isLoading) {
-    return <div className="text-center">Loading...</div>;
+    return (
+      <div className="text-center py-16">
+        <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
+        <p className="mt-4 text-gray-500 text-sm sm:text-base">Loading jobs...</p>
+      </div>
+    );
   }
 
   return (
     <>
-      <div className="ls-switcher">
-        <div className="flex bg-gray-50 mb-2 border=b justify-between items-center w-full py-4 px-4 ">
-          <div className="text">
-            Show <strong>{content?.length}</strong> jobs
+      <div className="bg-gray-50 rounded-lg mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 p-4">
+          <div className="text-gray-700">
+            Showing <strong>{content?.length}</strong> jobs
           </div>
-          <div className="flex items-center gap-2 ">
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
             <select
               value={sort}
-              className="chosen-single form-select"
+              className="px-3 sm:px-4 py-2 border rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
               onChange={sortHandler}
             >
               <option value="">Sort by (default)</option>
@@ -282,7 +361,7 @@ const FilterJobsBox = () => {
             {hasFilters() && (
               <button
                 onClick={clearFilters}
-                className="w-full p-2 bg-red-500 text-white"
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm"
               >
                 Clear Filters
               </button>
@@ -293,17 +372,21 @@ const FilterJobsBox = () => {
 
       <div className="row">{content}</div>
 
-      <div className="ls-show-more">
-        <p>
-          Show {content?.length} of {jobs.length} Jobs
-        </p>
-        <div className="bar">
-          <span
-            className="bar-inner"
-            style={{ width: `${(content?.length / jobs.length) * 100}%` }}
-          ></span>
+      <div className="mt-8 bg-gray-50 rounded-lg p-4">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-gray-700">
+            Showing {content?.length} of {jobs.length} Jobs
+          </p>
+          <div className="w-full sm:w-64 h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-blue-600 transition-all duration-300"
+              style={{ width: `${(content?.length / jobs.length) * 100}%` }}
+            ></div>
+          </div>
+          <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+            Show More
+          </button>
         </div>
-        <button className="show-more">Show More</button>
       </div>
 
       {showPopup && selectedJobId && (

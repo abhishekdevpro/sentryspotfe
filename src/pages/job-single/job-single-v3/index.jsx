@@ -295,7 +295,7 @@ const JobSingleDynamicV3 = () => {
 
                   <div className="sidebar-widget company-widget">
                     <div className="widget-content">
-                      <CompanyInfo company={company} />
+                      <CompanyInfo company={jobData.id} />
                     </div>
                   </div>
 
