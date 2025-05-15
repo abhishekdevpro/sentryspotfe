@@ -127,14 +127,14 @@ const candidateMenus = [
     active: "active",
   },
  
-  // {
-  //   id: 3,
-  //   name: "AI Resume Builder",
-  //   icon: "la la-robot",
-  //   routePath: `https://sentryspot-ai-resume-dev.vercel.app?${token}`,
-  //   // routePath: `http://localhost:3000/?${token}`,
-  //   active: "",
-  // },
+  {
+    id: 3,
+    name: "AI Resume Builder",
+    icon: "la la-robot",
+    routePath: `https://sentryspot-ai-resume-dev.vercel.app?${token}`,
+    // routePath: `http://localhost:3000/?${token}`,
+    active: "",
+  },
   {
     id: 4,
     name: "Search Jobs",
