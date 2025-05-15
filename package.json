@@ -25,6 +25,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "dompurify": "^3.2.5",
     "feather-icons-react": "^0.8.1",
     "flag-icon-css": "^4.1.7",
     "google-map-react": "^2.2.1",
