@@ -258,8 +258,8 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
           email: userData.email || '',
           phone: userData.phone || '',
           location: userData.location || '',
-          resumeOption: 'none',
-          coverLetterOption: 'none'
+          resumeOption: '',
+          coverLetterOption: ''
         }));
         setLoading(false);
       } catch (err) {
