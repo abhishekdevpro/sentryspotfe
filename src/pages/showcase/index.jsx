@@ -1,20 +1,30 @@
 import React from "react";
-import Wrapper from "@/layout/Wrapper";
 import ShowcaseComponent from "@/components/showcase/Showcase";
-
-import MobileMenu from "@/components/header/MobileMenu";
 import FooterDefault from "@/components/footer/common-footer";
-import DashboardHeader from "@/components/header/DashboardHeader";
+import LoginPopup from "@/components/common/form/login/LoginPopup";
+import DefaulHeader2 from "@/components/header/DefaulHeader2";
+import MobileMenu from "@/components/header/MobileMenu";
 
 const Showcase = () => {
   return (
-    <Wrapper>
-  
+    <>
+      {/* <!-- Header Span --> */}
+      <span className="header-span"></span>
+
+      <LoginPopup />
+      {/* End Login Popup Modal */}
+
+      <DefaulHeader2 />
+      {/* End Header with upload cv btn */}
+
+      <MobileMenu />
+      {/* End MobileMenu */}
 
       <ShowcaseComponent />
 
-   
-    </Wrapper>
+      <FooterDefault footerStyle="alternate5" />
+      {/* <!-- End Main Footer --> */}
+    </>
   );
 };
 
