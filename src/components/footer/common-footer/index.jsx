@@ -234,22 +234,34 @@ const Footer = ({ footerStyle = "" }) => {
             <h2 className="text-lg font-semibold mb-4">AI Tools</h2>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="hover:text-gray-300 transition-colors">
+                <Link
+                  to="/ai-resume-builder"
+                  className="hover:text-gray-300 transition-colors"
+                >
                   AI Resume Builder
                 </Link>
               </li>
               <li>
-                <Link to="/" className="hover:text-gray-300 transition-colors">
+                <Link
+                  to="/ai-cv-parsing"
+                  className="hover:text-gray-300 transition-colors"
+                >
                   AI CV Parsing
                 </Link>
               </li>
               <li>
-                <Link to="/" className="hover:text-gray-300 transition-colors">
+                <Link
+                  to="/ai-resume-enhancer"
+                  className="hover:text-gray-300 transition-colors"
+                >
                   AI Resume Enhance
                 </Link>
               </li>
               <li>
-                <Link to="/" className="hover:text-gray-300 transition-colors">
+                <Link
+                  to="/ai-job-match-&-apply"
+                  className="hover:text-gray-300 transition-colors"
+                >
                   AI Job Match & Apply
                 </Link>
               </li>
@@ -261,12 +273,18 @@ const Footer = ({ footerStyle = "" }) => {
             <h2 className="text-lg font-semibold mb-4"> Legal</h2>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="hover:text-gray-300 transition-colors">
+                <Link
+                  to="/terms-and-conditions"
+                  className="hover:text-gray-300 transition-colors"
+                >
                   Terms and Conditions
                 </Link>
               </li>
               <li>
-                <Link to="/" className="hover:text-gray-300 transition-colors">
+                <Link
+                  to="/privacy-policy"
+                  className="hover:text-gray-300 transition-colors"
+                >
                   Privacy Policy
                 </Link>
               </li>

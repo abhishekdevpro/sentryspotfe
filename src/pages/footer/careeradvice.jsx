@@ -1,6 +1,7 @@
 import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import FooterDefault from "@/components/footer/common-footer/index";
 import React from "react";
+import { HiOutlineLightBulb } from "react-icons/hi";
 
 export default function CareerAdvice() {
   return (
@@ -10,11 +11,7 @@ export default function CareerAdvice() {
       {/* Header Section */}
       <div className="bg-[#051947] py-12 text-center">
         <div className="flex justify-center mb-4">
-          <img
-            src="/images/career-icon.png" // ✅ Replace with your actual icon path
-            alt="Career Icon"
-            className="w-12 h-12"
-          />
+          <HiOutlineLightBulb className="w-12 h-12 text-white" />
         </div>
         <h1 className="text-white text-3xl font-bold">Career Advice</h1>
       </div>
@@ -107,27 +104,27 @@ export default function CareerAdvice() {
             complete career solution. Here’s how:
           </p>
           <ul className="list-disc list-inside space-y-2">
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               <strong>📚 Courses and Certifications:</strong> Access
               industry-specific courses and get certified in critical security
               areas.
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               <strong>🔍 Skill Testing:</strong> Validate your expertise with
               AI-powered skill assessments and earn certifications that set you
               apart from the competition.
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               <strong>🎥 Video Profiles:</strong> Make your profile stand out
               with a professional video introduction that lets employers see
               your skills and personality before the interview.
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               <strong>📝 AI-Enabled Resumes:</strong> Use our AI-driven resume
               builder to create or improve your resume, ensuring it’s optimized
               for security roles.
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               <strong>💼 Job Search and Application:</strong> Finally, use your
               polished profile to search for jobs and apply to top companies
               through SentrySpot’s comprehensive job portal.
