@@ -1,3 +1,4 @@
+
 import Aos from "aos";
 import "aos/dist/aos.css";
 import "./styles/index.scss";
@@ -120,8 +121,8 @@ import CommunitySinglepage from "./components/community/CommunitySinglepage";
 import HelmetWrapper from "./HelmetWrapper";
 import NotificationsHistoryPage from "./components/dashboard-pages/candidates-dashboard/notifications-history";
 import NotificationProvider from "./NotificationProvider";
-import CoursePage from "./components/Courses";
-import CourseDetails from "./components/courseDetails";
+import CoursePage from "./components/candidates-dashboard/CoursePage";
+import CourseDetail from "./components/candidates-dashboard/CourseDetail";
 import ApplyForm from "./components/ApplyForm/index";
 
 import AdminLogin from "./components/Admin/AdminLogin";
@@ -321,7 +322,7 @@ function App() {
                   <Route path="public-view" element={<PublicProfile />} />
                   <Route
                     path="course-info/:courseid"
-                    element={<CourseDetails />}
+                    element={<CourseDetail />}
                   />
                   <Route
                     path="community/:postId"
@@ -410,6 +411,7 @@ function App() {
                       path="short-listed-jobs"
                       element={<ShortListedJobsPage />}
                     />
+                    <Route path="courses" element={<CoursePage />} />
                   </Route>
 
                   <Route path="shop">
@@ -435,6 +437,8 @@ function App() {
                       element={<EmployersListPage />}
                     />
                   </Route>
+
+                  <Route path="courses/:id" element={<CourseDetail />} />
                 </Route>
               </Routes>
 

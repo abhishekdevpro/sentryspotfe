@@ -1,8 +1,5 @@
-
-
-
 import { useEffect, useState } from "react";
-import InputRange from "react-input-range";
+import { Slider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { addDestination } from "../../../features/filter/employerFilterSlice";
 
@@ -15,23 +12,39 @@ const DestinationRangeSlider = () => {
 
     const dispatch = useDispatch();
 
-    // destiations handler
-    const handleOnChange = (value) => {
-        dispatch(addDestination(value));
+    // destinations handler
+    const handleOnChange = (event, newValue) => {
+        dispatch(addDestination({
+            min: newValue[0],
+            max: newValue[1]
+        }));
     };
 
     useEffect(() => {
         setDestination(destination);
-    }, [setDestination, destination]);
+    }, [destination]);
 
     return (
         <div className="range-slider-one">
-            <InputRange
-                formatLabel={(value) => ``}
-                minValue={0}
-                maxValue={100}
-                value={getDestination}
-                onChange={(value) => handleOnChange(value)}
+            <Slider
+                value={[getDestination.min, getDestination.max]}
+                onChange={handleOnChange}
+                valueLabelDisplay="auto"
+                min={0}
+                max={100}
+                sx={{
+                    color: '#1976d2',
+                    '& .MuiSlider-thumb': {
+                        height: 24,
+                        width: 24,
+                    },
+                    '& .MuiSlider-track': {
+                        height: 8,
+                    },
+                    '& .MuiSlider-rail': {
+                        height: 8,
+                    },
+                }}
             />
             <div className="input-outer">
                 <div className="amount-outer">
