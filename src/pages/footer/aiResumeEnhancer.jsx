@@ -1,3 +1,4 @@
+
 import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import FooterDefault from "@/components/footer/common-footer/index";
 import React from "react";
