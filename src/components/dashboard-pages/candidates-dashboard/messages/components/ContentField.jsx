@@ -1,713 +1,6 @@
-
-// // import { FaTelegram } from "react-icons/fa";
-
-// // import React, { useEffect, useState } from 'react';
-// // import ChatboxContactList from "./ContactList";
-
-// // const ChatBoxContentField = () => {
-// //   const [socket, setSocket] = useState(null);
-// //   const [messages, setMessages] = useState([]);
-// //   const [inputValue, setInputValue] = useState('');
-// //   const [activeChat, setActiveChat] = useState(15); // Default active chat ID
-
-// //   useEffect(() => {
-// //     const ws = new WebSocket('wss://api.sentryspot.co.uk/ws');
-
-// //     ws.onopen = () => {
-// //       console.log('WebSocket connection opened');
-// //     };
-
-// //     ws.onmessage = (event) => {
-// //       const incomingMessage = JSON.parse(event.data);
-// //       console.log('Message received:', incomingMessage);
-
-// //       setMessages((prevMessages) => [
-// //         ...prevMessages,
-// //         {
-// //           content: incomingMessage.message,
-// //           time: incomingMessage.timestamp || new Date().toLocaleTimeString(),
-// //           sender: incomingMessage.sender || 'John', // Assuming sender info is present
-// //         }
-// //       ]);
-// //     };
-
-// //     ws.onerror = (error) => {
-// //       console.error('WebSocket error:', error);
-// //     };
-
-// //     ws.onclose = () => {
-// //       console.log('WebSocket connection closed');
-// //     };
-
-// //     setSocket(ws);
-
-// //     return () => {
-// //       ws.close();
-// //     };
-// //   }, []);
-
-// //   const sendMessage = () => {
-// //     if (inputValue.trim() === '') return;
-
-// //     const data = {
-// //       message: inputValue,
-// //       receiver_id: activeChat,
-// //        sender_id: 29 
-// //     };
-
-// //     if (socket && socket.readyState === WebSocket.OPEN) {
-// //       socket.send(JSON.stringify(data));
-// //       console.log('Message sent:', data);
-// //       setInputValue('');
-// //     } else {
-// //       console.error('WebSocket is not open');
-// //     }
-// //   };
-
-// //   return (
-// //     <div className="flex h-screen bg- rounded-lg gap-2 ">
-// //       {/* Sidebar: List of Conversations */}
-// //       {/* <div className="w-1/4 bg-gray-50 text-black border-r border-2 overflow-y-auto rounded-lg">
-// //         <div className="p-4 border-b border-blue-700">
-// //           <h2 className="text-lg font-semibold">Messages</h2>
-// //         </div>
-// //         <div className=" p-2">
-// //           <div>
-// //           <div
-// //             className="flex flex-col gap-2 items-start justify-between border cursor-pointer p-4 hover:bg-gray-300 border-b border-blue-500 bg-gray-100"
-// //             onClick={() => setActiveChat(15)}
-// //           >
-// //             <div className="flex gap-2 justify-between items-center">
-// //             <img
-// //               src="https://avatar.iran.liara.run/public/boy?username=Ash" 
-// //               alt="User avatar"
-// //               className="w-10 h-10 rounded-full "
-// //             />
-// //             <div>
-// //               <p className="font-medium text-black">John Snow</p>
-// //               <p className="text-sm text-black">Last message preview...</p>
-// //             </div>
-// //             </div>
-// //             <div className=" flex justify-between items-center w-full px-4">
-// //             <span className=" text-sm text-blue-400">4:30 PM</span>
-// //             <span className="bg-blue-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center">3</span>
-// //             </div>
-// //           </div>
-// //           </div>
-// //         </div>
-// //       </div> */}
-// //       <ChatboxContactList />
-// //       {/* Main: Active Chat */}
-// //       <div className="flex-1 flex flex-col bg-gary-50 text-black rounded-xl">
-// //         {/* Chat Header */}
-// //         <div className="p-4 border-b border-2 flex items-center">
-// //           <img
-// //             src="https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"
-// //             alt="User avatar"
-// //             className="w-12 h-12 rounded-full mr-4"
-// //           />
-// //           <div>
-// //             <h2 className="text-lg font-semibold text-black">John Snow</h2>
-// //             <p className="text-sm text-black">Online</p>
-// //           </div>
-// //         </div>
-
-// //         {/* Messages Display */}
-// //         <div className="flex-1 overflow-y-auto p-4 bg-white">
-// //           <div className="flex flex-col space-y-4">
-// //             {messages.map((msg, index) => (
-// //               <div
-// //                 key={index}
-// //                 className={`flex ${msg.sender === 'John' ? 'justify-start' : 'justify-end'} space-x-2`}
-// //               >
-// //                 {msg.sender === 'John' && (
-// //                   <img
-// //                     src="https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"
-// //                     alt="User avatar"
-// //                     className="w-8 h-8 rounded-full"
-// //                   />
-// //                 )}
-// //                 <div
-// //                   className={`bg-${msg.sender === 'John' ? 'blue-700' : 'blue-600'} text-white p-3 rounded-xl bg-blue-400  max-w-xs`}
-// //                 >
-// //                   <p className="text-white break-words">{msg.content}</p>
-// //                 </div>
-// //                 <span className="text-xs text-blue-400 self-end">{msg.time}</span>
-// //               </div>
-// //             ))}
-// //           </div>
-// //         </div>
-
-// //         {/* Input Area */}
-// //         <div className="border-t border-2 bg-blue-600 p-4 flex items-center rounded-lg">
-// //           <input
-// //             type="text"
-// //             placeholder="Type a message"
-// //             value={inputValue}
-// //             onChange={(e) => setInputValue(e.target.value)}
-// //             className="flex-1 bg-blue-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-// //           />
-// //           <button
-// //             className="bg-blue-600 text-3xl text-white px-4 py-2 rounded-lg ml-2 hover:bg-blue-700 transition"
-// //             onClick={sendMessage}
-// //           ><FaTelegram/>
-          
-// //           </button>
-// //         </div>
-// //       </div>
-
-// //       {/* Right Panel: Profile Info
-// //       <div className="w-1/4 bg-blue-800 text-white p-4 border-l border-blue-700">
-// //         <div className="flex items-center space-x-4">
-// //           <img
-// //             src="https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"
-// //             alt="Profile avatar"
-// //             className="w-16 h-16 rounded-full"
-// //           />
-// //           <div>
-// //             <h3 className="text-lg font-semibold">Annabel White</h3>
-// //             <p className="text-sm text-blue-400">7,876 trips | Joined Sep 2022</p>
-// //           </div>
-// //         </div>
-// //         <p className="mt-4 text-sm text-blue-400">
-// //           Hi, I'm Annabel! I have a rich fleet of spaceships for unforgettable journeys into space!
-// //         </p>
-      
-// //         <div className="mt-4">
-// //           <h4 className="text-sm font-semibold">Media</h4>
-         
-// //         </div> 
-// //       </div>*/}
-// //     </div>
-// //   );
-// // };
-
-// // export default ChatBoxContentField;
-
-// // import { FaTelegram } from "react-icons/fa";
-
-// // import React, { useEffect, useState } from 'react';
-// // import ChatboxContactList from "./ContactList";
-
-// // const ChatBoxContentField = () => {
-// //   const [socket, setSocket] = useState(null);
-// //   const [messages, setMessages] = useState([]);
-// //   const [inputValue, setInputValue] = useState('');
-// //   const [activeChat, setActiveChat] = useState(15); // Default active chat ID
-
-// //   useEffect(() => {
-// //     const ws = new WebSocket('wss://api.sentryspot.co.uk/ws');
-
-// //     ws.onopen = () => {
-// //       console.log('WebSocket connection opened');
-// //     };
-
-// //     ws.onmessage = (event) => {
-// //       const incomingMessage = JSON.parse(event.data);
-// //       console.log('Message received:', incomingMessage);
-
-// //       setMessages((prevMessages) => [
-// //         ...prevMessages,
-// //         {
-// //           content: incomingMessage.message,
-// //           time: incomingMessage.timestamp || new Date().toLocaleTimeString(),
-// //           sender: incomingMessage.sender || 'John', // Assuming sender info is present
-// //         }
-// //       ]);
-// //     };
-
-// //     ws.onerror = (error) => {
-// //       console.error('WebSocket error:', error);
-// //     };
-
-// //     ws.onclose = () => {
-// //       console.log('WebSocket connection closed');
-// //     };
-
-// //     setSocket(ws);
-
-// //     return () => {
-// //       ws.close();
-// //     };
-// //   }, []);
-
-// //   const sendMessage = () => {
-// //     if (inputValue.trim() === '') return;
-
-// //     const data = {
-// //       message: inputValue,
-// //       receiver_id: activeChat,
-// //        sender_id: 29 
-// //     };
-
-// //     if (socket && socket.readyState === WebSocket.OPEN) {
-// //       socket.send(JSON.stringify(data));
-// //       console.log('Message sent:', data);
-// //       setInputValue('');
-// //     } else {
-// //       console.error('WebSocket is not open');
-// //     }
-// //   };
-
-// //   return (
-// //     <div className="flex h-screen bg- rounded-lg gap-2 ">
-// //       {/* Sidebar: List of Conversations */}
-// //       {/* <div className="w-1/4 bg-gray-50 text-black border-r border-2 overflow-y-auto rounded-lg">
-// //         <div className="p-4 border-b border-blue-700">
-// //           <h2 className="text-lg font-semibold">Messages</h2>
-// //         </div>
-// //         <div className=" p-2">
-// //           <div>
-// //           <div
-// //             className="flex flex-col gap-2 items-start justify-between border cursor-pointer p-4 hover:bg-gray-300 border-b border-blue-500 bg-gray-100"
-// //             onClick={() => setActiveChat(15)}
-// //           >
-// //             <div className="flex gap-2 justify-between items-center">
-// //             <img
-// //               src="https://avatar.iran.liara.run/public/boy?username=Ash" 
-// //               alt="User avatar"
-// //               className="w-10 h-10 rounded-full "
-// //             />
-// //             <div>
-// //               <p className="font-medium text-black">John Snow</p>
-// //               <p className="text-sm text-black">Last message preview...</p>
-// //             </div>
-// //             </div>
-// //             <div className=" flex justify-between items-center w-full px-4">
-// //             <span className=" text-sm text-blue-400">4:30 PM</span>
-// //             <span className="bg-blue-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center">3</span>
-// //             </div>
-// //           </div>
-// //           </div>
-// //         </div>
-// //       </div> */}
-// //       <ChatboxContactList />
-// //       {/* Main: Active Chat */}
-// //       <div className="flex-1 flex flex-col bg-gary-50 text-black rounded-xl">
-// //         {/* Chat Header */}
-// //         <div className="p-4 border-b border-2 flex items-center">
-// //           <img
-// //             src="https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"
-// //             alt="User avatar"
-// //             className="w-12 h-12 rounded-full mr-4"
-// //           />
-// //           <div>
-// //             <h2 className="text-lg font-semibold text-black">John Snow</h2>
-// //             <p className="text-sm text-black">Online</p>
-// //           </div>
-// //         </div>
-
-// //         {/* Messages Display */}
-// //         <div className="flex-1 overflow-y-auto p-4 bg-white">
-// //           <div className="flex flex-col space-y-4">
-// //             {messages.map((msg, index) => (
-// //               <div
-// //                 key={index}
-// //                 className={`flex ${msg.sender === 'John' ? 'justify-start' : 'justify-end'} space-x-2`}
-// //               >
-// //                 {msg.sender === 'John' && (
-// //                   <img
-// //                     src="https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"
-// //                     alt="User avatar"
-// //                     className="w-8 h-8 rounded-full"
-// //                   />
-// //                 )}
-// //                 <div
-// //                   className={`bg-${msg.sender === 'John' ? 'blue-700' : 'blue-600'} text-white p-3 rounded-xl bg-blue-400  max-w-xs`}
-// //                 >
-// //                   <p className="text-white break-words">{msg.content}</p>
-// //                 </div>
-// //                 <span className="text-xs text-blue-400 self-end">{msg.time}</span>
-// //               </div>
-// //             ))}
-// //           </div>
-// //         </div>
-
-// //         {/* Input Area */}
-// //         <div className="border-t border-2 bg-blue-600 p-4 flex items-center rounded-lg">
-// //           <input
-// //             type="text"
-// //             placeholder="Type a message"
-// //             value={inputValue}
-// //             onChange={(e) => setInputValue(e.target.value)}
-// //             className="flex-1 bg-blue-800 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-// //           />
-// //           <button
-// //             className="bg-blue-600 text-3xl text-white px-4 py-2 rounded-lg ml-2 hover:bg-blue-700 transition"
-// //             onClick={sendMessage}
-// //           ><FaTelegram/>
-          
-// //           </button>
-// //         </div>
-// //       </div>
-
-// //       {/* Right Panel: Profile Info
-// //       <div className="w-1/4 bg-blue-800 text-white p-4 border-l border-blue-700">
-// //         <div className="flex items-center space-x-4">
-// //           <img
-// //             src="https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"
-// //             alt="Profile avatar"
-// //             className="w-16 h-16 rounded-full"
-// //           />
-// //           <div>
-// //             <h3 className="text-lg font-semibold">Annabel White</h3>
-// //             <p className="text-sm text-blue-400">7,876 trips | Joined Sep 2022</p>
-// //           </div>
-// //         </div>
-// //         <p className="mt-4 text-sm text-blue-400">
-// //           Hi, I'm Annabel! I have a rich fleet of spaceships for unforgettable journeys into space!
-// //         </p>
-      
-// //         <div className="mt-4">
-// //           <h4 className="text-sm font-semibold">Media</h4>
-         
-// //         </div> 
-// //       </div>*/}
-// //     </div>
-// //   );
-// // };
-
-// // export default ChatBoxContentField;
-
-// // import React, { useEffect, useState } from 'react';
-// // import { FaTelegram, FaUserCircle } from "react-icons/fa";
-// // import ChatboxContactList from './ContactList';
-// // import SearchBox from './SearchBox';
-
-// // const ChatBoxContentField = () => {
-// //   const [socket, setSocket] = useState(null);
-// //   const [messages, setMessages] = useState([]);
-// //   const [inputValue, setInputValue] = useState('');
-// //   const [activeChat, setActiveChat] = useState(15);
-// //   const [contacts, setContacts] = useState([
-// //     { 
-// //       id: 15, 
-// //       name: 'John Snow', 
-// //       avatar: 'https://avatar.iran.liara.run/public/boy?username=Ash',
-// //       lastMessage: 'Hello, how are you?',
-// //       time: '4:30 PM',
-// //       unreadCount: 3
-// //     },
-// //     { 
-// //       id: 16, 
-// //       name: 'Emma Watson', 
-// //       avatar: 'https://avatar.iran.liara.run/public/girl?username=Emma',
-// //       lastMessage: 'See you later',
-// //       time: '3:45 PM',
-// //       unreadCount: 1
-// //     }
-// //   ]);
-
-// //   useEffect(() => {
-// //     const ws = new WebSocket('wss://api.sentryspot.co.uk/ws');
-
-// //     ws.onopen = () => {
-// //       console.log('WebSocket connection opened');
-// //     };
-
-// //     ws.onmessage = (event) => {
-// //       const incomingMessage = JSON.parse(event.data);
-// //       console.log('Message received:', incomingMessage);
-
-// //       setMessages((prevMessages) => [
-// //         ...prevMessages,
-// //         {
-// //           content: incomingMessage.message,
-// //           time: incomingMessage.timestamp || new Date().toLocaleTimeString(),
-// //           sender: incomingMessage.sender || 'John',
-// //         }
-// //       ]);
-// //     };
-
-// //     ws.onerror = (error) => {
-// //       console.error('WebSocket error:', error);
-// //     };
-
-// //     ws.onclose = () => {
-// //       console.log('WebSocket connection closed');
-// //     };
-
-// //     setSocket(ws);
-
-// //     return () => {
-// //       ws.close();
-// //     };
-// //   }, []);
-
-// //   const sendMessage = () => {
-// //     if (inputValue.trim() === '') return;
-
-// //     const data = {
-// //       message: inputValue,
-// //       receiver_id: activeChat,
-// //       sender_id: 29 
-// //     };
-
-// //     if (socket && socket.readyState === WebSocket.OPEN) {
-// //       socket.send(JSON.stringify(data));
-// //       console.log('Message sent:', data);
-// //       setInputValue('');
-// //     } else {
-// //       console.error('WebSocket is not open');
-// //     }
-// //   };
-
-// //   const handleKeyPress = (e) => {
-// //     if (e.key === 'Enter') {
-// //       sendMessage();
-// //     }
-// //   };
-
-// //   return (
-// //     <div className="flex h-screen bg-gray-100">
-// //       {/* Contacts Sidebar */}
-// //       <div className="w-80 bg-white border-r shadow-md">
-// //       <div className="search-box-one">
-// //               <SearchBox />
-// //             </div>
-// //         <ChatboxContactList />
-// //       </div>
-
-// //       {/* Main Chat Area */}
-// //       <div className="flex-1 flex flex-col">
-// //         {/* Chat Header */}
-// //         <div className="bg-white p-4 shadow-sm flex items-center">
-// //           <img
-// //             src="https://avatar.iran.liara.run/public/boy?username=Ash"
-// //             alt="User avatar"
-// //             className="w-12 h-12 rounded-full mr-4"
-// //           />
-// //           <div>
-// //             <h2 className="text-lg font-semibold text-gray-800">John Snow</h2>
-// //             <p className="text-sm text-green-500">Online</p>
-// //           </div>
-// //         </div>
-
-// //         {/* Messages Display */}
-// //         <div className="flex-1 overflow-y-auto p-6 bg-gray-50">
-// //           <div className="space-y-4">
-// //             {messages.map((msg, index) => (
-// //               <div
-// //                 key={index}
-// //                 className={`flex ${msg.sender === 'John' ? 'justify-start' : 'justify-end'}`}
-// //               >
-// //                 <div className={`
-// //                   max-w-xs p-3 rounded-xl 
-// //                   ${msg.sender === 'John' 
-// //                     ? 'bg-white text-gray-800 rounded-bl-none' 
-// //                     : 'bg-blue-500 text-white rounded-br-none'}
-// //                 `}>
-// //                   <p className="break-words">{msg.content}</p>
-// //                   <div className="text-xs text-opacity-70 text-right mt-1">
-// //                     {msg.time}
-// //                   </div>
-// //                 </div>
-// //               </div>
-// //             ))}
-// //           </div>
-// //         </div>
-
-// //         {/* Input Area */}
-// //         <div className="bg-white p-4 border-t">
-// //           <div className="flex items-center space-x-3">
-// //             <button className="text-gray-500 hover:text-blue-500">
-// //               <FaUserCircle size={24} />
-// //             </button>
-// //             <input
-// //               type="text"
-// //               placeholder="Type a message"
-// //               value={inputValue}
-// //               onChange={(e) => setInputValue(e.target.value)}
-// //               onKeyPress={handleKeyPress}
-// //               className="flex-1 p-2 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
-// //             />
-// //             <button 
-// //               onClick={sendMessage}
-// //               className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition"
-// //             >
-// //               <FaTelegram size={24} />
-// //             </button>
-// //           </div>
-// //         </div>
-// //       </div>
-// //     </div>
-// //   );
-// // };
-
-// // export default ChatBoxContentField;
-// import React, { useEffect, useState } from 'react';
-// import { FaTelegram, FaUserCircle } from "react-icons/fa";
-// import ChatboxContactList from './ContactList';
-// import SearchBox from './SearchBox';
-
-// const ChatBoxContentField = () => {
-//   const [socket, setSocket] = useState(null);
-//   const [messages, setMessages] = useState([]);
-//   const [inputValue, setInputValue] = useState('');
-//   const [activeChat, setActiveChat] = useState(15);
-//   const [contacts, setContacts] = useState([
-//     { 
-//       id: 15, 
-//       name: 'John Snow', 
-//       avatar: 'https://avatar.iran.liara.run/public/boy?username=Ash',
-//       lastMessage: 'Hello, how are you?',
-//       time: '4:30 PM',
-//       unreadCount: 3
-//     },
-//     { 
-//       id: 16, 
-//       name: 'Emma Watson', 
-//       avatar: 'https://avatar.iran.liara.run/public/girl?username=Emma',
-//       lastMessage: 'See you later',
-//       time: '3:45 PM',
-//       unreadCount: 1
-//     }
-//   ]);
-
-//   useEffect(() => {
-//     const ws = new WebSocket('wss://api.sentryspot.co.uk/ws');
-
-//     ws.onopen = () => {
-//       console.log('WebSocket connection opened');
-//     };
-
-//     ws.onmessage = (event) => {
-//       const incomingMessage = JSON.parse(event.data);
-//       console.log('Message received:', incomingMessage);
-
-//       setMessages((prevMessages) => [
-//         ...prevMessages,
-//         {
-//           content: incomingMessage.message,
-//           time: incomingMessage.timestamp || new Date().toLocaleTimeString(),
-//           sender: incomingMessage.sender || 'John',
-//         }
-//       ]);
-//     };
-
-//     ws.onerror = (error) => {
-//       console.error('WebSocket error:', error);
-//     };
-
-//     ws.onclose = () => {
-//       console.log('WebSocket connection closed');
-//     };
-
-//     setSocket(ws);
-
-//     return () => {
-//       ws.close();
-//     };
-//   }, []);
-
-//   const sendMessage = () => {
-//     if (inputValue.trim() === '') return;
-
-//     const data = {
-//       message: inputValue,
-//       receiver_id: activeChat,
-//       sender_id: 29 
-//     };
-
-//     if (socket && socket.readyState === WebSocket.OPEN) {
-//       socket.send(JSON.stringify(data));
-//       console.log('Message sent:', data);
-//       setInputValue('');
-//     } else {
-//       console.error('WebSocket is not open');
-//     }
-//   };
-
-//   const handleKeyPress = (e) => {
-//     if (e.key === 'Enter') {
-//       sendMessage();
-//     }
-//   };
-
-//   return (
-//     <div className="flex h-screen bg-blue-50">
-//       {/* Contacts Sidebar */}
-//       <div className="w-80 bg-white border-r border-blue-100 shadow-lg">
-//         <div className="search-box-one p-2">
-//           <SearchBox />
-//         </div>
-//         <ChatboxContactList />
-//       </div>
-
-//       {/* Main Chat Area */}
-//       <div className="flex-1 flex flex-col">
-//         {/* Chat Header */}
-//         <div className="bg-white p-4 shadow-sm flex items-center border-b border-blue-100">
-//           <img
-//             src="https://avatar.iran.liara.run/public/boy?username=Ash"
-//             alt="User avatar"
-//             className="w-12 h-12 rounded-full mr-4"
-//           />
-//           <div>
-//             <h2 className="text-lg font-semibold text-blue-800">John Snow</h2>
-//             <p className="text-sm text-green-500">Online</p>
-//           </div>
-//         </div>
-
-//         {/* Messages Display */}
-//         <div className="flex-1 overflow-y-auto p-6 bg-blue-50">
-//           <div className="space-y-4">
-//             {messages.map((msg, index) => (
-//               <div
-//                 key={index}
-//                 className={`flex ${msg.sender === 'John' ? 'justify-start' : 'justify-end'}`}
-//               >
-//                 <div className={`
-//                   max-w-xs p-3 rounded-xl 
-//                   ${msg.sender === 'John' 
-//                     ? 'bg-white text-blue-800 border border-blue-100 rounded-bl-none' 
-//                     : 'bg-blue-600 text-white rounded-br-none'}
-//                 `}>
-//                   <p className="break-words">{msg.content}</p>
-//                   <div className={`text-xs text-opacity-70 text-right mt-1 
-//                     ${msg.sender === 'John' ? 'text-blue-500' : 'text-blue-200'}
-//                   `}>
-//                     {msg.time}
-//                   </div>
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-
-//         {/* Input Area */}
-//         <div className="bg-white p-4 border-t border-blue-100">
-//           <div className="flex items-center space-x-3">
-//             <button className="text-blue-500 hover:text-blue-700">
-//               <FaUserCircle size={24} />
-//             </button>
-//             <input
-//               type="text"
-//               placeholder="Type a message"
-//               value={inputValue}
-//               onChange={(e) => setInputValue(e.target.value)}
-//               onKeyPress={handleKeyPress}
-//               className="flex-1 p-2 bg-blue-50 text-blue-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
-//             />
-//             <button 
-//               onClick={sendMessage}
-//               className="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition"
-//             >
-//               <FaTelegram size={24} />
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ChatBoxContentField;
-
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FaTelegram, FaUserCircle } from "react-icons/fa";
-import EnhancedChatboxContactList from './ContactList';
+import EnhancedChatboxContactList, { getDummyImage } from './ContactList';
 import SearchBox from './SearchBox';
 import { Constant } from "@/utils/constant/constant";
 import axios from 'axios';
@@ -718,13 +11,116 @@ const ChatBoxContentField = () => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [activeUser, setActiveUser] = useState(null);
-  const [currentUserId, setCurrentUserId] = useState(null);
-  const {userInfo} = useSelector((state)=>(state.auth))
+  const [users, setUsers] = useState([]);
+  const [loadingMessages, setLoadingMessages] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [lastMessageId, setLastMessageId] = useState(0);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
+  const { userInfo } = useSelector((state) => (state.auth));
+  
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  const loadChatMessages = async (chatUserId, lastId) => {
+    try {
+      const token = localStorage.getItem(Constant.USER_TOKEN);
+      const response = await axios.get(
+        `https://api.sentryspot.co.uk/api/jobseeker/chat-user-list-messages?chat_user_id=${chatUserId}&last_message_id=${lastId}`,
+        {
+          headers: {
+            'Authorization': `${token}`,
+          }
+        }
+      );
+
+      if (response.data.status === "success") {
+        return response.data.data.map(msg => ({
+          id: msg.id,
+          content: msg.message,
+          time: msg.created_at || new Date().toLocaleTimeString(),
+          sender: msg.sender_id,
+        }));
+      }
+      return [];
+    } catch (error) {
+      console.error('Error loading older messages:', error);
+      return [];
+    }
+  };
+
+  const fetchChatHistory = async (chatUserId) => {
+    try {
+      setLoadingMessages(true);
+      const token = localStorage.getItem(Constant.USER_TOKEN);
+      const response = await axios.get(
+        `https://api.sentryspot.co.uk/api/jobseeker/chat-user-list-messages?chat_user_id=${chatUserId}&last_message_id=0`,
+        {
+          headers: {
+            'Authorization': `${token}`,
+          }
+        }
+      );
+
+      if (response.data.status === "success") {
+        const formattedMessages = response.data.data.map(msg => ({
+          id: msg.id,
+          content: msg.message,
+          time: msg.created_at || new Date().toLocaleTimeString(),
+          sender: msg.sender_id,
+        }));
+        setMessages(formattedMessages);
+        if (formattedMessages.length > 0) {
+          setLastMessageId(formattedMessages[0].id);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching chat history:', error);
+    } finally {
+      setLoadingMessages(false);
+    }
+  };
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
-    // Get current user ID from localStorage or context
-    const userData = JSON.parse(localStorage.getItem(Constant.USER_DATA) || '{}');
-    setCurrentUserId(userData.id || 29); // Default to 29 if not found
-    
+    scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
+    const handleScroll = async () => {
+      if (!messagesContainerRef.current || isLoadingMore) return;
+
+      const { scrollTop } = messagesContainerRef.current;
+      if (scrollTop === 0 && activeUser?.chat_user_id) {
+        setIsLoadingMore(true);
+        const olderMessages = await loadChatMessages(activeUser.chat_user_id, lastMessageId);
+        
+        if (olderMessages.length > 0) {
+          setMessages(prev => [...olderMessages, ...prev]);
+          setLastMessageId(olderMessages[0].id);
+        }
+        setIsLoadingMore(false);
+      }
+    };
+
+    const container = messagesContainerRef.current;
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [activeUser?.chat_user_id, lastMessageId, isLoadingMore]);
+  
+  useEffect(() => {
     const ws = new WebSocket('wss://api.sentryspot.co.uk/ws');
 
     ws.onopen = () => {
@@ -735,14 +131,25 @@ const ChatBoxContentField = () => {
       const incomingMessage = JSON.parse(event.data);
       console.log('Message received:', incomingMessage);
 
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
+      // Check if message already exists to prevent duplicates
+      setMessages(prevMessages => {
+        const messageExists = prevMessages.some(msg => 
+          msg.id === incomingMessage.id || 
+          (msg.content === incomingMessage.message && 
+           msg.sender === incomingMessage.sender_id)
+        );
+        
+        if (messageExists) {
+          return prevMessages;
+        }
+
+        return [...prevMessages, {
+          id: incomingMessage.id,
           content: incomingMessage.message,
           time: incomingMessage.timestamp || new Date().toLocaleTimeString(),
-          sender: incomingMessage.sender_id, // Use the actual sender ID
-        }
-      ]);
+          sender: incomingMessage.sender_id,
+        }];
+      });
     };
 
     ws.onerror = (error) => {
@@ -760,63 +167,57 @@ const ChatBoxContentField = () => {
     };
   }, []);
 
-  // When active user changes, fetch their chat history
-  // useEffect(() => {
-  //   if (activeUser && currentUserId) {
-  //     fetchChatHistory(currentUserId, activeUser.jobskkers_detail.id);
-  //   }
-  // }, [activeUser, currentUserId]);
+  // Fetch users list
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('https://api.sentryspot.co.uk/api/jobseeker/chat-user-list', {
+          headers: {
+            'Authorization': ` ${localStorage.getItem(Constant.USER_TOKEN)}`
+          }
+        });
+        if (response.data.status === "success") {
+          setUsers(response.data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
 
-  // const fetchChatHistory = async (senderId, receiverId) => {
-  //   try {
-  //     const token = localStorage.getItem(Constant.USER_TOKEN);
-      
-  //     const response = await axios.get(`https://api.sentryspot.co.uk/api/messages/history`, {
-  //       params: {
-  //         sender_id: senderId,
-  //         receiver_id: receiverId
-  //       },
-  //       headers: {
-  //         'Authorization': `${token}`,
-  //       }
-  //     });
-      
-  //     if (response.data && Array.isArray(response.data.data)) {
-  //       // Transform history data to match our format
-  //       const formattedMessages = response.data.data.map(msg => ({
-  //         content: msg.message,
-  //         time: new Date(msg.created_at).toLocaleTimeString(),
-  //         sender: msg.sender_id
-  //       }));
-        
-  //       setMessages(formattedMessages);
-  //     }
-  //   } catch (err) {
-  //     console.error('Error fetching chat history:', err);
-  //   }
-  // };
+    fetchUsers();
+  }, [userInfo?.token]);
 
-  const handleSelectUser = (user) => {
+  const handleSelectUser = async (user) => {
+    if (!user || !user.chat_user_id) return;
+
     setActiveUser(user);
+    setImageError(false); // Reset image error state for new user
+    // Clear existing messages
+    setMessages([]);
+    setLastMessageId(0);
+    // Fetch chat history for the selected user
+    await fetchChatHistory(user.chat_user_id);
   };
 
   const sendMessage = () => {
-    if (inputValue.trim() === '' || !activeUser) return;
+    if (inputValue.trim() === '' || !activeUser || !userInfo?.id) return;
 
+    const messageId = Date.now(); // Generate a temporary ID for optimistic update
     const data = {
       message: inputValue,
-      receiver_id: 34,
-      sender_id: 61
+      receiver_id: activeUser.chat_user_id,
+      sender_id: userInfo.id
     };
 
     if (socket && socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify(data));
       
-      // Optimistically add message to UI
+      // Optimistically add message to UI with temporary ID
       setMessages(prev => [...prev, {
+        id: messageId,
         content: inputValue,
         time: new Date().toLocaleTimeString(),
-        sender: currentUserId
+        sender: userInfo.id
       }]);
       
       console.log('Message sent:', data);
@@ -837,11 +238,40 @@ const ChatBoxContentField = () => {
       {/* Contacts Sidebar */}
       <div className="w-80 bg-white border-r border-blue-100 shadow-lg">
         <div className="search-box-one p-2">
-          <SearchBox />
+          <SearchBox onSearch={(searchTerm) => {
+            // Reset users to original list when search is cleared
+            if (!searchTerm.trim()) {
+              const fetchUsers = async () => {
+                try {
+                  const response = await axios.get('https://api.sentryspot.co.uk/api/jobseeker/chat-user-list', {
+                    headers: {
+                      'Authorization': ` ${localStorage.getItem(Constant.USER_TOKEN)}`
+                    }
+                  });
+                  if (response.data.status === "success") {
+                    setUsers(response.data.data);
+                  }
+                } catch (error) {
+                  console.error('Error fetching users:', error);
+                }
+              };
+              fetchUsers();
+              return;
+            }
+
+            // Filter users based on search term
+            const filteredUsers = users.filter(user => {
+              const fullName = `${user.first_name} ${user.last_name}`.toLowerCase();
+              const email = (user.email || '').toLowerCase();
+              return fullName.includes(searchTerm) || email.includes(searchTerm);
+            });
+            setUsers(filteredUsers);
+          }} />
         </div>
         <EnhancedChatboxContactList 
           onSelectUser={handleSelectUser}
-          activeUserId={activeUser?.jobskkers_detail?.id}
+          activeUserId={activeUser?.chat_user_id}
+          users={users}
         />
       </div>
 
@@ -852,56 +282,74 @@ const ChatBoxContentField = () => {
             {/* Chat Header */}
             <div className="bg-white p-4 shadow-sm flex items-center border-b border-blue-100">
               <img
-                src={activeUser.jobskkers_detail.profileImage || `https://avatar.iran.liara.run/public/boy?username=${activeUser.jobskkers_detail.first_name}`}
+                src={!imageError && activeUser.photo ? activeUser.photo : getDummyImage(`${activeUser.first_name} ${activeUser.last_name}`)}
                 alt="User avatar"
                 className="w-12 h-12 rounded-full mr-4 object-cover"
+                onError={handleImageError}
               />
               <div>
                 <h2 className="text-lg font-semibold text-blue-800">
-                  {activeUser.jobskkers_detail.first_name} {activeUser.jobskkers_detail.last_name || ''}
+                  {activeUser.first_name} {activeUser.last_name || ''}
                 </h2>
                 <p className="text-sm text-green-500">Online</p>
               </div>
-              {activeUser.jobskkers_detail.job_title && (
+              {activeUser.email && (
                 <span className="ml-auto bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                  {activeUser.jobskkers_detail.job_title}
+                  {activeUser.email}
                 </span>
               )}
             </div>
 
             {/* Messages Display */}
-            <div className="flex-1 overflow-y-auto p-6 bg-blue-50 scrollbar-custom">
-              <div className="space-y-4">
-                {messages.length > 0 ? (
-                  messages.map((msg, index) => (
-                    <div
-                      key={index}
-                      className={`flex ${msg.sender === currentUserId ? 'justify-end' : 'justify-start'}`}
-                    >
-                      <div className={`
-                        max-w-xs p-3 rounded-xl shadow-sm
-                        ${msg.sender === currentUserId 
-                          ? 'bg-blue-600 text-white rounded-br-none' 
-                          : 'bg-white text-blue-800 border border-blue-100 rounded-bl-none'}
-                      `}>
-                        <p className="break-words text-white">{msg.content}</p>
-                        <div className={`text-xs text-opacity-70 text-right mt-1 
-                          ${msg.sender === currentUserId ? 'text-blue-200' : 'text-blue-500'}
+            <div 
+              ref={messagesContainerRef}
+              className="flex-1 overflow-y-auto p-6 bg-blue-50 scrollbar-custom"
+            >
+              {loadingMessages ? (
+                <div className="flex items-center justify-center h-full">
+                  <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {isLoadingMore && (
+                    <div className="flex justify-center">
+                      <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-blue-500"></div>
+                    </div>
+                  )}
+                  {messages.length > 0 ? (
+                    messages.map((msg) => (
+                      <div
+                        key={msg.id}
+                        className={`flex ${msg.sender === userInfo?.id ? 'justify-end' : 'justify-start'}`}
+                      >
+                        <div className={`
+                          max-w-xs p-3 rounded-xl shadow-sm
+                          ${msg.sender === userInfo?.id 
+                            ? 'bg-blue-600 text-white rounded-br-none' 
+                            : 'bg-white text-blue-800 border border-blue-100 rounded-bl-none'}
                         `}>
-                          {msg.time}
+                          <p className={`break-words ${msg.sender === userInfo?.id ? 'text-white' : 'text-blue-800'}`}>
+                            {msg.content}
+                          </p>
+                          <div className={`text-xs text-opacity-70 text-right mt-1 
+                            ${msg.sender === userInfo?.id ? 'text-blue-200' : 'text-blue-500'}
+                          `}>
+                            {msg.time}
+                          </div>
                         </div>
                       </div>
+                    ))
+                  ) : (
+                    <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+                      <svg className="w-16 h-16 mb-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                      </svg>
+                      <p>No messages yet. Start a conversation!</p>
                     </div>
-                  ))
-                ) : (
-                  <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-                    <svg className="w-16 h-16 mb-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                    </svg>
-                    <p>No messages yet. Start a conversation!</p>
-                  </div>
-                )}
-              </div>
+                  )}
+                  <div ref={messagesEndRef} />
+                </div>
+              )}
             </div>
 
             {/* Input Area */}
@@ -945,7 +393,3 @@ const ChatBoxContentField = () => {
 };
 
 export default ChatBoxContentField;
-
-
-
-

@@ -1,6 +1,8 @@
+
 import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import FooterDefault from "@/components/footer/common-footer/index";
 import React from "react";
+import { FaSearch } from "react-icons/fa";
 
 export default function JobSearch() {
   return (
@@ -10,11 +12,7 @@ export default function JobSearch() {
       {/* Header Section */}
       <div className="bg-[#051947] py-12 text-center">
         <div className="flex justify-center mb-4">
-          <img
-            src="/images/jobsearch-icon.png" // ✅ Replace with your image path
-            alt="Job Search Icon"
-            className="w-12 h-12"
-          />
+          <FaSearch className="w-12 h-12 text-white" />
         </div>
         <h1 className="text-white text-3xl font-bold">
           Job Search on SentrySpot
@@ -62,13 +60,13 @@ export default function JobSearch() {
           <div className="text-sm text-gray-600">
             ✔️ Checklist:
             <ul className="list-disc list-inside ml-4 ">
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Valid email address for sign-up
               </li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Strong password for account security
               </li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Verified email to access the platform
               </li>
             </ul>
@@ -92,15 +90,15 @@ export default function JobSearch() {
             recommend the most suitable job listings for you.
           </p>
           <ul className="list-disc list-inside mb-2">
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Add Your Skills: List your core skills such as cybersecurity
               analysis, threat detection, or access control systems.
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Upload Your Resume: Use our AI-powered resume builder to create or
               upload a professional resume.
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Complete Your Profile: Fill in key details like your education,
               experience, and certifications.
             </li>
@@ -109,11 +107,13 @@ export default function JobSearch() {
           <div className="text-sm text-gray-600">
             ✔️ Checklist:
             <ul className="list-disc list-inside ml-4">
-              <li style={{ listStyle: "inside" }}>Detailed skills list</li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
+                Detailed skills list
+              </li>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Resume uploaded or created with SentrySpot's AI
               </li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Education and work experience fully listed
               </li>
             </ul>
@@ -131,15 +131,15 @@ export default function JobSearch() {
           </p>
           <h3 className="text-lg font-semibold mb-2">Filter and Find Jobs:</h3>
           <ul className="list-disc list-inside mb-2">
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Use Filters: Narrow down job listings by role, location, salary,
               and other preferences (e.g., full-time, part-time, remote).
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               AI-Powered Recommendations: Our AI engine matches you with jobs
               that best fit your qualifications and interests.
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Bookmark Jobs: If you're not ready to apply yet, you can bookmark
               jobs to save them for later.
             </li>
@@ -147,13 +147,13 @@ export default function JobSearch() {
           <div className="text-sm text-gray-600">
             ✔️ Checklist:
             <ul className="list-disc list-inside ml-4">
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Set your job filters (location, role, etc.)
               </li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Review AI job recommendations
               </li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Bookmark any jobs of interest
               </li>
             </ul>
@@ -168,16 +168,16 @@ export default function JobSearch() {
             SentrySpot.
           </p>
           <ul className="list-disc list-inside mb-2">
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Quick Apply: Many listings allow you to apply in just one click.
               Review your profile and submit!
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Customize Your Application: For some roles, you can tailor your
               resume or add a personalized cover letter for a better chance of
               success.
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Track Application Status: Once submitted, you can monitor the
               progress of your application through your dashboard.
             </li>
@@ -185,13 +185,13 @@ export default function JobSearch() {
           <div className="text-sm text-gray-600">
             ✔️ Checklist:
             <ul className="list-disc list-inside ml-4">
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Customize your resume and cover letter (if applicable)
               </li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Use the "Quick Apply" feature for easy submissions
               </li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Track application status in real-time
               </li>
             </ul>
@@ -210,12 +210,12 @@ export default function JobSearch() {
             job-ready.
           </p>
           <ul className="list-disc list-inside mb-2">
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Take Skill Tests: Choose from a range of assessments based on your
               job role (e.g., penetration testing, physical security, risk
               management).
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Earn Certifications: Once you pass, your certifications are added
               directly to your profile, making it visible to recruiters.
             </li>
@@ -223,13 +223,13 @@ export default function JobSearch() {
           <div className="text-sm text-gray-600">
             ✔️ Checklist:
             <ul className="list-disc list-inside ml-4">
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Identify relevant skill tests for your field
               </li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Complete tests to improve your profile
               </li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 {" "}
                 Showcase certifications in your application
               </li>
@@ -247,15 +247,15 @@ export default function JobSearch() {
             applications and prepare for interviews.
           </p>
           <ul className="list-disc list-inside mb-2">
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Application Tracker: Track the status of your job applications
               (e.g., submitted, in review, interview scheduled).
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Interview Notifications: If you’re selected for an interview,
               you’ll be notified via email and on your dashboard.
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Interview Prep: Access our interview preparation guides and tips
               to help you succeed in your interviews.
             </li>
@@ -263,13 +263,13 @@ export default function JobSearch() {
           <div className="text-sm text-gray-600">
             ✔️ Checklist:
             <ul className="list-disc list-inside ml-4">
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Regularly check your application tracker
               </li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Prepare for upcoming interviews with SentrySpot resources
               </li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Attend interviews with confidence
               </li>
             </ul>
@@ -288,15 +288,15 @@ export default function JobSearch() {
             growth.
           </p>
           <ul className="list-disc list-inside mb-2">
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Get Job Alerts: Stay informed about new opportunities by setting
               up job alerts.
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Continue Learning: Participate in advanced skill assessments and
               earn certifications to enhance your career.
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Join the SentrySpot Community: Network with other professionals
               and stay updated on the latest in security.
             </li>
@@ -304,13 +304,13 @@ export default function JobSearch() {
           <div className="text-sm text-gray-600">
             ✔️ Checklist:
             <ul className="list-disc list-inside ml-4">
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Set job alerts for ongoing opportunities
               </li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Take advanced certifications for career growth
               </li>
-              <li style={{ listStyle: "inside" }}>
+              <li style={{ listStyle: "inside", fontWeight: "400" }}>
                 Engage with the SentrySpot community
               </li>
             </ul>

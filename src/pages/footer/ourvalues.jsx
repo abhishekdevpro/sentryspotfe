@@ -1,6 +1,8 @@
+
 import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import FooterDefault from "@/components/footer/common-footer/index";
 import React from "react";
+import { FaHandshake } from "react-icons/fa";
 
 export default function OurValues() {
   return (
@@ -11,11 +13,7 @@ export default function OurValues() {
       <div className="bg-[#051947] py-12 text-center">
         <div className="flex justify-center mb-4">
           {/* Replace with your actual values icon */}
-          <img
-            src="/images/values-icon.png" // ✅ Update with your image path
-            alt="Values Icon"
-            className="w-12 h-12"
-          />
+          <FaHandshake className="w-12 h-12 text-white" />
         </div>
         <h1 className="text-white text-3xl font-bold">Our Values</h1>
       </div>

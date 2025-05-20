@@ -1,8 +1,5 @@
-
-
-
 import { useEffect, useState } from "react";
-import InputRange from "react-input-range";
+import { Slider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { addDestination } from "../../../features/filter/filterSlice";
 
@@ -17,8 +14,11 @@ const DestinationRangeSlider = () => {
     const dispatch = useDispatch();
 
     // destination handler
-    const handleOnChange = ({ min, max }) => {
-        dispatch(addDestination({ min, max }));
+    const handleOnChange = (event, newValue) => {
+        dispatch(addDestination({
+            min: newValue[0],
+            max: newValue[1]
+        }));
     };
 
     useEffect(() => {
@@ -26,16 +26,29 @@ const DestinationRangeSlider = () => {
             min: jobList.destination.min,
             max: jobList.destination.max,
         });
-    }, [setDestination, jobList]);
+    }, [jobList.destination]);
 
     return (
         <div className="range-slider-one">
-            <InputRange
-                formatLabel={(value) => ``}
-                minValue={0}
-                maxValue={100}
-                value={{ min: destination.min, max: destination.max }}
-                onChange={(value) => handleOnChange(value)}
+            <Slider
+                value={[destination.min, destination.max]}
+                onChange={handleOnChange}
+                valueLabelDisplay="auto"
+                min={0}
+                max={100}
+                sx={{
+                    color: '#1976d2',
+                    '& .MuiSlider-thumb': {
+                        height: 24,
+                        width: 24,
+                    },
+                    '& .MuiSlider-track': {
+                        height: 8,
+                    },
+                    '& .MuiSlider-rail': {
+                        height: 8,
+                    },
+                }}
             />
             <div className="input-outer">
                 <div className="amount-outer">

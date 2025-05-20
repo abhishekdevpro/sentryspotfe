@@ -1,6 +1,8 @@
+
 import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import FooterDefault from "@/components/footer/common-footer/index";
 import React from "react";
+import { MdSupportAgent } from "react-icons/md";
 
 export default function GrievanceRedressal() {
   return (
@@ -10,11 +12,7 @@ export default function GrievanceRedressal() {
       {/* Header Section */}
       <div className="bg-[#051947] py-12 text-center">
         <div className="flex justify-center mb-4">
-          <img
-            src="/images/grievance-icon.png" // ✅ Replace with your actual icon path
-            alt="Grievance Icon"
-            className="w-12 h-12"
-          />
+          <MdSupportAgent className="w-12 h-12 text-white" />
         </div>
         <h1 className="text-white text-3xl font-bold">Grievance Redressal</h1>
       </div>
@@ -46,15 +44,19 @@ export default function GrievanceRedressal() {
             sure to include the following:
           </p>
           <ul className="list-disc list-inside pl-4 mt-2 space-y-1">
-            <li style={{ listStyle: "inside" }}>Your full name</li>
-            <li style={{ listStyle: "inside" }}>Contact information</li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
+              Your full name
+            </li>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
+              Contact information
+            </li>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               SentrySpot ID (if applicable)
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               A clear description of the issue you're facing
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Any supporting documents or screenshots that may help us
               understand the problem better
             </li>
@@ -73,13 +75,13 @@ export default function GrievanceRedressal() {
           <h2 className="text-2xl font-semibold mb-4">What Happens Next?</h2>
           <p>Once we receive your grievance, our team will:</p>
           <ul className="list-disc list-inside pl-4 mt-2 space-y-1">
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Acknowledge your email within <strong>24 hours</strong>
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Investigate the issue thoroughly
             </li>
-            <li style={{ listStyle: "inside" }}>
+            <li style={{ listStyle: "inside", fontWeight: "400" }}>
               Provide a resolution or further steps within{" "}
               <strong>5 working days</strong>
             </li>

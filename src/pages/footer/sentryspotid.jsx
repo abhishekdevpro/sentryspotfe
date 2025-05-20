@@ -1,6 +1,8 @@
+
 import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import FooterDefault from "@/components/footer/common-footer/index";
 import React from "react";
+import { HiIdentification } from "react-icons/hi";
 
 export default function SentrySpotID() {
   return (
@@ -10,11 +12,7 @@ export default function SentrySpotID() {
       {/* Header Section */}
       <div className="bg-[#051947] py-12 text-center">
         <div className="flex justify-center mb-4">
-          <img
-            src="/images/id-icon.png" // ✅ Replace with your actual icon path
-            alt="SentrySpot ID Icon"
-            className="w-12 h-12"
-          />
+          <HiIdentification className="w-12 h-12 text-white" />
         </div>
         <h1 className="text-white text-3xl font-bold">SentrySpot ID</h1>
       </div>

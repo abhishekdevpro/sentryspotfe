@@ -1,7 +1,8 @@
+
 import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import FooterDefault from "@/components/footer/common-footer/index";
 import React from "react";
-
+import { FiInfo } from "react-icons/fi";
 export default function AboutUs() {
   return (
     <div className="about-us-page">
@@ -9,11 +10,7 @@ export default function AboutUs() {
       {/* Header Section */}
       <div className="bg-[#051947] py-12 text-center">
         <div className="flex justify-center mb-4">
-          <img
-            src="/images/about-icon.png" // ✅ Replace with your actual icon path
-            alt="About Icon"
-            className="w-12 h-12"
-          />
+          <FiInfo className="w-12 h-12 text-white" />
         </div>
         <h1 className="text-white text-3xl font-bold">About Us</h1>
       </div>
