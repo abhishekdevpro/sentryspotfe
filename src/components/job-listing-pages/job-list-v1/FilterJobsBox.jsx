@@ -15,6 +15,7 @@ import "slick-carousel/slick/slick-theme.css";
 import CoursesTabs from "./CoursesTabs";
 import toast from "react-hot-toast";
 import HomeBanner from "./HomeBanner";
+import PricingSection from "@/components/Payments/PricingSection";
 
 const FilterJobsBox = () => {
   const [jobs, setJobs] = useState([]);
@@ -493,6 +494,7 @@ const FilterJobsBox = () => {
             <CoursesTabs />
           </div>
         </div>
+        <PricingSection />
         <div className="Blog">
           <div className="container">
             <div className="BlogHeading">
