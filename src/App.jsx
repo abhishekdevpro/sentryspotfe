@@ -156,6 +156,9 @@ import PrivacyPolicy from "./pages/footer/privacypolicy";
 import TermsAndConditions from "./pages/footer/termsandconditions";
 
 import Showcase from "./pages/showcase";
+import PaymentPage from "./components/Payments/PaymentDetails";
+import Subscription from "./components/Payments/Subscription";
+import PaymentPlans from "./components/Payments/PaymentPlans";
 
 function App() {
   useEffect(() => {
@@ -270,6 +273,11 @@ function App() {
                   {/* <Route path="candidates-single-v2/:id" element={<CandidateSingleDynamicV2 />} />
                   <Route path="candidates-single-v3/:id" element={<CandidateSingleDynamicV3 />} /> */}
 
+
+                     {/* Paymenst */}
+                     <Route path="/payments/subscription" element={<Subscription />} />
+                     <Route path="/payments/plans" element={<PaymentPlans />} />
+                     <Route path="/payments/selected-plan" element={<PaymentPage />} />
                   <Route path="blog-list-v1" element={<BlogListpage1 />} />
                   <Route path="skilltest" element={<Skilltestpage />} />
                   <Route path="buildresume" element={<Buildresume />} />
