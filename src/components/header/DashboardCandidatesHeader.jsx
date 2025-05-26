@@ -15,15 +15,19 @@ const DashboardCandidatesHeader = () => {
   const [notifications, setNotifications] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
   const navigate = useNavigate()
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
   // Close the dropdown if clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!event.target.closest("#user-dropdown")) {
+      if (!event.target.closest("#user-dropdown-mobile")) {
         setIsOpen(false);
       }
       if (!event.target.closest("#notification-dropdown")) {
         setIsNotificationModalOpen(false);
+      }
+      if (!event.target.closest("#user-dropdown-desktop")) {
+        setIsUserDropdownOpen(false);
       }
     };
     document.addEventListener("click", handleClickOutside);
@@ -190,7 +194,60 @@ const DashboardCandidatesHeader = () => {
 
               <i className="las la-comment hidden md:block text-3xl mx-4 text-blue-900"></i>
 
-              <div id="user-dropdown" className="">
+              {/* Desktop User Dropdown */}
+              <div id="user-dropdown-desktop" className="hidden md:block relative ml-4">
+                <button
+                  className="flex items-center bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-t-lg focus:outline-none transition duration-200"
+                  onClick={() => setIsUserDropdownOpen((prev) => !prev)}
+                >
+                  <span className="mr-2">
+                    <svg className="inline-block w-5 h-5 mr-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 15c2.5 0 4.847.655 6.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                  </span>
+                  {userInfo?.name || "User"}
+                </button>
+                {isUserDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-xl shadow-lg z-50 text-left">
+                    <div className="px-4 pt-4 pb-2 border-b border-gray-100">
+                      <div className="text-sm text-gray-600">Current Plan: <span className="bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded">Free</span></div>
+                    </div>
+                    <ul className="py-2 text-base text-gray-700">
+                      <li>
+                        <Link
+                          to="/candidates-dashboard"
+                          className="flex items-center px-4 py-2 hover:bg-gray-100"
+                          onClick={() => setIsUserDropdownOpen(false)}
+                        >
+                          <span className="mr-2"><svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6m-6 0H7m6 0v6m0 0H7m6 0h6" /></svg></span>
+                          Dashboard
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/candidates-dashboard/settings"
+                          className="flex items-center px-4 py-2 hover:bg-gray-100"
+                          onClick={() => setIsUserDropdownOpen(false)}
+                        >
+                          <span className="mr-2"><svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg></span>
+                          Settings
+                        </Link>
+                      </li>
+                      <li>
+                        <button
+                          className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-left"
+                          onClick={() => { setIsUserDropdownOpen(false); logoutHandler(); }}
+                        >
+                          <span className="mr-2"><IoLogOutOutline size={20} /></span>
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+              {/* End Desktop User Dropdown */}
+
+              {/* Mobile User Dropdown (existing) */}
+              <div id="user-dropdown-mobile" className="md:hidden">
                 <i
                   className="las la-user md:hidden text-3xl text-blue-900 me-3 flex items-center focus:outline-none cursor-pointer"
                   onClick={() => setIsOpen(!isOpen)}
@@ -235,7 +292,7 @@ const DashboardCandidatesHeader = () => {
                      
                       <li>
                         <Link
-                          to={"/candidates-dashboard/my-profile"}
+                          to={"/candidates-dashboard/settings"}
                           className="block px-4 py-2 hover:bg-gray-100  "
                         >
                           Settings

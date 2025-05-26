@@ -1,4 +1,3 @@
-
 import Aos from "aos";
 import "aos/dist/aos.css";
 import "./styles/index.scss";
@@ -72,7 +71,6 @@ import BlogListpage2 from "./pages/blog/blog-list-v2";
 import BlogListpage3 from "./pages/blog/blog-list-v3";
 import BlogDetailsDynamic from "./pages/blog/blog-details";
 import AboutPage from "./pages/others/about";
-import PricingPage from "./pages/others/pricing";
 import FaqPage from "./pages/others/faq";
 import TermsPage from "./pages/others/terms";
 import InvoicePage from "./pages/others/invoice";
@@ -103,7 +101,7 @@ import RegisterPage from "./pages/others/register";
 import ShopListPage from "./pages/shop/shop-list";
 import ShopSingleDyanmic from "./pages/shop/shop-single";
 import CartPage from "./pages/shop/cart";
-import CheckoutPage from "./pages/shop/checkout";
+import ShopCheckoutPage from "./pages/shop/checkout";
 import OrderCompletedPage from "./pages/shop/order-completed";
 
 // new routes
@@ -159,6 +157,9 @@ import Showcase from "./pages/showcase";
 import PaymentPage from "./components/Payments/PaymentDetails";
 import Subscription from "./components/Payments/Subscription";
 import PaymentPlans from "./components/Payments/PaymentPlans";
+import SettingsPage from "./pages/candidates-dashboard/settings";
+import PricingPage from "./pages/candidates-dashboard/pricing";
+import CheckoutPage from "./pages/candidates-dashboard/checkout";
 
 function App() {
   useEffect(() => {
@@ -338,6 +339,7 @@ function App() {
                   />
 
                   <Route path="pricing" element={<PricingPage />} />
+                  <Route path="checkout" element={<CheckoutPage />} />
                   <Route path="faq" element={<FaqPage />} />
                   <Route path="terms" element={<TermsPage />} />
                   <Route path="invoice" element={<InvoicePage />} />
@@ -405,6 +407,7 @@ function App() {
                     <Route path="job-alerts" element={<JobAlertPage />} />
                     <Route path="messages" element={<MessageesPage />} />
                     <Route path="my-profile" element={<MyProfilePage />} />
+                    <Route path="settings" element={<SettingsPage />} />
                     <Route path="my-resume" element={<MyResumePage />} />
                     <Route path="packages" element={<PackagePage />} />
                     <Route
@@ -420,6 +423,8 @@ function App() {
                       element={<ShortListedJobsPage />}
                     />
                     <Route path="courses" element={<CoursePage />} />
+                    <Route path="pricing" element={<PricingPage />} />
+                    <Route path="checkout" element={<CheckoutPage />} />
                   </Route>
 
                   <Route path="shop">
@@ -429,7 +434,7 @@ function App() {
                       element={<ShopSingleDyanmic />}
                     />
                     <Route path="cart" element={<CartPage />} />
-                    <Route path="checkout" element={<CheckoutPage />} />
+                    <Route path="checkout" element={<ShopCheckoutPage />} />
                     <Route
                       path="order-completed"
                       element={<OrderCompletedPage />}
