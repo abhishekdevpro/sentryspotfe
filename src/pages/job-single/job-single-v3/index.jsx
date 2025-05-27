@@ -54,6 +54,7 @@ const JobSingleDynamicV3 = () => {
   const [error, setError] = useState(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [actionStatus, setActionStatus] = useState({});
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -74,28 +75,80 @@ const JobSingleDynamicV3 = () => {
     setActionStatus((prev) => ({ ...prev, [jobId]: "applied" })); // Set status to "applied"
   };
 
-  useEffect(() => {
-    const fetchJobDetails = async () => {
-      try {
-        const response = await axiosInstance.get(`/jobseeker/job-list/${id}`);
-        setJobData(response.data.data);
+  const handleFollowCompany = async (e) => {
+    e.preventDefault();
+    if (!token) {
+      setShowLoginModal(true);
+      return;
+    }
+    try {
+      const response = await axios.post(
+        `https://api.sentryspot.co.uk/api/jobseeker/company-favorite`,
+        {
+          company_id: jobData.company_id
+        },
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+      );
+      if (response.data.status === "success" || response.data.code === 200) {
+        toast.success(response.data.message || "Company followed successfully!");
+        setIsFollowing(!isFollowing);
+        // Update jobData with new company_favorite_id
+        setJobData(prevData => ({
+          ...prevData,
+          company_favorite_id: isFollowing ? 0 : response.data.data?.company_favorite_id || 1
+        }));
+      } else {
+        toast.error("Failed to follow company. Please try again.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while following the company. Please try again.");
+    }
+  };
 
-        if (response.data.data.company_id) {
-          const companyResponse = await axiosInstance.get(`/jobseeker/companies/${response.data.data.company_id}`);
+  useEffect(() => {
+    const fetchJobAndCompanyDetails = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const token = localStorage.getItem(Constant.USER_TOKEN);
+
+        // Fetch job details
+        const jobResponse = await axios.get(`https://api.sentryspot.co.uk/api/jobseeker/job-list/${id}`, {
+          headers: {
+            Authorization: ` ${token}`
+          }
+        });
+        const jobData = jobResponse.data.data;
+        setJobData(jobData);
+        // Set initial following state based on company_favorite_id
+        setIsFollowing(jobData.company_favorite_id > 0);
+
+        // If company_id exists, fetch company details in parallel
+        if (jobData.company_id) {
+          const companyResponse = await axios.get(`https://api.sentryspot.co.uk/api/jobseeker/companies/${jobData.company_id}`, {
+            headers: {
+              Authorization: ` ${token}`
+            }
+          });
           setCompany(companyResponse.data.data);
         }
 
-        setLoading(false);
       } catch (error) {
-        console.error("Error fetching job details:", error);
-        toast.error(error.response?.data?.message || "Failed to fetch job details");
-        setError(error.response?.data?.message || "Failed to fetch job details");
+        const errorMessage = error.response?.data?.message || "Failed to fetch details";
+        console.error("Error fetching details:", error);
+        toast.error(errorMessage);
+        setError(errorMessage);
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchJobDetails();
-  }, [id]);
+    fetchJobAndCompanyDetails();
+  }, [id, token]);
 
   const handleApplyClick = (e) => {
     e.preventDefault();
@@ -250,30 +303,41 @@ const JobSingleDynamicV3 = () => {
               <div className="sidebar-column col-lg-4 col-md-12 col-sm-12">
                 <aside className="sidebar">
                   <div className="space-y-4">
-               
-                      <button
-  className="w-full py-3 text-center bg-blue-500 hover:bg-blue-600 text-white rounded-md transition duration-300 ease-in-out transform hover:scale-105"
-  onClick={() => handleApplyNowClick(jobData.id)}
-  disabled={jobData?.is_applied} // Disable if already applied
->
-  {jobData?.is_applied ? "Already Applied" : "Apply For Job"}
-</button>
-                 
+                    <button
+                      className="w-full py-3 text-center bg-blue-500 hover:bg-blue-600 text-white rounded-md transition duration-300 ease-in-out transform hover:scale-105"
+                      onClick={() => handleApplyNowClick(jobData.id)}
+                      disabled={jobData?.is_applied}
+                    >
+                      {jobData?.is_applied ? "Already Applied" : "Apply For Job"}
+                    </button>
 
                     <button
-  className={`flex items-center justify-center space-x-2 px-4 py-2 text-white rounded-md transition duration-300 ease-in-out transform hover:scale-105 w-full ${
-    jobData.is_favorite
-      ? "bg-green-500 hover:bg-green-600" // Favorited state
-      : "bg-blue-500 hover:bg-blue-600"   // Not favorited
-  }`}
-  onClick={handleBookmarkClick}
->
-  <i className="flaticon-bookmark text-xl" />
-  <span className="font-semibold">
-    {jobData.is_favorite ? "Saved" : "Unsave"}
-  </span>
-</button>
+                      className={`flex items-center justify-center space-x-2 px-4 py-2 text-white rounded-md transition duration-300 ease-in-out transform hover:scale-105 w-full ${
+                        jobData.is_favorite
+                          ? "bg-green-500 hover:bg-green-600"
+                          : "bg-blue-500 hover:bg-blue-600"
+                      }`}
+                      onClick={handleBookmarkClick}
+                    >
+                      <i className="flaticon-bookmark text-xl" />
+                      <span className="font-semibold">
+                        {jobData.is_favorite ? "Saved" : "Unsave"}
+                      </span>
+                    </button>
 
+                    <button
+                      className={`flex items-center justify-center space-x-2 px-4 py-2 text-white rounded-md transition duration-300 ease-in-out transform hover:scale-105 w-full ${
+                        isFollowing
+                          ? "bg-green-500 hover:bg-green-600"
+                          : "bg-blue-500 hover:bg-blue-600"
+                      }`}
+                      onClick={handleFollowCompany}
+                    >
+                      <i className="flaticon-user text-xl" />
+                      <span className="font-semibold">
+                        {isFollowing ? "Following" : "Follow Company"}
+                      </span>
+                    </button>
                   </div>
 
                   <div

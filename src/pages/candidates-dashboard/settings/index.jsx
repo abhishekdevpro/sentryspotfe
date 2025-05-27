@@ -224,10 +224,10 @@ const SettingsPage = () => {
                         <div className="flex items-center gap-3 mt-2">
                           <button
                             type="button"
-                            className={`w-10 h-6 flex items-center rounded-full p-1 transition-colors duration-200 ${marketingNotif ? 'bg-green-500' : 'bg-gray-300'}`}
-                            onClick={() => handleToggleChange('marketing')}
+                            className="w-10 h-6 flex items-center rounded-full p-1 bg-gray-300 cursor-not-allowed"
+                            disabled
                           >
-                            <span className={`w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ${marketingNotif ? 'translate-x-4' : ''}`}></span>
+                            <span className="w-4 h-4 bg-white rounded-full shadow"></span>
                           </button>
                           <span className="text-gray-800">I am open to receive marketing communications.</span>
                         </div>
