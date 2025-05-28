@@ -63,10 +63,10 @@ const UserProfilePage = () => {
     <div className="min-h-screen bg-gray-100">
       {/* Profile Header */}
       <div className="w-full">
-        <div className="h-32 bg-blue-900 bg-opacity-30"></div>
-        <div className="px-4 relative">
-          <div className="absolute -top-16 left-1/2 transform -translate-x-1/2">
-            <div className="rounded-full h-32 w-32 border-4 border-white bg-blue-600 overflow-hidden">
+        <div className="h-24 sm:h-32 bg-blue-900 bg-opacity-30"></div>
+        <div className="px-2 sm:px-4 relative">
+          <div className="absolute -top-12 sm:-top-16 left-1/2 transform -translate-x-1/2">
+            <div className="rounded-full h-24 w-24 sm:h-32 sm:w-32 border-4 border-white bg-blue-600 overflow-hidden">
               <img
                 src={getProfilePhoto()}
                 alt={getFullName()}
@@ -74,17 +74,17 @@ const UserProfilePage = () => {
               />
             </div>
           </div>
-          <div className="pt-20 pb-4 text-center">
-            <h1 className="text-2xl font-semibold text-blue-900">{getFullName()}</h1>
-            <div className="flex justify-center mt-4 mb-6 space-x-4">
+          <div className="pt-16 sm:pt-20 pb-4 text-center">
+            <h1 className="text-xl sm:text-2xl font-semibold text-blue-900">{getFullName()}</h1>
+            <div className="flex flex-col sm:flex-row justify-center mt-4 mb-6 space-y-2 sm:space-y-0 sm:space-x-4">
               {userInfo?.phone && (
-                <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md">
-                  <Phone className="mr-2 h-5 w-5" />
+                <button className="flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md text-sm sm:text-base">
+                  <Phone className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                   <span>Call</span>
                 </button>
               )}
-              <button className="flex items-center px-4 py-2 border border-gray-300 rounded-md">
-                <Share2 className="mr-2 h-5 w-5" />
+              <button className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md text-sm sm:text-base">
+                <Share2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 <span>Share</span>
               </button>
             </div>
@@ -93,46 +93,48 @@ const UserProfilePage = () => {
       </div>
 
       {/* User details */}
-      <div className="px-4 py-4 border-t border-b border-gray-200">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="px-2 sm:px-4 py-4 border-t border-b border-gray-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {userInfo?.current_location && (
-            <div className="text-center">
-              <p className="text-gray-500 text-sm">Current Location</p>
-              <p className="font-medium text-blue-900">{userInfo.current_location}</p>
+            <div className="text-center p-2">
+              <p className="text-gray-500 text-xs sm:text-sm">Current Location</p>
+              <p className="font-medium text-blue-900 text-sm sm:text-base">{userInfo.current_location}</p>
             </div>
           )}
           {userInfo?.preferred_location && (
-            <div className="text-center">
-              <p className="text-gray-500 text-sm">Preferred Location</p>
-              <p className="font-medium text-blue-900">{userInfo.preferred_location.join(', ')}</p>
+            <div className="text-center p-2">
+              <p className="text-gray-500 text-xs sm:text-sm">Preferred Location</p>
+              <p className="font-medium text-blue-900 text-sm sm:text-base">{userInfo.preferred_location.join(', ')}</p>
             </div>
           )}
           {userInfo?.email && (
-            <div className="text-center">
-              <p className="text-gray-500 text-sm">Email</p>
-              <p className="font-medium text-blue-900">{userInfo.email}</p>
+            <div className="text-center p-2">
+              <p className="text-gray-500 text-xs sm:text-sm">Email</p>
+              <p className="font-medium text-blue-900 text-sm sm:text-base break-words">{userInfo.email}</p>
             </div>
           )}
           {userInfo?.phone && (
-            <div className="text-center">
-              <p className="text-gray-500 text-sm">Phone</p>
-              <p className="font-medium text-blue-900">{userInfo.phone}</p>
+            <div className="text-center p-2">
+              <p className="text-gray-500 text-xs sm:text-sm">Phone</p>
+              <p className="font-medium text-blue-900 text-sm sm:text-base">{userInfo.phone}</p>
             </div>
           )}
         </div>
         <div className="flex justify-end mt-4">
-          <div className="flex items-center text-gray-500 text-sm">
-            <Calendar className="h-4 w-4 mr-1" />
+          <div className="flex items-center text-gray-500 text-xs sm:text-sm">
+            <Calendar className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
             <span>Last Login: {getLastLoginDate()}</span>
           </div>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="px-4 border-b border-gray-200">
-        <div className="flex">
+      <div className="px-2 sm:px-4 border-b border-gray-200">
+        <div className="flex overflow-x-auto">
           <button
-            className={`px-4 py-3 font-medium ${activeTab === 'resume' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}
+            className={`px-3 sm:px-4 py-2 sm:py-3 font-medium whitespace-nowrap text-sm sm:text-base ${
+              activeTab === 'resume' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'
+            }`}
             onClick={() => setActiveTab('resume')}
           >
             <div className="flex items-center">
@@ -141,7 +143,9 @@ const UserProfilePage = () => {
             </div>
           </button>
           <button
-            className={`px-4 py-3 font-medium ${activeTab === 'profile' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}
+            className={`px-3 sm:px-4 py-2 sm:py-3 font-medium whitespace-nowrap text-sm sm:text-base ${
+              activeTab === 'profile' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'
+            }`}
             onClick={() => setActiveTab('profile')}
           >
             <div className="flex items-center">
@@ -153,8 +157,8 @@ const UserProfilePage = () => {
       </div>
 
       {/* Content area */}
-      <div className="p-4 bg-gray-200">
-        <div className="p-6 bg-white rounded shadow-sm">
+      <div className="p-2 sm:p-4 bg-gray-200">
+        <div className="p-3 sm:p-6 bg-white rounded shadow-sm">
           {activeTab === 'resume' && (
             <div>
               {userInfo?.resume ? (
@@ -162,21 +166,21 @@ const UserProfilePage = () => {
                   <iframe
                     src={`https://api.sentryspot.co.uk${userInfo.resume}`}
                     title="Resume"
-                    className="w-full h-96 border rounded"
+                    className="w-full h-64 sm:h-96 border rounded"
                   ></iframe>
                   <div className="mt-4 text-center">
                     <a
                       href={`https://api.sentryspot.co.uk${userInfo.resume}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 underline"
+                      className="text-blue-600 underline text-sm sm:text-base"
                     >
                       Download Resume
                     </a>
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-4 text-gray-600">
+                <div className="text-center py-4 text-gray-600 text-sm sm:text-base">
                   No Resume Found!
                 </div>
               )}
@@ -184,36 +188,45 @@ const UserProfilePage = () => {
           )}
           {activeTab === 'profile' && (
             <div className="space-y-4">
-              <h3 className="text-lg font-medium text-blue-900">Personal Information</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <h3 className="text-base sm:text-lg font-medium text-blue-900">Personal Information</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {userInfo?.job_seeker_uuid && (
-                  <div>
-                    <p className="text-sm text-gray-500">Job Seeker ID</p>
-                    <p className="font-medium">{userInfo.job_seeker_uuid}</p>
+                  <div className="p-2">
+                    <p className="text-xs sm:text-sm text-gray-500">Job Seeker ID</p>
+                    <p className="font-medium text-sm sm:text-base break-words">{userInfo.job_seeker_uuid}</p>
                   </div>
                 )}
                 {userInfo?.proffesional_title && (
-                  <div>
-                    <p className="text-sm text-gray-500">Professional Title</p>
-                    <p className="font-medium">{userInfo.proffesional_title}</p>
+                  <div className="p-2">
+                    <p className="text-xs sm:text-sm text-gray-500">Professional Title</p>
+                    <p className="font-medium text-sm sm:text-base">{userInfo.proffesional_title}</p>
                   </div>
                 )}
                 {userInfo?.sector_name && (
-                  <div>
-                    <p className="text-sm text-gray-500">Sector Name</p>
-                    <p className="font-medium">{userInfo.sector_name}</p>
+                  <div className="p-2">
+                    <p className="text-xs sm:text-sm text-gray-500">Sector Name</p>
+                    <p className="font-medium text-sm sm:text-base">{userInfo.sector_name}</p>
                   </div>
                 )}
                 {userInfo?.work_experience_name && (
-                  <div>
-                    <p className="text-sm text-gray-500">Work Experience</p>
-                    <p className="font-medium">{userInfo.work_experience_name}</p>
+                  <div className="p-2">
+                    <p className="text-xs sm:text-sm text-gray-500">Work Experience</p>
+                    <p className="font-medium text-sm sm:text-base">{userInfo.work_experience_name}</p>
                   </div>
                 )}
                 {userInfo?.job_applyer_skills?.length > 0 && (
-                  <div>
-                    <p className="text-sm text-gray-500">Skills</p>
-                    <p className="font-medium">{userInfo.job_applyer_skills.join(', ')}</p>
+                  <div className="p-2">
+                    <p className="text-xs sm:text-sm text-gray-500">Skills</p>
+                    <div className="flex flex-wrap gap-2 mt-1">
+                      {userInfo.job_applyer_skills.map((skill, index) => (
+                        <span
+                          key={index}
+                          className="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs sm:text-sm"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>

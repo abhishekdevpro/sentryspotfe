@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
@@ -62,6 +61,14 @@ const JobSeekerForm = ({ onNext }) => {
           },
         });
         const personalDetails = response.data.data.personal_details;
+        
+        // Ensure the photo URL is properly formatted
+        if (personalDetails.photo) {
+          personalDetails.photo = personalDetails.photo.startsWith('http') 
+            ? personalDetails.photo 
+            : `https://api.sentryspot.co.uk${personalDetails.photo}`;
+        }
+        
         localStorage.setItem(
           Constant.USER_INFO,
           JSON.stringify(personalDetails)
@@ -70,22 +77,72 @@ const JobSeekerForm = ({ onNext }) => {
 
         // Set form values from profile data
         if (personalDetails) {
+          // Basic information
           setValue("first_name", personalDetails.first_name || "");
           setValue("last_name", personalDetails.last_name || "");
           setValue("email", personalDetails.email || "");
           setValue("phone", personalDetails.phone || "");
-          setValue("salary", profileData.current_salary);
-          setValue("salaryType", profileData.salary_type || "");
-          setValue("profile_visibility", profileData.profile_visibility || 0);
+          
+          // Job related information
+          setValue("job_title", personalDetails.job_title || "");
+          setValue("proffesional_title", personalDetails.proffesional_title || "");
+          setValue("sector_id", personalDetails.sector_id || 0);
+          
+          // Salary information
+          setValue("salary", personalDetails.current_salary || 0);
+          setValue("salaryType", personalDetails.salary_type || "");
+          
+          // Work experience
+          setValue("work_experience_id", personalDetails.work_experience_id || 0);
+          
+          // Profile visibility
+          setValue("profile_visibility", personalDetails.profile_visibility || 0);
 
+          // Location information
+          if (personalDetails.country_id) {
+            setValue("country_id", personalDetails.country_id);
+          }
+          if (personalDetails.state_id) {
+            setValue("state_id", personalDetails.state_id);
+          }
+          if (personalDetails.city_id) {
+            setValue("city_id", personalDetails.city_id);
+          }
+          if (personalDetails.current_location) {
+            setValue("current_location", personalDetails.current_location);
+          }
+          if (personalDetails.preferred_location) {
+            setValue("preferred_location", personalDetails.preferred_location);
+          }
+
+          // Job type
+          if (personalDetails.job_type && personalDetails.job_type.length > 0) {
+            const jobTypes = personalDetails.job_type[0].split(',').map(Number);
+            setValue("job_type", jobTypes);
+          }
+
+          console.log('Form values set:', {
+            first_name: personalDetails.first_name,
+            last_name: personalDetails.last_name,
+            email: personalDetails.email,
+            phone: personalDetails.phone,
+            job_title: personalDetails.job_title,
+            sector_id: personalDetails.sector_id,
+            current_salary: personalDetails.current_salary,
+            salary_type: personalDetails.salary_type,
+            work_experience_id: personalDetails.work_experience_id,
+            profile_visibility: personalDetails.profile_visibility,
+            photo: personalDetails.photo
+          });
         }
       } catch (error) {
         console.error("Error fetching profile data:", error);
+        toast.error("Failed to fetch profile data");
       }
     };
 
     fetchProfileData();
-  }, [setValue]);
+  }, [setValue, token]);
 
   // Fetch all necessary data from the API
   useEffect(() => {

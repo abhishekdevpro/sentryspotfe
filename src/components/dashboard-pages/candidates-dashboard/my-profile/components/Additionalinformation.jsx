@@ -104,354 +104,284 @@ const Additionalinformation = () => {
     setFormData({ ...formData, languages: updatedLanguages });
   };
   return (
-    <form onSubmit={handleSubmit} className="default-form">
-      <div className="row">
-        {/* <div className="form-group flex gap-10 col-lg-12 col-md-12 ">
-          <label className="w-1/4">IIT-JEE All India Rank (AIR)</label>
-          <input
-            type="text"
-            name="iit_jee_rank"
-            value={formData.iit_jee_rank}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="form-group flex gap-10 col-lg-12 col-md-12 ">
-          <label className="w-1/4">CAT Percentile</label>
-          <input
-            type="text"
-            name="cat_percentile"
-            value={formData.cat_percentile}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="form-group flex gap-10 col-lg-12 col-md-12 ">
-          <label className="w-1/4">GMAT Score</label>
-          <input
-            type="text"
-            name="gmat_score"
-            value={formData.gmat_score}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="form-group flex gap-10 col-lg-12 col-md-12 ">
-          <label className="w-1/4">Marital Status</label>
-          <input
-            type="text"
-            name="marital_status"
-            value={formData.marital_status}
-            onChange={handleInputChange}
-          />
-        </div> */}
-
-        <div className="form-group flex gap-10 col-lg-12 col-md-12 ">
-          <label className="w-3/4">Are you a veteran or ex-military?</label>
-          <div className="flex">
-            <input
-              type="radio"
-              name="is_veteran_or_ex_military"
-              value="true"
-              onChange={handleInputChange}
-              checked={formData.is_veteran_or_ex_military === true}
-            />
-            <label htmlFor="yes" className="pt-1 me-4 ms-1">
-              Yes
-            </label>
-            <input
-              type="radio"
-              name="is_veteran_or_ex_military"
-              value="false"
-              onChange={handleInputChange}
-              checked={formData.is_veteran_or_ex_military === false}
-            />
-            <label htmlFor="No" className="pt-1 me-4 ms-1">
-              No
-            </label>
-          </div>
-        </div>
-
-        <div className="form-group flex gap-10 col-lg-12 col-md-12 ">
-          <label className="w-3/4">
-            Do you require any reasonable adjustments to perform your role
-            effectively?
-          </label>
-          <div className="flex">
-            <input
-              type="radio"
-              name="is_reasonable_adjustments"
-              value="true"
-              onChange={handleInputChange}
-              checked={formData.is_reasonable_adjustments === true}
-            />
-            <label htmlFor="yes" className="pt-1 me-4 ms-1">
-              Yes
-            </label>
-            <input
-              type="radio"
-              name="is_reasonable_adjustments"
-              value="false"
-              onChange={handleInputChange}
-              checked={formData.is_reasonable_adjustments === false}
-            />
-            <label htmlFor="No" className="pt-1 me-4 ms-1">
-              No
-            </label>
-          </div>
-        </div>
-
-        <div className="form-group flex gap-10 col-lg-12 col-md-12 ">
-          <label className="w-3/4">Have you handled a team?</label>
-          <div className="flex">
-            <input
-              type="radio"
-              name="handled_team"
-              value="true"
-              onChange={handleInputChange}
-              checked={formData.handled_team === true}
-            />
-            <label htmlFor="yes" className="pt-1 me-4 ms-1">
-              Yes
-            </label>
-            <input
-              type="radio"
-              name="handled_team"
-              value="false"
-              onChange={handleInputChange}
-              checked={formData.handled_team === false}
-            />
-            <label htmlFor="No" className="pt-1 me-4 ms-1">
-              No
-            </label>
-          </div>
-        </div>
-
-        <div className="form-group flex gap-10 col-lg-12 col-md-12 ">
-          <label className="w-3/4">
-            Are you open to flexible or extended work schedules, including
-            weekends?
-          </label>
-          <div className="flex">
-            <input
-              type="radio"
-              name="extended_work_schedules"
-              value="true"
-              onChange={handleInputChange}
-              checked={formData.extended_work_schedules === true}
-            />
-            <label htmlFor="yes" className="pt-1 me-4 ms-1">
-              Yes
-            </label>
-            <input
-              type="radio"
-              name="extended_work_schedules"
-              value="false"
-              onChange={handleInputChange}
-              checked={formData.extended_work_schedules === false}
-            />
-            <label htmlFor="No" className="pt-1 me-4 ms-1">
-              No
-            </label>
-          </div>
-        </div>
-
-        <div className="form-group flex gap-10 col-lg-12 col-md-12 ">
-          <label className="w-3/4">Have you willing to relocate?</label>
-          <div className="flex">
-            <input
-              type="radio"
-              name="willing_to_relocate"
-              value="true"
-              onChange={handleInputChange}
-              checked={formData.willing_to_relocate === true}
-            />
-            <label htmlFor="yes" className="pt-1 me-4 ms-1">
-              Yes
-            </label>
-            <input
-              type="radio"
-              name="willing_to_relocate"
-              value="false"
-              onChange={handleInputChange}
-              checked={formData.willing_to_relocate === false}
-            />
-            <label htmlFor="No" className="pt-1 me-4 ms-1">
-              No
-            </label>
-          </div>
-        </div>
-
-        {/* <div className="form-group flex gap-10 col-lg-12 col-md-12 ">
-          <label className="w-1/4">Have you open to startups?</label>
-          <div className="flex">
-            <input
-              type="radio"
-              name="open_to_startups"
-              value="true"
-              onChange={handleInputChange}
-              checked={formData.open_to_startups === true}
-            />
-            <label htmlFor="yes" className="pt-1 me-4 ms-1">
-              Yes
-            </label>
-            <input
-              type="radio"
-              name="open_to_startups"
-              value="false"
-              onChange={handleInputChange}
-              checked={formData.open_to_startups === false}
-            />
-            <label htmlFor="No" className="pt-1 me-4 ms-1">
-              No
-            </label>
-          </div>
-        </div> */}
-
-        <div className="form-group flex gap-10 col-lg-12 col-md-12 ">
-          <label className="w-3/4">
-            Are you comfortable traveling for work-related purposes?
-          </label>
-          <div className="flex">
-            <input
-              type="radio"
-              name="willingness_to_travel"
-              value="true"
-              onChange={handleInputChange}
-              checked={formData.willingness_to_travel === true}
-            />
-            <label htmlFor="yes" className="pt-1 me-4 ms-1">
-              Yes
-            </label>
-            <input
-              type="radio"
-              name="willingness_to_travel"
-              value="false"
-              onChange={handleInputChange}
-              checked={formData.willingness_to_travel === false}
-            />
-            <label htmlFor="No" className="pt-1 me-4 ms-1">
-              No
-            </label>
-          </div>
-        </div>
-
-        <div className="form-group flex gap-10 col-lg-12 col-md-12 ">
-          <label className="w-3/4">Do you have a work permit for the UK?</label>
-          <div className="flex">
-            <input
-              type="radio"
-              name="work_permit_usa"
-              value="true"
-              onChange={handleInputChange}
-              checked={formData.work_permit_usa === true}
-            />
-            <label htmlFor="yes" className="pt-1 me-4 ms-1">
-              Yes
-            </label>
-            <input
-              type="radio"
-              name="work_permit_usa"
-              value="false"
-              onChange={handleInputChange}
-              checked={formData.work_permit_usa === false}
-            />
-            <label htmlFor="No" className="pt-1 me-4 ms-1">
-              No
-            </label>
-          </div>
-        </div>
-
-        {/* Continue with other form fields in a similar manner */}
-        {/* <div className="form-group flex gap-10 col-lg-12 col-md-12 ">
-          <label className="w-1/4">Languages</label>
-          <input
-            type="text"
-            name="languages"
-            value={formData.languages}
-            onChange={handleInputChange}
-          />
-        </div> */}
-        {/* Add Languages */}
-
-        <h5 className="text-xl mt-6">Languages</h5>
-        <div className="form-group col-lg-12flex gap-10 col-md-12 my-4">
-          <div className="border rounded flex items-center flex-wrap gap-2 p-3">
-            {/* {languages.map((language, index) => (
-              <div key={index} className="flex flex-wrap gap-2 items-center">
-                <span>{language.name}</span>
-                <select
-                  value={language.proficiency}
-                  onChange={(e) =>
-                    handleLanguageProficiencyChange(index, e.target.value)
-                  }
-                  className="border rounded p-1"
-                >
-                  <option value="Intermediate">Intermediate</option>
-                  <option value="Basic">Basic</option>
-                  <option value="Fluent">Fluent</option>
-                </select>
-                <button
-                  type="button"
-                  className="theme-btn btn-style-one bg-blue-950 "
-                  onClick={() => handleRemoveLanguage(index)}
-                >
-                  ×
-                </button>
+    <form onSubmit={handleSubmit} className="default-form w-full px-2 sm:px-4">
+      <div className="space-y-4">
+        {/* Radio Button Groups */}
+        <div className="space-y-4">
+          {/* Veteran Status */}
+          <div className="form-group flex flex-col sm:flex-row gap-2 sm:gap-10">
+            <label className="w-full sm:w-3/4 text-sm sm:text-base">Are you a veteran or ex-military?</label>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="is_veteran_or_ex_military"
+                  value="true"
+                  onChange={handleInputChange}
+                  checked={formData.is_veteran_or_ex_military === true}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">Yes</label>
               </div>
-            ))} */}
-            {languages.map((language, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between gap-3 border rounded px-3 py-1"
-              >
-                <span className="text-gray-800">
-                  <strong>{language.name}</strong> - {language.proficiency}
-                </span>
-                <button
-                  type="button"
-                  className="theme-btn btn-style-one bg-red-600 text-white px-2 py-1 rounded"
-                  onClick={() => handleRemoveLanguage(index)}
-                >
-                  <X size={20}  />
-                </button>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="is_veteran_or_ex_military"
+                  value="false"
+                  onChange={handleInputChange}
+                  checked={formData.is_veteran_or_ex_military === false}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">No</label>
               </div>
-            ))}
-            <div className="w-full flex flex-col md:flex-row gap-2 ">
-              <input
-                type="text"
-                value={languageInput}
-                onChange={(e) => setLanguageInput(e.target.value)}
-                className="border-none focus:outline-none flex-grow"
-                placeholder="Enter a language"
-              />
-              <select
-                value={proficiency}
-                onChange={(e) => setProficiency(e.target.value)}
-                className="border border-gray-300 rounded px-4 py-1  focus:outline-none"
-              >
-                <option value="">Select proficiency</option>
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
-                <option value="Fluent">Fluent</option>
-                <option value="Native">Native</option>
-              </select>
-              <button
-                type="button"
-                onClick={handleAddLanguage}
-                className="theme-btn btn-style-one bg-blue-950 ml-2"
-              >
-                + Add
-              </button>
+            </div>
+          </div>
+
+          {/* Reasonable Adjustments */}
+          <div className="form-group flex flex-col sm:flex-row gap-2 sm:gap-10">
+            <label className="w-full sm:w-3/4 text-sm sm:text-base">
+              Do you require any reasonable adjustments to perform your role effectively?
+            </label>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="is_reasonable_adjustments"
+                  value="true"
+                  onChange={handleInputChange}
+                  checked={formData.is_reasonable_adjustments === true}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">Yes</label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="is_reasonable_adjustments"
+                  value="false"
+                  onChange={handleInputChange}
+                  checked={formData.is_reasonable_adjustments === false}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">No</label>
+              </div>
+            </div>
+          </div>
+
+          {/* Team Handling */}
+          <div className="form-group flex flex-col sm:flex-row gap-2 sm:gap-10">
+            <label className="w-full sm:w-3/4 text-sm sm:text-base">Have you handled a team?</label>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="handled_team"
+                  value="true"
+                  onChange={handleInputChange}
+                  checked={formData.handled_team === true}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">Yes</label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="handled_team"
+                  value="false"
+                  onChange={handleInputChange}
+                  checked={formData.handled_team === false}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">No</label>
+              </div>
+            </div>
+          </div>
+
+          {/* Work Schedules */}
+          <div className="form-group flex flex-col sm:flex-row gap-2 sm:gap-10">
+            <label className="w-full sm:w-3/4 text-sm sm:text-base">
+              Are you open to flexible or extended work schedules, including weekends?
+            </label>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="extended_work_schedules"
+                  value="true"
+                  onChange={handleInputChange}
+                  checked={formData.extended_work_schedules === true}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">Yes</label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="extended_work_schedules"
+                  value="false"
+                  onChange={handleInputChange}
+                  checked={formData.extended_work_schedules === false}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">No</label>
+              </div>
+            </div>
+          </div>
+
+          {/* Relocation */}
+          <div className="form-group flex flex-col sm:flex-row gap-2 sm:gap-10">
+            <label className="w-full sm:w-3/4 text-sm sm:text-base">Are you willing to relocate?</label>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="willing_to_relocate"
+                  value="true"
+                  onChange={handleInputChange}
+                  checked={formData.willing_to_relocate === true}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">Yes</label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="willing_to_relocate"
+                  value="false"
+                  onChange={handleInputChange}
+                  checked={formData.willing_to_relocate === false}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">No</label>
+              </div>
+            </div>
+          </div>
+
+          {/* Travel */}
+          <div className="form-group flex flex-col sm:flex-row gap-2 sm:gap-10">
+            <label className="w-full sm:w-3/4 text-sm sm:text-base">
+              Are you comfortable traveling for work-related purposes?
+            </label>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="willingness_to_travel"
+                  value="true"
+                  onChange={handleInputChange}
+                  checked={formData.willingness_to_travel === true}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">Yes</label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="willingness_to_travel"
+                  value="false"
+                  onChange={handleInputChange}
+                  checked={formData.willingness_to_travel === false}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">No</label>
+              </div>
+            </div>
+          </div>
+
+          {/* Work Permit */}
+          <div className="form-group flex flex-col sm:flex-row gap-2 sm:gap-10">
+            <label className="w-full sm:w-3/4 text-sm sm:text-base">Do you have a work permit for the UK?</label>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="work_permit_usa"
+                  value="true"
+                  onChange={handleInputChange}
+                  checked={formData.work_permit_usa === true}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">Yes</label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="work_permit_usa"
+                  value="false"
+                  onChange={handleInputChange}
+                  checked={formData.work_permit_usa === false}
+                  className="w-4 h-4"
+                />
+                <label className="ml-2 text-sm sm:text-base">No</label>
+              </div>
             </div>
           </div>
         </div>
-        {/* <LanguageSelector/> */}
-        <div className="form-group col-lg-12 col-md-12">
+
+        {/* Languages Section */}
+        <div className="mt-8">
+          <h5 className="text-lg sm:text-xl font-semibold mb-4">Languages</h5>
+          <div className="form-group w-full">
+            <div className="border rounded-lg p-3 sm:p-4 space-y-4">
+              {/* Language Tags */}
+              <div className="flex flex-wrap gap-2">
+                {languages.map((language, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between gap-2 bg-gray-50 rounded-lg px-3 py-2 text-sm sm:text-base"
+                  >
+                    <span className="text-gray-800">
+                      <strong>{language.name}</strong> - {language.proficiency}
+                    </span>
+                    <button
+                      type="button"
+                      className="text-red-600 hover:text-red-800 p-1"
+                      onClick={() => handleRemoveLanguage(index)}
+                    >
+                      <X size={18} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              {/* Language Input Form */}
+              <div className="flex flex-col sm:flex-row gap-2">
+                <input
+                  type="text"
+                  value={languageInput}
+                  onChange={(e) => setLanguageInput(e.target.value)}
+                  className="flex-grow border rounded-lg px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter a language"
+                />
+                <select
+                  value={proficiency}
+                  onChange={(e) => setProficiency(e.target.value)}
+                  className="border rounded-lg px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">Select proficiency</option>
+                  <option value="Beginner">Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Advanced">Advanced</option>
+                  <option value="Fluent">Fluent</option>
+                  <option value="Native">Native</option>
+                </select>
+                <button
+                  type="button"
+                  onClick={handleAddLanguage}
+                  className="bg-blue-800 text-white px-4 py-2 rounded-lg text-sm sm:text-base hover:bg-blue-900 transition-colors"
+                >
+                  + Add
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Submit Button */}
+        <div className="mt-6">
           <button
             type="submit"
-            className="theme-btn btn-style-one bg-blue-800"
+            className="w-full sm:w-auto bg-blue-800 text-white px-6 py-2 rounded-lg text-sm sm:text-base hover:bg-blue-900 transition-colors"
             disabled={loading}
           >
             {loading ? "Saving..." : "Save"}

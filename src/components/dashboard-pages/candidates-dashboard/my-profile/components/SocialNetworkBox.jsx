@@ -229,11 +229,11 @@ console.log(educationalDetails,"fetchEducations");
         </div>
       ))}
 
-      <div className="row">
+      <div className="row mb-2">
         <div className="form-group col-12">
           <button
             type="button"
-            className="theme-btn btn-style-one bg-blue-950 mr-4"
+            className="theme-btn btn-style-one bg-blue-950 mr-4 mb-2"
             onClick={addEducation}
           >
             + Add Another Education
