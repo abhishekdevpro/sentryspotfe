@@ -3,6 +3,7 @@ import { X, Camera } from 'lucide-react';
 
 const ImageUpload = ({ profileData, setValue, register }) => {
   const [previewImage, setPreviewImage] = useState(null);
+  const [imageError, setImageError] = useState(false);
   
   useEffect(() => {
     // Register the photo_upload field with react-hook-form
@@ -10,10 +11,15 @@ const ImageUpload = ({ profileData, setValue, register }) => {
     
     // Set initial value if profileData has a photo
     if (profileData?.photo) {
-      const imageUrl = `https://api.sentryspot.co.uk${profileData.photo}`;
-      console.log('Setting initial image URL:', imageUrl);
-      setPreviewImage(imageUrl);
-      setValue('photo_upload', null); // Start with null as we don't need to re-upload existing photos
+      try {
+        console.log('Setting initial image URL:', profileData.photo);
+        setPreviewImage(profileData.photo);
+        setValue('photo_upload', null); // Start with null as we don't need to re-upload existing photos
+        setImageError(false);
+      } catch (error) {
+        console.error('Error setting initial image:', error);
+        setImageError(true);
+      }
     }
   }, [register, setValue, profileData]);
   
@@ -36,6 +42,7 @@ const ImageUpload = ({ profileData, setValue, register }) => {
       reader.onloadend = () => {
         setPreviewImage(reader.result);
         setValue('photo_upload', file);
+        setImageError(false);
       };
       reader.readAsDataURL(file);
     }
@@ -45,11 +52,23 @@ const ImageUpload = ({ profileData, setValue, register }) => {
     e.preventDefault();
     setPreviewImage(null);
     setValue('photo_upload', null);
+    setImageError(false);
   };
 
-  // Debug log to check current state
-  console.log('Current profileData:', profileData);
-  console.log('Current previewImage:', previewImage);
+  const handleImageError = (e) => {
+    console.error('Image failed to load:', previewImage);
+    setImageError(true);
+    e.target.onerror = null;
+    // Use a base64 encoded SVG as fallback
+    e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgZmlsbD0iI2YzZjRmNiIvPjx0ZXh0IHg9Ijc1IiB5PSI3NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjNjY2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+UHJvZmlsZSBJbWFnZTwvdGV4dD48L3N2Zz4=';
+  };
+
+  // Debug logs
+  useEffect(() => {
+    console.log('Profile Data in ImageUpload:', profileData);
+    console.log('Preview Image:', previewImage);
+    console.log('Image Error:', imageError);
+  }, [profileData, previewImage, imageError]);
   
   return (
     <div className="form-group col-lg-6 col-md-12 flex justify-center">
@@ -73,11 +92,7 @@ const ImageUpload = ({ profileData, setValue, register }) => {
                   src={previewImage}
                   alt="Profile Preview"
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    console.error('Image failed to load:', previewImage);
-                    e.target.onerror = null;
-                    e.target.src = 'https://via.placeholder.com/150?text=Error+Loading+Image';
-                  }}
+                  onError={handleImageError}
                 />
               ) : (
                 <Camera className="w-10 h-10 text-gray-400" />

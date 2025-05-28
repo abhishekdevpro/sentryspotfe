@@ -54,15 +54,19 @@ const DashboardCandidatesSidebar = () => {
         {/* Dynamic User Profile */}
         <Link to="/candidates-dashboard/my-profile">
           <div className="flex gap-4 justify-center items-center p-4 border border-gray-200 mb-2 rounded-lg bg-blue-700 text-white">
-            <div className="flex-1 h-14 w-auto">
+            <div className="flex-1  w-auto">
               <img
                 src={
                   userInfo?.photo
                     ? `https://api.sentryspot.co.uk${userInfo.photo}`
-                    : "https://statinfer.com/wp-content/uploads/dummy-user.png"
+                    : "https://ui-avatars.com/api/?name=" + (userInfo?.first_name || "User") + "&background=random"
                 }
                 alt="User Avatar"
-                className="rounded-full w-full h-full"
+                className="rounded-full w-40 h-20 object-cover"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://ui-avatars.com/api/?name=User&background=random";
+                }}
               />
             </div>
             <div className="text-white flex-1 flex-col">

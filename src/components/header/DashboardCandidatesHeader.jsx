@@ -195,7 +195,7 @@ const DashboardCandidatesHeader = () => {
               <i className="las la-comment hidden md:block text-3xl mx-4 text-blue-900"></i>
 
               {/* Desktop User Dropdown */}
-              <div id="user-dropdown-desktop" className="hidden md:block relative ml-4">
+              <div id="user-dropdown-desktop" className="hidden md:block relative me-4">
                 <button
                   className="flex items-center bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-t-lg focus:outline-none transition duration-200"
                   onClick={() => setIsUserDropdownOpen((prev) => !prev)}

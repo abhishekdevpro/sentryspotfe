@@ -224,13 +224,13 @@ const WorkExperienceForm = ({ onNext }) => {
           <div className="form-group col-12">
             <button
               type="button"
-              className="theme-btn btn-style-one bg-blue-950 mr-4"
+              className="theme-btn btn-style-one bg-blue-950 mr-4 mb-2"
               onClick={addExperience}
             >
               + Add Another Experience
             </button>
             
-            <button type="submit" className="theme-btn btn-style-one bg-blue-950">
+            <button type="submit" className="theme-btn btn-style-one bg-blue-950 mb-2">
               Save & Next ➤
             </button>
           </div>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Constant } from "@/utils/constant/constant.js";
@@ -20,9 +19,9 @@ const NotificationsHistory = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://api.sentryspot.co.uk/api/employeer/notifications",
+        "https://api.sentryspot.co.uk/api/jobseeker/notifications",
         {
-          headers: { Authorization: token },
+          headers: { Authorization: ` ${token}` },
         }
       );
       if (response.data.status === "success") {

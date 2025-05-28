@@ -214,13 +214,13 @@ const candidateMenus = [
   //   active: "",
   // },
  
-  {
-    id: 16,
-    name: "Settings",
-    icon: "la-user-tie",
-    routePath: "/candidates-dashboard/my-profile",
-    active: "",
-  },
+  // {
+  //   id: 16,
+  //   name: "Settings",
+  //   icon: "la-user-tie",
+  //   routePath: "/candidates-dashboard/my-profile",
+  //   active: "",
+  // },
   // {
   //   id: 17,
   //   name: "Contact Us",
