@@ -367,7 +367,7 @@ const JobSingleDynamicV3 = () => {
                     <h4 className="widget-title">Contact Us</h4>
                     <div className="widget-content">
                       <div className="default-form">
-                        <Contact />
+                        <Contact companyId={jobData?.company_id} />
                       </div>
                     </div>
                   </div>

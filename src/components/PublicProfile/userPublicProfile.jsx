@@ -41,7 +41,22 @@ const UserProfilePage = () => {
     return "N.A";
   };
 
-  const getProfilePhoto = () => userInfo?.photo || "/api/placeholder/100/100";
+  const getProfilePhoto = () => {
+    if (userInfo?.photo) {
+      // If the photo URL is relative, prepend the API base URL
+      if (userInfo.photo.startsWith('/')) {
+        return `https://api.sentryspot.co.uk${userInfo.photo}`;
+      }
+      return userInfo.photo;
+    }
+    // Use a default avatar image
+    return "https://ui-avatars.com/api/?name=" + encodeURIComponent(getFullName()) + "&background=0D8ABC&color=fff";
+  };
+
+  const handleImageError = (e) => {
+    // If image fails to load, set a fallback avatar
+    e.target.src = "https://ui-avatars.com/api/?name=" + encodeURIComponent(getFullName()) + "&background=0D8ABC&color=fff";
+  };
 
   if (loading) {
     return (
@@ -71,6 +86,7 @@ const UserProfilePage = () => {
                 src={getProfilePhoto()}
                 alt={getFullName()}
                 className="h-full w-full object-cover"
+                onError={handleImageError}
               />
             </div>
           </div>

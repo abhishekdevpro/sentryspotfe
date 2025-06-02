@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Constant } from "@/utils/constant/constant";
 import axios from "axios";
@@ -15,7 +14,7 @@ const EducationForm = ({ onNext }) => {
   const [educationalDetails,setEducationalDetails] = useState([])
   
   // React Hook Form setup
-  const { control, handleSubmit, register, formState: { errors } } = useForm({
+  const { control, handleSubmit, register, formState: { errors }, reset } = useForm({
     defaultValues: {
       educations: [
         { 
@@ -42,9 +41,17 @@ const EducationForm = ({ onNext }) => {
               Authorization: token,
             },
           });
-          const EducationalDetails =  response.data.data.education_details
-          if(EducationalDetails){
-            setEducationalDetails(EducationalDetails)
+          const EducationalDetails = response.data.data.education_details;
+          if(EducationalDetails && EducationalDetails.length > 0) {
+            // Reset form with existing education details
+            reset({
+              educations: EducationalDetails.map(edu => ({
+                institute_name: edu.institute_name,
+                education_level_id: edu.education_level_id.toString(),
+                course_type_id: edu.course_type_id.toString(),
+                graduation_year_id: edu.graduation_year_id.toString()
+              }))
+            });
           }
         } catch (error) {
           console.error("Error fetching profile data:", error);
@@ -52,7 +59,7 @@ const EducationForm = ({ onNext }) => {
       };
   
       fetchEducations();
-    }, []);
+    }, [reset]);
   // Fetch all required data on component mount
   useEffect(() => {
     const fetchData = async () => {
@@ -124,169 +131,123 @@ console.log(educationalDetails,"fetchEducations");
   };
 
   return (
-
     <div>
-       
       <form className="default-form" onSubmit={handleSubmit(onSubmit)}>
-    
-
-      {fields.map((field, index) => (
-        <div key={field.id} className="education-entry mb-6">
-          <h4 className="text-lg font-medium mb-2">Education {index + 1}</h4>
-          <div className="row">
-            <div className="form-group col-lg-6 col-md-12">
-              <label>Institution Name</label>
-              <input
-                type="text"
-                {...register(`educations.${index}.institute_name`, { required: "Institution name is required" })}
-                placeholder="Enter institute name"
-                className="form-control"
-              />
-              {errors.educations?.[index]?.institute_name && (
-                <span className="text-red-500 text-sm">{errors.educations[index].institute_name.message}</span>
-              )}
-            </div>
-
-            <div className="form-group col-lg-6 col-md-12">
-              <label>Education Level</label>
-              <Controller
-                name={`educations.${index}.education_level_id`}
-                control={control}
-                rules={{ required: "Education level is required" }}
-                render={({ field }) => (
-                  <select {...field} className="form-control">
-                    <option value="">Select Education Level</option>
-                    {educationLevels.map((level) => (
-                      <option key={level.id} value={level.id}>
-                        {level.name}
-                      </option>
-                    ))}
-                  </select>
+        {fields.map((field, index) => (
+          <div key={field.id} className="education-entry mb-6">
+            <h4 className="text-lg font-medium mb-2">Education {index + 1}</h4>
+            <div className="row">
+              <div className="form-group col-lg-6 col-md-12">
+                <label>Institution Name</label>
+                <input
+                  type="text"
+                  {...register(`educations.${index}.institute_name`, { required: "Institution name is required" })}
+                  placeholder="Enter institute name"
+                  className="form-control"
+                />
+                {errors.educations?.[index]?.institute_name && (
+                  <span className="text-red-500 text-sm">{errors.educations[index].institute_name.message}</span>
                 )}
-              />
-              {errors.educations?.[index]?.education_level_id && (
-                <span className="text-red-500 text-sm">{errors.educations[index].education_level_id.message}</span>
-              )}
-            </div>
-
-            <div className="form-group col-lg-6 col-md-12">
-              <label>Field of Study (Course)</label>
-              <Controller
-                name={`educations.${index}.course_type_id`}
-                control={control}
-                rules={{ required: "Course is required" }}
-                render={({ field }) => (
-                  <select {...field} className="form-control">
-                    <option value="">Select a course</option>
-                    {coursetype.map((type) => (
-                      <option key={type.id} value={type.id}>
-                        {type.name}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              />
-              {errors.educations?.[index]?.course_type_id && (
-                <span className="text-red-500 text-sm">{errors.educations[index].course_type_id.message}</span>
-              )}
-            </div>
-
-            <div className="form-group col-lg-6 col-md-12">
-              <label>Graduation Year</label>
-              <Controller
-                name={`educations.${index}.graduation_year_id`}
-                control={control}
-                rules={{ required: "Graduation year is required" }}
-                render={({ field }) => (
-                  <select {...field} className="form-control">
-                    <option value="">Select Graduation Year</option>
-                    {batchYears.map((year) => (
-                      <option key={year.id} value={year.id}>
-                        {year.name}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              />
-              {errors.educations?.[index]?.graduation_year_id && (
-                <span className="text-red-500 text-sm">{errors.educations[index].graduation_year_id.message}</span>
-              )}
-            </div>
-
-            {index > 0 && (
-              <div className="form-group col-12">
-                <button 
-                  type="button" 
-                  className="btn btn-danger"
-                  onClick={() => remove(index)}
-                >
-                  Remove Education
-                </button>
               </div>
-            )}
-          </div>
-          <hr className="my-4" />
-        </div>
-      ))}
 
-      <div className="row mb-2">
-        <div className="form-group col-12">
-          <button
-            type="button"
-            className="theme-btn btn-style-one bg-blue-950 mr-4 mb-2"
-            onClick={addEducation}
-          >
-            + Add Another Education
-          </button>
-          
-          <button type="submit" className="theme-btn btn-style-one bg-blue-950">
-            Save & Next ➤
-          </button>
-        </div>
-      </div>
-      </form>
-      {educationalDetails.length > 0 && (
-            <div className="mt-8">
-              <h4 className="text-lg font-medium mb-4">Your Education History</h4>
-              <div className="grid md:grid-cols-2 gap-4">
-                {educationalDetails.map((edu, index) => (
-                  <div
-                    key={edu.id || index}
-                    className={`bg-white shadow-md rounded-lg p-6 border ${
-                      ""? 'border-blue-500 ring-2 ring-blue-300' : 'border-gray-200'
-                    } hover:shadow-lg transition-shadow duration-300`}
+              <div className="form-group col-lg-6 col-md-12">
+                <label>Education Level</label>
+                <Controller
+                  name={`educations.${index}.education_level_id`}
+                  control={control}
+                  rules={{ required: "Education level is required" }}
+                  render={({ field }) => (
+                    <select {...field} className="form-control">
+                      <option value="">Select Education Level</option>
+                      {educationLevels.map((level) => (
+                        <option key={level.id} value={level.id}>
+                          {level.name}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                />
+                {errors.educations?.[index]?.education_level_id && (
+                  <span className="text-red-500 text-sm">{errors.educations[index].education_level_id.message}</span>
+                )}
+              </div>
+
+              <div className="form-group col-lg-6 col-md-12">
+                <label>Field of Study (Course)</label>
+                <Controller
+                  name={`educations.${index}.course_type_id`}
+                  control={control}
+                  rules={{ required: "Course is required" }}
+                  render={({ field }) => (
+                    <select {...field} className="form-control">
+                      <option value="">Select a course</option>
+                      {coursetype.map((type) => (
+                        <option key={type.id} value={type.id}>
+                          {type.name}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                />
+                {errors.educations?.[index]?.course_type_id && (
+                  <span className="text-red-500 text-sm">{errors.educations[index].course_type_id.message}</span>
+                )}
+              </div>
+
+              <div className="form-group col-lg-6 col-md-12">
+                <label>Graduation Year</label>
+                <Controller
+                  name={`educations.${index}.graduation_year_id`}
+                  control={control}
+                  rules={{ required: "Graduation year is required" }}
+                  render={({ field }) => (
+                    <select {...field} className="form-control">
+                      <option value="">Select Graduation Year</option>
+                      {batchYears.map((year) => (
+                        <option key={year.id} value={year.id}>
+                          {year.name}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                />
+                {errors.educations?.[index]?.graduation_year_id && (
+                  <span className="text-red-500 text-sm">{errors.educations[index].graduation_year_id.message}</span>
+                )}
+              </div>
+
+              {index > 0 && (
+                <div className="form-group col-12">
+                  <button 
+                    type="button" 
+                    className="btn btn-danger"
+                    onClick={() => remove(index)}
                   >
-                    <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                      {edu.institute_name}
-                    </h2>
-                    <div className="space-y-2 text-gray-600">
-                      <p>
-                        <span className="font-medium">Education Level:</span>{' '}
-                        {getLevelName(edu.education_level_id)}
-                      </p>
-                      <p>
-                        <span className="font-medium">Field of Study:</span>{' '}
-                        {getCourseName(edu.course_type_id)}
-                      </p>
-                      <p>
-                        <span className="font-medium">Graduation Year:</span>{' '}
-                        {getYearName(edu.graduation_year_id)}
-                      </p>
-                    </div>
-
-                    {/* <button
-                      // onClick={() => onEdit(edu)}
-                      className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-                      // disabled={editingId !== null}
-                    >
-                      Edit
-                      {/* {editingId === edu.id ? 'Currently Editing' : 'Edit'} 
-                    </button> */}
-                  </div>
-                ))}
-              </div>
+                    Remove Education
+                  </button>
+                </div>
+              )}
             </div>
-          )}
+            <hr className="my-4" />
+          </div>
+        ))}
+
+        <div className="row mb-2">
+          <div className="form-group col-12">
+            <button
+              type="button"
+              className="theme-btn btn-style-one bg-blue-950 mr-4 mb-2"
+              onClick={addEducation}
+            >
+              + Add Another Education
+            </button>
+            
+            <button type="submit" className="theme-btn btn-style-one bg-blue-950">
+              Save & Next ➤
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 };

@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Constant } from '@/utils/constant/constant';
@@ -20,36 +19,17 @@ const TestPaper = () => {
   const [timeRemaining, setTimeRemaining] = useState(10 * 60); // 10 minutes in seconds
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [showCancelConfirmation, setShowCancelConfirmation] = useState(false);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  
+  // Use ref to store answers
+  const answersRef = useRef({});
 
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
-
- 
-
+  // Load saved answers when component mounts
   useEffect(() => {
-    let timer;
-    if (!showResults) {
-      timer = setInterval(() => {
-        setTimeRemaining(prev => {
-          if (prev <= 1) {
-            clearInterval(timer);
-            setIsTimeUp(true);
-            // Automatically submit the test when time is up
-            handleSubmitTest(true);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
+    const savedAnswers = JSON.parse(localStorage.getItem(`test_answers_${skillId}`) || '{}');
+    setSelectedAnswers(savedAnswers);
+  }, [skillId]);
 
-    return () => clearInterval(timer);
-  }, [showResults]); // Added showResults as dependency
-
-  // Rest of the fetch questions useEffect and other handlers remain the same...
   useEffect(() => {
     const fetchQuestions = async () => {
       const token = localStorage.getItem(Constant.USER_TOKEN);
@@ -95,16 +75,44 @@ const TestPaper = () => {
     fetchQuestions();
   }, [skillId, skillName, navigate]);
 
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
+
+  useEffect(() => {
+    let timer;
+    if (!showResults) {
+      timer = setInterval(() => {
+        setTimeRemaining(prev => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            setIsTimeUp(true);
+            // Automatically submit the test when time is up
+            handleSubmitTest(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    return () => clearInterval(timer);
+  }, [showResults]); // Added showResults as dependency
+
   const handleAnswerSelect = (questionId, selectedAnswer) => {
     if (isTimeUp) return;
     
-    setQuestions(prevQuestions =>
-      prevQuestions.map(question =>
-        question.id === questionId 
-          ? { ...question, user_answer: selectedAnswer }
-          : question
-      )
-    );
+    setSelectedAnswers(prevAnswers => {
+      const newAnswers = {
+        ...prevAnswers,
+        [questionId]: selectedAnswer
+      };
+      // Save to localStorage immediately
+      localStorage.setItem(`test_answers_${skillId}`, JSON.stringify(newAnswers));
+      return newAnswers;
+    });
   };
 
   const handleNext = () => {
@@ -131,16 +139,15 @@ const TestPaper = () => {
       console.log('Submitting test with Skill Assessment ID:', skillAssessmentId);
       setLoading(true);
       
-      // Only validate if it's not an auto-submit
       if (!isAutoSubmit) {
-        const unansweredQuestions = questions.filter(q => !q.user_answer);
+        const unansweredQuestions = questions.filter(q => !selectedAnswers[q.id]);
         if (unansweredQuestions.length > 0) {
           setError(`Please answer all questions before submitting. ${unansweredQuestions.length} questions remaining.`);
           setLoading(false);
           return;
         }
       }
-     console.log(skillAssessmentId,"skillAssessmentId");
+
       const response = await axios.put(
         `https://api.sentryspot.co.uk/api/jobseeker/skill-assessment/${skillAssessmentId}`,
         {
@@ -149,7 +156,7 @@ const TestPaper = () => {
           questions: questions.map(question => ({
             id: question.id,
             question: question.question,
-            user_answer: question.user_answer || '' // Send empty string for unanswered questions
+            user_answer: selectedAnswers[question.id] || ''
           }))
         },
         {
@@ -159,6 +166,9 @@ const TestPaper = () => {
           },
         }
       );
+
+      // Clear saved answers after successful submission
+      localStorage.removeItem(`test_answers_${skillId}`);
 
       const { results: testResults } = response.data.data;
       
@@ -348,7 +358,7 @@ const TestPaper = () => {
                 <label 
                   key={index}
                   className={`flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-colors
-                    ${currentQuestion.user_answer === option 
+                    ${selectedAnswers[currentQuestion.id] === option
                       ? 'border-blue-500 bg-blue-50' 
                       : 'border-gray-200 hover:bg-gray-50'}
                     ${isTimeUp ? 'opacity-50 cursor-not-allowed' : ''}`}
@@ -357,7 +367,7 @@ const TestPaper = () => {
                     type="radio"
                     name={`question-${currentQuestion.id}`}
                     value={option}
-                    checked={currentQuestion.user_answer === option}
+                    checked={selectedAnswers[currentQuestion.id] === option}
                     onChange={() => handleAnswerSelect(currentQuestion.id, option)}
                     disabled={isTimeUp}
                     className="w-4 h-4 text-blue-600"

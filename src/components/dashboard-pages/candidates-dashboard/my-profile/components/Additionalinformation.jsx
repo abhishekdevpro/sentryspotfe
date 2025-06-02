@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Constant } from "@/utils/constant/constant";
 import { Trash, X } from "lucide-react";
@@ -16,19 +16,67 @@ const Additionalinformation = () => {
     languages: []
   });
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [languages, setLanguages] = useState([]);
   const [languageInput, setLanguageInput] = useState("");
   const [proficiency, setProficiency] = useState("");
+  const token = localStorage.getItem(Constant.USER_TOKEN);
 
-  
+  // Fetch additional information data
+  useEffect(() => {
+    const fetchAdditionalInfo = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.sentryspot.co.uk/api/jobseeker/user-profile",
+          {
+            headers: {
+              Authorization: token
+            }
+          }
+        );
+
+        if (response.data.code === 200) {
+          const additionalInfo = response.data.data.personal_details.additional_info;
+          if (additionalInfo) {
+            setFormData({
+              is_veteran_or_ex_military: additionalInfo.is_veteran_or_ex_military || false,
+              is_reasonable_adjustments: additionalInfo.is_reasonable_adjustments || false,
+              handled_team: additionalInfo.handled_team || false,
+              extended_work_schedules: additionalInfo.extended_work_schedules || false,
+              willing_to_relocate: additionalInfo.willing_to_relocate || false,
+              willingness_to_travel: additionalInfo.willingness_to_travel || false,
+              work_permit_usa: additionalInfo.work_permit_usa || false,
+              languages: additionalInfo.languages || []
+            });
+
+            // Set languages if they exist
+            if (additionalInfo.languages && Array.isArray(additionalInfo.languages)) {
+              setLanguages(additionalInfo.languages.map(lang => ({
+                name: lang,
+                proficiency: "Intermediate" // Default proficiency since it's not in the API
+              })));
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching additional information:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAdditionalInfo();
+  }, [token]);
+
   const handleAddLanguage = () => {
     if (languageInput.trim()) {
       setLanguages([
         ...languages,
-        { name: languageInput.trim(), proficiency: "Intermediate" },
+        { name: languageInput.trim(), proficiency: proficiency || "Intermediate" },
       ]);
       setLanguageInput("");
+      setProficiency("");
     }
   };
 
@@ -60,8 +108,6 @@ const Additionalinformation = () => {
     setLoading(true);
 
     try {
-      const token = localStorage.getItem(Constant.USER_TOKEN);
-      
       // Transform languages array to match required format
       const languageNames = languages.map(lang => lang.name);
 
@@ -79,13 +125,18 @@ const Additionalinformation = () => {
           },
         }
       );
-      console.log("Additional details submitted successfully:", response.data);
+
+      if (response.data.code === 200) {
+        alert("Additional information saved successfully!");
+      }
     } catch (error) {
       console.error("Error submitting additional details:", error);
+      alert("Failed to save additional information. Please try again.");
     } finally {
       setLoading(false);
     }
   };
+
   const handleLanguageChange = (index, field, value) => {
     const updatedLanguages = [...formData.languages];
     updatedLanguages[index] = { ...updatedLanguages[index], [field]: value };
@@ -103,6 +154,11 @@ const Additionalinformation = () => {
     const updatedLanguages = formData.languages.filter((_, i) => i !== index);
     setFormData({ ...formData, languages: updatedLanguages });
   };
+
+  if (isLoading) {
+    return <div className="text-center py-4">Loading...</div>;
+  }
+
   return (
     <form onSubmit={handleSubmit} className="default-form w-full px-2 sm:px-4">
       <div className="space-y-4">
