@@ -43,7 +43,7 @@ const JobSeekerForm = ({ onNext }) => {
       job_title: "",
       sector_id: 0,
       salary: 0,
-      salaryType: "per month",
+      salary_type: "per month",
       work_experience_id: 0,
       profile_visibility: 0,
       photo_upload:""
@@ -90,7 +90,7 @@ const JobSeekerForm = ({ onNext }) => {
           
           // Salary information
           setValue("salary", personalDetails.current_salary || 0);
-          setValue("salaryType", personalDetails.salary_type || "");
+          setValue("salary_type", personalDetails.salary_type || "");
           
           // Work experience
           setValue("work_experience_id", personalDetails.work_experience_id || 0);
@@ -210,12 +210,22 @@ const JobSeekerForm = ({ onNext }) => {
         if (data[key] instanceof File) {
           formData.append('photo_upload', data[key]);
         }
+      } else if (key === 'job_type') {
+        // Handle job_type as array
+        if (Array.isArray(data[key])) {
+          // Filter out NaN values and ensure all values are valid numbers
+          const validJobTypes = data[key]
+            .map(Number)
+            .filter(value => !isNaN(value) && value > 0);
+          validJobTypes.forEach(jobType => {
+            formData.append('job_type', jobType);
+          });
+        }
       } else {
         // Add other form fields normally
         formData.append(key, data[key]);
       }
     });
-
 
       const response = await axios.put(
         `${baseurl}user-profile`,
@@ -468,7 +478,7 @@ const JobSeekerForm = ({ onNext }) => {
 
             <div className="col-lg-6 col-md-12">
               <select
-                {...register("salaryType")}
+                {...register("salary_type")}
                 className="w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 px-4 py-2 bg-white text-gray-700"
               >
                 <option value="">Select type</option>
