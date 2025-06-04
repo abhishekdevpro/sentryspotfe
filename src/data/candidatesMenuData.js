@@ -199,6 +199,13 @@ const candidateMenus = [
     routePath: "/courses",
     active: "",
   },
+  {
+    id: 14,
+    name: "Saved Courses",
+    icon: "las la-bookmark",
+    routePath: "/candidates-dashboard/saved-courses",
+    active: "",
+  },
   // {
   //   id: 14,
   //   name: "Certifications",

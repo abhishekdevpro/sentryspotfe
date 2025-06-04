@@ -160,6 +160,8 @@ import PaymentPlans from "./components/Payments/PaymentPlans";
 import SettingsPage from "./pages/candidates-dashboard/settings";
 import PricingPage from "./pages/candidates-dashboard/pricing";
 import CheckoutPage from "./pages/candidates-dashboard/checkout";
+import ProtectedRoute from '@/components/common/ProtectedRoute';
+import SavedCourses from "./pages/candidates-dashboard/saved-courses";
 
 function App() {
   useEffect(() => {
@@ -392,39 +394,43 @@ function App() {
                   </Route>
 
                   <Route path="candidates-dashboard">
-                    <Route path="dashboard" element={<DashboardPage />} />
-                    <Route path="applied-jobs" element={<AppliedJobsPage />} />
-                    <Route path="skilllistpage" element={<Skilllistpage />} />
-                    <Route
-                      path="skill-test-history"
-                      element={<SkillHistoryPage />}
-                    />
-                    <Route
-                      path="change-password"
-                      element={<ChangePasswordPage />}
-                    />
-                    <Route path="cv-manager" element={<CVMannagerPage />} />
-                    <Route path="job-alerts" element={<JobAlertPage />} />
-                    <Route path="messages" element={<MessageesPage />} />
-                    <Route path="my-profile" element={<MyProfilePage />} />
-                    <Route path="settings" element={<SettingsPage />} />
-                    <Route path="my-resume" element={<MyResumePage />} />
-                    <Route path="packages" element={<PackagePage />} />
-                    <Route
-                      path="notifications"
-                      element={<NotificationsHistoryPage />}
-                    />
-                    <Route
-                      path="testpaper/:skillId/:skillName"
-                      element={<TestPaper />}
-                    />
-                    <Route
-                      path="short-listed-jobs"
-                      element={<ShortListedJobsPage />}
-                    />
-                    <Route path="courses" element={<CoursePage />} />
-                    <Route path="pricing" element={<PricingPage />} />
-                    <Route path="checkout" element={<CheckoutPage />} />
+                    <Route element={<ProtectedRoute />}>
+                      <Route index element={<DashboardPage />} />
+                      <Route path="dashboard" element={<DashboardPage />} />
+                      <Route path="applied-jobs" element={<AppliedJobsPage />} />
+                      <Route path="skilllistpage" element={<Skilllistpage />} />
+                      <Route path="saved-courses" element={<SavedCourses />} />
+                      <Route
+                        path="skill-test-history"
+                        element={<SkillHistoryPage />}
+                      />
+                      <Route
+                        path="change-password"
+                        element={<ChangePasswordPage />}
+                      />
+                      <Route path="cv-manager" element={<CVMannagerPage />} />
+                      <Route path="job-alerts" element={<JobAlertPage />} />
+                      <Route path="messages" element={<MessageesPage />} />
+                      <Route path="my-profile" element={<MyProfilePage />} />
+                      <Route path="settings" element={<SettingsPage />} />
+                      <Route path="my-resume" element={<MyResumePage />} />
+                      <Route path="packages" element={<PackagePage />} />
+                      <Route
+                        path="notifications"
+                        element={<NotificationsHistoryPage />}
+                      />
+                      <Route
+                        path="testpaper/:skillId/:skillName"
+                        element={<TestPaper />}
+                      />
+                      <Route
+                        path="short-listed-jobs"
+                        element={<ShortListedJobsPage />}
+                      />
+                      <Route path="courses" element={<CoursePage />} />
+                      <Route path="pricing" element={<PricingPage />} />
+                      <Route path="checkout" element={<CheckoutPage />} />
+                    </Route>
                   </Route>
 
                   <Route path="shop">

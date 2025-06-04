@@ -19,6 +19,7 @@ import PricingSection from "@/components/Payments/PricingSection";
 
 const FilterJobsBox = () => {
   const [jobs, setJobs] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const jobsPerSlide = 8; // Number of jobs to display per slide
   const [email, setEmail] = useState("");
@@ -69,6 +70,24 @@ const FilterJobsBox = () => {
 
     fetchJobs();
   }, []);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.sentryspot.co.uk/api/jobseeker/all-courses"
+        );
+        if (response.data?.data?.courseResponse) {
+          setCourses(response.data.data.courseResponse);
+        }
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
   const PrevArrow = ({ onClick }) => (
     <button
       className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white px-3 py-2 rounded-full z-10"
@@ -495,6 +514,89 @@ const FilterJobsBox = () => {
           </div>
         </div>
         <PricingSection />
+        <div className="CoursesSection py-16 bg-gray-50">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Featured Courses</h2>
+              <p className="text-gray-600">Enhance your skills with our curated selection of courses</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {courses.map((course) => (
+                <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-105">
+                  <div className="relative">
+                    <img 
+                      src={ "https://api.sentryspot.co.uk/courses/assets/images/course_default.jpg"} 
+                      alt={course.course_title}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm">
+                      {course.course_category_name || "General"}
+                    </div>
+                    {course.discount_percent > 0 && (
+                      <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm">
+                        {course.discount_percent}% OFF
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center mb-3">
+                      <img 
+                        src={course.trainer_photo || "https://via.placeholder.com/40"} 
+                        alt={course.trainer_display_name}
+                        className="w-10 h-10 rounded-full mr-3"
+                      />
+                      <div>
+                        <p className="font-medium text-gray-800">{course.trainer_display_name}</p>
+                        <p className="text-sm text-gray-600">{course.trainer_job_title || "Instructor"}</p>
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">{course.course_title}</h3>
+                    <div className="flex items-center mb-3">
+                      <span className="text-yellow-400 mr-1">★</span>
+                      <span className="text-gray-600">{course.rating || 0} ({course.enrolled_jobseeker_count} students)</span>
+                    </div>
+                    <p className="text-gray-600 mb-4 line-clamp-2">
+                      {course.course_description?.replace(/<[^>]*>/g, '') || "No description available"}
+                    </p>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        {course.discount_percent > 0 ? (
+                          <div className="flex items-center">
+                            <span className="text-gray-500 line-through mr-2">£{course.course_price}</span>
+                            <span className="text-blue-600 font-semibold">£{course.after_discount_price}</span>
+                          </div>
+                        ) : (
+                          <span className="text-blue-600 font-semibold">
+                            {course.course_price > 0 ? `£${course.course_price}` : 'Free'}
+                          </span>
+                        )}
+                      </div>
+                      <Link 
+                        to={`/course/${course.id}`}
+                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+                      >
+                        {course.is_enrolled ? 'Continue Learning' : 'Learn More'}
+                      </Link>
+                    </div>
+                    {course.coupon_code && (
+                      <div className="mt-3 text-sm text-green-600">
+                        Use code: {course.coupon_code}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="text-center mt-12">
+              <Link 
+                to="/courses"
+                className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                View All Courses
+              </Link>
+            </div>
+          </div>
+        </div>
         <div className="Blog">
           <div className="container">
             <div className="BlogHeading">
