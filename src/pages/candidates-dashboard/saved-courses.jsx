@@ -166,7 +166,7 @@ const SavedCourses = () => {
                                                             </Typography>
                                                             <Box sx={{ mt: 'auto', pt: 2 }}>
                                                                 <Grid container spacing={1}>
-                                                                    <Grid item xs={6}>
+                                                                  
                                                                         <Button
                                                                             variant="contained"
                                                                             color="primary"
@@ -175,17 +175,8 @@ const SavedCourses = () => {
                                                                         >
                                                                             View Course
                                                                         </Button>
-                                                                    </Grid>
-                                                                    <Grid item xs={6}>
-                                                                        <Button
-                                                                            variant="outlined"
-                                                                            color="error"
-                                                                            fullWidth
-                                                                            onClick={() => handleRemoveCourse(course.id)}
-                                                                        >
-                                                                            Remove
-                                                                        </Button>
-                                                                    </Grid>
+                                                                  
+                                                                   
                                                                 </Grid>
                                                             </Box>
                                                         </Box>

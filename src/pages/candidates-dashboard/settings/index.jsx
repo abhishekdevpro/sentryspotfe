@@ -121,25 +121,25 @@ const SettingsPage = () => {
     <div className="page-wrapper dashboard min-h-screen bg-[#f8fafc]">
       <DashboardCandidatesHeader />
       <DashboardCandidatesSidebar />
-      <div className="pt-40 px-4 md:px-0 flex justify-center">
-        <div className="w-full max-w-5xl flex gap-8">
+      <div className="pt-20 md:pt-40 px-4 md:px-0 flex justify-center">
+        <div className="w-full max-w-5xl flex flex-col md:flex-row gap-4 md:gap-8">
           {/* Sidebar */}
-          <div className="w-48">
-            <div className="bg-white rounded-xl shadow p-0.5">
+          <div className="w-full md:w-48">
+            <div className="bg-white rounded-xl shadow p-0.5 flex md:flex-col overflow-x-auto md:overflow-x-visible">
               <button
-                className={`w-full text-left px-4 py-2 rounded-lg font-medium mb-1 transition-colors ${selectedTab === "account" ? "bg-orange-500 text-white" : "hover:bg-gray-100 text-gray-800"}`}
+                className={`flex-shrink-0 text-left px-4 py-2 rounded-lg font-medium mb-1 transition-colors ${selectedTab === "account" ? "bg-orange-500 text-white" : "hover:bg-gray-100 text-gray-800"}`}
                 onClick={() => setSelectedTab("account")}
               >
                 <span className="mr-2">🔶</span> Account
               </button>
               <button
-                className={`w-full text-left px-4 py-2 rounded-lg font-medium mb-1 transition-colors ${selectedTab === "notification" ? "bg-orange-500 text-white" : "hover:bg-gray-100 text-gray-800"}`}
+                className={`flex-shrink-0 text-left px-4 py-2 rounded-lg font-medium mb-1 transition-colors ${selectedTab === "notification" ? "bg-orange-500 text-white" : "hover:bg-gray-100 text-gray-800"}`}
                 onClick={() => setSelectedTab("notification")}
               >
                 <span className="mr-2">🔔</span> Notification
               </button>
               <button
-                className={`w-full text-left px-4 py-2 rounded-lg font-medium transition-colors ${selectedTab === "subscription" ? "bg-orange-500 text-white" : "hover:bg-gray-100 text-gray-800"}`}
+                className={`flex-shrink-0 text-left px-4 py-2 rounded-lg font-medium transition-colors ${selectedTab === "subscription" ? "bg-orange-500 text-white" : "hover:bg-gray-100 text-gray-800"}`}
                 onClick={() => setSelectedTab("subscription")}
               >
                 <span className="mr-2">💳</span> Subscription
@@ -148,7 +148,7 @@ const SettingsPage = () => {
           </div>
           {/* Main Content */}
           <div className="flex-1">
-            <div className="bg-white rounded-xl shadow p-6 min-w-[320px]">
+            <div className="bg-white rounded-xl shadow p-4 md:p-6 min-w-[280px]">
               {selectedTab === "account" && (
                 <>
                   <h2 className="text-xl font-semibold mb-4">Account</h2>
@@ -158,26 +158,18 @@ const SettingsPage = () => {
                     <div className="text-red-500 p-6">{error}</div>
                   ) : account ? (
                     <div className="border rounded-lg overflow-hidden">
-                      <div className="grid grid-cols-3 bg-gray-50 text-gray-500 text-sm font-medium">
+                      <div className="grid grid-cols-1 md:grid-cols-3 bg-gray-50 text-gray-500 text-sm font-medium">
                         <div className="p-3">Account ID</div>
-                        <div className="p-3 col-span-2">{account.job_seeker_uuid || "N/A"}</div>
+                        <div className="p-3 md:col-span-2">{account.job_seeker_uuid || "N/A"}</div>
                       </div>
-                      <div className="grid grid-cols-3 border-t text-sm">
+                      <div className="grid grid-cols-1 md:grid-cols-3 border-t text-sm">
                         <div className="p-3 text-gray-500 font-medium">Email Address</div>
-                        <div className="p-3 col-span-2">{account.email || "N/A"}</div>
+                        <div className="p-3 md:col-span-2">{account.email || "N/A"}</div>
                       </div>
-                      {/* <div className="grid grid-cols-3 border-t text-sm">
-                        <div className="p-3 text-gray-500 font-medium">Contact</div>
-                        <div className="p-3 col-span-2">{account.phone || "N/A"}</div>
-                      </div> */}
-                      <div className="grid grid-cols-3 border-t text-sm">
+                      <div className="grid grid-cols-1 md:grid-cols-3 border-t text-sm">
                         <div className="p-3 text-gray-500 font-medium">Name</div>
-                        <div className="p-3 col-span-2">{`${account.first_name || ""} ${account.last_name || ""}`.trim() || "N/A"}</div>
+                        <div className="p-3 md:col-span-2">{`${account.first_name || ""} ${account.last_name || ""}`.trim() || "N/A"}</div>
                       </div>
-                      {/* <div className="grid grid-cols-3 border-t text-sm">
-                        <div className="p-3 text-gray-500 font-medium">Location</div>
-                        <div className="p-3 col-span-2">{account.current_location || "N/A"}</div>
-                      </div> */}
                     </div>
                   ) : (
                     <div className="text-gray-500 p-6">No account data found.</div>
@@ -240,13 +232,13 @@ const SettingsPage = () => {
                 <div>
                   <h2 className="text-xl font-semibold mb-4">Subscription</h2>
                   {/* Help/Contact Box */}
-                  <div className="border rounded-lg p-4 mb-4 flex flex-col md:flex-row md:justify-between gap-4 bg-gray-50">
+                  <div className="border rounded-lg p-4 mb-4 flex flex-col gap-4 bg-gray-50">
                     <div>
                       <div className="font-semibold mb-1">Need help or want to change your subscription?</div>
                       <div className="text-sm">Contact us at:</div>
                       <div className="flex items-center gap-2 mt-1">
                         <svg xmlns='http://www.w3.org/2000/svg' className='w-4 h-4 text-gray-500' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M16 12H8m8 0a8 8 0 11-16 0 8 8 0 0116 0z' /></svg>
-                        <span className="text-blue-700 text-sm">customersupport@SentrySpot.com</span>
+                        <span className="text-blue-700 text-sm">support@SentrySpot.com</span>
                       </div>
                     </div>
                     <div>
@@ -260,34 +252,36 @@ const SettingsPage = () => {
                   {/* Subscription Details */}
                   <div className="border-t pt-4 mt-4">
                     <div className="font-semibold mb-2">Subscription details</div>
-                    <div className="flex flex-col md:flex-row md:items-center md:gap-4 mb-4">
-                      <div className="mb-2 md:mb-0 flex items-center gap-2">
+                    <div className="flex flex-col gap-4 mb-4">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span className="font-medium text-sm">Status:</span>
                         <span className={`text-xs font-semibold px-2 py-0.5 rounded ${account?.is_active_plan ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
                           {account?.is_active_plan ? 'Active' : 'Inactive'}
                         </span>
                       </div>
-                      <div className="mb-2 md:mb-0 flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span className="font-medium text-sm">Current Plan:</span>
                         <span className={`text-xs font-semibold px-2 py-0.5 rounded ${account?.plan_name ? 'bg-gray-100 text-pink-600' : 'bg-gray-100 text-gray-600'}`}>
                           {account?.plan_name || 'Free'}
                         </span>
                       </div>
-                      <button 
-                        className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded mr-2" 
-                        onClick={() => navigate('/candidates-dashboard/pricing')}
-                      >
-                        Upgrade
-                      </button>
-                      <button 
-                        className={`text-sm font-semibold px-4 py-2 rounded ${account?.is_active_plan ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`} 
-                        disabled
-                      >
-                        Cancel Subscription
-                      </button>
+                      <div className="flex flex-wrap gap-2">
+                        <button 
+                          className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded" 
+                          onClick={() => navigate('/candidates-dashboard/pricing')}
+                        >
+                          Upgrade
+                        </button>
+                        <button 
+                          className={`text-sm font-semibold px-4 py-2 rounded bg-gray-200 text-gray-400 cursor-not-allowed`} 
+                          disabled
+                        >
+                          Cancel Subscription
+                        </button>
+                      </div>
                     </div>
                     <div className="text-xs text-gray-600 mt-2">
-                      For more information or changes to your subscription, contact us at <a href="mailto:customersupport@SentrySpot.com" className="text-blue-700 underline">customersupport@SentrySpot.com</a>.
+                      For more information or changes to your subscription, contact us at <a href="mailto:support@SentrySpot.com" className="text-blue-700 underline">support@SentrySpot.com</a>.
                     </div>
                   </div>
                 </div>

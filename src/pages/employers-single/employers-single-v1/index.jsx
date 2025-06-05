@@ -1,4 +1,3 @@
-
 import employersInfo from "@/data/topCompany";
 import LoginPopup from "@/components/common/form/login/LoginPopup";
 import FooterDefault from "@/components/footer/common-footer";
@@ -22,6 +21,7 @@ const metadata = {
 
 const EmployersSingleV1 = () => {
   const [jobData, setJobData] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   let params = useParams();
   const id = params.id;
 
@@ -51,7 +51,23 @@ const EmployersSingleV1 = () => {
 
   const employer = jobData.data || jobs[0];
 
-  
+  const handlePrivateMessage = () => {
+    if (!isLoggedIn) {
+      // Show login modal using Bootstrap
+      const loginModal = document.getElementById('loginPopupModal');
+      if (loginModal) {
+        const bsModal = new bootstrap.Modal(loginModal);
+        bsModal.show();
+      }
+      return;
+    }
+    // If logged in, show the private message modal
+    const modal = document.getElementById('privateMessage');
+    if (modal) {
+      const bsModal = new bootstrap.Modal(modal);
+      bsModal.show();
+    }
+  };
 
   return (
     <>
@@ -119,8 +135,7 @@ const EmployersSingleV1 = () => {
                 <div className="btn-box">
                   <button
                     className="theme-btn btn-style-one"
-                    data-bs-toggle="modal"
-                    data-bs-target="#privateMessage"
+                    onClick={handlePrivateMessage}
                   >
                     Private Message
                   </button>

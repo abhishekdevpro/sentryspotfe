@@ -76,9 +76,7 @@ const WorkExperienceForm = ({ onNext }) => {
         description: experience.description
       }));
 
-      const payload = [...workExperiences,...newExp]
-
-      await axios.put(`${baseurl}user-profile-professional`, payload, {
+      await axios.put(`${baseurl}user-profile-professional`, newExp, {
         headers: {
           Authorization: token,
           "Content-Type": "application/json",
@@ -236,37 +234,6 @@ const WorkExperienceForm = ({ onNext }) => {
           </div>
         </div>
       </form>
-
-      {workExperiences.length > 0 && (
-        <div className="mt-8">
-          <h4 className="text-lg font-medium mb-4">Your Work Experience History</h4>
-          <div className="grid md:grid-cols-2 gap-4">
-            {workExperiences.map((exp, index) => (
-              <div
-                key={exp.id || index}
-                className="bg-white shadow-md rounded-lg p-6 border border-gray-200 hover:shadow-lg transition-shadow duration-300"
-              >
-                <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                  {exp.job_title}
-                </h2>
-                <h3 className="text-lg text-gray-700 mb-2">
-                  {exp.organization}
-                </h3>
-                <div className="space-y-2 text-gray-600">
-                  <p>
-                    <span className="font-medium">Duration:</span>{' '}
-                    {exp.time_period_start} - {exp.is_present === 1 ? 'Present' : exp.time_period_end}
-                  </p>
-                  <p className="mt-2">
-                    <span className="font-medium">Description:</span>
-                    <div className="mt-1 text-gray-600">{exp.description}</div>
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

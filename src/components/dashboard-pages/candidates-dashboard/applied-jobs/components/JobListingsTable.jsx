@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { BsBriefcase, BsClock, BsGeoAlt, BsBuilding } from "react-icons/bs";
-import { FiEye, FiTrash2, FiCalendar, FiAward } from "react-icons/fi";
+import { FiEye, FiCalendar, FiAward } from "react-icons/fi";
 import { Toaster } from "react-hot-toast";
-import ConfirmationDialog from "@/components/community/ConfirmationDialog";
 import { Constant } from "@/utils/constant/constant";
-
 
 const JobListingsTable = () => {
   const token = localStorage.getItem(Constant.USER_TOKEN);
@@ -15,8 +13,6 @@ const JobListingsTable = () => {
   const [error, setError] = useState(null);
   const [timeFilter, setTimeFilter] = useState("6");
   const [sortOrder, setSortOrder] = useState("desc"); // default to newest first
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const [jobToRemove, setJobToRemove] = useState(null);
 
   useEffect(() => {
     fetchSavedJobs();
@@ -54,54 +50,6 @@ const JobListingsTable = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleRemoveClick = (job) => {
-    setJobToRemove(job);
-    setShowConfirmDialog(true);
-  };
-
-  const handleConfirmRemove = async () => {
-    if (!jobToRemove) return;
-
-    try {
-      const response = await axios.get(
-        `https://api.sentryspot.co.uk/api/jobseeker/mark-job-favorite/${jobToRemove.id}`,
-        {
-          headers: {
-            Authorization: token
-          }
-        }
-      );
-
-      if (response.data.status === "success") {
-        const updatedJobs = savedJobs.filter(job => job.id !== jobToRemove.id);
-        setSavedJobs(updatedJobs);
-        toast.success('Job removed from applied jobs', {
-          position: 'top-right',
-          duration: 3000,
-        });
-      } else {
-        toast.error('Failed to remove job from applied jobs', {
-          position: 'top-right',
-          duration: 3000,
-        });
-      }
-    } catch (err) {
-      console.error("Error removing job from applied jobs:", err);
-      toast.error('An error occurred while removing the job', {
-        position: 'top-right',
-        duration: 3000,
-      });
-    } finally {
-      setShowConfirmDialog(false);
-      setJobToRemove(null);
-    }
-  };
-
-  const handleCloseDialog = () => {
-    setShowConfirmDialog(false);
-    setJobToRemove(null);
   };
 
   const formatDate = (dateString) => {
@@ -165,7 +113,7 @@ const JobListingsTable = () => {
             </div>
           </Link>
         </div>
-        <div className="flex items-center justify-between mt-4 pt-3 border-t">
+        <div className="flex items-center justify-end mt-4 pt-3 border-t">
           <Link 
             to={`/job-single-v3/${job.id}`}
             className="flex items-center gap-2 text-gray-400 hover:text-blue-600 transition-colors p-2 text-sm"
@@ -173,13 +121,6 @@ const JobListingsTable = () => {
             <FiEye className="w-5 h-5" />
             <span>View Details</span>
           </Link>
-          <button
-            onClick={() => handleRemoveClick(job)}
-            className="flex items-center gap-2 text-gray-400 hover:text-red-500 transition-colors p-2 text-sm"
-          >
-            <FiTrash2 className="w-5 h-5" />
-            <span>Remove</span>
-          </button>
         </div>
       </div>
     </div>
@@ -227,17 +168,6 @@ const JobListingsTable = () => {
             ))}
           </div>
         )}
-
-        <ConfirmationDialog
-          isOpen={showConfirmDialog}
-          onClose={handleCloseDialog}
-          onConfirm={handleConfirmRemove}
-          title="Remove from Applied Jobs"
-          description={`Are you sure you want to remove "${jobToRemove?.job_title}" from your applied jobs? This action cannot be undone.`}
-          confirmLabel="Remove"
-          cancelLabel="Cancel"
-          variant="destructive"
-        />
       </div>
     </div>
   );

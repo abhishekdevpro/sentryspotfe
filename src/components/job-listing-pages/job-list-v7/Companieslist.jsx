@@ -16,8 +16,7 @@ const Companieslist = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [jobCount, setJobCount] = useState(0);
-  const [countries, setCountries] = useState([]);
-  const [states, setStates] = useState([]);
+  const [selectedJobId, setSelectedJobId] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const token = localStorage.getItem(Constant.USER_TOKEN);
 
@@ -92,7 +91,8 @@ const Companieslist = () => {
 
 
 
-  const handleApplyNowClick = () => {
+  const handleApplyNowClick = (jobId) => {
+    setSelectedJobId(jobId);
     setShowPopup(true);
   };
 
@@ -108,7 +108,7 @@ console.log(jobs,"jobs");
     <main className="max-w-6xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between px-4 md:px-5 my-3">
         <p className="text-base md:text-lg text-gray-800 mb-4">
-          Show {jobCount} {jobCount === 1 ? 'Job' : 'Jobs'}
+          Show {jobCount} {jobCount === 1 ? 'Company' : 'Companies'}
         </p>
       </div>
   
@@ -171,9 +171,13 @@ console.log(jobs,"jobs");
                   <div className="flex-shrink-0">
                     <div className="relative w-20 h-20 rounded-lg overflow-hidden border-2 border-gray-100">
                       <img
-                        src={job.logo || "/api/placeholder/120/120"}
+                        src={job.logo || "https://img.freepik.com/premium-photo/intelligent-logo-simple_553012-47516.jpg?size=338&ext=jpg"}
                         alt={`${job.company_name} logo`}
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "https://img.freepik.com/premium-photo/intelligent-logo-simple_553012-47516.jpg?size=338&ext=jpg";
+                        }}
                       />
                     </div>
                   </div>
@@ -182,12 +186,12 @@ console.log(jobs,"jobs");
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
                       <h3 className="text-xl font-bold text-gray-800 truncate">
-                        <a 
-                          href={`/employers-single-v1/${job.id}`}
+                        <Link 
+                          to={`/employers-single-v1/${job.id}`}
                           className="hover:text-blue-600 transition-colors"
                         >
-                          {job.company_name}
-                        </a>
+                          {job.company_name || "Company Name Not Available"}
+                        </Link>
                       </h3>
                       
                       {/* <button 
