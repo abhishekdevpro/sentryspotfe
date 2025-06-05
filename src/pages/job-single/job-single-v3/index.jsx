@@ -116,19 +116,24 @@ const JobSingleDynamicV3 = () => {
         setError(null);
         const token = localStorage.getItem(Constant.USER_TOKEN);
 
+        // Use public API if user is not logged in
+        const apiUrl = token 
+          ? `https://api.sentryspot.co.uk/api/jobseeker/job-list/${id}`
+          : `https://api.sentryspot.co.uk/api/jobseeker/public/job-list/${id}`;
+
         // Fetch job details
-        const jobResponse = await axios.get(`https://api.sentryspot.co.uk/api/jobseeker/job-list/${id}`, {
-          headers: {
+        const jobResponse = await axios.get(apiUrl, {
+          headers: token ? {
             Authorization: ` ${token}`
-          }
+          } : {}
         });
         const jobData = jobResponse.data.data;
         setJobData(jobData);
         // Set initial following state based on company_favorite_id
         setIsFollowing(jobData.company_favorite_id > 0);
 
-        // If company_id exists, fetch company details in parallel
-        if (jobData.company_id) {
+        // If company_id exists and user is logged in, fetch company details
+        if (jobData.company_id && token) {
           const companyResponse = await axios.get(`https://api.sentryspot.co.uk/api/jobseeker/companies/${jobData.company_id}`, {
             headers: {
               Authorization: ` ${token}`

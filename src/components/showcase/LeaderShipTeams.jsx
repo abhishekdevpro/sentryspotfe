@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Constant } from '@/utils/constant/constant';
@@ -146,33 +145,31 @@ const LeadershipTeam = () => {
   );
 
   return (
-    <section className="py-12 bg-gray-50" id="leadership">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-            Meet our team
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            Our Leadership Team
           </h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mt-4"></div>
-
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            Meet the experienced professionals leading our organization to success
+          </p>
         </div>
-        <div className="flex justify-end mb-4">
-          
-              </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {teamMembers.map((member) => (
-            <div key={member.id} className="overflow-hidden">
-              <CardContent className="p-6">
+            <div key={member.id} className="bg-white rounded-lg shadow-sm overflow-hidden transition-transform hover:scale-[1.02]">
+              <div className="p-6">
                 <div className="flex flex-col items-center">
                   <div className="relative mb-6">
                     <img
                       src={`${baseImageUrl}${member.media}` || "https://picsum.photos/200/300"}
                       alt={member.name}
-                      className="h-48 w-48 rounded-full object-cover shadow-lg"
+                      className="h-40 w-40 sm:h-48 sm:w-48 rounded-full object-cover shadow-lg"
                     />
                     <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
-                      <span className="flex justify-center items-center bg-pink-500 h-12 w-12 rounded-full shadow-lg">
-                        <IoPlay size={28} color="white" />
+                      <span className="flex justify-center items-center bg-pink-500 h-10 w-10 sm:h-12 sm:w-12 rounded-full shadow-lg">
+                        <IoPlay size={24} color="white" />
                       </span>
                     </div>
                   </div>
@@ -186,18 +183,17 @@ const LeadershipTeam = () => {
                         className="text-gray-600 prose prose-sm max-w-none"
                         dangerouslySetInnerHTML={{ __html: member.description }}
                       />
-                      
                     </div>
                   )}
                 </div>
-              </CardContent>
+              </div>
             </div>
           ))}
         </div>
 
         {teamMembers.length > 6 && (
           <div className="text-center mt-12">
-            <button className="inline-flex items-center px-6 py-3 text-base font-medium text-amber-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
+            <button className="inline-flex items-center px-6 py-3 text-base font-medium text-amber-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-colors">
               See More
             </button>
           </div>
@@ -205,7 +201,7 @@ const LeadershipTeam = () => {
       </div>
 
       {error && (
-        <div className="fixed bottom-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+        <div className="fixed bottom-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg">
           {error}
         </div>
       )}

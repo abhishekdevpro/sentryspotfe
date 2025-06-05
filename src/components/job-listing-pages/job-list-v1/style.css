@@ -40,8 +40,11 @@
   /* button:hover{
       background: #433487;
   } */
-  .container{
-      width: 1280px;
+  .container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
   }
   .TopHeader {
       width: 100%;
@@ -1083,166 +1086,250 @@
   
   
   
-  @media screen and (min-width: 320px) and (max-width: 425px) {
-      .container{
-          width: 100%;
-      }
-      .NavBar{
-          display: none;
-      }
-      .HomeBannerContent{
-          display: block;
-      }
-      .BannerContent{
-          text-align: left;
-          padding: 20px;
-      }
-      .BannerContent h1{
-          font-size: 36px;
-      }
-      .BannerContent p{
-          width: 100%;
-          font-size: 16px;
-      }
-      .ProgramCards{
-          display: block;
-      }
-      .BannerBtn button{
-          width: 100%;
-      }
-      .HomeHeroMedia{
-          padding: 15px;
-      }
-      .BannerTextUpper h2{
-          font-size: 10px;
-      }
-      .BannerText{
-          bottom: 18%;
-          left: 4%;
-      }
-      .BannerTextUpper{
-          padding: 8px;
-      }
-      .BannerTextDowe{
-          left: auto;
-      }
-      .BannerTextDowe h2{
-          font-size: 14px;
-      }
-      .BannerTextDowe p{
-          font-size: 10px;
-      }
-      .BannerTextDowe{
-          bottom: 20%;
-          padding: 15px;
-      }
-      .CardTop h2{
-          font-size: 24px;
-          padding: 15px;
-      }
-      .program-card{
-          margin-bottom: 20px;
-      }
-      .FaqBox {
-          display: block;
-          padding-right: 20px;
-          padding-left: 20px;
-      }
-      .FaqImage{
-          margin-bottom: 20px;
-          width: 100%;
-      }
-      .FaqText{
-          width: 100%;
-      }
-      .FaqBtn button{
-          width: 100%;
-      }
-      .StatsBox{
-          display: block;
-          padding: 20px;
-      }
-      .HelpBox{
-          width: 100%;
-      }
-      .StatsBtn button{
-          width: 100%;
-      }
-      .HelpSlider{
-          width: 100%;
-      }
-      .BlogsCards{
-          display: block;
-          padding:20px;
-      }
-      .BlogBoxs{
-          margin-bottom: 20px;
-      }
-      .BlogBtn button{
-          width: 100%;
-      }
-      .BlogBtn{
-          padding:20px;
-      }
-      .Talk{
-          margin-top: 0;
-      }
-      .Talkbox{
-          display: block;
-          padding: 20px;
-          background-size:100%;
-          border-radius: 20px;
-      }
-          .Talkbox img {
-          position: initial;
-          width: 100%;
-          margin-bottom: -24px;
-  
-      }
-      .TalkInfo h2{
-          width: 100%;
-          font-size: 36px;
-      }
-      .NewsletterConatiner{
-          display: block;
-          padding: 20px;
-          border-radius: 20px;
-      }
-      .NewsletterConatiner h3{
-          width: 100%;
-      }
-      .LetterForm{
-          display: block;
-          margin: 20px 0;
-          width: 100%;
-      }
-      .From_Section{
-          display: block;
-      }
-      input[type="email"]{
-          width: 90%;
-          margin-bottom: 20px;
-          border-radius: 10px;
-      }
-      .FormBTn button{
-          width: 100%;
-      }
-      .FooterCTA{
-          display: block;
-      }
-      .CtaInfo i{
-          display: none;
-      }
-      .Footerbtn button{
-          width: 100%;
-      }
-      .footerMenu{
-          display: block;
-      }
-      
+  @media screen and (max-width: 1024px) {
+    .container {
+      padding: 0 1.5rem;
+    }
+    
+    .NavBar {
+      padding: 0.5rem 1rem;
+    }
+    
+    .HomeBannerContent {
+      padding: 2rem 1rem;
+    }
+    
+    .BannerContent {
+      padding: 1.5rem;
+    }
+    
+    .BannerContent h1 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+    
+    .ProgramCards {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
   }
-  @media screen and (min-width: 768px) and (max-width: 1024px){
-      body{
-          width: fit-content;
-      }
+  
+  @media screen and (max-width: 768px) {
+    .container {
+      padding: 0 1rem;
+    }
+    
+    .NavBar {
+      display: none;
+    }
+    
+    .HomeBannerContent {
+      display: block;
+    }
+    
+    .BannerContent {
+      text-align: left;
+      padding: 1rem;
+    }
+    
+    .BannerContent h1 {
+      font-size: 2rem;
+    }
+    
+    .BannerContent p {
+      width: 100%;
+      font-size: 1rem;
+    }
+    
+    .ProgramCards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .BannerBtn button {
+      width: 100%;
+    }
+    
+    .HomeHeroMedia {
+      padding: 1rem;
+    }
+    
+    .BannerText {
+      bottom: 10%;
+      left: 5%;
+    }
+    
+    .BannerTextUpper {
+      padding: 0.5rem;
+    }
+    
+    .BannerTextUpper h2 {
+      font-size: 0.875rem;
+    }
+    
+    .BannerTextDowe {
+      left: auto;
+      bottom: 15%;
+      padding: 1rem;
+    }
+    
+    .BannerTextDowe h2 {
+      font-size: 1rem;
+    }
+    
+    .BannerTextDowe p {
+      font-size: 0.875rem;
+    }
+    
+    .CardTop h2 {
+      font-size: 1.5rem;
+      padding: 1rem;
+    }
+    
+    .program-card {
+      margin-bottom: 1rem;
+    }
+    
+    .FaqBox {
+      display: block;
+      padding: 1rem;
+    }
+    
+    .FaqImage {
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+    
+    .FaqText {
+      width: 100%;
+    }
+    
+    .FaqBtn button {
+      width: 100%;
+    }
+    
+    .StatsBox {
+      display: block;
+      padding: 1rem;
+    }
+    
+    .HelpBox {
+      width: 100%;
+    }
+    
+    .StatsBtn button {
+      width: 100%;
+    }
+    
+    .HelpSlider {
+      width: 100%;
+    }
+    
+    .BlogsCards {
+      display: block;
+      padding: 1rem;
+    }
+    
+    .BlogBoxs {
+      margin-bottom: 1rem;
+    }
+    
+    .BlogBtn button {
+      width: 100%;
+    }
+    
+    .BlogBtn {
+      padding: 1rem;
+    }
+    
+    .Talk {
+      margin-top: 0;
+    }
+    
+    .Talkbox {
+      display: block;
+      padding: 1rem;
+      background-size: cover;
+      border-radius: 1rem;
+    }
+    
+    .Talkbox img {
+      position: initial;
+      width: 100%;
+      margin-bottom: -1.5rem;
+    }
+    
+    .TalkInfo h2 {
+      width: 100%;
+      font-size: 2rem;
+    }
+    
+    .NewsletterConatiner {
+      display: block;
+      padding: 1rem;
+      border-radius: 1rem;
+    }
+    
+    .NewsletterConatiner h3 {
+      width: 100%;
+    }
+    
+    .LetterForm {
+      display: block;
+      margin: 1rem 0;
+      width: 100%;
+    }
+    
+    .From_Section {
+      display: block;
+    }
+    
+    input[type="email"] {
+      width: 100%;
+      margin-bottom: 1rem;
+      border-radius: 0.625rem;
+    }
+    
+    .FormBTn button {
+      width: 100%;
+    }
+    
+    .FooterCTA {
+      display: block;
+    }
+    
+    .CtaInfo i {
+      display: none;
+    }
+    
+    .Footerbtn button {
+      width: 100%;
+    }
+    
+    .footerMenu {
+      display: block;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .BannerContent h1 {
+      font-size: 1.75rem;
+    }
+    
+    .BannerContent p {
+      font-size: 0.875rem;
+    }
+    
+    .CardTop h2 {
+      font-size: 1.25rem;
+    }
+    
+    .TalkInfo h2 {
+      font-size: 1.5rem;
+    }
+    
+    .NewsletterConatiner h3 {
+      font-size: 1.25rem;
+    }
   }	

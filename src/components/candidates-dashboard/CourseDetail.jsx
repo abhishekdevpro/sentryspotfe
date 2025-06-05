@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Constant } from '@/utils/constant/constant.js';
 import DashboardCandidatesHeader from '../header/DashboardCandidatesHeader';
 import CopyrightFooter from '../dashboard-pages/CopyrightFooter';
+import { ChevronDown, FileText } from 'lucide-react';
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -398,174 +399,131 @@ const CourseDetail = () => {
   if (!course) return <div style={{ padding: 32, textAlign: 'center' }}>Course not found.</div>;
 
   return (
-    <div style={styles.container}>
-      <DashboardCandidatesHeader />
-      <div style={styles.contentWrapper}>
-        {/* Top Section */}
-        <div style={styles.topSection}>
-          {/* Left: Info */}
-          <div style={{ flex: 2 }}>
-            <div style={styles.instructorInfo}>
-              <img
-                src={course.instructor_image || "https://statinfer.com/wp-content/uploads/dummy-user.png"}
-                alt="Instructor"
-                style={styles.instructorImage}
-              />
-              <div>
-                <div style={styles.instructorName}>{course.instructor_name || "Trained Professional"}</div>
-                <div style={styles.instructorTitle}>{course.instructor_title || "Instructor"}</div>
-                <div style={{ marginTop: 4 }}>
-                  {Array.from({ length: course.rating || 5 }).map((_, i) => (
-                    <span key={i} style={styles.rating}>★</span>
-                  ))}
-                  <span style={styles.ratingCount}>({course.rating_count || 0})</span>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+                {course.title}
+              </h1>
+              <p className="text-gray-600 mb-6">{course.description}</p>
+              
+              {/* Course Progress */}
+              <div className="mb-8">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-medium text-gray-700">Course Progress</span>
+                  <span className="text-sm text-gray-500">{course.progress}%</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${course.progress}%` }}
+                  />
                 </div>
               </div>
-              <div style={{ marginLeft: 'auto' }}>
-                <span style={styles.eligibilityBadge}>{course.eligibility || "Any Graduate"}</span>
-              </div>
-            </div>
-            <div style={styles.courseTitle}>{course.course_title}</div>
-            <div style={styles.sectionTitle}>Description:</div>
-            <div style={styles.description}>{course.description}</div>
-            <div>
-              <a href="#" style={styles.readMore}>Read More</a>
-            </div>
-            <div style={styles.courseStats}>
-              <span>📚 {course.total_lectures || 0}</span>
-              <span>⏰ {course.duration || 0} hrs</span>
-              <span>👥 {course.total_students || 0} students enrolled</span>
-              <span>⚫ {course.eligibility || "Any Graduate"}</span>
-            </div>
-          </div>
-          {/* Right: Card */}
-          <div style={styles.rightCard}>
-            <img
-              src={course.course_image || "https://api.sentryspot.co.uk/courses/assets/images/course_default.jpg"}
-              alt="Course"
-              style={styles.courseImage}
-            />
-            <div style={styles.buttonGroup}>
-              <button 
-                style={styles.saveButton}
-                onClick={handleSaveCourse}
-                disabled={saving}
-              >
-                <span 
-                  style={{
-                    ...styles.heartIcon,
-                    ...(isSaved ? styles.heartIconActive : {})
-                  }}
-                >
-                  {isSaved ? '❤️' : '🤍'}
-                </span>
-                {saving ? 'Saving...' : (isSaved ? 'Saved' : 'Save Course')}
-              </button>
-              <button style={styles.buttonSecondary}>Share</button>
-            </div>
-            <button style={styles.buttonPrimary}>
-              Enroll Now
-            </button>
 
-            {/* My Courses Section */}
-            <div style={styles.myCoursesContainer}>
-              <div style={styles.myCoursesTitle}>My Courses</div>
-              {myCoursesLoading ? (
-                <div style={{ textAlign: 'center', padding: '12px 0' }}>Loading...</div>
-              ) : (
-                <div style={styles.myCoursesList}>
-                  {myCourses.map((myCourse) => (
-                    <div
-                      key={myCourse.id}
-                      style={styles.myCourseItem}
-                      onClick={() => navigate(`/course/${myCourse.id}`)}
+              {/* Lectures List */}
+              <div className="space-y-4">
+                {course.lectures.map((lecture, index) => (
+                  <div 
+                    key={lecture.id}
+                    className="border border-gray-200 rounded-lg overflow-hidden"
+                  >
+                    <div 
+                      className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50"
+                      onClick={() => toggleSection(index)}
                     >
-                      <img
-                        src={myCourse.course_image || "https://api.sentryspot.co.uk/courses/assets/images/course_default.jpg"}
-                        alt={myCourse.course_title}
-                        style={styles.myCourseImage}
-                      />
-                      <div style={styles.myCourseInfo}>
-                        <div style={styles.myCourseName}>{myCourse.course_title}</div>
-                        <div style={styles.myCourseProgress}>
-                          {myCourse.progress || 0}% Complete
+                      <div className="flex items-center space-x-4">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                          <span className="text-sm font-medium text-blue-600">{index + 1}</span>
                         </div>
-                        <div style={styles.progressBar}>
-                          <div
-                            style={{
-                              ...styles.progressFill,
-                              width: `${myCourse.progress || 0}%`
-                            }}
-                          />
+                        <div>
+                          <h3 className="text-base font-medium text-gray-900">{lecture.title}</h3>
+                          <p className="text-sm text-gray-500">{lecture.duration} minutes</p>
                         </div>
                       </div>
+                      <button className="text-gray-400 hover:text-gray-500">
+                        <ChevronDown className={`w-5 h-5 transform transition-transform ${expandedSections[index] ? 'rotate-180' : ''}`} />
+                      </button>
                     </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Course Content Section */}
-        <div style={styles.courseContent}>
-          <div style={styles.contentTitle}>Course Content</div>
-          {course.section_response?.map((section, index) => (
-            <div key={section.id} style={styles.accordion}>
-              <div 
-                style={styles.accordionSummary}
-                onClick={() => toggleSection(section.id)}
-              >
-                <div >
-                  Section {index + 1}: {section.section_name}
-                </div>
-                <div style={{
-                  ...styles.expandIcon,
-                  ...(expandedSections[section.id] ? styles.expandIconExpanded : {})
-                }}>
-                  ▼
-                </div>
-              </div>
-              {expandedSections[section.id] && (
-                <div style={styles.accordionDetails}>
-                  <div style={styles.lectureContainer}>
-                    {section.lectures?.map((lecture, lectureIndex) => (
-                      <div
-                        key={lecture.id}
-                        style={{
-                          ...styles.lectureItem,
-                          borderBottom: lectureIndex !== section.lectures.length - 1 ? '1px solid #eee' : 'none'
-                        }}
-                      >
-                        <div style={{ 
-                          ...styles.lectureNumber,
-                          background: lecture.content_viewed ? '#43a047' : '#e0e0e0'
-                        }}>
-                          {lectureIndex + 1}
+                    
+                    {expandedSections[index] && (
+                      <div className="border-t border-gray-200 p-4 bg-gray-50">
+                        <div className="prose prose-sm max-w-none">
+                          {lecture.content}
                         </div>
-                        <div style={styles.lectureInfo}>
-                          <div style={styles.lectureName}>
-                            {lecture.lecture_name}
-                          </div>
-                          <div style={styles.lectureType}>
-                            {lecture.content_type || 'Text Content'}
-                          </div>
-                        </div>
-                        {lecture.content_viewed && (
-                          <div style={styles.completed}>
-                            ✓ Completed
+                        {lecture.resources && lecture.resources.length > 0 && (
+                          <div className="mt-4">
+                            <h4 className="text-sm font-medium text-gray-900 mb-2">Resources</h4>
+                            <ul className="space-y-2">
+                              {lecture.resources.map((resource, idx) => (
+                                <li key={idx}>
+                                  <a 
+                                    href={resource.url}
+                                    className="text-sm text-blue-600 hover:text-blue-800 flex items-center"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <FileText className="w-4 h-4 mr-2" />
+                                    {resource.name}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
                         )}
                       </div>
-                    ))}
+                    )}
                   </div>
-                </div>
-              )}
+                ))}
+              </div>
             </div>
-          ))}
+          </div>
+
+          {/* Sidebar */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Your Courses</h2>
+              <div className="space-y-4">
+                {myCourses.map((course) => (
+                  <div 
+                    key={course.id}
+                    className="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors"
+                  >
+                    <img 
+                      src={course.thumbnail}
+                      alt={course.title}
+                      className="w-16 h-16 rounded-lg object-cover"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-sm font-medium text-gray-900 truncate">
+                        {course.title}
+                      </h3>
+                      <div className="mt-1">
+                        <div className="flex items-center">
+                          <div className="flex-1">
+                            <div className="w-full bg-gray-200 rounded-full h-1.5">
+                              <div 
+                                className="bg-green-600 h-1.5 rounded-full"
+                                style={{ width: `${course.progress}%` }}
+                              />
+                            </div>
+                          </div>
+                          <span className="ml-2 text-xs text-gray-500">
+                            {course.progress}%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <CopyrightFooter />
     </div>
   );
 };

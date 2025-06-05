@@ -107,14 +107,21 @@ const FilterJobsBox = () => {
   );
 
   const settings = {
-    dots: false, // Hide navigation dots
-    infinite: true, // Infinite scrolling
-    speed: 500, // Transition speed
-    slidesToShow: 4, // Show 4 jobs at a time
-    slidesToScroll: 4, // Scroll 4 jobs per click
-    nextArrow: <NextArrow />, // Custom Next button
-    prevArrow: <PrevArrow />, // Custom Prev button
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     responsive: [
+      {
+        breakpoint: 1280, // Large screens
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
       {
         breakpoint: 1024, // Tablets
         settings: {
@@ -123,10 +130,11 @@ const FilterJobsBox = () => {
         },
       },
       {
-        breakpoint: 768, // Mobile screens
+        breakpoint: 640, // Mobile screens
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          arrows: false, // Hide arrows on mobile
         },
       },
     ],
@@ -163,113 +171,18 @@ const FilterJobsBox = () => {
     <>
       <div>
         <div className="">
-          {/* <div className="container">
-            <div className="HomeBannerContent">
-              <div className="BannerContent">
-                <h2>One Stop AI Enabled Career Portal</h2>
-                <h1>Your Career Journey Starts at SentrySpot</h1>
-                <p>
-                  Your AI-powered gateway to a successful career in security
-                  services. Start your journey with smart tools for job
-                  searching, resume building, and more.
-                </p>
-                <div className="BannerBtn">
-                  <Link to={"/sentry-spot"}>
-                    <button type="button">Get Started Now</button>
-                  </Link>
-                </div>
-              </div>
-              <div className="HomeHeroMedia">
-                <div className="HomeSlider">
-                  <div className="HeroSliderone">
-                    <img src="https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=" alt="Slide 1" />
-                    <div className="BannerText">
-                      <div className="BannerTextUpper">
-                        <i className="fa-solid fa-medal" />
-                        <span>
-                          <h2>
-                            <strong>Resume Build</strong> for Security Services
-                          </h2>
-                        </span>
-                      </div>
-                      <div className="BannerTextUpper">
-                        <i className="fa-solid fa-compass" />
-                        <span>
-                          <h2>Upgraded Job opportunity</h2>
-                        </span>
-                      </div>
-                      <div className="BannerTextDowe">
-                        <h2>Job seeker</h2>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="HeroSliderone">
-                    <img src={home2} alt="Slide 2" />
-                    <div className="BannerText">
-                      <div className="BannerTextUpper">
-                        <i className="fa-solid fa-medal" />
-                        <span>
-                          <h2>
-                            <strong>Enrolled course</strong> for IT
-                          </h2>
-                        </span>
-                      </div>
-                      <div className="BannerTextUpper">
-                        <i className="fa-solid fa-compass" />
-                        <span>
-                          <h2>Secured Job in IT</h2>
-                        </span>
-                      </div>
-                      <div className="BannerTextDowe">
-                        <h2>Job seeker</h2>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="HeroSliderone">
-                    <img src={home3} alt="Slide 3" />
-                    <div className="BannerText">
-                      <div className="BannerTextUpper">
-                        <i className="fa-solid fa-medal" />
-                        <span>
-                          <h2>
-                            <strong>Managed documentation</strong> in Sentry ID
-                          </h2>
-                        </span>
-                      </div>
-                      <div className="BannerTextUpper">
-                        <i className="fa-solid fa-compass" />
-                        <span>
-                          <h2>Multiple Job opportunity</h2>
-                        </span>
-                      </div>
-                      <div className="BannerTextDowe">
-                        <h2>Verified Job seeker</h2>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="NavigationBtn">
-                  <div className="NavPre" onClick={() => plusSlides(-1)}>
-                    <i className="fa-solid fa-chevron-left" />
-                  </div>
-                  <div className="NavNext" onClick={() => plusSlides(1)}>
-                    <i className="fa-solid fa-chevron-right" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
+        
           <HomeBanner />
         </div>
         <div className="ServiceCard">
-          <div className="container">
-            <div className="CardTop">
-              <p className="font-extrabold">
+          <div className="container px-4 sm:px-6 lg:px-8">
+            <div className="CardTop text-center">
+              <p className="font-extrabold text-lg sm:text-xl">
                 How We Spot Career Growth For You
               </p>
-              <h2>AI-Powered Tools to Enhance Your Job Search</h2>
+              <h2 className="text-2xl sm:text-3xl mt-2">AI-Powered Tools to Enhance Your Job Search</h2>
             </div>
-            <div className="ProgramCards owl-carousel owl-theme">
+            <div className="ProgramCards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mt-8">
               <a href="/skilltest" f>
                 <div className="program-card tomato ">
                   <i className="fa-solid fa-forward" />
@@ -349,15 +262,15 @@ const FilterJobsBox = () => {
 			</div> */}
           </div>
         </div>
-        <div className="FAQs">
-          <div className="container">
-            <div className="FaqBox">
-              <div className="FaqImage">
-                <img src={faqimge} />
+        <div className="FAQs py-8 sm:py-10">
+          <div className="container px-4 sm:px-6 lg:px-8">
+            <div className="FaqBox flex flex-col lg:flex-row gap-6">
+              <div className="FaqImage w-full lg:w-1/2">
+                <img src={faqimge} className="w-full h-auto rounded-lg" />
               </div>
-              <div className="FaqText">
-                <p className="font-extrabold">SentrySpot Community</p>
-                <h2>
+              <div className="FaqText w-full lg:w-1/2">
+                <p className="font-extrabold text-lg sm:text-xl">SentrySpot Community</p>
+                <h2 className="text-2xl sm:text-3xl mt-2">
                   Join community to gain the support and resources you need for
                   a smooth transition to a better career.
                 </h2>
@@ -404,16 +317,16 @@ const FilterJobsBox = () => {
             </div>
           </div>
         </div>
-        <div className="Help">
-          <div className="container">
+        <div className="Help py-8 sm:py-10">
+          <div className="container px-4 sm:px-6 lg:px-8">
             <div className="StatsBox">
-              <div className="HelpBox">
-                <div className="HelpText ">
-                  <p>Verified Job Listings</p>
-                  <h2>Creating Impact Every Step of the Way</h2>
-                  <div className="StatsBtn">
+              <div className="HelpBox mb-6">
+                <div className="HelpText text-center sm:text-left">
+                  <p className="text-lg sm:text-xl">Verified Job Listings</p>
+                  <h2 className="text-2xl sm:text-3xl mt-2">Creating Impact Every Step of the Way</h2>
+                  <div className="StatsBtn mt-4">
                     <Link to={"/job-list-v3"}>
-                      <button type="button">View All Jobs</button>
+                      <button type="button" className="w-full sm:w-auto">View All Jobs</button>
                     </Link>
                   </div>
                 </div>
@@ -514,13 +427,13 @@ const FilterJobsBox = () => {
           </div>
         </div>
         <PricingSection />
-        <div className="CoursesSection py-16 bg-gray-50">
-          <div className="container">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Featured Courses</h2>
-              <p className="text-gray-600">Enhance your skills with our curated selection of courses</p>
+        <div className="CoursesSection py-8 sm:py-10 bg-gray-50">
+          <div className="container px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4">Featured Courses</h2>
+              <p className="text-gray-600 text-sm sm:text-base">Enhance your skills with our curated selection of courses</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {courses.map((course) => (
                 <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-105">
                   <div className="relative">
@@ -597,12 +510,12 @@ const FilterJobsBox = () => {
             </div>
           </div>
         </div>
-        <div className="Blog">
-          <div className="container">
-            <div className="BlogHeading">
+        <div className="Blog py-8 sm:py-10">
+          <div className="container px-4 sm:px-6 lg:px-8">
+            <div className="BlogHeading text-2xl sm:text-3xl font-bold text-center mb-6">
               Career Guidance by SentrySpot Editorial
             </div>
-            <div className="BlogsCards">
+            <div className="BlogsCards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               <a href="https://blog.sentryspot.co.uk/2024/08/31/key-features-to-look-for-in-an-ai-resume-builder/">
                 <div className="BlogBoxs">
                   <div className="Blogs-Text">
@@ -657,60 +570,59 @@ const FilterJobsBox = () => {
             </div>
           </div>
         </div>
-        <div className="Talk">
-          <div className="container">
-            <div className="Talkbox">
-              <div className="TalkInfo">
-                <h2>Interested in Becoming a SentrySpot Partner?</h2>
+        <div className="Talk py-8 sm:py-10">
+          <div className="container px-4 sm:px-6 lg:px-8">
+            <div className="Talkbox flex flex-col lg:flex-row items-center gap-6">
+              <div className="TalkInfo w-full lg:w-1/2 text-center lg:text-left">
+                <h2 className="text-2xl sm:text-3xl font-bold">Interested in Becoming a SentrySpot Partner?</h2>
                 <div className="TalkBox mt-5">
-                  <a href="mailto:Partners@sentryspot.co.uk" className="mt-5">
+                  <a href="mailto:Partners@sentryspot.co.uk" className="inline-block mt-5">
                     Lets Talk
                   </a>
                 </div>
               </div>
-              <img src="	https://htmlsentryspot.vercel.app/img/Partner-CTA-block.webp" />
+              <div className="w-full lg:w-1/2">
+                <img src="https://htmlsentryspot.vercel.app/img/Partner-CTA-block.webp" className="w-full h-auto rounded-lg" />
+              </div>
             </div>
           </div>
         </div>
-        <div className="FooterSection">
-          <div className="container">
-            <div className="FooterCTA">
-              <div className="CtaInfo ">
-                <span>
-                  <i className="fa-solid fa-angles-right" />{" "}
-                  <h3>Explore Top Careers, Training, and Jobs</h3>
+        <div className="FooterSection py-8 sm:py-10">
+          <div className="container px-4 sm:px-6 lg:px-8">
+            <div className="FooterCTA flex flex-col lg:flex-row gap-6">
+              <div className="CtaInfo w-full lg:w-1/2 text-center lg:text-left">
+                <span className="flex items-center justify-center lg:justify-start">
+                  <i className="fa-solid fa-angles-right" />
+                  <h3 className="text-xl sm:text-2xl ml-2">Explore Top Careers, Training, and Jobs</h3>
                 </span>
                 <div className="Footerbtn mt-3">
                   <Link to={"/sentry-spot"}>
-                    {" "}
-                    <button type="button">Start Your Journey</button>
+                    <button type="button" className="w-full sm:w-auto">Start Your Journey</button>
                   </Link>
                 </div>
               </div>
-              <div className="NewsletterConatiner ms-5">
-                <h3>Get Monthly Newsletters and Career Resources</h3>
-                <div className="LetterForm">
-                  <form
-                    method
-                    style={{ width: "100%" }}
-                    onSubmit={handleSubmit}
-                  >
-                    <div className="From_Section">
+              <div className="NewsletterConatiner w-full lg:w-1/2">
+                <h3 className="text-xl sm:text-2xl text-center lg:text-left">Get Monthly Newsletters and Career Resources</h3>
+                <div className="LetterForm mt-4">
+                  <form method style={{ width: "100%" }} onSubmit={handleSubmit}>
+                    <div className="From_Section flex flex-col sm:flex-row gap-4">
                       <input
                         type="email"
                         name="email"
                         placeholder="Enter Your Email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)} // Update the email state
+                        onChange={(e) => setEmail(e.target.value)}
                         required
+                        className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                       <div className="FormBTn">
-                        <button type="submit"> Submit</button>
+                        <button type="submit" className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                          Submit
+                        </button>
                       </div>
                     </div>
                   </form>
-
-                  <p>
+                  <p className="mt-4 text-sm text-gray-600 text-center lg:text-left">
                     By entering your email, you agree to our privacy policy and
                     consent to receiving marketing emails from SkillUp.
                   </p>

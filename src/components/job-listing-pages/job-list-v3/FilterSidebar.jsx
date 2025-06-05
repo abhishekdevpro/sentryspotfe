@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Categories from "../components/Categories";
@@ -14,6 +13,16 @@ import Tag from "../components/Tag";
 // FilterSidebar Component with URL Parameter Management
 const FilterSidebar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1023);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1023);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   // Handler functions for each filter type
   const updateSearchParams = (key, value) => {
@@ -28,6 +37,22 @@ const FilterSidebar = () => {
     setSearchParams(currentParams);
   };
 
+  const handleApplyFilters = () => {
+    const currentParams = Object.fromEntries(searchParams);
+    setSearchParams(currentParams);
+    
+    // Close the offcanvas on mobile after applying filters
+    if (isMobile) {
+      const offcanvas = document.getElementById('filter-sidebar');
+      if (offcanvas) {
+        const bsOffcanvas = window.bootstrap.Offcanvas.getInstance(offcanvas);
+        if (bsOffcanvas) {
+          bsOffcanvas.hide();
+        }
+      }
+    }
+  };
+
   return (
     <div className="inner-column">
       <div className="filters-outer">
@@ -38,8 +63,8 @@ const FilterSidebar = () => {
           aria-label="Close"
         ></button>
 
-        <div className="filter-block">
-          <h4>Search by Keywords</h4>
+        <div className="filter-block mb-4">
+          <h4 className="text-lg font-semibold mb-3">Search by Keywords</h4>
           <div className="form-group">
             <SearchBox 
               onSearch={(query) => updateSearchParams('keywords', query)} 
@@ -47,8 +72,8 @@ const FilterSidebar = () => {
           </div>
         </div>
 
-        <div className="filter-block">
-          <h4>Location</h4>
+        <div className="filter-block mb-4">
+          <h4 className="text-lg font-semibold mb-3">Location</h4>
           <div className="form-group">
             <LocationBox 
               onLocationChange={(location) => updateSearchParams('location', location)} 
@@ -61,8 +86,8 @@ const FilterSidebar = () => {
           /> */}
         </div>
 
-        <div className="filter-block">
-          <h4>Industries</h4>
+        <div className="filter-block mb-4">
+          <h4 className="text-lg font-semibold mb-3">Industries</h4>
           <div className="form-group">
             <Categories 
               onCategorySelect={(category) => updateSearchParams('category', category)} 
@@ -70,8 +95,8 @@ const FilterSidebar = () => {
           </div>
         </div>
 
-        <div className="switchbox-outer">
-          <h4>Job type</h4>
+        <div className="switchbox-outer mb-4">
+          <h4 className="text-lg font-semibold mb-3">Job type</h4>
           <JobType 
             onJobTypeChange={(jobType) => updateSearchParams('jobType', jobType)}
           />
@@ -84,8 +109,8 @@ const FilterSidebar = () => {
           />
         </div> */}
 
-        <div className="checkbox-outer">
-          <h4>Experience Level</h4>
+        <div className="checkbox-outer mb-4">
+          <h4 className="text-lg font-semibold mb-3">Experience Level</h4>
           <ExperienceLevel 
             onExperienceLevelChange={(level) => updateSearchParams('experienceLevel', level)}
           />
@@ -104,8 +129,19 @@ const FilterSidebar = () => {
             onTagSelect={(tags) => updateSearchParams('tags', tags.join(','))}
           />
         </div> */}
+
+        <div className="mt-6 px-3">
+          <button
+            type="button"
+            className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+            onClick={handleApplyFilters}
+          >
+            Apply Filters
+          </button>
+        </div>
       </div>
     </div>
   );
 };
+
 export default FilterSidebar

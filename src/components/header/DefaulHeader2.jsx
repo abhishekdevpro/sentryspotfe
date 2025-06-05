@@ -9,6 +9,7 @@ import { logout } from "@/store/slices/authSlice";
 import { Constant } from "@/utils/constant/constant";
 import logo from "../../../public/company_logo.png";
 import { toast } from "react-hot-toast";
+import { IoMenuOutline } from "react-icons/io5";
 
 const DefaulHeader2 = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const DefaulHeader2 = () => {
   const userToken = localStorage.getItem(Constant.USER_TOKEN);
   const [navbar, setNavbar] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -61,20 +63,20 @@ const DefaulHeader2 = () => {
         <div className="TopHeader ">
           <div className="container">
             <div className="TopMenu ">
-              <ul className="flex ">
-                <li>
-                  <a href="/job-list-v3">
+              <ul className="flex flex-wrap justify-center md:justify-start">
+                <li className="px-2">
+                  <a href="/job-list-v3" className="flex items-center gap-1">
                     <i className="fa-solid fa-compass"></i> Jobs
                   </a>
                 </li>
-                <li>
-                  <a href="">
+                <li className="px-2">
+                  <a href="" className="flex items-center gap-1">
                     <i className="fa-solid fa-medal"></i> Careers & Training
                   </a>
                 </li>
-                <li className="border-l-2"></li>
-                <li>
-                  <a href="https://employer.sentryspot.co.uk/">
+                <li className="border-l-2 mx-2"></li>
+                <li className="px-2">
+                  <a href="https://employer.sentryspot.co.uk/" className="flex items-center gap-1">
                     <i className="fa-solid fa-user"></i> Post Job
                   </a>
                 </li>
@@ -86,18 +88,19 @@ const DefaulHeader2 = () => {
       <div
         className={`header ${
           navbar ? "bg-white shadow-md" : "bg-transparent"
-        } transition-all duration-300 `}
+        } transition-all duration-300 fixed w-full top-0 z-50`}
       >
-        <div className="flex justify-between items-center p-2 ">
-          {/* Sidebar for Mobile View */}
+        <div className="flex justify-between items-center p-2 max-w-7xl mx-auto">
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
-            <Link to="/">
-              <img
-                // src="https://htmlsentryspot.vercel.app/img/company_logo.png"
-                src={logo}
-                alt="Logo"
-                className="h-14 w-auto"
-              />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 text-blue-900"
+            >
+              <IoMenuOutline size={24} />
+            </button>
+            <Link to="/" className="ml-2">
+              <img src={logo} alt="Logo" className="h-12 w-auto" />
             </Link>
           </div>
 
@@ -116,18 +119,18 @@ const DefaulHeader2 = () => {
                 <div className="main-menu ms-4">
                   <ul className="flex space-x-4">
                     <li>
-                      <a href="/sentry-spot">AI Services</a>
+                      <a href="/sentry-spot" className="hover:text-blue-600">AI Services</a>
                     </li>
                     <li>
-                      <a href="https://blog.sentryspot.co.uk/category/job-search-strategies/">
+                      <a href="https://blog.sentryspot.co.uk/category/job-search-strategies/" className="hover:text-blue-600">
                         Hiring Advice
                       </a>
                     </li>
                     <li>
-                      <a href="/companies-list">Companies</a>
+                      <a href="/companies-list" className="hover:text-blue-600">Companies</a>
                     </li>
                     <li>
-                      <a href="/community">Community</a>
+                      <a href="/community" className="hover:text-blue-600">Community</a>
                     </li>
                   </ul>
                 </div>
@@ -136,54 +139,78 @@ const DefaulHeader2 = () => {
           </div>
 
           {/* Side Menu */}
-          <div className=" flex items-center">
-            <div className=" flex items-center">
-              {userToken ? (
-                <>
-                  <span className="icon la la-bell hidden md:block text-3xl  text-blue-900"></span>
-                  <i class="las la-comment hidden md:block text-3xl mx-4 text-blue-900"></i>
+          <div className="flex items-center">
+            {userToken ? (
+              <div className="flex items-center gap-2">
+                <span className="icon la la-bell hidden md:block text-2xl text-blue-900"></span>
+                <i className="las la-comment hidden md:block text-2xl text-blue-900"></i>
+                <Link to={"/candidates-dashboard/dashboard"} className="text-2xl text-blue-900">
+                  <i className="las la-user"></i>
+                </Link>
+                <Button
+                  className="bg-gray-500 p-2 duration-500 hover:bg-[#E60278]"
+                  title="logout"
+                  onClick={logoutHandler}
+                  disabled={isLoggingOut}
+                >
+                  {isLoggingOut ? (
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  ) : (
+                    <IoLogOutOutline size={20} />
+                  )}
+                </Button>
+              </div>
+            ) : (
+              <Link to="/login" className="text-blue-900 hover:text-blue-600">
+                Sign in
+              </Link>
+            )}
+          </div>
+        </div>
 
-                  <Link to={"/candidates-dashboard/dashboard"}>
-                    <i class="las la-user  text-3xl text-blue-900"></i>
+        {/* Mobile Menu */}
+        <div
+          className={`md:hidden fixed inset-0 bg-white z-50 transform transition-transform duration-300 ease-in-out ${
+            isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <div className="p-4">
+            <div className="flex justify-between items-center mb-6">
+              <img src={logo} alt="Logo" className="h-12 w-auto" />
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2 text-blue-900"
+              >
+                <IoLogOutOutline size={24} />
+              </button>
+            </div>
+            <nav className="space-y-4">
+              <a href="/sentry-spot" className="block text-lg py-2 hover:text-blue-600">AI Services</a>
+              <a href="https://blog.sentryspot.co.uk/category/job-search-strategies/" className="block text-lg py-2 hover:text-blue-600">
+                Hiring Advice
+              </a>
+              <a href="/companies-list" className="block text-lg py-2 hover:text-blue-600">Companies</a>
+              <a href="/community" className="block text-lg py-2 hover:text-blue-600">Community</a>
+              {userToken && (
+                <div className="pt-4 border-t">
+                  <Link to={"/candidates-dashboard/dashboard"} className="block text-lg py-2 hover:text-blue-600">
+                    Dashboard
                   </Link>
-                  <Button
-                    className="bg-gray-500 p-3 duration-500 hover:bg-[#E60278] ml-4 "
-                    title="logout"
+                  <button
                     onClick={logoutHandler}
+                    className="block text-lg py-2 text-red-600 hover:text-red-700 w-full text-left"
                     disabled={isLoggingOut}
                   >
-                    {isLoggingOut ? (
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    ) : (
-                      <IoLogOutOutline size={24} />
-                    )}
-                  </Button>
-                </>
-              ) : (
-                // <a
-                //   href="#"
-                //   data-bs-toggle="modal"
-                //   data-bs-target="#loginPopupModal"
-                //   className="mr-2 my-4"
-                // >
-                <Link to="/login">Sign in</Link>
-
-                // </a>
-              )}
-              {/* {!userToken && (
-                <Link to={"/sentry-spot"}>
-                  <button
-                    type="button"
-                    className="register-btn hidden lg:flex "
-                  >
-                    Create Your Sentry ID
+                    {isLoggingOut ? "Logging out..." : "Logout"}
                   </button>
-                </Link>
-              )} */}
-            </div>
+                </div>
+              )}
+            </nav>
           </div>
         </div>
       </div>
+      {/* Add padding to prevent content from hiding under fixed header */}
+      <div className="h-16"></div>
     </>
   );
 };

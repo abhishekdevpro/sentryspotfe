@@ -171,7 +171,7 @@ const FilterJobsBox = () => {
         className="col-lg-6 col-md-12 col-sm-12 mb-4"
         key={item.id}
       >
-        <div className="bg-white rounded-lg border border-gray-100 p-4 hover:shadow-md transition-shadow h-full">
+        <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 p-4 h-full">
           <div className="flex flex-col h-full">
             <div className="flex-grow">
               <Link to={`/job-single-v3/${item.id}`} className="block">
@@ -184,12 +184,12 @@ const FilterJobsBox = () => {
                       className="w-full h-full object-contain rounded-lg"
                     />
                   </div>
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <h4 className="text-lg font-semibold text-gray-900 hover:text-blue-600 line-clamp-2">
                       {item.job_title}
                     </h4>
                     <div className="flex items-center text-gray-600 text-sm">
-                      <BsBuilding className="mr-1" />
+                      <BsBuilding className="mr-1 flex-shrink-0" />
                       <span className="line-clamp-1">{item.company_name || "Company Not Specified"}</span>
                     </div>
                   </div>
@@ -200,14 +200,14 @@ const FilterJobsBox = () => {
                   {item.job_type_name && item.job_type_name.length > 0 ? (
                     item.job_type_name.map((type, index) => (
                       <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs flex items-center gap-1">
-                        <BsClock className="w-3 h-3" />
-                        {type}
+                        <BsClock className="w-3 h-3 flex-shrink-0" />
+                        <span className="line-clamp-1">{type}</span>
                       </span>
                     ))
                   ) : (
                     <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs flex items-center gap-1">
-                      <BsClock className="w-3 h-3" />
-                      Not Specified
+                      <BsClock className="w-3 h-3 flex-shrink-0" />
+                      <span className="line-clamp-1">Not Specified</span>
                     </span>
                   )}
                 </div>
@@ -217,14 +217,14 @@ const FilterJobsBox = () => {
                   {item.job_category_name && item.job_category_name.length > 0 ? (
                     item.job_category_name.map((category, index) => (
                       <span key={index} className="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs flex items-center gap-1">
-                        <BsBriefcase className="w-3 h-3" />
-                        {category}
+                        <BsBriefcase className="w-3 h-3 flex-shrink-0" />
+                        <span className="line-clamp-1">{category}</span>
                       </span>
                     ))
                   ) : (
                     <span className="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs flex items-center gap-1">
-                      <BsBriefcase className="w-3 h-3" />
-                      Uncategorized
+                      <BsBriefcase className="w-3 h-3 flex-shrink-0" />
+                      <span className="line-clamp-1">Uncategorized</span>
                     </span>
                   )}
                 </div>
@@ -243,7 +243,7 @@ const FilterJobsBox = () => {
                   {/* Posted Date */}
                   <div className="flex items-center text-gray-500 text-sm">
                     <FiCalendar className="text-gray-600 flex-shrink-0 mr-2" />
-                    <span>
+                    <span className="line-clamp-1">
                       {item.created_at ? `Posted ${new Date(item.created_at).toLocaleString("en-US", {
                         month: "short",
                         day: "numeric",
@@ -256,7 +256,7 @@ const FilterJobsBox = () => {
                   {/* Experience Level */}
                   <div className="flex items-center text-gray-500 text-sm">
                     <FiAward className="text-gray-600 flex-shrink-0 mr-2" />
-                    <span>
+                    <span className="line-clamp-1">
                       Experience: {item.experience_level_min_name || "Not Specified"}
                       {item.experience_level_max_name && ` - ${item.experience_level_max_name}`}
                     </span>
@@ -265,26 +265,26 @@ const FilterJobsBox = () => {
                   {/* Industry */}
                   <div className="flex items-center text-gray-500 text-sm">
                     <BsBuilding className="text-gray-600 flex-shrink-0 mr-2" />
-                    <span>{item.industry || "Industry Not Specified"}</span>
+                    <span className="line-clamp-1">{item.industry || "Industry Not Specified"}</span>
                   </div>
 
                   {/* Functional Area */}
                   <div className="flex items-center text-gray-500 text-sm">
                     <BsBriefcase className="text-gray-600 flex-shrink-0 mr-2" />
-                    <span>{item.functional_area_name || "Functional Area Not Specified"}</span>
+                    <span className="line-clamp-1">{item.functional_area_name || "Functional Area Not Specified"}</span>
                   </div>
                 </div>
               </Link>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex items-center justify-between mt-4 pt-3 border-t">
+            <div className="flex flex-wrap items-center justify-between gap-2 mt-4 pt-3 border-t">
               <Link 
                 to={`/job-single-v3/${item.id}`}
                 className="flex items-center gap-2 text-gray-400 hover:text-blue-600 transition-colors p-2 text-sm"
               >
-                <FiEye className="w-5 h-5" />
-                <span>View Details</span>
+                <FiEye className="w-5 h-5 flex-shrink-0" />
+                <span className="hidden sm:inline">View Details</span>
               </Link>
               <div className="flex items-center gap-2">
                 <button
@@ -301,11 +301,11 @@ const FilterJobsBox = () => {
                   className="flex items-center gap-2 text-gray-400 hover:text-red-500 transition-colors p-2 text-sm"
                 >
                   {item.is_favorite ? (
-                    <BsHeartFill className="w-5 h-5 text-red-500" />
+                    <BsHeartFill className="w-5 h-5 text-red-500 flex-shrink-0" />
                   ) : (
-                    <BsHeart className="w-5 h-5" />
+                    <BsHeart className="w-5 h-5 flex-shrink-0" />
                   )}
-                  <span>{item.is_favorite ? "Saved" : "Save"}</span>
+                  <span className="hidden sm:inline">{item.is_favorite ? "Saved" : "Save"}</span>
                 </button>
                 <button
                   onClick={() => {
@@ -319,11 +319,11 @@ const FilterJobsBox = () => {
                   className="flex items-center gap-2 text-gray-400 hover:text-blue-600 transition-colors p-2 text-sm"
                 >
                   {item.is_applied ? (
-                    <BsBookmarkFill className="w-5 h-5 text-blue-600" />
+                    <BsBookmarkFill className="w-5 h-5 text-blue-600 flex-shrink-0" />
                   ) : (
-                    <BsBookmark className="w-5 h-5" />
+                    <BsBookmark className="w-5 h-5 flex-shrink-0" />
                   )}
-                  <span>{item.is_applied ? "Applied" : "Apply"}</span>
+                  <span className="hidden sm:inline">{item.is_applied ? "Applied" : "Apply"}</span>
                 </button>
               </div>
             </div>
@@ -345,13 +345,13 @@ const FilterJobsBox = () => {
     <>
       <div className="bg-gray-50 rounded-lg mb-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 p-4">
-          <div className="text-gray-700">
+          <div className="text-gray-700 text-sm sm:text-base">
             Showing <strong>{content?.length}</strong> jobs
           </div>
           <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
             <select
               value={sort}
-              className="px-3 sm:px-4 py-2 border rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              className="w-full sm:w-auto px-3 sm:px-4 py-2 border rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
               onChange={sortHandler}
             >
               <option value="">Sort by (default)</option>
@@ -362,7 +362,7 @@ const FilterJobsBox = () => {
             {hasFilters() && (
               <button
                 onClick={clearFilters}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm"
+                className="w-full sm:w-auto px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm"
               >
                 Clear Filters
               </button>
@@ -371,11 +371,11 @@ const FilterJobsBox = () => {
         </div>
       </div>
 
-      <div className="row">{content}</div>
+      <div className="row g-4">{content}</div>
 
       <div className="mt-8 bg-gray-50 rounded-lg p-4">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-gray-700">
+          <p className="text-gray-700 text-sm sm:text-base">
             Showing {content?.length} of {jobs.length} Jobs
           </p>
           <div className="w-full sm:w-64 h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -384,7 +384,7 @@ const FilterJobsBox = () => {
               style={{ width: `${(content?.length / jobs.length) * 100}%` }}
             ></div>
           </div>
-          <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+          <button className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
             Show More
           </button>
         </div>
