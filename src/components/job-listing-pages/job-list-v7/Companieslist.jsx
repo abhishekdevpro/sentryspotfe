@@ -11,27 +11,23 @@ import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import FooterDefault from "@/components/footer/common-footer"
 import FullPageLoader from "@/components/loader/FullPageLoader"
 import { Briefcase, Building, MapPin, Users } from "lucide-react";
+
 const Companieslist = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [jobCount, setJobCount] = useState(0);
+  const [search, setSearch] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedJobId, setSelectedJobId] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const token = localStorage.getItem(Constant.USER_TOKEN);
-
-
-
-
-
 
   useEffect(() => {
     const fetchJobs = async () => {
       setLoading(true)
       try {
         const token = localStorage.getItem('token');
-      
-
         const response = await axios.get(
           `https://api.sentryspot.co.uk/api/jobseeker/companies`,
           {
@@ -40,9 +36,8 @@ const Companieslist = () => {
             },
           }
         );
-       setJobCount(response.data.data.length);
+        setJobCount(response.data.data.length);
         setJobs(response.data.data);
-        
       } catch (error) {
         setError('Failed to fetch jobs');
         setLoading(false);
@@ -51,19 +46,20 @@ const Companieslist = () => {
         setLoading(false);
       }
     };
-
     fetchJobs();
   }, []);
 
   if (loading) {
-    return <FullPageLoader LoadingText="Companies 
-    listing...." />
+    return <FullPageLoader LoadingText="Companies listing...." />
   }
-
   if (error) {
     return <p>{error}</p>;
   }
 
+  // Filter jobs based on search term (case-insensitive)
+  const filteredJobs = jobs.filter(job =>
+    job.company_name?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const savejob = async(jobId)=>{
     try {
@@ -88,9 +84,6 @@ const Companieslist = () => {
     }
   };
   
-
-
-
   const handleApplyNowClick = (jobId) => {
     setSelectedJobId(jobId);
     setShowPopup(true);
@@ -99,157 +92,74 @@ const Companieslist = () => {
   const handleClosePopup = () => {
     setShowPopup(false);
   };
-console.log(jobs,"jobs");
+
   return (
-    <div className="">
-    {/* Sidebar */}
-    <DefaulHeader2 />
-    {/* Job List */}
-    <main className="max-w-6xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between px-4 md:px-5 my-3">
-        <p className="text-base md:text-lg text-gray-800 mb-4">
-          Show {jobCount} {jobCount === 1 ? 'Company' : 'Companies'}
-        </p>
+    <div className="bg-[#fafbfc] min-h-screen">
+      <DefaulHeader2 />
+      {/* Tabs */}
+      <div className="max-w-7xl mx-auto px-4 pt-8">
+        <div className="flex space-x-10 border-b border-gray-200">
+          <button className="pb-3 border-b-4 border-[#f43f5e] text-[#f43f5e] font-semibold text-lg">Trending</button>
+          <button className="pb-3 text-gray-500 font-semibold text-lg hover:text-[#f43f5e]">Following</button>
+          <button className="pb-3 text-gray-500 font-semibold text-lg hover:text-[#f43f5e]">Industry</button>
+        </div>
       </div>
-  
-      {/* <ul className="px-4 lg:px-16">
-        {jobs.map((job) => (
-          <div className="job-block-four mb-6" key={job.id}>
-            <div className="inner-box flex flex-col md:flex-row text-start p-4 bg-white shadow-md rounded-lg">
-              <div className="relative flex-shrink-0 mb-4 md:mb-0">
-                <img
-                  src={
-                    job.logo ||
-                    "https://img.freepik.com/premium-photo/intelligent-logo-simple_553012-47516.jpg?size=338&ext=jpg&ga=GA1.1.1141335507.1717372800&semt=ais_user"
-                  }
-                  alt="featured job"
-                  className="rounded-xl border-2 p-1 h-20 w-20 bg-black"
-                />
+      {/* Search Bar and Sort */}
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 py-8">
+        <div className="w-full md:w-3/4 flex">
+          <input
+            type="text"
+            placeholder="Company Name"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="flex-1 px-4 py-2 rounded-l-xl border border-gray-200 bg-white focus:outline-none text-base shadow-sm"
+          />
+          <button
+            className="bg-[#f43f5e] text-white px-5 py-2 rounded-r-xl flex items-center text-base font-semibold shadow-sm"
+            onClick={() => setSearchTerm(search)}
+          >
+            <i className="fas fa-search mr-2"></i> Search Jobs
+          </button>
+        </div>
+        <div className="mt-6 md:mt-0 md:ml-4 w-full md:w-auto flex justify-end">
+          <select className="border border-gray-300 rounded-lg px-4 py-2 text-base focus:outline-none">
+            <option>Recently Posted</option>
+            {/* Add more sort options if needed */}
+          </select>
+        </div>
+      </div>
+      {/* Trending Companies Title */}
+      <div className="max-w-7xl mx-auto px-4 pb-2">
+        <h2 className="text-2xl font-bold mb-1">Trending Companies</h2>
+        <p className="text-gray-500 text-lg mb-6">{filteredJobs.length} Companies found!</p>
+      </div>
+      {/* Company Grid */}
+      <div className="max-w-7xl mx-auto px-4 pb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {filteredJobs.map((job) => (
+            <div key={job.id} className="bg-white rounded-2xl shadow flex flex-col items-center text-center py-8 px-4 min-h-[230px] transition-all duration-200 hover:shadow-lg">
+              <img
+                src={job.logo || "https://img.freepik.com/premium-photo/intelligent-logo-simple_553012-47516.jpg?size=338&ext=jpg"}
+                alt={job.company_name}
+                className="w-16 h-16 object-contain mb-4 rounded"
+                onError={e => { e.target.onerror = null; e.target.src = "https://img.freepik.com/premium-photo/intelligent-logo-simple_553012-47516.jpg?size=338&ext=jpg"; }}
+              />
+              <div className="font-semibold text-lg mb-2 min-h-[48px] flex items-center justify-center text-center w-full">
+                {job.company_name}
               </div>
-              <div className="flex-1 md:ml-4">
-                <h4 className="text-lg font-medium flex justify-between w-full">
-                  <Link to={`/employers-single-v1/${job.id}`}>{job.company_name}</Link>
-                </h4>
-  
-                {showPopup && (
-                  <ApplyJobPopup jobId={job.id} token={token} onClose={handleClosePopup} />
-                )}
-  
-                <div className="location mt-2">
-                  <span className="icon flaticon-briefcase"></span>
-                  {job.company_industry.name}{" "}|
-                </div>
-                {" "}{" "}
-                <div className="location mt-2">
-                  <span className="icon flaticon-map-locator"></span>
-                  {job.city.name} , {job.state.name},  {job.country.name}
-                </div>
-  
-                <div className="flex mt-2">
-                  <ul className="post-tags text-start flex flex-wrap gap-2">
-                    <li className="border p-1 rounded">
-                      <a href="#">Company Type: {job.company_type.name || "software"}</a>
-                    </li>
-                    <li className="border p-1 rounded">
-                      <a href="#">Company Size: {job.company_size.range}</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+              <Link
+                to={`/employers-single-v1/${job.id}`}
+                className="text-[#f43f5e] font-bold text-lg mt-2 hover:underline"
+              >
+                View Jobs
+              </Link>
             </div>
-          </div>
-        ))}
-      </ul> */}
-       <div className="w-full max-w-6xl mx-auto">
-      <ul className="px-4 lg:px-6 space-y-6">
-        {jobs.map((job) => (
-          <li key={job.id} className="transition-all duration-300 hover:shadow-lg">
-            <div className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:border-blue-200">
-              <div className="p-6">
-                <div className="flex flex-col md:flex-row items-start gap-6">
-                  {/* Company Logo */}
-                  <div className="flex-shrink-0">
-                    <div className="relative w-20 h-20 rounded-lg overflow-hidden border-2 border-gray-100">
-                      <img
-                        src={job.logo || "https://img.freepik.com/premium-photo/intelligent-logo-simple_553012-47516.jpg?size=338&ext=jpg"}
-                        alt={`${job.company_name} logo`}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = "https://img.freepik.com/premium-photo/intelligent-logo-simple_553012-47516.jpg?size=338&ext=jpg";
-                        }}
-                      />
-                    </div>
-                  </div>
-                  
-                  {/* Job Details */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                      <h3 className="text-xl font-bold text-gray-800 truncate">
-                        <Link 
-                          to={`/employers-single-v1/${job.id}`}
-                          className="hover:text-blue-600 transition-colors"
-                        >
-                          {job.company_name || "Company Name Not Available"}
-                        </Link>
-                      </h3>
-                      
-                      {/* <button 
-                        onClick={() => handleApplyNowClick(job.id)}
-                        className="mt-2 md:mt-0 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors"
-                      >
-                        Apply Now
-                      </button> */}
-                    </div>
-                    
-                    {/* Company Industry */}
-                    <div className="flex items-center text-gray-600 mb-2">
-                      <Briefcase size={16} className="mr-2 text-blue-500" />
-                      <span>{job.company_industry?.name || "Industry not specified"}</span>
-                    </div>
-                    
-                    {/* Location */}
-                    <div className="flex items-center text-gray-600 mb-3">
-                      <MapPin size={16} className="mr-2 text-blue-500" />
-                      <span>
-                        {job.city?.name || "City"}, {job.state?.name || "State"}, {job.country?.name || "Country"}
-                      </span>
-                    </div>
-                    
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      <div className="flex items-center px-3 py-1 bg-blue-50 text-blue-700 rounded-xl text-xs">
-                        <Building size={12} className="mr-1" />
-                        {job.company_type?.name || "Unknown"}
-                      </div>
-                      
-                      <div className="flex items-center px-3 py-1 bg-blue-50 text-blue-700 rounded-xl text-xs">
-                        <Users size={12} className="mr-1" />
-                        {job.company_size?.range || "Unknown size"}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-      
-      {showPopup && selectedJobId && (
-        <ApplyJobPopup 
-          jobId={selectedJobId} 
-          token={token} 
-          onClose={handleClosePopup} 
-        />
-      )}
+          ))}
+        </div>
+      </div>
+      <FooterDefault />
     </div>
-    </main>
-    <FooterDefault />
-  </div>
-  
   );
 };
-
 
 export default Companieslist;

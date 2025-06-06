@@ -55,6 +55,7 @@ const JobSingleDynamicV3 = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [actionStatus, setActionStatus] = useState({});
   const [isFollowing, setIsFollowing] = useState(false);
+  const [activeTab, setActiveTab] = useState("description");
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -116,17 +117,11 @@ const JobSingleDynamicV3 = () => {
         setError(null);
         const token = localStorage.getItem(Constant.USER_TOKEN);
 
-        // Use public API if user is not logged in
-        const apiUrl = token 
-          ? `https://api.sentryspot.co.uk/api/jobseeker/job-list/${id}`
-          : `https://api.sentryspot.co.uk/api/jobseeker/public/job-list/${id}`;
+        // Always use public API for job details
+        const apiUrl = `https://api.sentryspot.co.uk/api/jobseeker/public/job-list/${id}`;
 
         // Fetch job details
-        const jobResponse = await axios.get(apiUrl, {
-          headers: token ? {
-            Authorization: ` ${token}`
-          } : {}
-        });
+        const jobResponse = await axios.get(apiUrl);
         const jobData = jobResponse.data.data;
         setJobData(jobData);
         // Set initial following state based on company_favorite_id
@@ -216,186 +211,177 @@ const JobSingleDynamicV3 = () => {
     <>
       <MetaComponent meta={metadata} />
       <span className="header-span"></span>
-
       <LoginPopup />
       <DefaulHeader2 />
 
-      <section className="job-detail-section">
-        <div className="job-detail-outer">
-          <div className="auto-container">
-            <div className="row">
-              <div className="content-column col-lg-8 col-md-12 col-sm-12">
-                <div className="job-block-outer">
-                  <div className="job-block-seven style-two">
-                    <div className="inner-box">
-                      <div className="content">
-                        <div className="flex justify-start gap-2 items-center mb-4">
-                          <img
-                            src={
-                               "/images/resource/company-logo/1-1.png"
-                            }
-                            alt="Company Logo"
-                            className=" w-14 h-14"
-                          />
- <h4>{jobData?.job_title || "Job Title Not Available"}</h4>
-                        </div>
-                       
-
-                        <ul className="job-info space-between">
-                          <li>
-                            <span className="icon flaticon-briefcase"></span>
-                            <strong>Industry:</strong> {jobData?.industry || "Industry Not Available"}
-                          </li>
-                          <li>
-                            <span className="icon flaticon-map-locator"></span>
-                            <strong>Location:</strong> {jobData?.location || "Location Not Specified"}
-                          </li>
-                          <li>
-                            <span className="icon flaticon-clock-3"></span>
-                            <strong>Posted On:</strong> {jobData?.created_at || "Date Not Available"}
-                          </li>
-                          <li>
-                            <span className="icon flaticon-money"></span>
-                            <strong>Salary:</strong> {jobData?.offered_salary || "Salary Not Defined"}
-                          </li>
-                          <li>
-                            <span className="icon flaticon-money"></span>
-                            <strong>Job Type:</strong> {jobData?.job_type_name || "Job Type Not Defined"}
-                          </li>
-                          <li>
-                            <span className="icon flaticon-user"></span>
-                            <strong>Experience Level:</strong> {jobData?.experience_level_min_name || "Not Specified"}
-                          </li>
-                          <li>
-                            <span className="icon flaticon-category"></span>
-                            <strong>Job Category:</strong> {jobData?.job_category_name || "Not Specified"}
-                          </li>
-                          <li>
-                            <span className="icon flaticon-briefcase"></span>
-                            <strong>Functional Area:</strong> {jobData?.functional_area_name || "Not Specified"}
-                          </li>
-                        </ul>
-
-
-                        {jobData?.jobType && (
-                          <ul className="job-other-info">
-                            {jobData.jobType.map((val, i) => (
-                              <li key={i} className={val.styleClass}>
-                                {val.type}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="job-overview-two">
-                  <JobStepsComponent />
-                </div>
-
-                <h4>Job Description</h4>
-                <p dangerouslySetInnerHTML={{ __html: jobData?.job_description }} />
-
-                <div className="other-options">
-                  <div className="social-share">
-                    <h5>Share this job</h5>
-                    <SocialTwo />
-                  </div>
-                </div>
-              </div>
-
-              <div className="sidebar-column col-lg-4 col-md-12 col-sm-12">
-                <aside className="sidebar">
-                  <div className="space-y-4">
-                    <button
-                      className="w-full py-3 text-center bg-blue-500 hover:bg-blue-600 text-white rounded-md transition duration-300 ease-in-out transform hover:scale-105"
-                      onClick={() => handleApplyNowClick(jobData.id)}
-                      disabled={jobData?.is_applied}
-                    >
-                      {jobData?.is_applied ? "Already Applied" : "Apply For Job"}
-                    </button>
-
-                    <button
-                      className={`flex items-center justify-center space-x-2 px-4 py-2 text-white rounded-md transition duration-300 ease-in-out transform hover:scale-105 w-full ${
-                        jobData.is_favorite
-                          ? "bg-green-500 hover:bg-green-600"
-                          : "bg-blue-500 hover:bg-blue-600"
-                      }`}
-                      onClick={handleBookmarkClick}
-                    >
-                      <i className="flaticon-bookmark text-xl" />
-                      <span className="font-semibold">
-                        {jobData.is_favorite ? "Saved" : "Unsave"}
-                      </span>
-                    </button>
-
-                    <button
-                      className={`flex items-center justify-center space-x-2 px-4 py-2 text-white rounded-md transition duration-300 ease-in-out transform hover:scale-105 w-full ${
-                        isFollowing
-                          ? "bg-green-500 hover:bg-green-600"
-                          : "bg-blue-500 hover:bg-blue-600"
-                      }`}
-                      onClick={handleFollowCompany}
-                    >
-                      <i className="flaticon-user text-xl" />
-                      <span className="font-semibold">
-                        {isFollowing ? "Following" : "Follow Company"}
-                      </span>
-                    </button>
-                  </div>
-
-                  <div
-                    className="modal fade"
-                    id="applyJobModal"
-                    tabIndex="-1"
-                    aria-hidden="true"
-                  >
-                    {token && (
-                      <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                        <div className="apply-modal-content modal-content">
-                          <div className="text-center">
-                          </div>
-                          <ApplyJobModalContent jobId={jobData.id} />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="sidebar-widget company-widget">
-                    <div className="widget-content">
-                      <CompanyInfo company={jobData.id} />
-                    </div>
-                  </div>
-
-                  <div className="sidebar-widget contact-widget">
-                    <h4 className="widget-title">Contact Us</h4>
-                    <div className="widget-content">
-                      <div className="default-form">
-                        <Contact companyId={jobData?.company_id} />
-                      </div>
-                    </div>
-                  </div>
-                </aside>
-              </div>
+      {/* Header Section */}
+      <section className="job-header-section bg-[#f8ecd7] py-4 px-6 flex items-center justify-between rounded-b-lg mb-6">
+        <div className="flex items-center gap-4">
+          <img
+            src={"/images/resource/company-logo/1-1.png"}
+            alt="Company Logo"
+            className="w-14 h-14 rounded-full border"
+          />
+          <div>
+            <h2 className="text-2xl font-bold mb-1">{jobData?.job_title || "Job Title Not Available"}</h2>
+            <div className="text-gray-600">{jobData?.company_name || "Company Not Available"}</div>
+            <div className="flex flex-wrap gap-2 mt-1 text-sm text-gray-500">
+              <span>Full Time</span>
+              <span>₹{jobData?.offered_salary || "-"} / month</span>
+              <span>{jobData?.location || "Location Not Specified"}</span>
             </div>
-
-            <div className="related-jobs">
-              <div className="title-box">
-                <h3>Related Jobs</h3>
-                <div className="text">2020 jobs live - 293 added today.</div>
-              </div>
-
-              <div className="row">
-                <RelatedJobs2 />
-              </div>
-            </div>
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 items-end">
+          <button
+            className="bg-[#e63946] text-white px-6 py-2 rounded hover:bg-[#d62839] w-full mb-2"
+            onClick={() => handleApplyNowClick(jobData.id)}
+            disabled={jobData?.is_applied}
+          >
+            {jobData?.is_applied ? "Already Applied" : "Apply For Job"}
+          </button>
+          <div className="flex gap-2 w-full">
+            <button
+              className={`flex items-center gap-1 px-4 py-2 text-white rounded transition w-1/2 ${jobData.is_favorite ? "bg-green-500 hover:bg-green-600" : "bg-blue-500 hover:bg-blue-600"}`}
+              onClick={handleBookmarkClick}
+            >
+              <i className="flaticon-bookmark text-xl" />
+              <span className="font-semibold">{jobData.is_favorite ? "Saved" : "Save"}</span>
+            </button>
+            <button
+              className={`flex items-center gap-1 px-4 py-2 text-white rounded transition w-1/2 ${isFollowing ? "bg-green-500 hover:bg-green-600" : "bg-blue-500 hover:bg-blue-600"}`}
+              onClick={handleFollowCompany}
+            >
+              <i className="flaticon-user text-xl" />
+              <span className="font-semibold">{isFollowing ? "Following" : "Follow"}</span>
+            </button>
+          </div>
+          <div className="mt-2">
+            <SocialTwo />
           </div>
         </div>
       </section>
 
-      {showLoginModal && <LoginModal onClose={handleCloseLoginModal} />}
+      <div className="flex gap-8 flex-wrap md:flex-nowrap">
+        {/* Sidebar (Left Column) */}
+        <aside className="w-1/3 bg-white rounded-lg shadow p-6 space-y-6 min-w-[320px] max-w-[400px]">
+          {/* About this role */}
+          <div>
+            <h4 className="font-semibold mb-2 flex items-center gap-2"><span className="flaticon-calendar text-lg text-gray-400" />About this role</h4>
+            <div className="flex justify-between text-sm text-gray-500 mb-2">
+              <span className="flex items-center gap-1"><span className="flaticon-calendar-1 text-base text-gray-400" />Job Posted On</span>
+              <span>{jobData?.created_at ? new Date(jobData.created_at).toLocaleDateString() : "-"}</span>
+            </div>
+          </div>
+          {/* Required Skills */}
+          <div>
+            <h4 className="font-semibold mb-2 flex items-center gap-2"><span className="flaticon-skills text-lg text-gray-400" />Required Skills</h4>
+            <div className="flex flex-wrap gap-2">
+              {(jobData?.skills || ["Administration", "Budgeting", "Customer Relationship Management (CRM)", "Office Administration", "Office Management"]).map((skill, idx) => (
+                <span key={idx} className="bg-gray-100 px-3 py-1 rounded-full text-xs font-medium border border-gray-200 flex items-center gap-1"><span className="flaticon-check text-xs text-green-500" />{skill}</span>
+              ))}
+            </div>
+          </div>
+          {/* Education */}
+          <div>
+            <h4 className="font-semibold mb-2 flex items-center gap-2"><span className="flaticon-graduation-cap text-lg text-gray-400" />Education</h4>
+            <div className="text-sm text-gray-700 flex items-center gap-1"><span className="flaticon-graduation-cap text-base text-gray-400" />{jobData?.education || "10th Class"}</div>
+          </div>
+          {/* Location */}
+          <div>
+            <h4 className="font-semibold mb-2 flex items-center gap-2"><span className="flaticon-map-locator text-lg text-gray-400" />Location</h4>
+            <div className="text-sm text-gray-700 mb-2 flex items-center gap-1"><span className="flaticon-map-locator text-base text-gray-400" />{jobData?.location || "Medak Road, Gandi Maisamma, Hyderabad, Telangana, India"}</div>
+            {/* Google Maps Embed */}
+            {jobData?.location ? (
+              <iframe
+                title="map"
+                className="rounded overflow-hidden border h-32 w-full"
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(jobData.location)}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+                allowFullScreen
+                loading="lazy"
+              />
+            ) : (
+              <div className="rounded overflow-hidden border h-32 w-full bg-gray-100 flex items-center justify-center text-gray-400 text-xs">Map Not Available</div>
+            )}
+          </div>
+          {/* Perks and Benefits */}
+          <div>
+            <h4 className="font-semibold mb-2 flex items-center gap-2"><span className="flaticon-gift text-lg text-gray-400" />Perks and Benefits</h4>
+            <div className="flex flex-wrap gap-2">
+              {(jobData?.perks || ["Safe Transportation", "Employee Provident Fund", "Employees Allowance", "Meals", "Perks And Bonus"]).map((perk, idx) => (
+                <span key={idx} className="bg-gray-100 px-3 py-1 rounded-full text-xs font-medium border border-gray-200 flex items-center gap-1"><span className="flaticon-gift text-xs text-pink-400" />{perk}</span>
+              ))}
+            </div>
+          </div>
+        </aside>
 
+        {/* Main Content (Right Column) */}
+        <main className="w-2/3">
+          {/* Tabs */}
+          <div className="bg-white rounded-lg shadow p-6 mb-6">
+            <div className="flex border-b mb-4">
+              <button
+                className={`px-4 py-2 font-semibold focus:outline-none ${activeTab === "description" ? "border-b-2 border-red-500 text-red-600" : "text-gray-500"}`}
+                onClick={() => setActiveTab("description")}
+              >
+                Job Description
+              </button>
+              <button
+                className={`px-4 py-2 font-semibold focus:outline-none ${activeTab === "company" ? "border-b-2 border-red-500 text-red-600" : "text-gray-500"}`}
+                onClick={() => setActiveTab("company")}
+              >
+                About the company
+              </button>
+            </div>
+            {/* Tab Content */}
+            {activeTab === "description" && (
+              <div>
+                <h4 className="font-semibold mb-2">Job Description</h4>
+                <div className="text-gray-700 text-sm mb-4" dangerouslySetInnerHTML={{ __html: jobData?.job_description }} />
+                {/* Soft/Hard Skills, Benefits, etc. can be added here as needed */}
+              </div>
+            )}
+            {activeTab === "company" && (
+              <div>
+                <h4 className="font-semibold mb-2 flex items-center gap-2"><span className="flaticon-briefcase text-lg text-gray-400" />About the company</h4>
+                <div className="flex flex-wrap items-center gap-4 mb-2">
+                  <img src={"/images/resource/company-logo/1-1.png"} alt="Company Logo" className="w-12 h-12 rounded-full border" />
+                  <div className="min-w-[150px]">
+                    <div className="font-semibold flex items-center gap-1"><span className="flaticon-building text-base text-gray-400" />{jobData?.company_name || "Schneider Electrical"}</div>
+                    <div className="text-xs text-gray-500 flex items-center gap-1"><span className="flaticon-industry text-base text-gray-400" />{company?.industry || "Manufacturing"} &bull; {company?.size || "700-1000 employees"}</div>
+                    {company?.website && (
+                      <a href={company.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 text-xs underline flex items-center gap-1"><span className="flaticon-link text-base text-gray-400" />{company.website}</a>
+                    )}
+                  </div>
+                  <button className="ml-auto bg-black text-white px-4 py-1 rounded hover:bg-gray-800">Explore More</button>
+                </div>
+                <div className="text-gray-700 text-sm mb-2">
+                  {company?.description || "Our mission is to be the trusted partner in Sustainability and Efficiency. We are a global industrial technology leader bringing world-leading expertise in electrification, automation and digitization to smart industries, resilient infrastructure, future-proof data centers, intelligent buildings, and intuitive homes. Anchored by our deep domain expertise, we provide integrated end-..."}
+                </div>
+                {company?.address && (
+                  <div className="text-xs text-gray-500 mb-1 flex items-center gap-1"><span className="flaticon-map-locator text-base text-gray-400" />Address: {company.address}</div>
+                )}
+                {company?.contact_email && (
+                  <div className="text-xs text-gray-500 flex items-center gap-1"><span className="flaticon-mail text-base text-gray-400" />Email: {company.contact_email}</div>
+                )}
+              </div>
+            )}
+          </div>
+        </main>
+      </div>
+
+      {/* Related Jobs Section */}
+      <div className="max-w-6xl mx-auto mt-8 px-2 md:px-0">
+        <div className="bg-white rounded-lg shadow p-6">
+          <div className="mb-4">
+            <h3 className="text-xl font-semibold">Related Jobs</h3>
+            <div className="text-gray-500 text-sm">2020 jobs live - 293 added today.</div>
+          </div>
+          <RelatedJobs2 />
+        </div>
+      </div>
+
+      {showLoginModal && <LoginModal onClose={handleCloseLoginModal} />}
       <FooterDefault footerStyle="alternate5" />
     </>
   );

@@ -68,7 +68,7 @@ const index = () => {
                     {/* <!-- End Filters Column --> */}
 
                     <div className="content-column col-xl-9 col-lg-8 col-md-12 col-sm-12">
-                        <div className="ls-outer">
+                        <div className="">
                             <FilterJobsBox />
                             {/* <!-- ls Switcher --> */}
                         </div>
