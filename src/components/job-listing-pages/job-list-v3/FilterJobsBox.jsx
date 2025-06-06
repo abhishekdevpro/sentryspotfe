@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import ApplyJobModalContent from "@/components/job-single-pages/shared-components/ApplyJobModalContent";
 import ApplyForm from "@/components/ApplyForm/ApplyForm";
 import { BsBriefcase, BsClock, BsGeoAlt, BsBuilding, BsHeart, BsHeartFill, BsBookmark, BsBookmarkFill } from 'react-icons/bs';
-import { FiCalendar, FiAward, FiEye } from 'react-icons/fi';
+import { FiCalendar, FiAward } from 'react-icons/fi';
 
 const LoginModal = ({ onClose }) => {
   return (
@@ -114,21 +114,23 @@ const FilterJobsBox = () => {
       }
 
       // Use public API endpoint if user is not logged in
-      const baseUrl = token 
-        ? "https://api.sentryspot.co.uk/api/jobseeker/job-list"
-        : "https://api.sentryspot.co.uk/api/jobseeker/public/job-list";
-
+      const baseUrl = "https://api.sentryspot.co.uk/api/jobseeker/public/job-list";
       const apiUrl = `${baseUrl}${urlParams.toString() ? `?${urlParams.toString()}` : ""}`;
-
-      const headers = token ? { 'Authorization': token } : {};
       
-      const response = await fetch(apiUrl, { headers });
+      const response = await fetch(apiUrl);
       const data = await response.json();
+
+      if (data.error) {
+        console.error("Error fetching jobs:", data.error);
+        toast.error(data.error);
+        return;
+      }
 
       setJobs(data.data);
       setFilteredJobs(data.data);
     } catch (error) {
       console.error("Error fetching jobs:", error);
+      toast.error("Failed to fetch jobs. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -168,165 +170,137 @@ const FilterJobsBox = () => {
     )
     ?.map((item) => (
       <div
-        className="col-lg-6 col-md-12 col-sm-12 mb-4"
+        className="col-12 mb-4"
         key={item.id}
       >
-        <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 p-4 h-full">
-          <div className="flex flex-col h-full">
-            <div className="flex-grow">
-              <Link to={`/job-single-v3/${item.id}`} className="block">
-                {/* Company Logo and Title */}
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 flex-shrink-0">
-                    <img
-                      src={item.logo || "/images/resource/company-logo/1-1.png"}
-                      alt="company logo"
-                      className="w-full h-full object-contain rounded-lg"
-                    />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h4 className="text-lg font-semibold text-gray-900 hover:text-blue-600 line-clamp-2">
-                      {item.job_title}
-                    </h4>
-                    <div className="flex items-center text-gray-600 text-sm">
-                      <BsBuilding className="mr-1 flex-shrink-0" />
-                      <span className="line-clamp-1">{item.company_name || "Company Not Specified"}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Job Type Tags */}
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {item.job_type_name && item.job_type_name.length > 0 ? (
-                    item.job_type_name.map((type, index) => (
-                      <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs flex items-center gap-1">
-                        <BsClock className="w-3 h-3 flex-shrink-0" />
-                        <span className="line-clamp-1">{type}</span>
-                      </span>
-                    ))
-                  ) : (
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs flex items-center gap-1">
-                      <BsClock className="w-3 h-3 flex-shrink-0" />
-                      <span className="line-clamp-1">Not Specified</span>
-                    </span>
-                  )}
-                </div>
-
-                {/* Job Categories */}
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {item.job_category_name && item.job_category_name.length > 0 ? (
-                    item.job_category_name.map((category, index) => (
-                      <span key={index} className="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs flex items-center gap-1">
-                        <BsBriefcase className="w-3 h-3 flex-shrink-0" />
-                        <span className="line-clamp-1">{category}</span>
-                      </span>
-                    ))
-                  ) : (
-                    <span className="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs flex items-center gap-1">
-                      <BsBriefcase className="w-3 h-3 flex-shrink-0" />
-                      <span className="line-clamp-1">Uncategorized</span>
-                    </span>
-                  )}
-                </div>
-
-                {/* Job Details */}
-                <div className="space-y-2">
-                  {/* Location */}
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <BsGeoAlt className="text-gray-600 flex-shrink-0 mr-2" />
-                    <span className="line-clamp-1">
-                      {item.location || item.complete_address || item.city || "Location Not Specified"}
-                      {item.country && `, ${item.country}`}
-                    </span>
-                  </div>
-
-                  {/* Posted Date */}
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <FiCalendar className="text-gray-600 flex-shrink-0 mr-2" />
-                    <span className="line-clamp-1">
-                      {item.created_at ? `Posted ${new Date(item.created_at).toLocaleString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}` : "Posted Date Not Available"}
-                    </span>
-                  </div>
-
-                  {/* Experience Level */}
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <FiAward className="text-gray-600 flex-shrink-0 mr-2" />
-                    <span className="line-clamp-1">
-                      Experience: {item.experience_level_min_name || "Not Specified"}
-                      {item.experience_level_max_name && ` - ${item.experience_level_max_name}`}
-                    </span>
-                  </div>
-
-                  {/* Industry */}
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <BsBuilding className="text-gray-600 flex-shrink-0 mr-2" />
-                    <span className="line-clamp-1">{item.industry || "Industry Not Specified"}</span>
-                  </div>
-
-                  {/* Functional Area */}
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <BsBriefcase className="text-gray-600 flex-shrink-0 mr-2" />
-                    <span className="line-clamp-1">{item.functional_area_name || "Functional Area Not Specified"}</span>
-                  </div>
-                </div>
-              </Link>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center justify-between gap-2 mt-4 pt-3 border-t">
-              <Link 
-                to={`/job-single-v3/${item.id}`}
-                className="flex items-center gap-2 text-gray-400 hover:text-blue-600 transition-colors p-2 text-sm"
-              >
-                <FiEye className="w-5 h-5 flex-shrink-0" />
-                <span className="hidden sm:inline">View Details</span>
-              </Link>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={async () => {
-                    await savejob(item.id);
-                    setFilteredJobs((prevJobs) =>
-                      prevJobs.map((job) =>
-                        job.id === item.id
-                          ? { ...job, is_favorite: !item.is_favorite }
-                          : job
-                      )
-                    );
-                  }}
-                  className="flex items-center gap-2 text-gray-400 hover:text-red-500 transition-colors p-2 text-sm"
-                >
-                  {item.is_favorite ? (
-                    <BsHeartFill className="w-5 h-5 text-red-500 flex-shrink-0" />
-                  ) : (
-                    <BsHeart className="w-5 h-5 flex-shrink-0" />
-                  )}
-                  <span className="hidden sm:inline">{item.is_favorite ? "Saved" : "Save"}</span>
-                </button>
-                <button
-                  onClick={() => {
-                    handleApplyNowClick(item.id);
-                    setFilteredJobs((prevJobs) =>
-                      prevJobs.map((job) =>
-                        job.id === item.id ? { ...job, is_applied: true } : job
-                      )
-                    );
-                  }}
-                  className="flex items-center gap-2 text-gray-400 hover:text-blue-600 transition-colors p-2 text-sm"
-                >
-                  {item.is_applied ? (
-                    <BsBookmarkFill className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                  ) : (
-                    <BsBookmark className="w-5 h-5 flex-shrink-0" />
-                  )}
-                  <span className="hidden sm:inline">{item.is_applied ? "Applied" : "Apply"}</span>
-                </button>
+        <div className="job-card bg-white rounded-4 shadow-sm position-relative p-4 h-100 d-flex flex-column" style={{ minHeight: 220 }}>
+          {/* Top Row: Logo, Company, Heart */}
+          <div className="d-flex align-items-center justify-content-between mb-2">
+            <div className="d-flex align-items-center">
+              <img
+                src={item.logo || "/images/resource/company-logo/1-1.png"}
+                alt="company logo"
+                className="rounded-circle border"
+                style={{ width: 40, height: 40, objectFit: 'contain', marginRight: 12 }}
+              />
+              <div>
+                <div className="fw-semibold">{item.company_name}</div>
+                <div className="text-muted small">{item.created_at ? `${Math.floor((Date.now() - new Date(item.created_at)) / (1000 * 60 * 60))} hours ago` : ""}</div>
               </div>
             </div>
+            <button
+              onClick={async (e) => {
+                e.stopPropagation();
+                await savejob(item.id);
+                setFilteredJobs((prevJobs) =>
+                  prevJobs.map((job) =>
+                    job.id === item.id
+                      ? { ...job, is_favorite: !item.is_favorite }
+                      : job
+                  )
+                );
+              }}
+              className="btn btn-link p-0"
+              style={{ zIndex: 2 }}
+              aria-label="Save Job"
+            >
+              {item.is_favorite ? (
+                <BsHeartFill className="text-danger fs-4" />
+              ) : (
+                <BsHeart className="text-secondary fs-4" />
+              )}
+            </button>
+          </div>
+
+          {/* Job Title */}
+          <div className="fs-4 fw-bold mb-2">{item.job_title}</div>
+
+          {/* Location */}
+          <div className="d-flex align-items-center text-muted mb-2">
+            <BsGeoAlt className="me-1" />
+            <span>{item.location || item.complete_address || item.city || "Location Not Specified"}</span>
+          </div>
+
+          {/* Salary & Freshers */}
+          <div className="d-flex align-items-center mb-2">
+            <span className="d-flex align-items-center text-muted me-3">
+              <BsBriefcase className="me-1" />
+              {item.salary_min && item.salary_max ? (
+                <>
+                  <span className="fw-bold text-dark me-1">₹</span>
+                  {item.salary_min} - {item.salary_max} / month
+                </>
+              ) : "Salary Not Specified"}
+            </span>
+            {item.freshers_can_apply && (
+              <span className="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 fw-normal ms-1">Freshers can apply</span>
+            )}
+          </div>
+
+          {/* Tags */}
+          <div className="mb-2 d-flex flex-wrap gap-2">
+            {item.skills && item.skills.length > 0 && item.skills.slice(0, 3).map((skill, idx) => (
+              <span key={idx} className="badge rounded-pill bg-light text-secondary border border-secondary border-opacity-25 fw-normal">{skill}</span>
+            ))}
+            {item.skills && item.skills.length > 3 && (
+              <span className="badge rounded-pill bg-light text-secondary border border-secondary border-opacity-25 fw-normal">+{item.skills.length - 3} More</span>
+            )}
+            {item.job_type_name && Array.isArray(item.job_type_name) && item.job_type_name.map((type, idx) => (
+              <span key={"type-" + idx} className="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 fw-normal">{type}</span>
+            ))}
+            {item.job_category_name && item.job_category_name.length > 0 && item.job_category_name.map((cat, idx) => (
+              <span key={"cat-" + idx} className="badge rounded-pill bg-light text-secondary border border-secondary border-opacity-25 fw-normal">{cat}</span>
+            ))}
+          </div>
+
+          {/* Extra Info: Industry, Experience, Functional Area */}
+          <div className="mb-2">
+            <div className="d-flex flex-row align-items-center text-muted small mb-1">
+              <BsBuilding className="me-1" />
+              <span>{item.industry || 'Industry Not Specified'}</span>
+            </div>
+            <div className="d-flex align-items-center text-muted small mb-1">
+              <FiAward className="me-1" />
+              <span>Experience: {item.experience_level_min_name || 'Not Specified'}{item.experience_level_max_name ? ` - ${item.experience_level_max_name}` : ''}</span>
+            </div>
+            <div className="d-flex align-items-center text-muted small">
+              <BsBriefcase className="me-1" />
+              <span>{item.functional_area_name || 'Functional Area Not Specified'}</span>
+            </div>
+          </div>
+
+          {/* Posted Date */}
+          <div className="text-muted small mb-2">
+            {item.created_at ? `Posted ${new Date(item.created_at).toLocaleString("en-US", {
+              month: "short",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}` : "Posted Date Not Available"}
+          </div>
+
+          {/* Action Buttons */}
+          <div className="d-flex justify-content-end align-items-center gap-2 mt-auto">
+            <Link
+              to={`/job-single-v3/${item.id}`}
+              className="btn btn-outline-secondary px-4 py-2 fw-semibold"
+            >
+              View Job
+            </Link>
+            <button
+              onClick={() => {
+                handleApplyNowClick(item.id);
+                setFilteredJobs((prevJobs) =>
+                  prevJobs.map((job) =>
+                    job.id === item.id ? { ...job, is_applied: true } : job
+                  )
+                );
+              }}
+              className="btn btn-danger px-4 py-2 fw-semibold"
+              style={{ backgroundColor: '#e51b3e', borderColor: '#e51b3e' }}
+            >
+              Quick Apply
+            </button>
           </div>
         </div>
       </div>

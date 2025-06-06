@@ -14,6 +14,7 @@ import Tag from "../components/Tag";
 const FilterSidebar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1023);
+  const [showAllIndustries, setShowAllIndustries] = useState(false);
   
   useEffect(() => {
     const handleResize = () => {
@@ -53,91 +54,88 @@ const FilterSidebar = () => {
     }
   };
 
+  const handleClearAll = () => {
+    setSearchParams({});
+  };
+
+  const industries = [
+    { label: 'BFSI', count: 198 },
+    { label: 'Manufacturing', count: 94 },
+    { label: 'IT Services', count: 54 },
+    { label: 'Hospitality', count: 53 },
+    { label: 'Retail', count: 47 },
+    // Add more industries if needed
+  ];
+
+  const jobTypes = [
+    { label: 'Full Time', count: 448, checked: true },
+    // Add more job types if needed
+  ];
+
+  const experienceLevels = [
+    { label: 'Experience', count: 292 },
+    { label: 'Fresher', count: 156 },
+  ];
+
+  const workModes = [
+    { label: 'Onsite', count: 446 },
+    { label: 'Hybrid', count: 1 },
+    { label: 'Remote', count: 1 },
+  ];
+
   return (
-    <div className="inner-column">
-      <div className="filters-outer">
-        <button
-          type="button"
-          className="btn-close text-reset close-filters show-1023"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
+    <div className="filter-sidebar bg-white rounded-xl p-6 w-full max-w-xs">
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-xl font-semibold">All Filters</h3>
+        <button className="border border-gray-300 rounded px-3 py-1 text-sm" onClick={handleClearAll}>Clear all</button>
+      </div>
 
-        <div className="filter-block mb-4">
-          <h4 className="text-lg font-semibold mb-3">Search by Keywords</h4>
-          <div className="form-group">
-            <SearchBox 
-              onSearch={(query) => updateSearchParams('keywords', query)} 
-            />
-          </div>
-        </div>
+      <div className="mb-6">
+        <h4 className="text-base font-semibold mb-2">Search By Location</h4>
+        <LocationBox onLocationChange={(location) => updateSearchParams('location', location)} />
+      </div>
 
-        <div className="filter-block mb-4">
-          <h4 className="text-lg font-semibold mb-3">Location</h4>
-          <div className="form-group">
-            <LocationBox 
-              onLocationChange={(location) => updateSearchParams('location', location)} 
-            />
-          </div>
-          
-          {/* <p>Radius around selected destination</p>
-          <DestinationRangeSlider 
-            onRangeChange={(range) => updateSearchParams('radius', range)}
-          /> */}
-        </div>
-
-        <div className="filter-block mb-4">
-          <h4 className="text-lg font-semibold mb-3">Industries</h4>
-          <div className="form-group">
-            <Categories 
-              onCategorySelect={(category) => updateSearchParams('category', category)} 
-            />
-          </div>
-        </div>
-
-        <div className="switchbox-outer mb-4">
-          <h4 className="text-lg font-semibold mb-3">Job type</h4>
-          <JobType 
-            onJobTypeChange={(jobType) => updateSearchParams('jobType', jobType)}
-          />
-        </div>
-
-        {/* <div className="checkbox-outer">
-          <h4>Date Posted</h4>
-          <DatePosted 
-            onDateSelect={(dateRange) => updateSearchParams('datePosted', dateRange)}
-          />
-        </div> */}
-
-        <div className="checkbox-outer mb-4">
-          <h4 className="text-lg font-semibold mb-3">Experience Level</h4>
-          <ExperienceLevel 
-            onExperienceLevelChange={(level) => updateSearchParams('experienceLevel', level)}
-          />
-        </div>
-
-        {/* <div className="filter-block">
-          <h4>Salary</h4>
-          <SalaryRangeSlider 
-            onSalaryRangeChange={(range) => updateSearchParams('salaryRange', JSON.stringify(range))}
-          />
-        </div> */}
-
-        {/* <div className="filter-block">
-          <h4>Tags</h4>
-          <Tag 
-            onTagSelect={(tags) => updateSearchParams('tags', tags.join(','))}
-          />
-        </div> */}
-
-        <div className="mt-6 px-3">
-          <button
-            type="button"
-            className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
-            onClick={handleApplyFilters}
-          >
-            Apply Filters
+      <div className="mb-6">
+        <h4 className="text-base font-semibold mb-2">Industry</h4>
+        <Categories onCategorySelect={(category) => updateSearchParams('category', category)} showAll={showAllIndustries} />
+        {!showAllIndustries && (
+          <button className="mt-3 w-full border border-red-500 text-red-500 rounded py-2 text-sm" onClick={() => setShowAllIndustries(true)}>
+            Show More
           </button>
+        )}
+      </div>
+
+      <div className="mb-6">
+        <h4 className="text-base font-semibold mb-2">Job Type</h4>
+        <JobType onJobTypeChange={(jobType) => updateSearchParams('jobType', jobType)} />
+      </div>
+
+      <div className="mb-6">
+        <h4 className="text-base font-semibold mb-2">Experience Level</h4>
+        <ExperienceLevel onExperienceLevelChange={(level) => updateSearchParams('experienceLevel', level)} />
+      </div>
+
+      <div className="mb-2">
+        <h4 className="text-base font-semibold mb-2">Work Mode</h4>
+        <div className="flex flex-col gap-2">
+          <label className="flex items-center justify-between text-sm">
+            <span>
+              <input type="checkbox" className="mr-2" onChange={e => updateSearchParams('workMode', e.target.checked ? 'Onsite' : undefined)} checked={searchParams.get('workMode') === 'Onsite'} /> Onsite
+            </span>
+            <span>446</span>
+          </label>
+          <label className="flex items-center justify-between text-sm">
+            <span>
+              <input type="checkbox" className="mr-2" onChange={e => updateSearchParams('workMode', e.target.checked ? 'Hybrid' : undefined)} checked={searchParams.get('workMode') === 'Hybrid'} /> Hybrid
+            </span>
+            <span>1</span>
+          </label>
+          <label className="flex items-center justify-between text-sm">
+            <span>
+              <input type="checkbox" className="mr-2" onChange={e => updateSearchParams('workMode', e.target.checked ? 'Remote' : undefined)} checked={searchParams.get('workMode') === 'Remote'} /> Remote
+            </span>
+            <span>1</span>
+          </label>
         </div>
       </div>
     </div>
