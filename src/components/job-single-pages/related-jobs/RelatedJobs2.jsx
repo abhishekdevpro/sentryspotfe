@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import jobs from "../../../data/job-featured";
 
-
 const RelatedJobs2 = () => {
   return (
-    <>
+    <div className="row">
       {jobs.slice(20, 24).map((item) => (
         <div
-          className="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12"
+          className="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4"
           key={item.id}
         >
           <div className="inner-box">
@@ -20,7 +19,6 @@ const RelatedJobs2 = () => {
             </ul>
             <span className="company-logo">
               <img
-               
                 src={item.logo}
                 alt="featured job"
               />
@@ -35,9 +33,8 @@ const RelatedJobs2 = () => {
             </div>
           </div>
         </div>
-        // End job-block
       ))}
-    </>
+    </div>
   );
 };
 

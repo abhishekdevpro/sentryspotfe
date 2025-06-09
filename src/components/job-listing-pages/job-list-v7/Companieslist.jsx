@@ -151,7 +151,7 @@ const Companieslist = () => {
                 to={`/employers-single-v1/${job.id}`}
                 className="text-[#f43f5e] font-bold text-lg mt-2 hover:underline"
               >
-                View Jobs
+              View company
               </Link>
             </div>
           ))}

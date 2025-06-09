@@ -4,25 +4,37 @@ import axios from 'axios';
 import { Constant } from '@/utils/constant/constant.js';
 import DashboardCandidatesHeader from '../header/DashboardCandidatesHeader';
 import CopyrightFooter from '../dashboard-pages/CopyrightFooter';
-import { ChevronDown, FileText } from 'lucide-react';
+import { ChevronDown, FileText, PlayCircle, Heart, Share2, CheckCircle, Video, Download, KeyRound, Smartphone, ClipboardList } from 'lucide-react';
+
+const includesList = [
+  { icon: <Video className="w-5 h-5 text-pink-500" />, label: 'On-demand video' },
+  { icon: <Download className="w-5 h-5 text-pink-500" />, label: 'Downloadable resources' },
+  { icon: <KeyRound className="w-5 h-5 text-pink-500" />, label: 'Full access' },
+  { icon: <Smartphone className="w-5 h-5 text-pink-500" />, label: 'Access on mobile screen' },
+  { icon: <ClipboardList className="w-5 h-5 text-pink-500" />, label: 'Assignments' },
+  { icon: <CheckCircle className="w-5 h-5 text-pink-500" />, label: 'Certificate of Completion' },
+];
 
 const CourseDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedSections, setExpandedSections] = useState({});
-  const [myCourses, setMyCourses] = useState([]);
-  const [myCoursesLoading, setMyCoursesLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [saving, setSaving] = useState(false);
-  const navigate = useNavigate();
+  const [showFullDesc, setShowFullDesc] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem(Constant.USER_TOKEN);
+    if (!token) {
+      navigate('/login', { replace: true });
+    }
+  }, [navigate]);
 
   const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }));
+    setExpandedSections(prev => ({ ...prev, [sectionId]: !prev[sectionId] }));
   };
 
   const handleSaveCourse = async () => {
@@ -31,317 +43,13 @@ const CourseDetail = () => {
       const token = localStorage.getItem(Constant.USER_TOKEN);
       await axios.post('https://api.sentryspot.co.uk/api/jobseeker/save-course', 
         { course_id: Number(id) },
-        {
-          headers: {
-            'Authorization': token,
-            'Content-Type': 'application/json',
-          },
-        }
+        { headers: { 'Authorization': token, 'Content-Type': 'application/json' } }
       );
       setIsSaved(!isSaved);
     } catch (err) {
       console.error('Failed to save course:', err);
     } finally {
       setSaving(false);
-    }
-  };
-
-  // Common styles
-  const styles = {
-    container: {
-      background: '#f7f7f7',
-      minHeight: '100vh'
-    },
-    contentWrapper: {
-      maxWidth: 1400,
-      margin: '40px auto',
-      padding: 24
-    },
-    topSection: {
-      display: 'flex',
-      gap: 32,
-      background: '#393939',
-      borderRadius: 16,
-      color: '#fff',
-      padding: 40,
-      alignItems: 'flex-start'
-    },
-    instructorInfo: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: 16,
-      marginBottom: 16
-    },
-    instructorImage: {
-      width: 64,
-      height: 64,
-      borderRadius: '50%',
-      border: '2px solid #fff',
-      background: '#fff'
-    },
-    instructorName: {
-      fontWeight: 700,
-      fontSize: 22
-    },
-    instructorTitle: {
-      fontSize: 16
-    },
-    rating: {
-      color: '#FFD600',
-      fontSize: 20
-    },
-    ratingCount: {
-      color: '#FFD600',
-      fontWeight: 600,
-      marginLeft: 8
-    },
-    eligibilityBadge: {
-      background: '#FFC94D',
-      color: '#393939',
-      borderRadius: 20,
-      padding: '6px 24px',
-      fontWeight: 600,
-      fontSize: 18
-    },
-    courseTitle: {
-      fontSize: 32,
-      fontWeight: 700,
-      margin: '16px 0 12px 0'
-    },
-    sectionTitle: {
-      fontSize: 26,
-      fontWeight: 700,
-      margin: '16px 0 8px 0',
-      color: '#fff'
-    },
-    description: {
-      fontSize: 18,
-      color: '#fff',
-      marginBottom: 12,
-      maxWidth: 800
-    },
-    readMore: {
-      color: '#4da6ff',
-      fontWeight: 500,
-      fontSize: 18
-    },
-    courseStats: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: 32,
-      marginTop: 18,
-      fontSize: 18
-    },
-    rightCard: {
-      flex: 1,
-      background: '#fff',
-      borderRadius: 16,
-      boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-      padding: 24,
-      color: '#222',
-      minWidth: 340,
-      maxWidth: 400,
-      textAlign: 'center'
-    },
-    courseImage: {
-      width: '100%',
-      borderRadius: 12,
-      marginBottom: 16
-    },
-    buttonGroup: {
-      display: 'flex',
-      gap: 8,
-      marginBottom: 16
-    },
-    button: {
-      flex: 1,
-      borderRadius: 8,
-      padding: '8px 16px',
-      border: '1px solid #ccc',
-      background: '#fff',
-      cursor: 'pointer',
-      fontSize: 14,
-      fontWeight: 500,
-      transition: 'all 0.2s ease'
-    },
-    buttonPrimary: {
-      width: '100%',
-      borderRadius: 8,
-      background: '#43a047',
-      color: '#fff',
-      fontWeight: 700,
-      fontSize: 18,
-      padding: '12px 24px',
-      border: 'none',
-      cursor: 'pointer',
-      transition: 'all 0.2s ease'
-    },
-    buttonSecondary: {
-      flex: 1,
-      borderRadius: 8,
-      background: '#1a237e',
-      color: '#fff',
-      padding: '8px 16px',
-      border: 'none',
-      cursor: 'pointer',
-      fontSize: 14,
-      fontWeight: 500,
-      transition: 'all 0.2s ease'
-    },
-    courseContent: {
-      marginTop: 40,
-      background: '#fff',
-      borderRadius: 16,
-      padding: 32
-    },
-    contentTitle: {
-      fontSize: 28,
-      fontWeight: 700,
-      marginBottom: 24
-    },
-    accordion: {
-      marginBottom: 16,
-      boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-      border: '1px solid #eee',
-      borderRadius: 8,
-      overflow: 'hidden'
-    },
-    accordionSummary: {
-      background: '#f8f9fa',
-      padding: '16px',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      userSelect: 'none'
-    },
-    accordionDetails: {
-      padding: '16px',
-      background: '#fff'
-    },
-    expandIcon: {
-      width: 24,
-      height: 24,
-      transition: 'transform 0.2s ease',
-      transform: 'rotate(0deg)'
-    },
-    expandIconExpanded: {
-      transform: 'rotate(180deg)'
-    },
-    lectureContainer: {
-      padding: '0 16px'
-    },
-    lectureItem: {
-      padding: '12px 16px',
-      display: 'flex',
-      alignItems: 'center',
-      gap: 12
-    },
-    lectureNumber: {
-      width: 24,
-      height: 24,
-      borderRadius: '50%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: '#fff',
-      fontSize: 12,
-      fontWeight: 600
-    },
-    lectureInfo: {
-      flex: 1
-    },
-    lectureName: {
-      fontWeight: 500,
-      fontSize: 16,
-      marginBottom: 4
-    },
-    lectureType: {
-      fontSize: 14,
-      color: '#666'
-    },
-    completed: {
-      color: '#43a047',
-      fontSize: 14
-    },
-    myCoursesContainer: {
-      marginTop: 16,
-      borderTop: '1px solid #eee',
-      paddingTop: 16
-    },
-    myCoursesTitle: {
-      fontSize: 18,
-      fontWeight: 600,
-      marginBottom: 12,
-      color: '#333'
-    },
-    myCoursesList: {
-      maxHeight: 200,
-      overflowY: 'auto'
-    },
-    myCourseItem: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: '8px 0',
-      cursor: 'pointer',
-      transition: 'background-color 0.2s ease'
-    },
-    myCourseItemHover: {
-      backgroundColor: '#f5f5f5'
-    },
-    myCourseImage: {
-      width: 40,
-      height: 40,
-      borderRadius: 4,
-      marginRight: 12,
-      objectFit: 'cover'
-    },
-    myCourseInfo: {
-      flex: 1
-    },
-    myCourseName: {
-      fontSize: 14,
-      fontWeight: 500,
-      color: '#333',
-      marginBottom: 2
-    },
-    myCourseProgress: {
-      fontSize: 12,
-      color: '#666'
-    },
-    progressBar: {
-      height: 4,
-      background: '#e0e0e0',
-      borderRadius: 2,
-      marginTop: 4
-    },
-    progressFill: {
-      height: '100%',
-      background: '#43a047',
-      borderRadius: 2
-    },
-    saveButton: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 8,
-      flex: 1,
-      borderRadius: 8,
-      padding: '8px 16px',
-      border: '1px solid #ccc',
-      background: '#fff',
-      cursor: 'pointer',
-      fontSize: 14,
-      fontWeight: 500,
-      transition: 'all 0.2s ease',
-      color: isSaved ? '#e91e63' : '#666'
-    },
-    heartIcon: {
-      fontSize: 20,
-      transition: 'transform 0.2s ease'
-    },
-    heartIconActive: {
-      transform: 'scale(1.2)'
     }
   };
 
@@ -352,10 +60,7 @@ const CourseDetail = () => {
         setError(null);
         const token = localStorage.getItem(Constant.USER_TOKEN);
         const response = await axios.get(`https://api.sentryspot.co.uk/api/jobseeker/mycourse-details/${id}`, {
-          headers: {
-            'Authorization': token,
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Authorization': token, 'Content-Type': 'application/json' },
         });
         if (response.data?.data) {
           setCourse(response.data.data);
@@ -371,109 +76,128 @@ const CourseDetail = () => {
     fetchCourse();
   }, [id]);
 
-  useEffect(() => {
-    const fetchMyCourses = async () => {
-      try {
-        setMyCoursesLoading(true);
-        const token = localStorage.getItem(Constant.USER_TOKEN);
-        const response = await axios.get('https://api.sentryspot.co.uk/api/jobseeker/mycourse-lists', {
-          headers: {
-            'Authorization': token,
-            'Content-Type': 'application/json',
-          },
-        });
-        if (response.data?.data) {
-          setMyCourses(response.data.data);
-        }
-      } catch (err) {
-        console.error('Failed to load my courses:', err);
-      } finally {
-        setMyCoursesLoading(false);
-      }
-    };
-    fetchMyCourses();
-  }, []);
-
   if (loading) return <div style={{ padding: 32, textAlign: 'center' }}>Loading...</div>;
   if (error) return <div style={{ padding: 32, color: 'red', textAlign: 'center' }}>{error}</div>;
   if (!course) return <div style={{ padding: 32, textAlign: 'center' }}>Course not found.</div>;
 
+  // Placeholder data for trainer, rating, students, hours, image, level
+  const trainer = {
+    name: 'Nova Homecare',
+    title: 'Homecare trainer',
+    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+    rating: 5,
+    ratingCount: 5,
+  };
+  const courseImage = 'https://images.pexels.com/photos/3997986/pexels-photo-3997986.jpeg?auto=compress&w=400';
+  const students = 9;
+  const hours = 40;
+  const lectures = course.section_response.reduce((acc, s) => acc + (s.lectures?.length || 0), 0);
+  const level = 'Under Graduates';
+
+  // Description Read More logic
+  const desc = 'This course provides a comprehensive understanding of homecare essentials, including elder care, babysitting, pet care, and non-medical support. It equips learners with the skills needed to ensure safety, hygiene, and emotional well-being for individuals and pets under their care. The course is designed to be affordable, flexible, and practical, making it ideal for both personal and professional caregivers.';
+  const showReadMore = (course.description || desc).length > 220;
+  const descToShow = showFullDesc ? (course.description || desc) : (course.description || desc).slice(0, 220) + (showReadMore ? '...' : '');
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-                {course.title}
-              </h1>
-              <p className="text-gray-600 mb-6">{course.description}</p>
-              
-              {/* Course Progress */}
-              <div className="mb-8">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-medium text-gray-700">Course Progress</span>
-                  <span className="text-sm text-gray-500">{course.progress}%</span>
+    <div className="min-h-screen flex flex-col">
+      <DashboardCandidatesHeader />
+      {/* Main Content Container */}
+      <div className="flex-1 w-full mt-20">
+        <div className="max-w-7xl mx-auto px-4">
+          {/* Header Section */}
+          <div className="w-full rounded-b-2xl px-0 py-8 flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-0 mt-4 bg-white">
+            <div className="flex-1 px-0 md:px-8 flex flex-col gap-4">
+              <div className="flex items-center gap-4">
+                <img src={trainer.avatar} alt={trainer.name} className="w-16 h-16 rounded-full border-2 border-white object-cover" />
+                <div>
+                  <div className="font-bold text-lg text-gray-900">{trainer.name}</div>
+                  <div className="text-gray-500 text-sm">{trainer.title}</div>
+                  <div className="flex items-center gap-1 mt-1">
+                    {Array.from({ length: trainer.rating }).map((_, i) => (
+                      <span key={i} className="text-yellow-400 text-base">★</span>
+                    ))}
+                    <span className="ml-2 text-yellow-400 font-semibold">({trainer.ratingCount})</span>
+                  </div>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
-                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                    style={{ width: `${course.progress}%` }}
-                  />
+                <span className="ml-4 px-4 py-1 rounded-full bg-yellow-300 text-gray-900 font-semibold text-sm">{level}</span>
+              </div>
+              <div className="mt-2">
+                <div className="text-3xl font-bold text-gray-900 mb-2">{course.course_title}</div>
+                <div className="text-gray-900 font-semibold mb-1">Description:</div>
+                <div className="text-gray-700 text-base mb-2">
+                  {descToShow}
+                  {showReadMore && (
+                    <span className="ml-2 text-blue-600 cursor-pointer font-medium" onClick={() => setShowFullDesc(v => !v)}>
+                      {showFullDesc ? 'Show Less' : 'Read More'}
+                    </span>
+                  )}
+                </div>
+                <div className="flex flex-wrap items-center gap-6 mt-2 text-pink-700 text-base">
+                  <span className="flex items-center gap-1"><FileText className="w-5 h-5 mr-1" />{lectures}</span>
+                  <span className="flex items-center gap-1"><Video className="w-5 h-5 mr-1" />{hours} hours</span>
+                  <span className="flex items-center gap-1"><span className="text-lg">👥</span>{students} students enrolled</span>
+                  <span className="flex items-center gap-1"><span className="text-lg">🎓</span>{level}</span>
                 </div>
               </div>
-
-              {/* Lectures List */}
-              <div className="space-y-4">
-                {course.lectures.map((lecture, index) => (
-                  <div 
-                    key={lecture.id}
-                    className="border border-gray-200 rounded-lg overflow-hidden"
-                  >
-                    <div 
-                      className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50"
-                      onClick={() => toggleSection(index)}
+            </div>
+            {/* Sidebar Card */}
+            <div className="w-full md:w-[350px] flex-shrink-0 px-0 md:px-8">
+              <div className="bg-white rounded-xl shadow-lg p-4 flex flex-col items-center">
+                <div className="relative w-full h-44 mb-4">
+                  <img src={courseImage} alt="Course" className="w-full h-full object-cover rounded-lg" />
+                  <PlayCircle className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 text-white/90 drop-shadow-lg" />
+                </div>
+                <div className="flex w-full gap-2 mb-4">
+                  <button onClick={handleSaveCourse} disabled={saving} className={`flex-1 flex items-center justify-center gap-2 border rounded-md py-2 font-medium ${isSaved ? 'border-pink-500 text-pink-600' : 'border-gray-300 text-gray-700'} transition-colors`}>
+                    <Heart className={`w-5 h-5 ${isSaved ? 'fill-pink-500 text-pink-500' : 'text-gray-400'}`} />
+                    {isSaved ? 'Wishlisted' : 'Add to Wishlist'}
+                  </button>
+                  <button className="flex-1 flex items-center justify-center gap-2 border rounded-md py-2 font-medium border-blue-900 text-blue-900 transition-colors">
+                    <Share2 className="w-5 h-5" />Share
+                  </button>
+                </div>
+                <button className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-md text-lg transition-colors mb-2">Enroll Now</button>
+              </div>
+              {/* Includes */}
+              <div className="bg-white rounded-xl shadow-lg p-4 mt-4">
+                <div className="font-semibold text-gray-900 mb-3">Includes</div>
+                <ul className="space-y-2">
+                  {includesList.map((inc, i) => (
+                    <li key={i} className="flex items-center gap-2 text-gray-700 text-base">
+                      {inc.icon}
+                      {inc.label}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+          {/* Course Content */}
+          <div className="max-w-5xl mx-auto mt-8">
+            <div className="bg-white rounded-xl shadow p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div className="text-2xl font-bold text-gray-900">Course Content</div>
+                <div className="text-gray-500 font-medium">{course.section_response.length} Sections</div>
+              </div>
+              <div className="divide-y divide-gray-200">
+                {course.section_response.map((section, sectionIndex) => (
+                  <div key={section.id}>
+                    <button
+                      className="w-full flex items-center justify-between py-4 text-left focus:outline-none"
+                      onClick={() => toggleSection(section.id)}
                     >
-                      <div className="flex items-center space-x-4">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                          <span className="text-sm font-medium text-blue-600">{index + 1}</span>
-                        </div>
-                        <div>
-                          <h3 className="text-base font-medium text-gray-900">{lecture.title}</h3>
-                          <p className="text-sm text-gray-500">{lecture.duration} minutes</p>
-                        </div>
-                      </div>
-                      <button className="text-gray-400 hover:text-gray-500">
-                        <ChevronDown className={`w-5 h-5 transform transition-transform ${expandedSections[index] ? 'rotate-180' : ''}`} />
-                      </button>
-                    </div>
-                    
-                    {expandedSections[index] && (
-                      <div className="border-t border-gray-200 p-4 bg-gray-50">
-                        <div className="prose prose-sm max-w-none">
-                          {lecture.content}
-                        </div>
-                        {lecture.resources && lecture.resources.length > 0 && (
-                          <div className="mt-4">
-                            <h4 className="text-sm font-medium text-gray-900 mb-2">Resources</h4>
-                            <ul className="space-y-2">
-                              {lecture.resources.map((resource, idx) => (
-                                <li key={idx}>
-                                  <a 
-                                    href={resource.url}
-                                    className="text-sm text-blue-600 hover:text-blue-800 flex items-center"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    <FileText className="w-4 h-4 mr-2" />
-                                    {resource.name}
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
+                      <span className="font-semibold text-lg text-gray-900">{section.section_name}</span>
+                      <ChevronDown className={`w-6 h-6 text-gray-400 transition-transform ${expandedSections[section.id] ? 'rotate-180' : ''}`} />
+                    </button>
+                    {expandedSections[section.id] && (
+                      <div className="pl-4 pb-4">
+                        {section.lectures.map((lecture, lectureIndex) => (
+                          <div key={lecture.id} className="mb-4">
+                            <div className="font-medium text-gray-800 mb-1">{lecture.lecture_name}</div>
+                            <div className="prose prose-sm max-w-none text-gray-700" dangerouslySetInnerHTML={{ __html: lecture.lecture_content }} />
                           </div>
-                        )}
+                        ))}
                       </div>
                     )}
                   </div>
@@ -481,49 +205,9 @@ const CourseDetail = () => {
               </div>
             </div>
           </div>
-
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Your Courses</h2>
-              <div className="space-y-4">
-                {myCourses.map((course) => (
-                  <div 
-                    key={course.id}
-                    className="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors"
-                  >
-                    <img 
-                      src={course.thumbnail}
-                      alt={course.title}
-                      className="w-16 h-16 rounded-lg object-cover"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-sm font-medium text-gray-900 truncate">
-                        {course.title}
-                      </h3>
-                      <div className="mt-1">
-                        <div className="flex items-center">
-                          <div className="flex-1">
-                            <div className="w-full bg-gray-200 rounded-full h-1.5">
-                              <div 
-                                className="bg-green-600 h-1.5 rounded-full"
-                                style={{ width: `${course.progress}%` }}
-                              />
-                            </div>
-                          </div>
-                          <span className="ml-2 text-xs text-gray-500">
-                            {course.progress}%
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
         </div>
       </div>
+      <CopyrightFooter />
     </div>
   );
 };
