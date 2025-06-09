@@ -162,6 +162,7 @@ import PricingPage from "./pages/candidates-dashboard/pricing";
 import CheckoutPage from "./pages/candidates-dashboard/checkout";
 import ProtectedRoute from '@/components/common/ProtectedRoute';
 import SavedCourses from "./pages/candidates-dashboard/saved-courses";
+import CoursesPage from "./pages/courses";
 
 function App() {
   useEffect(() => {
@@ -458,6 +459,7 @@ function App() {
                   </Route>
 
                   <Route path="courses/:id" element={<CourseDetail />} />
+                  <Route path="course" element={<CoursesPage />} />
                 </Route>
               </Routes>
 

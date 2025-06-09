@@ -485,7 +485,7 @@ const FilterJobsBox = () => {
                         )}
                       </div>
                       <Link 
-                        to={`/course/${course.id}`}
+                        to={`/courses/${course.id}`}
                         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
                       >
                         {course.is_enrolled ? 'Continue Learning' : 'Learn More'}
@@ -502,7 +502,7 @@ const FilterJobsBox = () => {
             </div>
             <div className="text-center mt-12">
               <Link 
-                to="/courses"
+                to="/course"
                 className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors"
               >
                 View All Courses

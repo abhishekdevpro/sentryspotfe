@@ -36,46 +36,47 @@ const index = () => {
             </div>
 
             <section className="ls-section style-two">
-                <div className="row no-gutters">
-                    {/* Mobile Filter Sidebar */}
-                    <div
-                        className="offcanvas offcanvas-start"
-                        tabIndex="-1"
-                        id="filter-sidebar"
-                        aria-labelledby="filterSidebarLabel"
-                        style={{ width: '100%', maxWidth: '320px' }}
-                    >
-                        <div className="offcanvas-header border-bottom">
-                            <h5 className="offcanvas-title" id="filterSidebarLabel">Filters</h5>
-                            <button
-                                type="button"
-                                className="btn-close text-reset"
-                                data-bs-dismiss="offcanvas"
-                                aria-label="Close"
-                            ></button>
-                        </div>
-                        <div className="offcanvas-body p-0">
-                            <div className="filters-column">
-                                <FilterSidebar />
+                <div className="container">
+                    <div className="row no-gutters px-3 px-md-4 px-lg-5">
+                        {/* Mobile Filter Sidebar */}
+                        <div
+                            className="offcanvas offcanvas-start"
+                            tabIndex="-1"
+                            id="filter-sidebar"
+                            aria-labelledby="filterSidebarLabel"
+                            style={{ width: '100%', maxWidth: '320px' }}
+                        >
+                            <div className="offcanvas-header border-bottom">
+                                <h5 className="offcanvas-title" id="filterSidebarLabel">Filters</h5>
+                                <button
+                                    type="button"
+                                    className="btn-close text-reset"
+                                    data-bs-dismiss="offcanvas"
+                                    aria-label="Close"
+                                ></button>
+                            </div>
+                            <div className="offcanvas-body p-0">
+                                <div className="filters-column">
+                                    <FilterSidebar />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Desktop Filter Sidebar */}
-                    <div className="filters-column hidden-1023 col-xl-3 col-lg-4 col-md-12 col-sm-12">
-                        <FilterSidebar />
-                    </div>
-                    {/* <!-- End Filters Column --> */}
-
-                    <div className="content-column col-xl-9 col-lg-8 col-md-12 col-sm-12">
-                        <div className="">
-                            <FilterJobsBox />
-                            {/* <!-- ls Switcher --> */}
+                        {/* Desktop Filter Sidebar */}
+                        <div className="filters-column hidden-1023 col-xl-3 col-lg-4 col-md-12 col-sm-12">
+                            <FilterSidebar />
                         </div>
+                        {/* <!-- End Filters Column --> */}
+
+                        <div className="content-column col-xl-9 col-lg-8 col-md-12 col-sm-12">
+                            <div className="">
+                                <FilterJobsBox />
+                                {/* <!-- ls Switcher --> */}
+                            </div>
+                        </div>
+                        {/* <!-- End Content Column --> */}
                     </div>
-                    {/* <!-- End Content Column --> */}
                 </div>
-                {/* End row */}
             </section>
             {/* <!--End Listing Page Section --> */}
 
