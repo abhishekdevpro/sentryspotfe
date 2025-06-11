@@ -254,7 +254,7 @@ const DefaulHeader2 = () => {
         </div>
       </div>
       {/* Add padding to prevent content from hiding under fixed header */}
-      <div className="h-20"></div>
+   
     </>
   );
 };

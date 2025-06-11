@@ -293,7 +293,7 @@
       color: #e60278;
       margin: 0;
       margin-bottom: 20px;
-      text-transform: uppercase;
+
   }
   .CardTop h2{
       font-size: 36px;
@@ -754,7 +754,7 @@
   .Talk {
       width: 100%;
       text-align: -webkit-center;
-      margin-top: 200px;
+     
   }
   .Talkbox {
       display: flex;

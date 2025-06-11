@@ -184,7 +184,7 @@ const FilterJobsBox = () => {
                 style={{ width: 40, height: 40, objectFit: 'contain', marginRight: 12 }}
               />
               <div>
-                <div className="fw-semibold">{item.company_name}</div>
+                <div className="fw-semibold font-poppins">{item.company_name}</div>
                 <div className="text-muted small">{item.created_at ? `${Math.floor((Date.now() - new Date(item.created_at)) / (1000 * 60 * 60))} hours ago` : ""}</div>
               </div>
             </div>
@@ -213,7 +213,7 @@ const FilterJobsBox = () => {
           </div>
 
           {/* Job Title */}
-          <div className="fs-4 fw-bold mb-2">{item.job_title}</div>
+          <div className="fs-4 fw-bold mb-2 font-poppins">{item.job_title}</div>
 
           {/* Location */}
           <div className="d-flex align-items-center text-muted mb-2">
@@ -253,20 +253,24 @@ const FilterJobsBox = () => {
             ))}
           </div>
 
-          {/* Extra Info: Industry, Experience, Functional Area */}
-          <div className="mb-2">
-            <div className="d-flex flex-row align-items-center text-muted small mb-1">
-              <BsBuilding className="me-1" />
-              <span>{item.industry || 'Industry Not Specified'}</span>
-            </div>
-            <div className="d-flex align-items-center text-muted small mb-1">
-              <FiAward className="me-1" />
-              <span>Experience: {item.experience_level_min_name || 'Not Specified'}{item.experience_level_max_name ? ` - ${item.experience_level_max_name}` : ''}</span>
-            </div>
-            <div className="d-flex align-items-center text-muted small">
-              <BsBriefcase className="me-1" />
-              <span>{item.functional_area_name || 'Functional Area Not Specified'}</span>
-            </div>
+          {/* Extra Info: Industry, Experience, Functional Area as badges */}
+          <div className="mb-2 d-flex flex-wrap gap-2">
+            {item.industry && (
+              <span className="badge rounded-pill bg-info bg-opacity-10 text-info border border-info border-opacity-25 fw-normal">
+                <BsBuilding className="me-1" /> {item.industry}
+              </span>
+            )}
+            {(!item.industry) && (
+              <span className="badge rounded-pill bg-light text-secondary border border-secondary border-opacity-25 fw-normal">
+                <BsBuilding className="me-1" /> Industry Not Specified
+              </span>
+            )}
+            <span className="badge rounded-pill bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 fw-normal">
+              <FiAward className="me-1" /> Experience: {item.experience_level_min_name || 'Not Specified'}{item.experience_level_max_name ? ` - ${item.experience_level_max_name}` : ''}
+            </span>
+            <span className="badge rounded-pill bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25 fw-normal">
+              <BsBriefcase className="me-1" /> {item.functional_area_name || 'Functional Area Not Specified'}
+            </span>
           </div>
 
           {/* Posted Date */}
@@ -317,34 +321,6 @@ const FilterJobsBox = () => {
 
   return (
     <>
-      <div className="bg-gray-50 rounded-lg mb-6">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 p-4">
-          <div className="text-gray-700 text-sm sm:text-base">
-            Showing <strong>{content?.length}</strong> jobs
-          </div>
-          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-            <select
-              value={sort}
-              className="w-full sm:w-auto px-3 sm:px-4 py-2 border rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-              onChange={sortHandler}
-            >
-              <option value="">Sort by (default)</option>
-              <option value="asc">Newest</option>
-              <option value="des">Oldest</option>
-            </select>
-
-            {hasFilters() && (
-              <button
-                onClick={clearFilters}
-                className="w-full sm:w-auto px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm"
-              >
-                Clear Filters
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-
       <div className="row g-4">{content}</div>
 
       <div className="mt-8 bg-gray-50 rounded-lg p-4">

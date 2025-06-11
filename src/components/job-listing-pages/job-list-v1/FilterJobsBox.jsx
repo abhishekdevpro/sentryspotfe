@@ -21,6 +21,7 @@ const FilterJobsBox = () => {
   const [jobs, setJobs] = useState([]);
   const [courses, setCourses] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [hoveredElements, setHoveredElements] = useState({});
   const jobsPerSlide = 8; // Number of jobs to display per slide
   const [email, setEmail] = useState("");
   const categories = ["App", "Design", "Digital", "More"];
@@ -167,6 +168,20 @@ const FilterJobsBox = () => {
     (currentIndex + 1) * jobsPerSlide
   );
 
+  const handleMouseEnter = (elementId) => {
+    setHoveredElements(prev => ({
+      ...prev,
+      [elementId]: true
+    }));
+  };
+
+  const handleMouseLeave = (elementId) => {
+    setHoveredElements(prev => ({
+      ...prev,
+      [elementId]: false
+    }));
+  };
+
   return (
     <>
       <div>
@@ -178,17 +193,54 @@ const FilterJobsBox = () => {
           <div className="container px-4 sm:px-6 lg:px-8">
             <div className="CardTop text-center">
               <p className="font-extrabold text-lg sm:text-xl">
-                How We Spot Career Growth For You
+                How we spot career growth for you
               </p>
-              <h2 className="text-2xl sm:text-3xl mt-2">AI-Powered Tools to Enhance Your Job Search</h2>
+              <h2 className="text-2xl sm:text-3xl mt-2">AI-powered tools to enhance your job search</h2>
             </div>
             <div className="ProgramCards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mt-8">
-              <a href="/skilltest" f>
-                <div className="program-card tomato ">
+              <a 
+                href="/skilltest"
+                onMouseEnter={() => handleMouseEnter('programCard1')}
+                onMouseLeave={() => handleMouseLeave('programCard1')}
+                style={{
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease',
+                  transform: hoveredElements['programCard1'] ? 'translateY(-5px)' : 'none'
+                }}
+              >
+                <div 
+                  className="program-card tomato"
+                  style={{
+                    width: '200px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '32px',
+                    backgroundColor: '#fff',
+                    borderRadius: '12px',
+                    padding: '40px 24px',
+                    boxShadow: hoveredElements['programCard1'] 
+                      ? '0 8px 24px rgba(0, 0, 0, 0.15)' 
+                      : '0px 4px 14px #afaeae5c',
+                    transition: 'all 0.3s ease',
+                    transform: hoveredElements['programCard1'] ? 'translateY(-5px)' : 'none'
+                  }}
+                >
                   <i className="fa-solid fa-forward" />
                   <div className="program-card-info">
                     <div className="heading-md">AI Skill Test</div>
-                    <button className="button-tertiary tomato">
+                    <button className="button-tertiary tomato" style={{
+                      fontSize: '16px',
+                      color: '#ff6969',
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      padding: '0',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      ':hover': {
+                        transform: 'translateY(-2px)',
+                        color: '#ff5252'
+                      }
+                    }}>
                       Get Started
                     </button>
                   </div>
@@ -274,10 +326,40 @@ const FilterJobsBox = () => {
                   Join community to gain the support and resources you need for
                   a smooth transition to a better career.
                 </h2>
-                <details className="rounded-3xl">
-                  <summary>What is SentrySpot Community?</summary>
-                  <div className="content text-white">
-                    <p>
+                <details className="rounded-3xl" style={{
+                  marginBottom: '10px',
+                  border: '1px solid #ccc',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease',
+                  ':hover': {
+                    borderColor: '#003479',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+                  }
+                }}>
+                  <summary style={{
+                    padding: '1.25rem 1.5rem',
+                    backgroundColor: '#f0f0f0',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    listStyle: 'none',
+                    border: 'none',
+                    fontSize: '1.125rem',
+                    transition: 'all 0.3s ease',
+                    ':hover': {
+                      backgroundColor: '#e8e8e8'
+                    }
+                  }}>What is SentrySpot Community?</summary>
+                  <div className="content text-white" style={{
+                    backgroundColor: '#003479',
+                    transition: 'all 0.3s ease'
+                  }}>
+                    <p style={{
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      padding: '1rem',
+                      textTransform: 'capitalize'
+                    }}>
                       The SentrySpot Community is an online platform where job
                       seekers can connect, learn new skills, and receive
                       guidance to advance their careers in the security services
@@ -285,20 +367,66 @@ const FilterJobsBox = () => {
                     </p>
                   </div>
                 </details>
-                <details className="rounded-3xl">
-                  <summary>Is it free to use?</summary>
-                  <div className="content">
-                    <p>
+                <details className="rounded-3xl" style={{
+                  marginBottom: '10px',
+                  border: '1px solid #ccc',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease'
+                }}>
+                  <summary style={{
+                    padding: '1.25rem 1.5rem',
+                    backgroundColor: '#f0f0f0',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    listStyle: 'none',
+                    border: 'none',
+                    fontSize: '1.125rem',
+                    transition: 'all 0.3s ease'
+                  }}>Is it free to use?</summary>
+                  <div className="content" style={{
+                    backgroundColor: '#003479',
+                    transition: 'all 0.3s ease'
+                  }}>
+                    <p style={{
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      padding: '1rem',
+                      textTransform: 'capitalize'
+                    }}>
                       Yes, the SentrySpot Community is free to join and use for
                       job seekers looking to enhance their skills and career
                       opportunities.
                     </p>
                   </div>
                 </details>
-                <details className="rounded-3xl">
-                  <summary>How is this platform different?</summary>
-                  <div className="content">
-                    <p>
+                <details className="rounded-3xl" style={{
+                  marginBottom: '10px',
+                  border: '1px solid #ccc',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease'
+                }}>
+                  <summary style={{
+                    padding: '1.25rem 1.5rem',
+                    backgroundColor: '#f0f0f0',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    listStyle: 'none',
+                    border: 'none',
+                    fontSize: '1.125rem',
+                    transition: 'all 0.3s ease'
+                  }}>How is this platform different?</summary>
+                  <div className="content" style={{
+                    backgroundColor: '#003479',
+                    transition: 'all 0.3s ease'
+                  }}>
+                    <p style={{
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      padding: '1rem',
+                      textTransform: 'capitalize'
+                    }}>
                       SentrySpot stands out with its AI-driven platform tailored
                       specifically for the security services industry, offering
                       personalized job recommendations, resume-building tools,
@@ -309,8 +437,27 @@ const FilterJobsBox = () => {
                 </details>
                 <div className="FaqBtn">
                   <Link to={"/sentry-spot"}>
-                    {" "}
-                    <button type="button">Signup to view our community</button>
+                    <button 
+                      type="button"
+                      onMouseEnter={() => handleMouseEnter('button1')}
+                      onMouseLeave={() => handleMouseLeave('button1')}
+                      style={{
+                        padding: '16px 32px',
+                        border: 'none',
+                        backgroundColor: hoveredElements['button1'] ? '#d1026a' : '#e60278',
+                        borderRadius: '12px',
+                        cursor: 'pointer',
+                        fontSize: '14px',
+                        color: '#fff',
+                        transition: 'all 0.3s ease',
+                        transform: hoveredElements['button1'] ? 'translateY(-2px)' : 'none',
+                        boxShadow: hoveredElements['button1'] 
+                          ? '0 4px 12px rgba(230, 2, 120, 0.3)' 
+                          : 'none'
+                      }}
+                    >
+                      Signup to view our community
+                    </button>
                   </Link>
                 </div>
               </div>
@@ -323,7 +470,7 @@ const FilterJobsBox = () => {
               <div className="HelpBox mb-6">
                 <div className="HelpText text-center sm:text-left">
                   <p className="text-lg sm:text-xl">Verified Job Listings</p>
-                  <h2 className="text-2xl sm:text-3xl mt-2">Creating Impact Every Step of the Way</h2>
+                  <h2 className="text-2xl sm:text-3xl mt-2">Creating impact every step of the way</h2>
                   <div className="StatsBtn mt-4">
                     <Link to={"/job-list-v3"}>
                       <button type="button" className="w-full sm:w-auto">View All Jobs</button>
@@ -351,7 +498,14 @@ const FilterJobsBox = () => {
                       key={job.id}
                       className="flex-shrink-0 w-full md:w-1/4 p-2"
                     >
-                      <div className="relative bg-blue-900 shadow-md rounded-lg p-4 flex flex-col">
+                      <div className="relative bg-blue-900 shadow-md rounded-lg p-4 flex flex-col" style={{
+                        transition: 'all 0.3s ease',
+                        borderRadius: '12px',
+                        ':hover': {
+                          transform: 'translateY(-5px)',
+                          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)'
+                        }
+                      }}>
                         <div className="absolute top-3 left-3 flex flex-col space-y-1">
                           <span className="bg-green-200 text-green-800 text-xs font-medium px-2 py-1 rounded-md">
                             Private
@@ -427,7 +581,7 @@ const FilterJobsBox = () => {
           </div>
         </div>
         <PricingSection />
-        <div className="CoursesSection py-8 sm:py-10 bg-gray-50">
+        {/* <div className="CoursesSection py-8 sm:py-10 bg-gray-50">
           <div className="container px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-6 sm:mb-8">
               <h2 className="text-2xl sm:text-3xl font-bold mb-4">Featured Courses</h2>
@@ -509,15 +663,36 @@ const FilterJobsBox = () => {
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="Blog py-8 sm:py-10">
           <div className="container px-4 sm:px-6 lg:px-8">
             <div className="BlogHeading text-2xl sm:text-3xl font-bold text-center mb-6">
-              Career Guidance by SentrySpot Editorial
+              Career guidance by SentrySpot Editorial
             </div>
             <div className="BlogsCards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              <a href="https://blog.sentryspot.co.uk/2024/08/31/key-features-to-look-for-in-an-ai-resume-builder/">
-                <div className="BlogBoxs">
+              <a 
+                href="https://blog.sentryspot.co.uk/2024/08/31/key-features-to-look-for-in-an-ai-resume-builder/"
+                onMouseEnter={() => handleMouseEnter('blogCard1')}
+                onMouseLeave={() => handleMouseLeave('blogCard1')}
+                style={{
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease',
+                  transform: hoveredElements['blogCard1'] ? 'translateY(-5px)' : 'none'
+                }}
+              >
+                <div 
+                  className="BlogBoxs"
+                  style={{
+                    width: '100%',
+                    backgroundColor: '#fff',
+                    borderRadius: '12px',
+                    boxShadow: hoveredElements['blogCard1'] 
+                      ? '0 8px 24px rgba(0, 0, 0, 0.15)' 
+                      : '0px 4px 7px 0px #aeaeaf',
+                    transition: 'all 0.3s ease',
+                    transform: hoveredElements['blogCard1'] ? 'translateY(-5px)' : 'none'
+                  }}
+                >
                   <div className="Blogs-Text">
                     <img src="https://blog.sentryspot.co.uk/wp-content/uploads/2024/08/Untitled-design-5.jpg" />
                     <div className="BlogInfoContainer">
@@ -531,8 +706,29 @@ const FilterJobsBox = () => {
                   </div>
                 </div>
               </a>
-              <a href="https://blog.sentryspot.co.uk/2024/08/29/ai-and-bias-in-hiring-exploring-how-ai-can-perpetuate-or-reduce-bias-in-the-hiring-process/">
-                <div className="BlogBoxs">
+              <a 
+                href="https://blog.sentryspot.co.uk/2024/08/29/ai-and-bias-in-hiring-exploring-how-ai-can-perpetuate-or-reduce-bias-in-the-hiring-process/"
+                onMouseEnter={() => handleMouseEnter('blogCard2')}
+                onMouseLeave={() => handleMouseLeave('blogCard2')}
+                style={{
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease',
+                  transform: hoveredElements['blogCard2'] ? 'translateY(-5px)' : 'none'
+                }}
+              >
+                <div 
+                  className="BlogBoxs"
+                  style={{
+                    width: '100%',
+                    backgroundColor: '#fff',
+                    borderRadius: '12px',
+                    boxShadow: hoveredElements['blogCard2'] 
+                      ? '0 8px 24px rgba(0, 0, 0, 0.15)' 
+                      : '0px 4px 7px 0px #aeaeaf',
+                    transition: 'all 0.3s ease',
+                    transform: hoveredElements['blogCard2'] ? 'translateY(-5px)' : 'none'
+                  }}
+                >
                   <div className="Blogs-Text">
                     <img src="https://blog.sentryspot.co.uk/wp-content/uploads/2024/08/Untitled-design-4.jpg" />
                     <div className="BlogInfoContainer">
@@ -547,8 +743,29 @@ const FilterJobsBox = () => {
                   </div>
                 </div>
               </a>
-              <a href="https://blog.sentryspot.co.uk">
-                <div className="BlogBoxs">
+              <a 
+                href="https://blog.sentryspot.co.uk"
+                onMouseEnter={() => handleMouseEnter('blogCard3')}
+                onMouseLeave={() => handleMouseLeave('blogCard3')}
+                style={{
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease',
+                  transform: hoveredElements['blogCard3'] ? 'translateY(-5px)' : 'none'
+                }}
+              >
+                <div 
+                  className="BlogBoxs"
+                  style={{
+                    width: '100%',
+                    backgroundColor: '#fff',
+                    borderRadius: '12px',
+                    boxShadow: hoveredElements['blogCard3'] 
+                      ? '0 8px 24px rgba(0, 0, 0, 0.15)' 
+                      : '0px 4px 7px 0px #aeaeaf',
+                    transition: 'all 0.3s ease',
+                    transform: hoveredElements['blogCard3'] ? 'translateY(-5px)' : 'none'
+                  }}
+                >
                   <div className="Blogs-Text">
                     <img src="https://blog.sentryspot.co.uk/wp-content/uploads/2024/08/Untitled-design.jpg" />
                     <div className="BlogInfoContainer">
@@ -563,20 +780,81 @@ const FilterJobsBox = () => {
                 </div>
               </a>
             </div>
-            <div className="BlogBtn">
-              <Link to={"https://blog.sentryspot.co.uk/"}>
-                <button type="button">Visit our Blog Section</button>
+            <div className="BlogBtn" style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '2rem'
+            }}>
+              <Link 
+                to={"https://blog.sentryspot.co.uk/"} 
+                style={{
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease',
+                  display: 'inline-block'
+                }}
+              >
+                <button 
+                  type="button"
+                  onMouseEnter={() => handleMouseEnter('blogButton')}
+                  onMouseLeave={() => handleMouseLeave('blogButton')}
+                  style={{
+                    padding: '12px 32px',
+                    backgroundColor: hoveredElements['blogButton'] ? '#003479' : '#0046a8',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    transform: hoveredElements['blogButton'] ? 'translateY(-2px)' : 'none',
+                    boxShadow: hoveredElements['blogButton'] 
+                      ? '0 4px 12px rgba(0, 52, 121, 0.2)' 
+                      : '0 2px 4px rgba(0, 0, 0, 0.1)',
+                    minWidth: '200px',
+                    maxWidth: '250px'
+                  }}
+                >
+                  Visit our Blog Section
+                </button>
               </Link>
             </div>
           </div>
         </div>
-        <div className="Talk py-8 sm:py-10">
-          <div className="container px-4 sm:px-6 lg:px-8">
+        <div className="Talk">
+          <div className="container">
             <div className="Talkbox flex flex-col lg:flex-row items-center gap-6">
-              <div className="TalkInfo w-full lg:w-1/2 text-center lg:text-left">
-                <h2 className="text-2xl sm:text-3xl font-bold">Interested in Becoming a SentrySpot Partner?</h2>
-                <div className="TalkBox mt-5">
-                  <a href="mailto:Partners@sentryspot.co.uk" className="inline-block mt-5">
+              <div className="TalkInfo w-full lg:w-1/2" style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center'
+              }}>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-8" style={{
+                 
+                }}>Interested in becoming a SentrySpot partner?</h2>
+                <div className="TalkBox">
+                  <a 
+                    href="mailto:Partners@sentryspot.co.uk" 
+                    onMouseEnter={() => handleMouseEnter('talkButton')}
+                    onMouseLeave={() => handleMouseLeave('talkButton')}
+                    style={{
+                      textDecoration: 'none',
+                      padding: '14px 32px',
+                      backgroundColor: hoveredElements['talkButton'] ? '#003479' : '#0046a8',
+                      color: '#ffffff',
+                      borderRadius: '8px',
+                      fontSize: '16px',
+                      fontWeight: '500',
+                      transition: 'all 0.3s ease',
+                      transform: hoveredElements['talkButton'] ? 'translateY(-2px)' : 'none',
+                      boxShadow: hoveredElements['talkButton'] 
+                        ? '0 4px 12px rgba(0, 52, 121, 0.2)' 
+                        : '0 2px 4px rgba(0, 0, 0, 0.1)',
+                      display: 'inline-block',
+                      minWidth: '160px'
+                    }}
+                  >
                     Lets Talk
                   </a>
                 </div>
@@ -587,22 +865,46 @@ const FilterJobsBox = () => {
             </div>
           </div>
         </div>
-        <div className="FooterSection py-8 sm:py-10">
+        <div className="FooterSection py-8 sm:py-10" style={{
+          backgroundColor: '#003479'
+        }}>
           <div className="container px-4 sm:px-6 lg:px-8">
-            <div className="FooterCTA flex flex-col lg:flex-row gap-6">
+            <div className="FooterCTA flex flex-col lg:flex-row gap-8">
               <div className="CtaInfo w-full lg:w-1/2 text-center lg:text-left">
-                <span className="flex items-center justify-center lg:justify-start">
-                  <i className="fa-solid fa-angles-right" />
-                  <h3 className="text-xl sm:text-2xl ml-2">Explore Top Careers, Training, and Jobs</h3>
+                <span className="flex items-center justify-center lg:justify-start mb-4">
+                  <i className="fa-solid fa-angles-right text-white" />
+                  <h3 className="text-xl sm:text-2xl ml-2 text-white">Explore top careers, training, and jobs</h3>
                 </span>
-                <div className="Footerbtn mt-3">
+                <div className="Footerbtn mt-4">
                   <Link to={"/sentry-spot"}>
-                    <button type="button" className="w-full sm:w-auto">Start Your Journey</button>
+                    <button 
+                      type="button" 
+                      onMouseEnter={() => handleMouseEnter('journeyButton')}
+                      onMouseLeave={() => handleMouseLeave('journeyButton')}
+                      style={{
+                        padding: '14px 32px',
+                        backgroundColor: hoveredElements['journeyButton'] ? '#0046a8' : '#ffffff',
+                        color: hoveredElements['journeyButton'] ? '#ffffff' : '#003479',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        fontWeight: '500',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        transform: hoveredElements['journeyButton'] ? 'translateY(-2px)' : 'none',
+                        boxShadow: hoveredElements['journeyButton'] 
+                          ? '0 4px 12px rgba(0, 52, 121, 0.2)' 
+                          : '0 2px 4px rgba(0, 0, 0, 0.1)',
+                        minWidth: '180px'
+                      }}
+                    >
+                      Start Your Journey
+                    </button>
                   </Link>
                 </div>
               </div>
               <div className="NewsletterConatiner w-full lg:w-1/2">
-                <h3 className="text-xl sm:text-2xl text-center lg:text-left">Get Monthly Newsletters and Career Resources</h3>
+                <h3 className="text-xl sm:text-2xl text-center lg:text-left text-white mb-4">Get monthly newsletters and career resources</h3>
                 <div className="LetterForm mt-4">
                   <form method style={{ width: "100%" }} onSubmit={handleSubmit}>
                     <div className="From_Section flex flex-col sm:flex-row gap-4">
@@ -612,17 +914,49 @@ const FilterJobsBox = () => {
                         placeholder="Enter Your Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        onMouseEnter={() => handleMouseEnter('emailInput')}
+                        onMouseLeave={() => handleMouseLeave('emailInput')}
                         required
-                        className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        style={{
+                          flex: '1',
+                          padding: '14px 16px',
+                          background: '#ffffff',
+                          border: 'none',
+                          borderRadius: '8px',
+                          fontSize: '16px',
+                          transition: 'all 0.3s ease',
+                          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                          outline: 'none'
+                        }}
                       />
                       <div className="FormBTn">
-                        <button type="submit" className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        <button 
+                          type="submit" 
+                          onMouseEnter={() => handleMouseEnter('submitButton')}
+                          onMouseLeave={() => handleMouseLeave('submitButton')}
+                          style={{
+                            padding: '14px 32px',
+                            backgroundColor: hoveredElements['submitButton'] ? '#0046a8' : '#ffffff',
+                            color: hoveredElements['submitButton'] ? '#ffffff' : '#003479',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontSize: '16px',
+                            fontWeight: '500',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                            transform: hoveredElements['submitButton'] ? 'translateY(-2px)' : 'none',
+                            boxShadow: hoveredElements['submitButton'] 
+                              ? '0 4px 12px rgba(0, 52, 121, 0.2)' 
+                              : '0 2px 4px rgba(0, 0, 0, 0.1)',
+                            minWidth: '120px'
+                          }}
+                        >
                           Submit
                         </button>
                       </div>
                     </div>
                   </form>
-                  <p className="mt-4 text-sm text-gray-600 text-center lg:text-left">
+                  <p className="mt-4 text-sm text-white text-center lg:text-left">
                     By entering your email, you agree to our privacy policy and
                     consent to receiving marketing emails from SkillUp.
                   </p>
