@@ -68,11 +68,40 @@ const index = () => {
                         </div>
                         {/* <!-- End Filters Column --> */}
 
+                        {/* Main Content and Right Sidebar */}
                         <div className="content-column col-xl-9 col-lg-8 col-md-12 col-sm-12">
-                            <div className="">
-                                <FilterJobsBox />
-                                {/* <!-- ls Switcher --> */}
+                          <div className="row">
+                            {/* Main Job List */}
+                            <div className="col-lg-8 col-md-12">
+                              {/* Header Section */}
+                              <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+                                <div>
+                                  <h1 className="fw-bold mb-1" style={{fontSize: '2rem'}}>All Jobs</h1>
+                                  <p className="text-muted mb-0">456 jobs for you</p>
+                                </div>
+                                <select
+                                  className="form-select mt-3 mt-md-0"
+                                  style={{maxWidth: 220}}
+                                  defaultValue=""
+                                  // TODO: Connect to sort handler
+                                >
+                                  <option value="">Recently Posted</option>
+                                  <option value="asc">Newest</option>
+                                  <option value="des">Oldest</option>
+                                </select>
+                              </div>
+                              <FilterJobsBox />
                             </div>
+                            {/* Right Sidebar */}
+                            <div className="col-lg-4 d-none d-lg-block">
+                              <div className="bg-dark text-white rounded-4 p-4 d-flex flex-column align-items-center" style={{minHeight: 300}}>
+                                <img src="/images/map-pin.png" alt="Find jobs" style={{width: 80, marginBottom: 24}} />
+                                <h2 className="fw-bold mb-2" style={{fontSize: '1.5rem'}}>Find jobs <span className="fst-italic">near</span> you</h2>
+                                <p className="mb-4 text-center text-light">Find career paths that match your skills and strengths.</p>
+                                <button className="btn btn-danger px-4 py-2 fw-semibold" style={{backgroundColor: '#e51b3e', borderColor: '#e51b3e'}}>Find Jobs</button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                         {/* <!-- End Content Column --> */}
                     </div>

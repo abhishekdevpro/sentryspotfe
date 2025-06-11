@@ -95,6 +95,19 @@ const Companieslist = () => {
 
   return (
     <div className="bg-[#fafbfc] min-h-screen">
+      <style>
+        {`
+          .company-card {
+            background-color: white;
+            transition: all 0.3s ease;
+          }
+          .company-card:hover {
+            background-color: #dbeafe !important;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+          }
+        `}
+      </style>
       <DefaulHeader2 />
       {/* Tabs */}
       <div className="max-w-7xl mx-auto px-4 pt-8">
@@ -137,7 +150,10 @@ const Companieslist = () => {
       <div className="max-w-7xl mx-auto px-4 pb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {filteredJobs.map((job) => (
-            <div key={job.id} className="bg-white rounded-2xl shadow flex flex-col items-center text-center py-8 px-4 min-h-[230px] transition-all duration-200 hover:shadow-lg">
+            <div 
+              key={job.id} 
+              className="company-card rounded-2xl shadow flex flex-col items-center text-center py-8 px-4 min-h-[230px]"
+            >
               <img
                 src={job.logo || "https://img.freepik.com/premium-photo/intelligent-logo-simple_553012-47516.jpg?size=338&ext=jpg"}
                 alt={job.company_name}
