@@ -243,6 +243,7 @@ const ContactInfoBox = ({ onNext }) => {
               className="border h-60 w-full rounded-lg p-2"
               placeholder="Enter your cover letter"
               {...register("cover_letter", { required: "Cover letter is required" })}
+              style={{ overflowY: 'auto', maxHeight: '200px' }}
             />
             {errors.cover_letter && (
               <p className="text-red-500">{errors.cover_letter.message}</p>
