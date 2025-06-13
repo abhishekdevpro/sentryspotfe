@@ -31,6 +31,7 @@ const PostCreation = ({ addPost, token, setLoginModal }) => {
         className="w-full p-3 text-lg text-gray-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32 resize-none"
         value={content}
         onChange={(e) => setContent(e.target.value)}
+        style={{ overflowY: 'auto', maxHeight: '200px' }}
         placeholder="Ask anything (even anonymously)..."
       />
 

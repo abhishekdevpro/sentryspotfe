@@ -196,6 +196,7 @@ const WorkExperienceForm = ({ onNext }) => {
                   placeholder="Enter job description"
                   className="form-control"
                   rows="4"
+                  style={{ overflowY: 'auto', maxHeight: '200px' }}
                 ></textarea>
                 {errors.experiences?.[index]?.description && (
                   <span className="text-red-500 text-sm">{errors.experiences[index].description.message}</span>
