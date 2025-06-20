@@ -205,7 +205,7 @@ export default function Subscription() {
         if (!token) return;
 
         const response = await axios.get(
-          "https://apiwl.novajobs.us/api/jobseeker/user-profile",
+          "https://api.sentryspot.co.uk/api/jobseeker/user-profile",
           {
             headers: { Authorization: token },
           }
