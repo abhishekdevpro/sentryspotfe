@@ -164,7 +164,7 @@ const Companieslist = () => {
                 {job.company_name}
               </div>
               <Link
-                to={`/employers-single-v1/${job.id}`}
+                to={`/showcase-company/${job.id}`}
                 className="text-[#f43f5e] font-bold text-lg mt-2 hover:underline"
               >
               View company

@@ -1,17 +1,23 @@
 import { Link } from "react-router-dom";
-import { BsBriefcase, BsGeoAlt, BsBuilding, BsHeart, BsHeartFill } from 'react-icons/bs';
-import { FiAward } from 'react-icons/fi';
+import {
+  BsBriefcase,
+  BsGeoAlt,
+  BsBuilding,
+  BsHeart,
+  BsHeartFill,
+} from "react-icons/bs";
+import { FiAward } from "react-icons/fi";
 
-const JobCard = ({ 
-  job, 
-  onSaveJob, 
-  onApplyJob, 
+const JobCard = ({
+  job,
+  onSaveJob,
+  onApplyJob,
   isLoading = false,
   actionStatus = {},
   showApplyButton = true,
   showSaveButton = true,
   cardClassName = "",
-  onCardClick = null
+  onCardClick = null,
 }) => {
   const {
     id,
@@ -33,12 +39,14 @@ const JobCard = ({
     experience_level_max_name,
     functional_area_name,
     is_favorite,
-    is_applied
+    is_applied,
   } = job;
 
   const formatTimeAgo = (dateString) => {
     if (!dateString) return "";
-    const hours = Math.floor((Date.now() - new Date(dateString)) / (1000 * 60 * 60));
+    const hours = Math.floor(
+      (Date.now() - new Date(dateString)) / (1000 * 60 * 60)
+    );
     return `${hours} hours ago`;
   };
 
@@ -59,7 +67,7 @@ const JobCard = ({
   };
 
   const getExperienceText = () => {
-    let text = experience_level_min_name || 'Not Specified';
+    let text = experience_level_min_name || "Not Specified";
     if (experience_level_max_name) {
       text += ` - ${experience_level_max_name}`;
     }
@@ -97,9 +105,11 @@ const JobCard = ({
   };
 
   return (
-    <div 
-      className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 h-full flex flex-col transition-all duration-200 hover:shadow-md ${cardClassName} ${onCardClick ? 'cursor-pointer' : ''}`}
-      style={{ minHeight: '280px' }}
+    <div
+      className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 h-full flex flex-col transition-all duration-200 hover:shadow-md ${cardClassName} ${
+        onCardClick ? "cursor-pointer" : ""
+      }`}
+      style={{ minHeight: "280px" }}
       onClick={handleCardClick}
     >
       {/* Top Row: Logo, Company, Heart */}
@@ -158,7 +168,10 @@ const JobCard = ({
       {skills.length > 0 && (
         <div className="mb-3 flex flex-wrap gap-1">
           {skills.slice(0, 3).map((skill, idx) => (
-            <span key={idx} className="px-2 py-1 bg-gray-50 text-gray-600 border border-gray-200 rounded-full text-xs">
+            <span
+              key={idx}
+              className="px-2 py-1 bg-gray-50 text-gray-600 border border-gray-200 rounded-full text-xs"
+            >
               {skill}
             </span>
           ))}
@@ -172,23 +185,31 @@ const JobCard = ({
 
       {/* Job Type and Category Tags */}
       <div className="mb-3 flex flex-wrap gap-1">
-        {Array.isArray(job_type_name) && job_type_name.map((type, idx) => (
-          <span key={`type-${idx}`} className="px-2 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-full text-xs">
-            {type}
-          </span>
-        ))}
-        {Array.isArray(job_category_name) && job_category_name.slice(0, 2).map((cat, idx) => (
-          <span key={`cat-${idx}`} className="px-2 py-1 bg-purple-50 text-purple-700 border border-purple-200 rounded-full text-xs">
-            {cat}
-          </span>
-        ))}
+        {Array.isArray(job_type_name) &&
+          job_type_name.map((type, idx) => (
+            <span
+              key={`type-${idx}`}
+              className="px-2 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-full text-xs"
+            >
+              {type}
+            </span>
+          ))}
+        {Array.isArray(job_category_name) &&
+          job_category_name.slice(0, 2).map((cat, idx) => (
+            <span
+              key={`cat-${idx}`}
+              className="px-2 py-1 bg-purple-50 text-purple-700 border border-purple-200 rounded-full text-xs"
+            >
+              {cat}
+            </span>
+          ))}
       </div>
 
       {/* Extra Info: Industry, Experience, Functional Area */}
       <div className="mb-3 flex flex-wrap gap-1">
         <span className="px-2 py-1 bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-full text-xs flex items-center">
           <BsBuilding className="mr-1" />
-          {industry || 'Industry Not Specified'}
+          {industry || "Industry Not Specified"}
         </span>
         <span className="px-2 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-full text-xs flex items-center">
           <FiAward className="mr-1" />
@@ -196,13 +217,19 @@ const JobCard = ({
         </span>
         <span className="px-2 py-1 bg-gray-50 text-gray-600 border border-gray-200 rounded-full text-xs flex items-center">
           <BsBriefcase className="mr-1" />
-          {functional_area_name || 'Functional Area Not Specified'}
+          {functional_area_name || "Functional Area Not Specified"}
         </span>
       </div>
 
       {/* Posted Date */}
       <div className="text-gray-500 text-sm mb-4">
-        {formatPostedDate()}
+        {created_at
+          ? new Date(created_at).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          : "-"}
       </div>
 
       {/* Action Buttons */}
@@ -220,18 +247,17 @@ const JobCard = ({
             disabled={is_applied || actionStatus[id] === "applying"}
             className={`px-4 py-2 rounded-md font-medium text-sm transition-colors ${
               is_applied || actionStatus[id] === "applied"
-                ? 'bg-green-500 text-white cursor-not-allowed'
+                ? "bg-green-500 text-white cursor-not-allowed"
                 : actionStatus[id] === "applying"
-                ? 'bg-gray-400 text-white cursor-not-allowed'
-                : 'bg-blue-900 text-white hover:bg-blue-700'
+                ? "bg-gray-400 text-white cursor-not-allowed"
+                : "bg-blue-900 text-white hover:bg-blue-700"
             }`}
           >
-            {is_applied || actionStatus[id] === "applied" 
-              ? 'Applied' 
-              : actionStatus[id] === "applying" 
-              ? 'Applying...' 
-              : 'Quick Apply'
-            }
+            {is_applied || actionStatus[id] === "applied"
+              ? "Applied"
+              : actionStatus[id] === "applying"
+              ? "Applying..."
+              : "Quick Apply"}
           </button>
         )}
       </div>

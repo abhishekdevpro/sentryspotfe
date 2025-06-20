@@ -343,8 +343,12 @@ const JobSingleDynamicV3 = () => {
                 </span>
                 <span className="font-medium">
                   {jobData?.created_at
-                    ? new Date(jobData.created_at).toLocaleDateString()
-                    : "-"}
+                    ? new Date(jobData.created_at).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })
+                    : "not available"}
                 </span>
               </div>
             </div>
@@ -506,7 +510,9 @@ const JobSingleDynamicV3 = () => {
                         </a>
                       )}
                     </div>
-                    <button className="ml-auto bg-black text-white px-4 py-1.5 rounded-lg hover:bg-gray-800 text-sm">
+                    <button
+                     onClick={()=>navigate(`/showcase-company/${jobData.company_id}`)}
+                    className="ml-auto bg-black text-white px-4 py-1.5 rounded-lg hover:bg-gray-800 text-sm">
                       Explore More
                     </button>
                   </div>

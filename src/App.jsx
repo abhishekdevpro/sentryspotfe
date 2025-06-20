@@ -208,7 +208,7 @@ function App() {
                   <Route path="job-list-v6" element={<JobListPage6 />} /> */}
                   <Route path="job-list-v7" element={<JobListPage7 />} />
                   <Route path="companies-list" element={<Companieslist />} />
-                  <Route path="showcase/:id" element={<Showcase />} />
+                  <Route path="showcase-company/:companyId" element={<Showcase />} />
 
                   <Route path="gauth" element={<Gauth />} />
                   <Route path="/login/login-code" element={<LoginCode />} />
