@@ -15,12 +15,14 @@ import RelatedJobs2 from "@/components/job-single-pages/related-jobs/RelatedJobs
 import JobOverView2 from "@/components/job-single-pages/job-overview/JobOverView2";
 import ApplyJobModalContent from "@/components/job-single-pages/shared-components/ApplyJobModalContent";
 import MetaComponent from "@/components/common/MetaComponent";
-import FullPageLoader from "@/components/loader/FullPageLoader"
+import FullPageLoader from "@/components/loader/FullPageLoader";
 // Utility imports
 import { Constant } from "@/utils/constant/constant";
 import { toast } from "react-hot-toast";
 import CompanyInfo from "@/components/job-single-pages/shared-components/CompanyInfo";
 import JobStepsComponent from "./JobSteps";
+import ShareJobModal from "./ShareJobModal";
+import { Share, Share2Icon } from "lucide-react";
 
 const LoginModal = ({ onClose }) => {
   return (
@@ -51,6 +53,7 @@ const JobSingleDynamicV3 = () => {
   const [jobData, setJobData] = useState(null);
   const [company, setCompany] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [actionStatus, setActionStatus] = useState({});
@@ -86,27 +89,33 @@ const JobSingleDynamicV3 = () => {
       const response = await axios.post(
         `https://api.sentryspot.co.uk/api/jobseeker/company-favorite`,
         {
-          company_id: jobData.company_id
+          company_id: jobData.company_id,
         },
         {
           headers: {
-            Authorization: token
-          }
+            Authorization: token,
+          },
         }
       );
       if (response.data.status === "success" || response.data.code === 200) {
-        toast.success(response.data.message || "Company followed successfully!");
+        toast.success(
+          response.data.message || "Company followed successfully!"
+        );
         setIsFollowing(!isFollowing);
         // Update jobData with new company_favorite_id
-        setJobData(prevData => ({
+        setJobData((prevData) => ({
           ...prevData,
-          company_favorite_id: isFollowing ? 0 : response.data.data?.company_favorite_id || 1
+          company_favorite_id: isFollowing
+            ? 0
+            : response.data.data?.company_favorite_id || 1,
         }));
       } else {
         toast.error("Failed to follow company. Please try again.");
       }
     } catch (error) {
-      toast.error("An error occurred while following the company. Please try again.");
+      toast.error(
+        "An error occurred while following the company. Please try again."
+      );
     }
   };
 
@@ -129,16 +138,19 @@ const JobSingleDynamicV3 = () => {
 
         // If company_id exists and user is logged in, fetch company details
         if (jobData.company_id && token) {
-          const companyResponse = await axios.get(`https://api.sentryspot.co.uk/api/jobseeker/companies/${jobData.company_id}`, {
-            headers: {
-              Authorization: ` ${token}`
+          const companyResponse = await axios.get(
+            `https://api.sentryspot.co.uk/api/jobseeker/companies/${jobData.company_id}`,
+            {
+              headers: {
+                Authorization: ` ${token}`,
+              },
             }
-          });
+          );
           setCompany(companyResponse.data.data);
         }
-
       } catch (error) {
-        const errorMessage = error.response?.data?.message || "Failed to fetch details";
+        const errorMessage =
+          error.response?.data?.message || "Failed to fetch details";
         console.error("Error fetching details:", error);
         toast.error(errorMessage);
         setError(errorMessage);
@@ -196,7 +208,8 @@ const JobSingleDynamicV3 = () => {
 
   const metadata = {
     title: "Job Single Dynamic V3 || sentryspot - Job Board ReactJs Template",
-    description: "Job details page with comprehensive job and company information",
+    description:
+      "Job details page with comprehensive job and company information",
   };
 
   if (loading) {
@@ -206,7 +219,7 @@ const JobSingleDynamicV3 = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
+  const shareUrl = `https://sentryspot.co.uk/job-single-v3/${id}`;
   return (
     <>
       <MetaComponent meta={metadata} />
@@ -215,8 +228,8 @@ const JobSingleDynamicV3 = () => {
       <DefaulHeader2 />
 
       {/* Header Section */}
-      <div className="container px-4 sm:px-6">
-        <section className="job-header-section bg-[#f8ecd7] py-4 sm:py-6 px-4 sm:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-lg mb-6 shadow-sm gap-4 sm:gap-0">
+      <div className="container px-4 py-6 sm:px-6">
+        <section className="job-header-section bg-blue-50 py-4 sm:py-6 px-4 sm:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-lg mb-6 shadow-sm gap-4 sm:gap-0">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 w-full sm:w-auto">
             <img
               src={"/images/resource/company-logo/1-1.png"}
@@ -224,59 +237,93 @@ const JobSingleDynamicV3 = () => {
               className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg border-2 border-white shadow-sm"
             />
             <div className="w-full sm:w-auto">
-              <h2 className="text-xl sm:text-2xl font-bold mb-2 text-gray-800">{jobData?.job_title || "Job Title Not Available"}</h2>
+              <h2 className="text-xl sm:text-2xl font-bold mb-2 text-gray-800">
+                {jobData?.job_title || "Job Title Not Available"}
+              </h2>
               <div className="text-gray-700 font-medium mb-2 flex items-center gap-2">
-                <i className="flaticon-building text-[#e63946]" />
+                <i className="flaticon-building tex-blue-900" />
                 {jobData?.company_name || "Company Not Available"}
               </div>
               <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 text-sm">
                 <span className="flex items-center gap-2 text-gray-600">
-                  <i className="flaticon-briefcase text-[#e63946]" />
-                  Full Time
+                  <i className="flaticon-briefcase tex-blue-900" />
+                  {jobData?.job_type_name || "Not Specified"}
                 </span>
                 <span className="flex items-center gap-2 text-gray-600">
-                  <i className="flaticon-money text-[#e63946]" />
-                  ₹{jobData?.offered_salary || "-"} / month
+                  <i className="flaticon-money tex-blue-900" />
+                  {jobData?.offered_salary
+                    ? `₹${jobData.offered_salary} / month`
+                    : "Not Specified"}
                 </span>
                 <span className="flex items-center gap-2 text-gray-600">
-                  <i className="flaticon-map-locator text-[#e63946]" />
+                  <i className="flaticon-map-locator tex-blue-900" />
                   {jobData?.location || "Location Not Specified"}
                 </span>
               </div>
             </div>
           </div>
           <div className="flex flex-col gap-3 items-stretch sm:items-end w-full sm:w-auto">
+            {/* Apply Button */}
             <button
-              className="bg-[#e63946] text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg hover:bg-[#d62839] w-full flex items-center justify-center gap-2 shadow-sm"
+              className={`w-full flex items-center justify-center gap-2 px-6 sm:px-8 py-3 rounded-lg text-white text-sm font-medium shadow-sm transition ${
+                jobData?.is_applied
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-900 hover:bg-blue-700"
+              }`}
               onClick={() => handleApplyNowClick(jobData.id)}
               disabled={jobData?.is_applied}
             >
               <i className="flaticon-send text-lg" />
-              <span>{jobData?.is_applied ? "Already Applied" : "Apply For Job"}</span>
+              <span>
+                {jobData?.is_applied ? "Already Applied" : "Apply For Job"}
+              </span>
             </button>
-            <div className="flex gap-3 w-full">
+
+            {/* Bookmark + Follow + Share */}
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
+              {/* Bookmark Button */}
               <button
-                className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 text-white rounded-lg transition w-1/2 shadow-sm ${
-                  jobData.is_favorite ? "bg-green-500 hover:bg-green-600" : "bg-[#e63946] hover:bg-[#d62839]"
+                className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm font-medium shadow-sm transition ${
+                  jobData.is_favorite
+                    ? "bg-green-500 hover:bg-green-600"
+                    : "bg-[#e63946] hover:bg-[#d62839]"
                 }`}
                 onClick={handleBookmarkClick}
               >
                 <i className="flaticon-bookmark text-lg" />
-                <span className="font-medium text-sm sm:text-base">{jobData.is_favorite ? "Saved" : "Save"}</span>
+                <span>{jobData.is_favorite ? "Saved" : "Save"}</span>
               </button>
+
+              {/* Follow Company Button */}
               <button
-                className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 text-white rounded-lg transition w-1/2 shadow-sm ${
-                  isFollowing ? "bg-green-500 hover:bg-green-600" : "bg-[#e63946] hover:bg-[#d62839]"
+                className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm font-medium shadow-sm transition ${
+                  isFollowing
+                    ? "bg-green-500 hover:bg-green-600"
+                    : "bg-blue-500 hover:bg-blue-600"
                 }`}
                 onClick={handleFollowCompany}
               >
                 <i className="flaticon-user text-lg" />
-                <span className="font-medium text-sm sm:text-base">{isFollowing ? "Following" : "Follow"}</span>
+                <span>{isFollowing ? "Following" : "Follow"}</span>
+              </button>
+
+              {/* Share Button */}
+              <button
+                className="flex items-center justify-center px-4 py-2.5 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 shadow-sm transition"
+                onClick={() => setShowModal(true)}
+              >
+                <Share2Icon size={20} />
               </button>
             </div>
-            <div className="mt-2">
-              <SocialTwo />
-            </div>
+
+            {/* Modal */}
+            {showModal && (
+              <ShareJobModal
+                show={showModal}
+                onClose={() => setShowModal(false)}
+                shareUrl={shareUrl}
+              />
+            )}
           </div>
         </section>
 
@@ -286,79 +333,101 @@ const JobSingleDynamicV3 = () => {
             {/* About this role */}
             <div className="border-b border-gray-200 pb-4 sm:pb-6">
               <h4 className="font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                <i className="flaticon-calendar text-[#e63946] text-lg" />
+                <i className="flaticon-calendar tex-blue-900 text-lg" />
                 About this role
               </h4>
               <div className="flex justify-between text-sm text-gray-600 mb-2">
                 <span className="flex items-center gap-2">
-                  <i className="flaticon-calendar-1 text-[#e63946]" />
+                  <i className="flaticon-calendar-1 tex-blue-900" />
                   Job Posted On
                 </span>
-                <span className="font-medium">{jobData?.created_at ? new Date(jobData.created_at).toLocaleDateString() : "-"}</span>
+                <span className="font-medium">
+                  {jobData?.created_at
+                    ? new Date(jobData.created_at).toLocaleDateString()
+                    : "-"}
+                </span>
               </div>
             </div>
             {/* Required Skills */}
             <div>
               <h4 className="font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                <i className="flaticon-skills text-[#e63946] text-lg" />
+                <i className="flaticon-skills tex-blue-900 text-lg" />
                 Required Skills
               </h4>
               <div className="flex flex-wrap gap-2">
-                {(jobData?.skills || ["Administration", "Budgeting", "Customer Relationship Management (CRM)", "Office Administration", "Office Management"]).map((skill, idx) => (
-                  <span key={idx} className="bg-gray-100 px-3 py-1 rounded-full text-xs font-medium border border-gray-200 flex items-center gap-1">
-                    <i className="flaticon-check text-xs text-green-500" />
-                    {skill}
-                  </span>
-                ))}
+                {jobData?.skills && jobData.skills.length > 0 ? (
+                  jobData?.skills?.map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-gray-100 px-3 py-1 rounded-full text-xs font-medium border border-gray-200 flex items-center gap-1"
+                    >
+                      <i className="flaticon-check text-xs text-green-500" />
+                      {skill}
+                    </span>
+                  ))
+                ) : (
+                  <span className=" px-3">No Skills Specified</span>
+                )}
               </div>
             </div>
             {/* Education */}
             <div>
               <h4 className="font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                <i className="flaticon-graduation-cap text-[#e63946] text-lg" />
+                <i className="flaticon-graduation-cap tex-blue-900 text-lg" />
                 Education
               </h4>
-              <div className="text-sm text-gray-700 flex items-center gap-2">
-                <i className="flaticon-graduation-cap text-[#e63946]" />
-                {jobData?.education || "10th Class"}
+              <div className="text-sm px-3 text-gray-700 flex items-center gap-2">
+                <i className="flaticon-graduation-cap tex-blue-900" />
+                {jobData?.education || "Not specified"}
               </div>
             </div>
             {/* Location */}
             <div>
               <h4 className="font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                <i className="flaticon-map-locator text-[#e63946] text-lg" />
+                <i className="flaticon-map-locator tex-blue-900 text-lg" />
                 Location
               </h4>
-              <div className="text-sm text-gray-700 mb-2 flex items-center gap-2">
-                <i className="flaticon-map-locator text-[#e63946]" />
-                {jobData?.location || "Medak Road, Gandi Maisamma, Hyderabad, Telangana, India"}
+              <div className="text-sm px-3 text-gray-700 mb-2 flex items-center gap-2">
+                {/* <i className="flaticon-map-locator tex-blue-900" /> */}
+                {jobData?.location || "Location Not Specified"}
               </div>
               {/* Google Maps Embed */}
               {jobData?.location ? (
                 <iframe
                   title="map"
                   className="rounded-lg overflow-hidden border h-32 w-full"
-                  src={`https://maps.google.com/maps?q=${encodeURIComponent(jobData.location)}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                    jobData.location
+                  )}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
                   allowFullScreen
                   loading="lazy"
                 />
               ) : (
-                <div className="rounded-lg overflow-hidden border h-32 w-full bg-gray-100 flex items-center justify-center text-gray-400 text-xs">Map Not Available</div>
+                <div className="rounded-lg overflow-hidden border h-32 w-full bg-gray-100 flex items-center justify-center text-gray-400 text-xs">
+                  Map Not Available
+                </div>
               )}
             </div>
             {/* Perks and Benefits */}
             <div>
               <h4 className="font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                <i className="flaticon-gift text-[#e63946] text-lg" />
+                <i className="flaticon-gift tex-blue-900 text-lg" />
                 Perks and Benefits
               </h4>
               <div className="flex flex-wrap gap-2">
-                {(jobData?.perks || ["Safe Transportation", "Employee Provident Fund", "Employees Allowance", "Meals", "Perks And Bonus"]).map((perk, idx) => (
-                  <span key={idx} className="bg-gray-100 px-3 py-1 rounded-full text-xs font-medium border border-gray-200 flex items-center gap-1">
-                    <i className="flaticon-gift text-xs text-pink-400" />
-                    {perk}
-                  </span>
-                ))}
+                {jobData?.perks && jobData.perks.length > 0 ? (
+                  jobData?.perks?.map((perk, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-gray-100 px-3 py-1 rounded-full text-xs font-medium border border-gray-200 flex items-center gap-1"
+                    >
+                      <i className="flaticon-gift text-xs text-pink-400" />
+                      {perk}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-gray-500 px-3">No Perks Specified</span>
+                )}
               </div>
             </div>
           </aside>
@@ -367,15 +436,23 @@ const JobSingleDynamicV3 = () => {
           <main className="w-full lg:w-2/3">
             {/* Tabs */}
             <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-6">
-              <div className="flex border-b mb-4 overflow-x-auto">
+              <div className="flex flex-col md:flex-row gap-2 items-start mb-4 overflow-x-auto">
                 <button
-                  className={`px-4 py-2 font-semibold focus:outline-none whitespace-nowrap ${activeTab === "description" ? "border-b-2 border-red-500 text-red-600" : "text-gray-500"}`}
+                  className={`px-4 py-2 font-semibold focus:outline-none whitespace-nowrap ${
+                    activeTab === "description"
+                      ? "border-b-2 border-blue-500 text-blue-900"
+                      : "text-gray-500"
+                  }`}
                   onClick={() => setActiveTab("description")}
                 >
                   Job Description
                 </button>
                 <button
-                  className={`px-4 py-2 font-semibold focus:outline-none whitespace-nowrap ${activeTab === "company" ? "border-b-2 border-red-500 text-red-600" : "text-gray-500"}`}
+                  className={`px-4 py-2 font-semibold focus:outline-none whitespace-nowrap ${
+                    activeTab === "company"
+                      ? "border-b-2 border-blue-500 text-blue-900"
+                      : "text-gray-500"
+                  }`}
                   onClick={() => setActiveTab("company")}
                 >
                   About the company
@@ -384,48 +461,67 @@ const JobSingleDynamicV3 = () => {
               {/* Tab Content */}
               {activeTab === "description" && (
                 <div>
-                  <h4 className="font-semibold mb-3 sm:mb-4 text-gray-800">Job Description</h4>
-                  <div className="text-gray-700 text-sm mb-4" dangerouslySetInnerHTML={{ __html: jobData?.job_description }} />
+                  <h4 className="font-semibold mb-3 sm:mb-4 text-gray-800">
+                    Job Description
+                  </h4>
+                  <div
+                    className="text-gray-700 text-sm mb-4"
+                    dangerouslySetInnerHTML={{
+                      __html: jobData?.job_description,
+                    }}
+                  />
                 </div>
               )}
               {activeTab === "company" && (
                 <div>
                   <h4 className="font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                    <i className="flaticon-briefcase text-[#e63946] text-lg" />
+                    <i className="flaticon-briefcase tex-blue-900 text-lg" />
                     About the company
                   </h4>
                   <div className="flex flex-wrap items-center gap-4 mb-3 sm:mb-4">
-                    <img src={"/images/resource/company-logo/1-1.png"} alt="Company Logo" className="w-12 h-12 rounded-lg border" />
+                    <img
+                      src={"/images/resource/company-logo/1-1.png"}
+                      alt="Company Logo"
+                      className="w-12 h-12 rounded-lg border"
+                    />
                     <div className="min-w-[150px]">
                       <div className="font-semibold flex items-center gap-2 text-gray-800">
-                        <i className="flaticon-building text-[#e63946]" />
+                        <i className="flaticon-building tex-blue-900" />
                         {jobData?.company_name || "Schneider Electrical"}
                       </div>
                       <div className="text-xs text-gray-600 flex items-center gap-2 mt-1">
-                        <i className="flaticon-industry text-[#e63946]" />
-                        {company?.industry || "Manufacturing"} &bull; {company?.size || "700-1000 employees"}
+                        <i className="flaticon-industry tex-blue-900" />
+                        {company?.industry || "Manufacturing"} &bull;{" "}
+                        {company?.size || "700-1000 employees"}
                       </div>
                       {company?.website && (
-                        <a href={company.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 text-xs underline flex items-center gap-2 mt-1">
-                          <i className="flaticon-link text-[#e63946]" />
+                        <a
+                          href={company.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 text-xs underline flex items-center gap-2 mt-1"
+                        >
+                          <i className="flaticon-link tex-blue-900" />
                           {company.website}
                         </a>
                       )}
                     </div>
-                    <button className="ml-auto bg-black text-white px-4 py-1.5 rounded-lg hover:bg-gray-800 text-sm">Explore More</button>
+                    <button className="ml-auto bg-black text-white px-4 py-1.5 rounded-lg hover:bg-gray-800 text-sm">
+                      Explore More
+                    </button>
                   </div>
                   <div className="text-gray-700 text-sm mb-3 sm:mb-4">
-                    {company?.description || "Our mission is to be the trusted partner in Sustainability and Efficiency. We are a global industrial technology leader bringing world-leading expertise in electrification, automation and digitization to smart industries, resilient infrastructure, future-proof data centers, intelligent buildings, and intuitive homes. Anchored by our deep domain expertise, we provide integrated end-..."}
+                    {company?.description || "Description Not Specified"}
                   </div>
                   {company?.address && (
                     <div className="text-xs text-gray-600 mb-2 flex items-center gap-2">
-                      <i className="flaticon-map-locator text-[#e63946]" />
+                      <i className="flaticon-map-locator tex-blue-900" />
                       Address: {company.address}
                     </div>
                   )}
                   {company?.contact_email && (
                     <div className="text-xs text-gray-600 flex items-center gap-2">
-                      <i className="flaticon-mail text-[#e63946]" />
+                      <i className="flaticon-mail tex-blue-900" />
                       Email: {company.contact_email}
                     </div>
                   )}
@@ -439,8 +535,12 @@ const JobSingleDynamicV3 = () => {
         <div className="mt-8 px-0">
           <div className="bg-white rounded-lg shadow p-4 sm:p-6">
             <div className="mb-4">
-              <h3 className="text-xl font-semibold text-gray-800">Related Jobs</h3>
-              <div className="text-gray-500 text-sm">2020 jobs live - 293 added today.</div>
+              <h3 className="text-xl font-semibold text-gray-800">
+                Related Jobs
+              </h3>
+              <div className="text-gray-500 text-sm">
+                2020 jobs live - 293 added today.
+              </div>
             </div>
             <RelatedJobs2 />
           </div>

@@ -63,7 +63,7 @@ const index = () => {
                         </div>
 
                         {/* Desktop Filter Sidebar */}
-                        <div className="filters-column hidden-1023 col-xl-3 col-lg-4 col-md-12 col-sm-12">
+                        <div className="filters-column hidden-1023 col-xl-3 col-lg-4 col-md-12 col-sm-12 mt-4">
                             <FilterSidebar />
                         </div>
                         {/* <!-- End Filters Column --> */}
@@ -72,30 +72,15 @@ const index = () => {
                         <div className="content-column col-xl-9 col-lg-8 col-md-12 col-sm-12">
                           <div className="row">
                             {/* Main Job List */}
-                            <div className="col-lg-8 col-md-12">
+                            <div className="col-lg-8 col-md-12 mt-4">
                               {/* Header Section */}
-                              <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
-                                <div>
-                                  <h1 className="fw-bold mb-1" style={{fontSize: '2rem'}}>All Jobs</h1>
-                                  <p className="text-muted mb-0">456 jobs for you</p>
-                                </div>
-                                <select
-                                  className="form-select mt-3 mt-md-0"
-                                  style={{maxWidth: 220}}
-                                  defaultValue=""
-                                  // TODO: Connect to sort handler
-                                >
-                                  <option value="">Recently Posted</option>
-                                  <option value="asc">Newest</option>
-                                  <option value="des">Oldest</option>
-                                </select>
-                              </div>
+                              
                               <FilterJobsBox />
                             </div>
                             {/* Right Sidebar */}
-                            <div className="col-lg-4 d-none d-lg-block">
+                            <div className="col-lg-4 d-none d-lg-block mt-4">
                               <div className="bg-dark text-white rounded-4 p-4 d-flex flex-column align-items-center" style={{minHeight: 300}}>
-                                <img src="/images/map-pin.png" alt="Find jobs" style={{width: 80, marginBottom: 24}} />
+                                <img src="https://img.freepik.com/free-vector/man-search-hiring-job-online-from-laptop_1150-52728.jpg?ga=GA1.1.138999916.1727698303&semt=ais_hybrid&w=740" alt="Find jobs" style={{width: "100% ",height:150, marginBottom: 24}} />
                                 <h2 className="fw-bold mb-2" style={{fontSize: '1.5rem'}}>Find jobs <span className="fst-italic">near</span> you</h2>
                                 <p className="mb-4 text-center text-light">Find career paths that match your skills and strengths.</p>
                                 <button className="btn btn-danger px-4 py-2 fw-semibold" style={{backgroundColor: '#e51b3e', borderColor: '#e51b3e'}}>Find Jobs</button>
