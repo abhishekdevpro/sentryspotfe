@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoBagHandleOutline, IoPlay } from "react-icons/io5";
 import { CiLocationOn } from "react-icons/ci";
 import {
@@ -21,25 +21,23 @@ import {
 import { TbTargetArrow } from "react-icons/tb";
 import { FaCarBurst } from "react-icons/fa6";
 import DOMPurify from "dompurify";
-import InsideCognizant from "./InsideCognizant";
+import InsideCognizant from "./InsideCognizant ";
 import { Constant } from "@/utils/constant/constant";
 import ReactQuill from "react-quill";
 import CompanyWTSSection from "./WtsSection";
 import LeadershipTeam from "./LeaderShipTeams";
-import AboutSection from "./Aboutsection";
+import AboutSection from "./AboutSection";
 import WhyChooseUsSection from "./WhyCompanySection";
 import CompanyBenefits from "./CompanyBenefits";
 import JobListings from "./HiringSection";
 import { useSelector } from "react-redux";
 import SocialFooter from "./Footer";
 
-const ShowcaseComponent = () => {
+const ShowcaseComponent = ({companyId}) => {
   const [companyData, setCompanyData] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
   const [openImageGallery, setOpenImageGallery] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -53,35 +51,21 @@ const ShowcaseComponent = () => {
   const token = localStorage.getItem(Constant.USER_TOKEN);
   const BASE_IMAGE_URL = "https://api.sentryspot.co.uk";
   const navigate = useNavigate();
-  const { id } = useParams(); // Get company ID from URL
-  const { userInfo } = useSelector((state) => state.auth);
+  const {userInfo} = useSelector((state)=>state.auth)
   
   // console.log(userInfo,"user hu main");
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
-        setIsLoading(true);
-        setError(null);
-        
-        if (!id) {
-          throw new Error("Company ID is required");
-        }
-
-        const headers = {};
-        if (token) {
-          headers.Authorization = token;
-        }
-
         const response = await axios.get(
-          `https://api.sentryspot.co.uk/api/employeer/companies/${id}`,
-          { headers }
+          `https://api.sentryspot.co.uk/api/jobseeker/companies/${companyId}`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
         );
-
-        if (!response.data || !response.data.data) {
-          throw new Error("Invalid response format from server");
-        }
-
-        setCompanyData(response.data.data);
+        setCompanyData(response.data.data || []);
         setFormData({
           title: response.data.data.title || "Passion for making difference",
           description:
@@ -96,18 +80,11 @@ const ShowcaseComponent = () => {
         });
       } catch (error) {
         console.error("Error fetching company data:", error);
-        if (error.response?.status === 401) {
-          setError("Please login to view this company's profile");
-        } else {
-          setError(error.message || "Failed to load company data. Please try again later.");
-        }
-      } finally {
-        setIsLoading(false);
       }
     };
 
     fetchCompanyData();
-  }, [id, token]);
+  }, []);
 
   const handleEditClick = () => {
     setIsPopupOpen(true);
@@ -225,46 +202,31 @@ const ShowcaseComponent = () => {
     }
   };
 
-  if (isLoading) {
+  if (!companyData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="bg-red-50 border border-red-200 p-6 rounded-lg shadow-md max-w-md text-center">
-          <h3 className="text-lg font-semibold text-red-800 mb-2">Error</h3>
-          <p className="text-red-600">{error}</p>
-          {error.includes("login") && (
-            <button
-              onClick={() => navigate("/login")}
-              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-            >
-              Go to Login
-            </button>
-          )}
+      <div className="min-h-screen flex items-center justify-center h-64">
+        <div className="bg-gray-100 border border-gray-300 text-gray-700 p-6 rounded-lg shadow-md w-96 text-center">
+          <p className="text-lg font-semibold">Loading...</p>
         </div>
       </div>
     );
   }
 
-  if (!companyData || Object.keys(companyData).length === 0) {
+  if (Object.keys(companyData).length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg shadow-md max-w-md text-center">
-          <h3 className="text-lg font-semibold text-blue-800 mb-2">No Company Data</h3>
-          <p className="text-blue-600 mb-4">
-            The requested company profile could not be found.
+      <div className="min-h-screen flex items-center justify-center h-64">
+        <div className="bg-blue-500 border border-red-300 p-6 rounded-lg shadow-md w-6xl text-center ">
+          <p className="text-lg font-semibold text-white">
+            No company data found
+          </p>
+          <p className="text-sm mt-2 text-white">
+            Please add your company details to create a public profile.
           </p>
           <button
-            onClick={() => navigate(-1)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            className="mt-4 px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-700"
+            onClick={() => navigate("/employers-dashboard/company-profile")}
           >
-            Go Back
+            Add Company Data
           </button>
         </div>
       </div>
@@ -272,17 +234,62 @@ const ShowcaseComponent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
       <AboutSection companyData={companyData} userInfo={userInfo} />
+
       <WhyChooseUsSection companyData={companyData} userInfo={userInfo} />
+
       <section id="inside-cognizant">
         <InsideCognizant companyData={companyData} userInfo={userInfo} />
       </section>
       <CompanyBenefits companyData={companyData} />
-      <LeadershipTeam />
-      <JobListings companyData={companyData} userInfo={userInfo} />
+      <LeadershipTeam companyId={companyId} />
+      {/* <JobListings companyData={companyData} userInfo={userInfo} /> */}
+
+      {/* <div className="items-center justify-center text-center bg-gray-500 h-60">
+        <h3 className="text-white font-semibold text-3xl pt-5 mb-6">
+          Follow us
+        </h3>
+        <div className="flex items-center justify-center gap-3 ">
+          <a
+            href={companyData.linkedin_link}
+            aria-label="Find us on LinkedIn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaLinkedin className="h-10 w-10 text-white" />
+          </a>
+          <a
+            href={companyData.twitter_link}
+            aria-label="Find us on Twitter"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaTwitter className="h-10 w-10 text-white" />
+          </a>
+          <a
+            href={companyData.facebook_link}
+            aria-label="Find us on Facebook"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaFacebook className="h-10 w-10 text-white" />
+          </a>
+          <a
+            href={companyData.website_link}
+            aria-label="Visit our website"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaGlobe className="h-10 w-10 text-white" />
+          </a>
+        </div>
+        <h3 className="text-white font-semibold text-sm pt-5 ">
+          All rights reserved © {companyData.company_name}
+        </h3>
+      </div> */}
       <SocialFooter companyData={companyData} />
-    </div>
+    </>
   );
 };
 

@@ -4,8 +4,10 @@ import FooterDefault from "@/components/footer/common-footer";
 import LoginPopup from "@/components/common/form/login/LoginPopup";
 import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import MobileMenu from "@/components/header/MobileMenu";
+import { useParams } from "react-router-dom";
 
 const Showcase = () => {
+  const { companyId } = useParams();
   return (
     <>
       {/* <!-- Header Span --> */}
@@ -20,7 +22,7 @@ const Showcase = () => {
       <MobileMenu />
       {/* End MobileMenu */}
 
-      <ShowcaseComponent />
+      <ShowcaseComponent companyId={companyId} />
 
       <FooterDefault footerStyle="alternate5" />
       {/* <!-- End Main Footer --> */}

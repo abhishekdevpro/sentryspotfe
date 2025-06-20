@@ -4,7 +4,7 @@ import PersonalInfoForm from './PersonalForm';
 import EmployeeQuestionsForm from './EmployeeQuestions';
 import ReviewForm from './ReviewFrom';
 import ProgressBar from './ProgressBar';
-import { toast } from 'react-toastify';
+import { toast } from "react-hot-toast";
 import { Constant } from '@/utils/constant/constant';
 
 const ApplyForm = () => {
@@ -84,9 +84,9 @@ const ApplyForm = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        toast.success(responseData.message || 'Application submitted successfully!');
+        toast.success(responseData.data.message || 'Application submitted successfully!');
         console.log('API Response:', responseData); // Log the full response for debugging
-
+      
         // Redirect to /id on success
         navigate(`/job-single-v3/${id}`);
       } else {

@@ -142,9 +142,9 @@ import { useSelector } from "react-redux";
 
 import ActionLoader from "@/components/loader/ActionLoader";
 import { FcGoogle } from "react-icons/fc";
-import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const FormContent = () => {
   const navigate = useNavigate();
