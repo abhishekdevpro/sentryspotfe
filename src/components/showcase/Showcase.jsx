@@ -29,7 +29,7 @@ import CompanyBenefits from "./CompanyBenefits";
 import JobListings from "./HiringSection";
 import { useSelector } from "react-redux";
 import SocialFooter from "./Footer";
-import AboutSection from "./AboutSection";
+// import AboutSection from "./AboutSection";
 
 const ShowcaseComponent = ({companyId}) => {
   const [companyData, setCompanyData] = useState(null);
@@ -233,7 +233,7 @@ const ShowcaseComponent = ({companyId}) => {
 
   return (
     <>
-      <AboutSection companyData={companyData} userInfo={userInfo} />
+      {/* <AboutSection companyData={companyData} userInfo={userInfo} /> */}
 
       <WhyChooseUsSection companyData={companyData} userInfo={userInfo} />
 
