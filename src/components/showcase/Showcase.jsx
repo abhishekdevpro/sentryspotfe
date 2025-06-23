@@ -24,12 +24,12 @@ import DOMPurify from "dompurify";
 import InsideCognizant from "./InsideCognizant ";
 import { Constant } from "@/utils/constant/constant";
 import LeadershipTeam from "./LeaderShipTeams";
-import AboutSection from "./AboutSection.jsx";
 import WhyChooseUsSection from "./WhyCompanySection";
 import CompanyBenefits from "./CompanyBenefits";
 import JobListings from "./HiringSection";
 import { useSelector } from "react-redux";
 import SocialFooter from "./Footer";
+import AboutSection from "./AboutSection";
 
 const ShowcaseComponent = ({companyId}) => {
   const [companyData, setCompanyData] = useState(null);
