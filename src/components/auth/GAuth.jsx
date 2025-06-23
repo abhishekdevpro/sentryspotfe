@@ -109,11 +109,12 @@ const Gauth = () => {
                   navigate("/candidates-dashboard/dashboard")
                 }
                
-        } else {
-          console.error('Code parameter is missing in the URL');
-          setLoading(false);
-          navigate('/'); // Redirect to login page if code is missing
-        }
+        } 
+        // else {
+        //   console.error('Code parameter is missing in the URL');
+        //   setLoading(false);
+        //   navigate('/'); // Redirect to login page if code is missing
+        // }
       } catch (error) {
         setLoading(false);
         toast.error(error.message || "Authentication failed");

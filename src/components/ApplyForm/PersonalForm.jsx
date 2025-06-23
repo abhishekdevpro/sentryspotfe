@@ -1,5 +1,3 @@
-
-
 // import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 // import { Constant } from '@/utils/constant/constant';
@@ -18,7 +16,7 @@
 //           }
 //         });
 //         console.log(response,"<<<<");
-        
+
 //         const userData = response.data.data.personal_details;
 //         setFormData(prevData => ({
 //           ...prevData,
@@ -231,40 +229,46 @@
 
 // export default PersonalInfoForm;
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Constant } from '@/utils/constant/constant';
-import LocationAutocomplete from '../dashboard-pages/candidates-dashboard/my-profile/components/my-profile/LocationSelector';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Constant } from "@/utils/constant/constant";
+import LocationAutocomplete from "../dashboard-pages/candidates-dashboard/my-profile/components/my-profile/LocationSelector";
+import { FileIcon } from "lucide-react";
 
 const PersonalInfoForm = ({ formData, setFormData, errors }) => {
   const [loading, setLoading] = useState(true);
+  const [existingResume, setExistingResume] = useState(null);
   const [error, setError] = useState(null);
-  const token = localStorage.getItem(Constant.USER_TOKEN)
+  const token = localStorage.getItem(Constant.USER_TOKEN);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get('https://api.sentryspot.co.uk/api/jobseeker/user-profile', {
-          headers: {
-            Authorization: token
+        const response = await axios.get(
+          "https://api.sentryspot.co.uk/api/jobseeker/user-profile",
+          {
+            headers: {
+              Authorization: token,
+            },
           }
-        });
-        
+        );
+
         const userData = response.data.data.personal_details;
-        setFormData(prevData => ({
+        setExistingResume(userData.resume);
+        setFormData((prevData) => ({
           ...prevData,
-          firstName: userData.first_name || '',
-          lastName: userData.last_name || '',
-          email: userData.email || '',
-          phone: userData.phone || '',
-          location: userData.location || '',
-          resumeOption: '',
-          coverLetterOption: ''
+          firstName: userData.first_name || "",
+          lastName: userData.last_name || "",
+          email: userData.email || "",
+          phone: userData.phone || "",
+          location: userData.location || "",
+          resumeOption: "",
+          coverLetterOption: "",
         }));
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching user profile:', err);
-        setError('Failed to load user profile. Please try again later.');
+        console.error("Error fetching user profile:", err);
+        setError("Failed to load user profile. Please try again later.");
         setLoading(false);
       }
     };
@@ -274,31 +278,37 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFileChange = (e, type) => {
     const file = e.target.files[0];
-    setFormData(prev => ({ ...prev, [type]: file }));
+    // console.log(file, "Selected file for", type);
+    setFormData((prev) => ({ ...prev, [type]: file }));
   };
 
-  if (loading) return (
-    <div className="flex justify-center items-center h-64 text-gray-500">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-    </div>
-  );
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-64 text-gray-500">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+      </div>
+    );
 
-  if (error) return (
-    <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg shadow-md">
-      {error}
-    </div>
-  );
+  if (error)
+    return (
+      <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg shadow-md">
+        {error}
+      </div>
+    );
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 space-y-6">
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="firstName"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
             First Name
           </label>
           <input
@@ -311,8 +321,16 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
           />
           {errors.firstName && (
             <p className="mt-1 text-sm text-red-600 flex items-center">
-              <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              <svg
+                className="w-4 h-4 mr-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clipRule="evenodd"
+                />
               </svg>
               {errors.firstName}
             </p>
@@ -320,7 +338,10 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
         </div>
 
         <div>
-          <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="lastName"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
             Last Name
           </label>
           <input
@@ -333,8 +354,16 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
           />
           {errors.lastName && (
             <p className="mt-1 text-sm text-red-600 flex items-center">
-              <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              <svg
+                className="w-4 h-4 mr-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clipRule="evenodd"
+                />
               </svg>
               {errors.lastName}
             </p>
@@ -344,7 +373,10 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
 
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
             Email
           </label>
           <input
@@ -358,7 +390,10 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
         </div>
 
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="phone"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
             Phone Number
           </label>
           <input
@@ -405,14 +440,15 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
         {/* Resume Section */}
         <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
           <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-            <svg className="w-6 h-6 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clipRule="evenodd" />
-            </svg>
+            <FileIcon className="w-6 h-6 mr-2 text-blue-600" />
             Resumé
           </h3>
           <div className="space-y-3">
-            {['upload', 'select'].map((option) => (
-              <label key={option} className="flex items-center space-x-3 cursor-pointer">
+            {["upload", "select"].map((option) => (
+              <label
+                key={option}
+                className="flex items-center space-x-3 cursor-pointer"
+              >
                 <input
                   type="radio"
                   name="resumeOption"
@@ -421,16 +457,20 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
                   onChange={handleChange}
                   className="w-5 h-5 text-blue-600 focus:ring-blue-500 border-gray-300"
                 />
-                <span className="text-gray-700 capitalize">{option === 'none' ? "Don't include a resumé" : `${option} a resumé`}</span>
+                <span className="text-gray-700 capitalize">
+                  {option === "none"
+                    ? "Don't include a resumé"
+                    : `${option} a resumé`}
+                </span>
               </label>
             ))}
-            {formData.resumeOption === 'upload' && (
+            {formData.resumeOption === "upload" && (
               <div className="ml-8 mt-2">
                 <input
                   type="file"
                   id="resumeUpload"
                   name="resumeUpload"
-                  onChange={(e) => handleFileChange(e, 'resume')}
+                  onChange={(e) => handleFileChange(e, "resume")}
                   className="block w-full text-sm text-gray-500
                     file:mr-4 file:py-2 file:px-4
                     file:rounded-full file:border-0
@@ -441,21 +481,51 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
                 />
               </div>
             )}
+            {formData.resumeOption === "select" && (
+              <div className="ml-8 mt-2">
+                {existingResume ? (
+                  <div className="border rounded-md p-3 bg-white shadow-md space-y-2">
+                    <p className="text-sm text-gray-700 font-medium mb-2">
+                       Selected resume:
+                    </p>
+                    <iframe
+                      src={`https://api.sentryspot.co.uk${existingResume}`}
+                      title="Resume Preview"
+                      className="w-full h-[500px] border rounded"
+                    ></iframe>
+                    <p className="text-xs text-gray-500">
+                      This resume will be submitted with your application.
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-sm text-red-500">
+                    No resume found. Please upload one.
+                  </p>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
         {/* Cover Letter Section */}
         <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
           <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-            <svg className="w-6 h-6 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <svg
+              className="w-6 h-6 mr-2 text-blue-600"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
               <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
             </svg>
             Cover Letter
           </h3>
           <div className="space-y-3">
-            {['upload', 'write', 'none'].map((option) => (
-              <label key={option} className="flex items-center space-x-3 cursor-pointer">
+            {["upload", "write", "none"].map((option) => (
+              <label
+                key={option}
+                className="flex items-center space-x-3 cursor-pointer"
+              >
                 <input
                   type="radio"
                   name="coverLetterOption"
@@ -464,16 +534,20 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
                   onChange={handleChange}
                   className="w-5 h-5 text-blue-600 focus:ring-blue-500 border-gray-300"
                 />
-                <span className="text-gray-700 capitalize">{option === 'none' ? "Don't include a cover letter" : `${option} a cover letter`}</span>
+                <span className="text-gray-700 capitalize">
+                  {option === "none"
+                    ? "Don't include a cover letter"
+                    : `${option} a cover letter`}
+                </span>
               </label>
             ))}
-            {formData.coverLetterOption === 'upload' && (
+            {formData.coverLetterOption === "upload" && (
               <div className="ml-8 mt-2">
                 <input
                   type="file"
                   id="coverLetterUpload"
                   name="coverLetterUpload"
-                  onChange={(e) => handleFileChange(e, 'coverLetter')}
+                  onChange={(e) => handleFileChange(e, "coverLetter")}
                   className="block w-full text-sm text-gray-500
                     file:mr-4 file:py-2 file:px-4
                     file:rounded-full file:border-0

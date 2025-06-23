@@ -61,7 +61,7 @@ const FilterJobsBox = () => {
     const fetchJobs = async () => {
       try {
         const response = await axios.get(
-          "https://api.sentryspot.co.uk/api/jobseeker/job-list"
+          "https://api.sentryspot.co.uk/api/jobseeker/public/job-list"
         );
         setJobs(response.data.data); // Adjusted to point to the 'data' array in the response
       } catch (error) {
@@ -496,7 +496,7 @@ const FilterJobsBox = () => {
                   {jobs.map((job) => (
                     <div
                       key={job.id}
-                      className="flex-shrink-0 w-full md:w-1/4 p-2"
+                      className="flex-shrink-0 w-full h-96 md:w-1/4 p-2"
                     >
                       <div className="relative bg-blue-900 shadow-md rounded-lg p-4 flex flex-col" style={{
                         transition: 'all 0.3s ease',
@@ -507,28 +507,34 @@ const FilterJobsBox = () => {
                         }
                       }}>
                         <div className="absolute top-3 left-3 flex flex-col space-y-1">
-                          <span className="bg-green-200 text-green-800 text-xs font-medium px-2 py-1 rounded-md">
+                          {/* <span className="bg-green-200 text-green-800 text-xs font-medium px-2 py-1 rounded-md">
                             Private
-                          </span>
+                          </span> */}
 
-                          <span className="bg-yellow-200 text-yellow-800 text-xs font-medium px-2 py-1 rounded-md">
+                          {/* <span className="bg-yellow-200 text-yellow-800 text-xs font-medium px-2 py-1 rounded-md">
                             Urgent
-                          </span>
+                          </span> */}
                         </div>
                         <span className="absolute top-3 right-3  text-white text-xs font-medium px-2 py-1 rounded-md">
-                          Full Time
+                          {job?.job_type_name || "Full Time"}
                         </span>
 
                         <i className="fa-brands fa-dropbox text-white text-6xl mb-2"></i>
-                        <Link to={`/job-single-v1/${job.id}`}>
+                        <Link to={`/job-single-v3/${job.id}`}>
                           <h2 className="text-xl font-semibold text-white">
                             {job.job_title || "Job Title"}
                           </h2>
                           <div className="Location text-white mb-4 mt-4">
                             <i className="fa-solid fa-location-dot text-white mr-2"></i>
-                            {job.city
-                              ? `${job.city}, ${job.country}`
+                            {job.location
+                              ? `${job.location}`
                               : "Location Not Available"}
+                          </div>
+                          <div className="Location text-white mb-4 mt-4">
+                            {/* <i className="fa-solid fa-location-dot text-white mr-2"></i> */}
+                            {job.functional_area_name
+                              ? `${job.functional_area_name}`
+                              : "Functional Area Not Available"}
                           </div>
                         </Link>
                         <div className="Job-Tab flex gap-2 mt-auto">
@@ -551,13 +557,13 @@ const FilterJobsBox = () => {
                             Digital
                           </a>
                         </div>
-                        <div className="flex justify-center flex-wrap gap-2 mt-2">
+                        {/* <div className="flex justify-center flex-wrap gap-2 mt-2">
                           {extraCategories > 0 && (
                             <span className="bg-blue-600 text-white text-xs px-3 py-1 rounded-full">
                               +{extraCategories}
                             </span>
                           )}
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   ))}
