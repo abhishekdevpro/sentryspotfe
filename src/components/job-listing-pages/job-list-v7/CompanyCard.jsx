@@ -1,6 +1,10 @@
-import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Constant } from "@/utils/constant/constant";
+import { Link, useNavigate } from "react-router-dom";
 
 const CompanyCard = ({ company, onFollow, isFollowing }) => {
+    const token = localStorage.getItem(Constant.USER_TOKEN)
+    const navigate = useNavigate()
   return (
     <div className="company-card rounded-2xl shadow flex flex-col items-center text-center py-8 px-4 min-h-[230px] bg-white transition-all duration-300 hover:bg-blue-100 hover:-translate-y-1 hover:shadow-lg">
       <img
@@ -20,21 +24,22 @@ const CompanyCard = ({ company, onFollow, isFollowing }) => {
         {company.company_name}
       </div>
 
-      <div className="flex flex-col gap-2 items-center mt-2">
-        <Link
-          to={`/showcase-company/${company.id}`}
-          className="text-[#f43f5e] font-bold text-base hover:underline"
+      <div className="w-full flex flex-col gap-2 items-center mt-2">
+        <Button
+        onClick={()=>navigate(`/showcase-company/${company.id}`)}
+          variant="link"
+          className="w-full"
         >
           View Company
-        </Link>
-        <button
+        </Button>
+       {token && 
+       <Button
           onClick={onFollow}
-          className={`${
-            isFollowing ? "bg-gray-400" : "bg-[#f43f5e]"
-          } text-white px-4 py-1.5 rounded-lg text-sm hover:opacity-90 transition`}
+           variant={isFollowing ? "destructive" : "default"}
+          className="w-full"
         >
-          {isFollowing ? "Unfollow" : "Follow Company"}
-        </button>
+          {isFollowing ? "Unfollow" : "Follow"}
+        </Button>}
       </div>
     </div>
   );

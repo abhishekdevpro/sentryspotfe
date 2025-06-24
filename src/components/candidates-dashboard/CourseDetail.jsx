@@ -22,7 +22,7 @@ const CourseDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedSections, setExpandedSections] = useState({});
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState();
   const [saving, setSaving] = useState(false);
   const [showFullDesc, setShowFullDesc] = useState(false);
 
@@ -64,6 +64,7 @@ const CourseDetail = () => {
         });
         if (response.data?.data) {
           setCourse(response.data.data);
+          setIsSaved(response.data.data.is_course_favorite)
         } else {
           setCourse(null);
         }
