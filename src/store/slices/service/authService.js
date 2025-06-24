@@ -64,7 +64,7 @@ export const handleGoogleSignIn = async () => {
        // Store the token in localStorage
        localStorage.setItem(Constant.USER_TOKEN, token);
        localStorage.setItem("userInfo", response.data.data);
-       return response.data.data; // Return the user data and token
+       return response.data.data; 
      } else {
        throw new Error("Authentication failed");
      }

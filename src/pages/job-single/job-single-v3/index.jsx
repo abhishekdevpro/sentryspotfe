@@ -38,7 +38,7 @@ const LoginModal = ({ onClose }) => {
             Cancel
           </button>
           <Link
-            to="/"
+            to="/login"
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Login
@@ -127,10 +127,12 @@ const JobSingleDynamicV3 = () => {
         const token = localStorage.getItem(Constant.USER_TOKEN);
 
         // Always use public API for job details
-        const apiUrl = `https://api.sentryspot.co.uk/api/jobseeker/public/job-list/${id}`;
+        const apiUrl = token ? `https://api.sentryspot.co.uk/api/jobseeker/job-list/${id}` :`https://api.sentryspot.co.uk/api/jobseeker/public/job-list/${id}`;
 
         // Fetch job details
-        const jobResponse = await axios.get(apiUrl);
+        const jobResponse = await axios.get(apiUrl,{headers:{
+          Authorization: token ? ` ${token}` : "",
+        }});
         const jobData = jobResponse.data.data;
         setJobData(jobData);
         // Set initial following state based on company_favorite_id
@@ -241,8 +243,16 @@ const JobSingleDynamicV3 = () => {
                 {jobData?.job_title || "Job Title Not Available"}
               </h2>
               <div className="text-gray-700 font-medium mb-2 flex items-center gap-2">
-                <i className="flaticon-building tex-blue-900" />
-                {jobData?.company_name || "Company Not Available"}
+                
+               <div>
+                 <i className="flaticon-building tex-blue-900" />
+                {company?.company_name || "Company Not Available"}
+               </div>
+                {"|"}
+               <div>
+                 <i className="flaticon-folder tex-blue-900" />
+                 {jobData?.job_category_name || "Category Not Available"}
+               </div>
               </div>
               <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 text-sm">
                 <span className="flex items-center gap-2 text-gray-600">
@@ -253,7 +263,7 @@ const JobSingleDynamicV3 = () => {
                   <i className="flaticon-money tex-blue-900" />
                   {jobData?.offered_salary
                     ? `₹${jobData.offered_salary} / month`
-                    : "Not Specified"}
+                    : "Not disclosed"}
                 </span>
                 <span className="flex items-center gap-2 text-gray-600">
                   <i className="flaticon-map-locator tex-blue-900" />
@@ -382,7 +392,7 @@ const JobSingleDynamicV3 = () => {
               </h4>
               <div className="text-sm px-3 text-gray-700 flex items-center gap-2">
                 <i className="flaticon-graduation-cap tex-blue-900" />
-                {jobData?.education || "Not specified"}
+                {jobData?.qualification || "Not specified"}
               </div>
             </div>
             {/* Location */}
@@ -439,8 +449,8 @@ const JobSingleDynamicV3 = () => {
           {/* Main Content (Right Column) */}
           <main className="w-full lg:w-2/3">
             {/* Tabs */}
-            <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-6">
-              <div className="flex flex-col md:flex-row gap-2 items-start mb-4 overflow-x-auto">
+            <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-6 ">
+              <div className="flex flex-col md:flex-row gap-2 items-start mb-4 overflow-x-auto ">
                 <button
                   className={`px-4 py-2 font-semibold focus:outline-none whitespace-nowrap ${
                     activeTab === "description"
@@ -464,7 +474,9 @@ const JobSingleDynamicV3 = () => {
               </div>
               {/* Tab Content */}
               {activeTab === "description" && (
-                <div>
+                <div className="max-h-[70vh] min-h-[400px] overflow-y-auto pr-2"
+                 style={{ scrollbarWidth: "none",scrollBehavior: "smooth" }}
+                >
                   <h4 className="font-semibold mb-3 sm:mb-4 text-gray-800">
                     Job Description
                   </h4>
