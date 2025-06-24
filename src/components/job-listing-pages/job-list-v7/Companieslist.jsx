@@ -29,9 +29,11 @@ const Companieslist = () => {
     const fetchJobs = async () => {
       setLoading(true);
       try {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem(Constant.USER_TOKEN);
+
+        const API = token ? `https://api.sentryspot.co.uk/api/jobseeker/pro/companies`:"https://api.sentryspot.co.uk/api/jobseeker/companies"
         const response = await axios.get(
-          `https://api.sentryspot.co.uk/api/jobseeker/companies`,
+          `${API}`,
           {
             headers: {
               Authorization: token,

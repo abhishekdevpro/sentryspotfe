@@ -22,7 +22,7 @@ const CompaniesTable = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `https://api.sentryspot.co.uk/api/jobseeker/companies-favorite-list`,
+        `https://api.sentryspot.co.uk/api/jobseeker/companies-favorite-list?is_favorite_company=1`,
         {
           headers: {
             Authorization: token,
