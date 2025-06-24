@@ -158,6 +158,13 @@ const candidateMenus = [
     active: "",
   },
   {
+    id: 5,
+    name: "Saved Companies",
+    icon: "la-heart",
+    routePath: "/candidates-dashboard/saved-companies",
+    active: "",
+  },
+  {
     id: 9,
     name: "AI Skill Test",
     icon: "la-box",

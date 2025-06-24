@@ -69,10 +69,10 @@ const ReviewForm = ({ formData = {} }) => {
         <p>Cover Letter: {formData?.coverLetterOption || 'N/A'}</p>
       </div>
 
-      <div>
+   { screeningQuestions.length > 0 &&  <div>
         <h3 className="text-lg font-medium text-gray-900">Screening Questions</h3>
         {screeningQuestions.length > 0 ? screeningQuestions : <p className="text-gray-600">No screening questions answered.</p>}
-      </div>
+      </div>}
     </div>
   );
 };

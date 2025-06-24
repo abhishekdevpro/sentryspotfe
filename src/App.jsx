@@ -91,6 +91,7 @@ import AppliedJobsPage from "./pages/candidates-dashboard/applied-jobs";
 import ChangePasswordPage from "./pages/candidates-dashboard/change-password";
 import CVMannagerPage from "./pages/candidates-dashboard/cv-manager";
 import JobAlertPage from "./pages/candidates-dashboard/job-alerts";
+import SavedCompanies from "./pages/candidates-dashboard/saved-companies";
 import MessageesPage from "./pages/candidates-dashboard/messages";
 import MyProfilePage from "./pages/candidates-dashboard/my-profile";
 import MyResumePage from "./pages/candidates-dashboard/my-resume";
@@ -411,6 +412,7 @@ function App() {
                       />
                       <Route path="cv-manager" element={<CVMannagerPage />} />
                       <Route path="job-alerts" element={<JobAlertPage />} />
+                      <Route path="saved-companies" element={<SavedCompanies />} />
                       <Route path="messages" element={<MessageesPage />} />
                       <Route path="my-profile" element={<MyProfilePage />} />
                       <Route path="settings" element={<SettingsPage />} />

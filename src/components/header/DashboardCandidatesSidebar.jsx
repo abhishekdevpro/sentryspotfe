@@ -62,7 +62,7 @@ const DashboardCandidatesSidebar = () => {
                     : "https://ui-avatars.com/api/?name=" + (userInfo?.first_name || "User") + "&background=random"
                 }
                 alt="User Avatar"
-                className="rounded-full w-40 h-20 object-cover"
+                className="rounded-full w-auto h-20 object-cover"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = "https://ui-avatars.com/api/?name=User&background=random";

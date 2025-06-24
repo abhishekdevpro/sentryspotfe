@@ -45,7 +45,7 @@ const CourseDetail = () => {
         { course_id: Number(id) },
         { headers: { 'Authorization': token, 'Content-Type': 'application/json' } }
       );
-      setIsSaved(!isSaved);
+      setIsSaved(prev => !prev);
     } catch (err) {
       console.error('Failed to save course:', err);
     } finally {
