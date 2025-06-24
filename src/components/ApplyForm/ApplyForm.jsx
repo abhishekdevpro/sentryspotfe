@@ -42,7 +42,7 @@ const ApplyForm = () => {
   };
   const token = localStorage.getItem(Constant.USER_TOKEN);
   const handleSubmit = async () => {
-    const screeningQuestions = questions.map((question, index) => ({
+    const screeningQuestions = questions?.map((question, index) => ({
       question: question.question,
       description: question.description,
       options: question.options,

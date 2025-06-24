@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaTimes } from "react-icons/fa";
+import { Button } from "../ui/button";
 
 const PostCreation = ({ addPost, token, setLoginModal }) => {
   const [content, setContent] = useState("");
@@ -28,7 +29,7 @@ const PostCreation = ({ addPost, token, setLoginModal }) => {
   return (
     <div className="bg-white shadow-md rounded-lg p-6 mb-6 border-t-4 border-blue-900">
       <textarea
-        className="w-full p-3 text-lg text-gray-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32 resize-none"
+        className="w-full p-2 text-lg text-gray-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         style={{ overflowY: 'auto', maxHeight: '200px' }}
@@ -80,12 +81,14 @@ const PostCreation = ({ addPost, token, setLoginModal }) => {
           </div>
         </div>
 
-        <button
+        <Button
+          disabled={!content.trim() && !image}
+        variant="default"
           onClick={handleSubmit}
-          className="bg-blue-900 text-white px-6 py-2 rounded-md hover:bg-blue-800 transition-colors"
+          className=""
         >
           Post
-        </button>
+        </Button>
       </div>
 
       {image && (

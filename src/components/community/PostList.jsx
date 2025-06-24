@@ -10,7 +10,10 @@ const PostList = ({
   fetchPosts,
 }) => {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 max-h-[80vh] min-h-[400px] overflow-y-auto pr-2" style={{
+            scrollBehavior: "smooth",
+            scrollbarWidth: "none",
+          }}>
       {posts.length === 0 ? (
         <div className="text-center text-gray-500 py-8 bg-white rounded-lg shadow-md">
           No posts available. Be the first to post!

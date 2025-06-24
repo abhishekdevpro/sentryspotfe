@@ -77,7 +77,7 @@ const EmployeeQuestionsForm = ({
       <h2 className="text-lg font-semibold text-gray-800">
         Screening Questions
       </h2>
-      {questions.length > 0 ? (
+      {questions && questions?.length > 0 ? (
         questions.map((question, index) => (
           <div
             key={index}

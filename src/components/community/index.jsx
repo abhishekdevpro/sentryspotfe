@@ -17,14 +17,14 @@ const Index = () => {
 
       <section className="ls-section bg-stone-200">
         <div className="auto-container px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-4">
+          <div className="flex flex-col lg:flex-row gap-4 ">
             {/* Left Sidebar - Hidden on mobile, visible on lg screens */}
             <div className="hidden lg:block w-1/5">
               <FilterSidebar />
             </div>
 
             {/* Main Content - Full width on mobile, 3/5 on lg screens */}
-            <div className="w-full lg:w-3/5 h-screen overflow-y-auto custom-scrollbar">
+            <div className="w-full lg:w-3/5 h-screen">
               <FeedSection />
             </div>
 

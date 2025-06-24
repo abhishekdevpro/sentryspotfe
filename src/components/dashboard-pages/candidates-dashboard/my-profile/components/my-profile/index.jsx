@@ -12,6 +12,7 @@ import JobTypeDropdown from "./JobTypeDropdown";
 import TitleDropdown from "./TitleDropdown";
 import SectorDropdown from "./SectorDropdown";
 import WorkExperienceDropdown from "./WorkExperienceDropdown";
+import { Button } from "@/components/ui/button";
 
 const JobSeekerForm = ({ onNext }) => {
   const token = localStorage.getItem(Constant.USER_TOKEN);
@@ -502,10 +503,10 @@ const JobSeekerForm = ({ onNext }) => {
           profileData={profileData}
         />
         {/* Submit Button */}
-        <div className="form-group col-lg-6 col-md-12">
-          <button type="submit" className="theme-btn btn-style-one bg-blue-900">
+        <div className="form-group ">
+          <Button type="submit" variant="default" className="w-full">
             Save & Next ➤
-          </button>
+          </Button>
         </div>
       </div>
     </form>

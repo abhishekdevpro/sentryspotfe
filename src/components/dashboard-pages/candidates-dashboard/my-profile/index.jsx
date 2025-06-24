@@ -142,7 +142,7 @@ const Index = () => {
                   </div>
                 )}
               </div>
-              <div className="w-full overflow-x-auto">
+              <div className="w-full">
                 {steps[currentStep - 1].component}
               </div>
             </div>
