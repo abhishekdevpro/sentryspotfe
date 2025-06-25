@@ -62,7 +62,7 @@ const CompaniesTable = () => {
     try {
       const response = await axios.post(
         `https://api.sentryspot.co.uk/api/jobseeker/company-favorite`,
-        { company_id: company.company_id },
+        { company_id: company.id },
         {
           headers: {
             Authorization: token,

@@ -222,7 +222,15 @@ const JobSeekerForm = ({ onNext }) => {
             formData.append('job_type', jobType);
           });
         }
-      } else {
+      } 
+      else if (key === 'preferred_location') {
+    if (Array.isArray(data[key])) {
+      data[key].forEach(location => {
+        formData.append('preferred_location', location);
+      });
+    }
+  }
+      else {
         // Add other form fields normally
         formData.append(key, data[key]);
       }
