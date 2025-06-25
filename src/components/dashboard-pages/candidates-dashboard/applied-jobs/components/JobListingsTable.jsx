@@ -5,6 +5,7 @@ import { BsBriefcase, BsClock, BsGeoAlt, BsBuilding } from "react-icons/bs";
 import { FiEye, FiCalendar, FiAward } from "react-icons/fi";
 import { Toaster } from "react-hot-toast";
 import { Constant } from "@/utils/constant/constant";
+import JobCard from "@/components/job-listing-pages/job-list-v3/JobCard";
 
 const JobListingsTable = () => {
   const token = localStorage.getItem(Constant.USER_TOKEN);
@@ -52,83 +53,12 @@ const JobListingsTable = () => {
     }
   };
 
-  const formatDate = (dateString) => {
-    if (!dateString) return "N/A";
-    return new Date(dateString).toLocaleString("en-US", {
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
 
-  const JobCard = ({ job }) => (
-    <div className="bg-white rounded-lg border border-gray-100 p-4 hover:shadow-md transition-shadow h-full">
-      <div className="flex flex-col h-full">
-        <div className="flex-grow">
-          <Link to={`/job-single-v3/${job.id}`} className="block">
-            <h3 className="text-lg font-semibold text-gray-900 hover:text-blue-600 mb-2 line-clamp-2">
-              {job.job_title}
-            </h3>
-            <div className="flex flex-wrap gap-2 mb-3">
-              {job.job_type_name && job.job_type_name.map((type, index) => (
-                <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs flex items-center gap-1">
-                  <BsClock className="w-3 h-3" />
-                  {type}
-                </span>
-              ))}
-            </div>
-            <div className="flex items-center space-x-2 mb-3">
-              <BsBuilding className="text-gray-600 flex-shrink-0" />
-              <p className="text-gray-600 font-medium text-sm line-clamp-1">
-                {job.company_name || "Company Name"}
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2 mb-3">
-              {job.job_category_name && job.job_category_name.map((category, index) => (
-                <span key={index} className="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs flex items-center gap-1">
-                  <BsBriefcase className="w-3 h-3" />
-                  {category}
-                </span>
-              ))}
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center text-gray-500 text-sm">
-                <BsGeoAlt className="text-gray-600 flex-shrink-0 mr-2" />
-                <span className="line-clamp-1">
-                  {job.location || job.complete_address || job.city || "Location N/A"}{" "}
-                  {job.country && `, ${job.country}`}
-                </span>
-              </div>
-              <div className="flex items-center text-gray-500 text-sm">
-                <FiCalendar className="text-gray-600 flex-shrink-0 mr-2" />
-                <span>Posted {formatDate(job.created_at)}</span>
-              </div>
-              {job.experience_level_min_name && (
-                <div className="flex items-center text-gray-500 text-sm">
-                  <FiAward className="text-gray-600 flex-shrink-0 mr-2" />
-                  <span>Experience: {job.experience_level_min_name}</span>
-                </div>
-              )}
-            </div>
-          </Link>
-        </div>
-        <div className="flex items-center justify-end mt-4 pt-3 border-t">
-          <Link 
-            to={`/job-single-v3/${job.id}`}
-            className="flex items-center gap-2 text-gray-400 hover:text-blue-600 transition-colors p-2 text-sm"
-          >
-            <FiEye className="w-5 h-5" />
-            <span>View Details</span>
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
+
+ 
 
   return (
     <div className="bg-gray-50 min-h-screen py-4 sm:py-8 px-3 sm:px-4">
-      <Toaster />
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
@@ -162,9 +92,11 @@ const JobListingsTable = () => {
             <p className="text-sm sm:text-base">Explore and apply to jobs you're interested in.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
             {savedJobs.map((job) => (
-              <JobCard key={job.id} job={job} />
+              <JobCard key={job.id} job={job}
+               showSaveButton={false}
+              />
             ))}
           </div>
         )}

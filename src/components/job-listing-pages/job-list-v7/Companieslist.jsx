@@ -6,7 +6,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Constant } from "@/utils/constant/constant";
 import { useParams } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import toast from "react-hot-toast";
 import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import FooterDefault from "@/components/footer/common-footer";
 import FullPageLoader from "@/components/loader/FullPageLoader";
@@ -42,6 +42,7 @@ const Companieslist = () => {
         );
         setJobCount(response.data.data.length);
         setJobs(response.data.data);
+        
       } catch (error) {
         setError("Failed to fetch jobs");
         setLoading(false);
@@ -61,11 +62,12 @@ const Companieslist = () => {
 
   // Filter jobs based on search term (case-insensitive)
   const filteredJobs = jobs.filter((job) =>
+
     job.company_name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
   const handleFollowCompany = async (e, company) => {
     e.preventDefault();
-
+    
     if (!token) {
       setShowLoginModal(true);
       return;
@@ -77,7 +79,7 @@ const Companieslist = () => {
       const response = await axios.post(
         `https://api.sentryspot.co.uk/api/jobseeker/company-favorite`,
         {
-          company_id: company.company_id,
+          company_id: company.id,
         },
         {
           headers: {
@@ -98,15 +100,13 @@ const Companieslist = () => {
         }));
 
         // Optional jobData update
-        setJobData((prevData) => ({
-          ...prevData,
-          company_favorite_id: !isCurrentlyFollowing
-            ? response.data.data?.company_favorite_id || 1
-            : 0,
-        }));
-      } else {
-        toast.error("Failed to follow company. Please try again.");
-      }
+        // setJobData((prevData) => ({
+        //   ...prevData,
+        //   company_favorite_id: !isCurrentlyFollowing
+        //     ? response.data.data?.company_favorite_id || 1
+        //     : 0,
+        // }));
+      } 
     } catch (error) {
       toast.error(
         "An error occurred while following the company. Please try again."
@@ -235,7 +235,7 @@ const Companieslist = () => {
             <CompanyCard
               key={job.id}
               company={job}
-              isFollowing={isFollowingMap[job.id] || false}
+              isFollowing={isFollowingMap[job.id] || job.is_favorite_company}
               onFollow={(e) => handleFollowCompany(e, job)}
             />
           ))}
