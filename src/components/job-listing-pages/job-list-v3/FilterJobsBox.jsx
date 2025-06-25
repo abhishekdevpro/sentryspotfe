@@ -66,14 +66,19 @@ const FilterJobsBox = () => {
         urlParams.set("filter_by", "date");
         urlParams.set("order_by", sort === "asc" ? "desc" : "asc");
       }
-
-      const baseUrl =
+  
+      const baseUrl = token ? "https://api.sentryspot.co.uk/api/jobseeker/job-list":
         "https://api.sentryspot.co.uk/api/jobseeker/public/job-list";
+        
       const apiUrl = `${baseUrl}${
         urlParams.toString() ? `?${urlParams.toString()}` : ""
       }`;
 
-      const response = await fetch(apiUrl);
+      const response = await fetch(apiUrl,{
+        headers:{
+          Authorization : token? token : ""
+        }
+      });
       const data = await response.json();
 
       if (data.error) {

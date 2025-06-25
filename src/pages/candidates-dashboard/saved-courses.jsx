@@ -42,7 +42,7 @@ const SavedCourses = () => {
     try {
       const token = localStorage.getItem(Constant.USER_TOKEN);
       const response = await axios.get(
-        `https://api.sentryspot.co.uk/api/jobseeker/get-all-courses?is_favorite`,
+        `https://api.sentryspot.co.uk/api/jobseeker/get-all-courses?is_favorite=1`,
         {
           headers: {
             Authorization: `${token}`,

@@ -145,8 +145,8 @@ const ContactInfoBox = ({ onNext }) => {
     <form className="default-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="row">
         {/* Resume Upload */}
-        <div className="form-group flex gap-10 col-lg-12 col-md-12 mb-5">
-          <label className="w-1/4">Attach Resume</label>
+        <div className="form-group flex flex-col gap-2 col-lg-12 col-md-12 mb-5">
+          <label className="">Attach Resume</label>
           <div className="w-full">
             <input
               type="file"
@@ -172,7 +172,7 @@ const ContactInfoBox = ({ onNext }) => {
         </div>
 
         {/* Video Upload */}
-        <div className="form-group flex gap-10 col-lg-12 col-md-12 my-5">
+        <div className="form-group flex flex-col gap-2 col-lg-12 col-md-12 my-5">
           <label className="w-1/4">Upload Video Profile</label>
           <div className="w-full">
             <input
@@ -236,8 +236,8 @@ const ContactInfoBox = ({ onNext }) => {
         )}
 
         {/* Cover Letter */}
-        <div className="form-group flex gap-10 col-lg-12 col-md-12 mt-5">
-          <label className="w-1/4">Cover Letter</label>
+        <div className="form-group flex flex-col gap-2 col-lg-12 col-md-12 mt-5">
+          <label className="w-full">Cover Letter</label>
           <div className="flex-col col-lg-10 w-full">
             <textarea
               className="border h-60 w-full rounded-lg p-2"

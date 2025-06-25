@@ -521,7 +521,7 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
             Cover Letter
           </h3>
           <div className="space-y-3">
-            {["upload", "write", "none"].map((option) => (
+            {["upload", "none"].map((option) => (
               <label
                 key={option}
                 className="flex items-center space-x-3 cursor-pointer"
