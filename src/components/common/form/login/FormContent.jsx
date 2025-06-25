@@ -199,7 +199,7 @@ const FormContent = () => {
 
       if (response.status === 200) {
         console.log("Google sign-in token: ", response.data.data);
-        window.open(response.data.data);
+        window.location.href = response.data.data;
       } else {
         toast.error("Google sign-in failed.");
       }
