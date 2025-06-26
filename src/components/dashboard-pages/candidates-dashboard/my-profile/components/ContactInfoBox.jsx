@@ -248,6 +248,7 @@ const ContactInfoBox = ({ onNext }) => {
               placeholder="Enter your cover letter"
               {...register("cover_letter", { required: "Cover letter is required" })}
               style={{ overflowY: 'auto', maxHeight: '200px' }}
+               maxLength={500}
             />
             {errors.cover_letter && (
               <p className="text-red-500">{errors.cover_letter.message}</p>
