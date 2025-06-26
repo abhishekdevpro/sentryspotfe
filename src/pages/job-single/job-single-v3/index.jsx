@@ -101,13 +101,14 @@ const JobSingleDynamicV3 = () => {
         toast.success(
           response.data.message || "Company followed successfully!"
         );
-        setIsFollowing(!isFollowing);
+        setIsFollowing((prev) => !prev);
         // Update jobData with new company_favorite_id
         setJobData((prevData) => ({
           ...prevData,
-          company_favorite_id: isFollowing
-            ? 0
-            : response.data.data?.company_favorite_id || 1,
+          is_company_favorite: !prevData.is_company_favorite,
+          company_favorite_id: !prevData.is_company_favorite
+            ? response.data.data?.company_favorite_id || 1
+            : 0,
         }));
       } else {
         toast.error("Failed to follow company. Please try again.");
@@ -127,12 +128,16 @@ const JobSingleDynamicV3 = () => {
         const token = localStorage.getItem(Constant.USER_TOKEN);
 
         // Always use public API for job details
-        const apiUrl = token ? `https://api.sentryspot.co.uk/api/jobseeker/job-list/${id}` :`https://api.sentryspot.co.uk/api/jobseeker/public/job-list/${id}`;
+        const apiUrl = token
+          ? `https://api.sentryspot.co.uk/api/jobseeker/job-list/${id}`
+          : `https://api.sentryspot.co.uk/api/jobseeker/public/job-list/${id}`;
 
         // Fetch job details
-        const jobResponse = await axios.get(apiUrl,{headers:{
-          Authorization: token ? ` ${token}` : "",
-        }});
+        const jobResponse = await axios.get(apiUrl, {
+          headers: {
+            Authorization: token ? ` ${token}` : "",
+          },
+        });
         const jobData = jobResponse.data.data;
         setJobData(jobData);
         // Set initial following state based on company_favorite_id
@@ -243,16 +248,15 @@ const JobSingleDynamicV3 = () => {
                 {jobData?.job_title || "Job Title Not Available"}
               </h2>
               <div className="text-gray-700 font-medium mb-2 flex items-center gap-2">
-                
-               <div>
-                 <i className="flaticon-building tex-blue-900" />
-                {company?.company_name || "Company Not Available"}
-               </div>
+                <div>
+                  <i className="flaticon-building tex-blue-900" />
+                  {company?.company_name || "Company Not Available"}
+                </div>
                 {"|"}
-               <div>
-                 <i className="flaticon-folder tex-blue-900" />
-                 {jobData?.job_category_name || "Category Not Available"}
-               </div>
+                <div>
+                  <i className="flaticon-folder tex-blue-900" />
+                  {jobData?.job_category_name || "Category Not Available"}
+                </div>
               </div>
               <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 text-sm">
                 <span className="flex items-center gap-2 text-gray-600">
@@ -314,7 +318,9 @@ const JobSingleDynamicV3 = () => {
                 onClick={handleFollowCompany}
               >
                 <i className="flaticon-user text-lg" />
-                <span>{jobData.is_company_favorite ? "Following" : "Follow"}</span>
+                <span>
+                  {jobData.is_company_favorite ? "Following" : "Follow"}
+                </span>
               </button>
 
               {/* Share Button */}
@@ -474,8 +480,9 @@ const JobSingleDynamicV3 = () => {
               </div>
               {/* Tab Content */}
               {activeTab === "description" && (
-                <div className="max-h-[70vh] min-h-[400px] overflow-y-auto pr-2"
-                 style={{ scrollbarWidth: "none",scrollBehavior: "smooth" }}
+                <div
+                  className="max-h-[70vh] min-h-[400px] overflow-y-auto pr-2"
+                  style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}
                 >
                   <h4 className="font-semibold mb-3 sm:mb-4 text-gray-800">
                     Job Description
@@ -523,8 +530,11 @@ const JobSingleDynamicV3 = () => {
                       )}
                     </div>
                     <button
-                     onClick={()=>navigate(`/showcase-company/${jobData.company_id}`)}
-                    className="ml-auto bg-black text-white px-4 py-1.5 rounded-lg hover:bg-gray-800 text-sm">
+                      onClick={() =>
+                        navigate(`/showcase-company/${jobData.company_id}`)
+                      }
+                      className="ml-auto bg-black text-white px-4 py-1.5 rounded-lg hover:bg-gray-800 text-sm"
+                    >
                       Explore More
                     </button>
                   </div>

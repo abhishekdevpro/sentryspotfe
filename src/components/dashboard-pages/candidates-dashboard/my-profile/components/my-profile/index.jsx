@@ -331,6 +331,7 @@ const JobSeekerForm = ({ onNext }) => {
             type="text"
             {...register("first_name", { required: "First name is required" })}
             className="border font-light rounded-none mb-4 w-full p-2"
+            maxLength={50}
           />
           {errors.first_name && (
             <p className="text-red-500 text-sm">{errors.first_name.message}</p>
@@ -343,6 +344,7 @@ const JobSeekerForm = ({ onNext }) => {
             type="text"
             {...register("last_name", { required: "Last name is required" })}
             className="border rounded-none font-light w-full p-2"
+             maxLength={50}
           />
           {errors.last_name && (
             <p className="text-red-500 text-sm">{errors.last_name.message}</p>

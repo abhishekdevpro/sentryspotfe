@@ -145,6 +145,7 @@ console.log(educationalDetails,"fetchEducations");
                   {...register(`educations.${index}.institute_name`, { required: "Institution name is required" })}
                   placeholder="Enter institute name"
                   className="form-control"
+                   maxLength={200}
                 />
                 {errors.educations?.[index]?.institute_name && (
                   <span className="text-red-500 text-sm">{errors.educations[index].institute_name.message}</span>
