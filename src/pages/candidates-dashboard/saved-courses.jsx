@@ -32,7 +32,7 @@ const SavedCourses = () => {
     handleEnrollCourse,
     savingCourseId,
     enrollingCourseId,
-  } = useCourseActions({setCourses:setSavedCourses });
+  } = useCourseActions({setCourses: setSavedCourses });
 
   useEffect(() => {
     fetchSavedCourses();

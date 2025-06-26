@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Constant } from "@/utils/constant/constant";
 import axios from "axios";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 
 const WorkExperienceForm = ({ onNext }) => {
@@ -76,15 +76,18 @@ const WorkExperienceForm = ({ onNext }) => {
         description: experience.description
       }));
 
-      await axios.put(`${baseurl}user-profile-professional`, newExp, {
+      const response = await axios.put(`${baseurl}user-profile-professional`, newExp, {
         headers: {
           Authorization: token,
           "Content-Type": "application/json",
         },
       });
-      
-      toast.success("Work experience details saved successfully!");
-      onNext();
+      console.log(response,"Work exp")
+      if(response.data.status === "success" || response.data.code ===200){
+         toast.success( response?.data?.message || "Work experience details saved successfully!");
+         onNext();
+      }
+
     } catch (error) {
       toast.error("Failed to save work experience details.");
       console.error("API error:", error);
@@ -116,6 +119,7 @@ const WorkExperienceForm = ({ onNext }) => {
                   {...register(`experiences.${index}.job_title`, { required: "Job title is required" })}
                   placeholder="Enter job title"
                   className="form-control"
+                  maxLength={100}
                 />
                 {errors.experiences?.[index]?.job_title && (
                   <span className="text-red-500 text-sm">{errors.experiences[index].job_title.message}</span>
@@ -129,10 +133,12 @@ const WorkExperienceForm = ({ onNext }) => {
                   {...register(`experiences.${index}.organization`, { required: "Organization name is required" })}
                   placeholder="Enter organization name"
                   className="form-control"
+                  maxLength={100}
                 />
                 {errors.experiences?.[index]?.organization && (
                   <span className="text-red-500 text-sm">{errors.experiences[index].organization.message}</span>
                 )}
+                
               </div>
 
               <div className="form-group col-lg-6 col-md-12">
@@ -197,6 +203,7 @@ const WorkExperienceForm = ({ onNext }) => {
                   className="form-control"
                   rows="4"
                   style={{ overflowY: 'auto', maxHeight: '200px' }}
+                  maxLength={500}
                 ></textarea>
                 {errors.experiences?.[index]?.description && (
                   <span className="text-red-500 text-sm">{errors.experiences[index].description.message}</span>

@@ -64,7 +64,7 @@ const useJobActions = ({ setFilteredJobs }) => {
             job.id === jobId
               ? { ...job, is_favorite: !job.is_favorite }
               : job
-          )
+          ).filter(job => job.is_favorite)
         );
       } else {
         toast.error("Failed to save the job.");
