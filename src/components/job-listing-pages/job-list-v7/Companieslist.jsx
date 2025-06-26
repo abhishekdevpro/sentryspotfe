@@ -164,7 +164,7 @@ const Companieslist = () => {
       </style>
       <DefaulHeader2 />
       {/* Tabs */}
-      <div className="max-w-7xl mx-auto px-4 pt-8">
+      {/* <div className="max-w-7xl mx-auto px-4 pt-8">
         <div className="flex space-x-10 border-b border-gray-200">
           <button className="pb-3 border-b-4 border-[#f43f5e] text-[#f43f5e] font-semibold text-lg">
             Trending
@@ -176,7 +176,7 @@ const Companieslist = () => {
             Industry
           </button>
         </div>
-      </div>
+      </div> */}
       {/* Search Bar and Sort */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 py-8">
         <div className="w-full md:w-3/4 flex">

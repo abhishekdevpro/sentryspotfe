@@ -193,12 +193,13 @@ const CommentSection = ({
                     <p className="text-gray-700 text-sm">{comment.content}</p>
                   </div>
                   <div className="relative">
-                    <button
+                    {comment.is_edit && <button
                       onClick={() => toggleDropdown(comment.id)}
                       className="p-2 text-gray-600 hover:text-gray-800 transition-colors"
                     >
                       <FaEllipsisV />
                     </button>
+                    }
 
                     {openDropdownId === comment.id && (
                       <div className="absolute right-0 mt-2 w-32 bg-white border rounded shadow-lg z-10">

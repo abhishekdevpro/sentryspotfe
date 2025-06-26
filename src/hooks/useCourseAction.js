@@ -101,7 +101,7 @@ const useCourseActions = ({ setCourses }) => {
 
   const handleSaveCourse = async (courseId, e) => {
     // e?.stopPropagation(); // Add this to prevent navigation when clicking heart
-    
+    console.log(courseId,"cID");
     try {
       setSavingCourseId(courseId);
       
@@ -125,14 +125,14 @@ const useCourseActions = ({ setCourses }) => {
             course.id === courseId
               ? { 
                   ...course, 
-                  // Toggle the favorite state only after successful API call
                   is_course_favorite: !course.is_course_favorite 
                 }
               : course
-          )
+          ).filter(course => course.is_course_favorite)
         );
         toast.success(response.data.message);
       } 
+
     } catch (err) {
       console.error('Failed to save course:', err);
       
@@ -164,9 +164,10 @@ const useCourseActions = ({ setCourses }) => {
           },
         }
       );
-
+console.log(courseId,"courseId")
       if (response.data?.status === 'success') {
         setCourses((prevCourses) =>
+          
           prevCourses.map((course) =>
             course.id === courseId
               ? {
@@ -178,7 +179,8 @@ const useCourseActions = ({ setCourses }) => {
           )
         );
         toast.success(response.data.message || 'Enrolled successfully!');
-      } else {
+      }
+       else {
         toast.error(response.data.message || 'Enrollment failed.');
       }
     } catch (err) {

@@ -12,12 +12,19 @@ const candidateMenus = [
     routePath: "/candidates-dashboard/dashboard",
     active: "active",
   },
- 
+  {
+    id: 1,
+    name: "My Profile",
+    icon: "la-user",
+    routePath: "/candidates-dashboard/my-profile",
+    active: "active",
+  },
+
   {
     id: 3,
     name: "AI Resume Builder",
     icon: "la la-robot",
-    routePath: `https://sentryspot-ai-resume-dev.vercel.app?${token}`,
+    routePath: `https://airesume.sentryspot.co.uk?${token}`,
     // routePath: `http://localhost:3000/?${token}`,
     active: "",
   },
