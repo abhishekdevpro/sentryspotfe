@@ -123,11 +123,7 @@ const CompaniesTable = () => {
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
             <p className="mt-4 text-gray-500 text-sm sm:text-base">Loading companies...</p>
           </div>
-        ) : error ? (
-          <div className="text-center py-16 text-red-600 text-base sm:text-lg">
-            {error}
-          </div>
-        ) : companies.length === 0 ? (
+        ): companies &&companies.length === 0 ? (
           <div className="text-center py-12 sm:py-16 text-gray-500">
             <BsBriefcase className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-gray-400 mb-4" />
             <p className="text-lg sm:text-xl mb-2">No Favorite Companies</p>
@@ -135,7 +131,7 @@ const CompaniesTable = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {companies.map((company) => (
+            {companies?.map((company) => (
               <CompanyCard
                 key={company.id}
                 company={company}

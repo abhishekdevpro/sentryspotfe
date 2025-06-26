@@ -199,11 +199,7 @@ const JobAlertsTable = () => {
               Loading saved jobs...
             </p>
           </div>
-        ) : error ? (
-          <div className="text-center py-16 text-red-600 text-base sm:text-lg">
-            {error}
-          </div>
-        ) : savedJobs.length === 0 ? (
+        ): savedJobs.length === 0 ? (
           <div className="text-center py-12 sm:py-16 text-gray-500">
             <BsBriefcase className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-gray-400 mb-4" />
             <p className="text-lg sm:text-xl mb-2">No Saved Jobs</p>
