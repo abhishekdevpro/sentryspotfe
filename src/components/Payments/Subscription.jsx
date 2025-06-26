@@ -242,7 +242,7 @@ export default function Subscription() {
               </Text>
               <Text style={{ marginTop: "0.5rem" }}>Contact us at:</Text>
               <List>
-                <ListItem small>📧 customersupport@novajobs.us</ListItem>
+                <ListItem small>📧 customersupport@sentryspot.co.uk</ListItem>
               </List>
             </InfoSection>
 
@@ -306,9 +306,9 @@ export default function Subscription() {
 
             <Text style={{ marginTop: "1rem" }}>
               For more information or changes to your subscription, contact us at
-              <Link href="mailto:customersupport@novajobs.us">
+              <Link href="mailto:customersupport@sentryspot.co.uk">
                 {" "}
-                customersupport@novajobs.us
+                customersupport@sentryspot.co.uk
               </Link>
               .
             </Text>

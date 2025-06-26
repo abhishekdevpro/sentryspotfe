@@ -232,10 +232,10 @@ export default function PaymentPlans() {
               <p className="text-sm text-gray-500">
                 You may cancel via email at{" "}
                 <a 
-                  href="mailto:customersupport@novajobs.us"
+                  href="mailto:customersupport@sentryspot.co.uk"
                   className="text-blue-600 hover:underline"
                 >
-                  customersupport@novajobs.us
+                  customersupport@sentryspot.co.uk
                 </a>
               </p>
               <div className="flex items-center justify-center space-x-4 pt-4">
