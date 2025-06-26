@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Constant } from "@/utils/constant/constant";
+import toast from "react-hot-toast";
 
 const ContactInfoBox = ({ onNext }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -78,7 +79,7 @@ const ContactInfoBox = ({ onNext }) => {
       }
 
       // Send the PUT request
-      await axios.put(
+      const response = await axios.put(
         "https://api.sentryspot.co.uk/api/jobseeker/user-profile-resume",
         formData,
         {
@@ -94,12 +95,15 @@ const ContactInfoBox = ({ onNext }) => {
           },
         }
       );
-      
+      if(response.data.status === "success" || response.data.code === 200){
+        toast.success(response.data.message || "Profile updated successfully!");
+        onNext();
+      }
       // If successful, proceed to next step
-      onNext();
+      
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Failed to upload. Please try again.");
+      toast.error(error?.response?.data?.message ||"Failed to upload. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

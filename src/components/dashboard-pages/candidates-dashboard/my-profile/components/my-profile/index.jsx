@@ -3,7 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import axios from "axios";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { Constant } from "@/utils/constant/constant";
 import ImageUpload from "./ImageUpload";
 import LocationSelector from "./LocationSelector";

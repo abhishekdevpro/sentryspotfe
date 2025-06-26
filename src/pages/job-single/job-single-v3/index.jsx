@@ -307,14 +307,14 @@ const JobSingleDynamicV3 = () => {
               {/* Follow Company Button */}
               <button
                 className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm font-medium shadow-sm transition ${
-                  isFollowing
+                  jobData.is_company_favorite
                     ? "bg-green-500 hover:bg-green-600"
                     : "bg-blue-500 hover:bg-blue-600"
                 }`}
                 onClick={handleFollowCompany}
               >
                 <i className="flaticon-user text-lg" />
-                <span>{isFollowing ? "Following" : "Follow"}</span>
+                <span>{jobData.is_company_favorite ? "Following" : "Follow"}</span>
               </button>
 
               {/* Share Button */}

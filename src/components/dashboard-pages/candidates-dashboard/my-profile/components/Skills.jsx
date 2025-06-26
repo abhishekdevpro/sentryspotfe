@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Constant } from "@/utils/constant/constant";
 import { Loader2 } from 'lucide-react';
+import toast, { ToastBar } from 'react-hot-toast';
 
 const Skills = ({ onNext }) => {
   const [skills, setSkills] = useState([]);
@@ -138,13 +139,15 @@ const Skills = ({ onNext }) => {
         }
       );
       
-      if (response.data.status === 'success') {
+      if (response.data.status === 'success' || response.data.code === 200) {
+        toast.success(response.data.message || "profile updated successfully")
         onNext();
       } else {
         setError(response.data.message || "Failed to save skills");
       }
     } catch (error) {
       console.error("Error submitting skills:", error);
+      toast.error(error.response?.data?.message || "Failed to save skills. Please try again.")
       setError(error.response?.data?.message || "Failed to save skills. Please try again.");
     } finally {
       setLoading(false);

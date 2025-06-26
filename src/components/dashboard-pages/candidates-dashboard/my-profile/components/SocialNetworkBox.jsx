@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Constant } from "@/utils/constant/constant";
 import axios from "axios";
-import { toast } from "react-toastify";
+
 import { useForm, useFieldArray, Controller } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const EducationForm = ({ onNext }) => {
   const token = localStorage.getItem(Constant.USER_TOKEN);

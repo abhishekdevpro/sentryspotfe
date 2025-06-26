@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Constant } from "@/utils/constant/constant";
 import { Trash, X } from "lucide-react";
+import toast from "react-hot-toast";
 // import LanguageSelector from "../LanguageSelector";
 
 const Additionalinformation = () => {
@@ -126,12 +127,12 @@ const Additionalinformation = () => {
         }
       );
 
-      if (response.data.code === 200) {
-        alert("Additional information saved successfully!");
+      if (response.data.code === 200 || response.data.status === "success") {
+        toast.success( response.data.message ||"Additional information saved successfully!");
       }
     } catch (error) {
       console.error("Error submitting additional details:", error);
-      alert("Failed to save additional information. Please try again.");
+      toast.error( error?.response?.data?.message || "Failed to save additional information. Please try again.");
     } finally {
       setLoading(false);
     }
