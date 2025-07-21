@@ -1,75 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import { X, Camera } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { X, Camera } from "lucide-react";
 
 const ImageUpload = ({ profileData, setValue, register }) => {
-  const [previewImage, setPreviewImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(profileData?.photo || null);
   const [imageError, setImageError] = useState(false);
-  
+
   useEffect(() => {
     // Register the photo_upload field with react-hook-form
-    register('photo_upload');
-    
+    register("photo_upload");
+
     // Set initial value if profileData has a photo
     if (profileData?.photo) {
       try {
-        console.log('Setting initial image URL:', profileData.photo);
+        console.log("Setting initial image URL:", profileData.photo);
         setPreviewImage(profileData.photo);
-        setValue('photo_upload', null); // Start with null as we don't need to re-upload existing photos
+        setValue("photo_upload", null); // Start with null as we don't need to re-upload existing photos
         setImageError(false);
       } catch (error) {
-        console.error('Error setting initial image:', error);
+        console.error("Error setting initial image:", error);
         setImageError(true);
       }
     }
   }, [register, setValue, profileData]);
-  
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       // Validate file type
-      if (!file.type.startsWith('image/')) {
-        alert('Please upload an image file');
+      if (!file.type.startsWith("image/")) {
+        alert("Please upload an image file");
         return;
       }
-      
+
       // Validate file size (limit to 5MB)
       if (file.size > 5 * 1024 * 1024) {
-        alert('Image size should be less than 5MB');
+        alert("Image size should be less than 5MB");
         return;
       }
-      
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result);
-        setValue('photo_upload', file);
+        setValue("photo_upload", file);
         setImageError(false);
       };
       reader.readAsDataURL(file);
     }
   };
-  
+
   const handleRemoveImage = (e) => {
     e.preventDefault();
     setPreviewImage(null);
-    setValue('photo_upload', null);
+    setValue("photo_upload", null);
     setImageError(false);
   };
 
   const handleImageError = (e) => {
-    console.error('Image failed to load:', previewImage);
+    console.error("Image failed to load:", previewImage);
     setImageError(true);
     e.target.onerror = null;
     // Use a base64 encoded SVG as fallback
-    e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgZmlsbD0iI2YzZjRmNiIvPjx0ZXh0IHg9Ijc1IiB5PSI3NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjNjY2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+UHJvZmlsZSBJbWFnZTwvdGV4dD48L3N2Zz4=';
+    e.target.src =
+      "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgZmlsbD0iI2YzZjRmNiIvPjx0ZXh0IHg9Ijc1IiB5PSI3NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjNjY2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+UHJvZmlsZSBJbWFnZTwvdGV4dD48L3N2Zz4=";
   };
 
   // Debug logs
   useEffect(() => {
-    console.log('Profile Data in ImageUpload:', profileData);
-    console.log('Preview Image:', previewImage);
-    console.log('Image Error:', imageError);
+    console.log("Profile Data in ImageUpload:", profileData);
+    console.log("Preview Image:", previewImage);
+    console.log("Image Error:", imageError);
   }, [profileData, previewImage, imageError]);
-  
+  console.log("ImageUpload component rendered", profileData);
   return (
     <div className="form-group col-lg-6 col-md-12 flex justify-center">
       <div className="flex flex-col items-center w-full max-w-sm p-4">
@@ -89,7 +90,12 @@ const ImageUpload = ({ profileData, setValue, register }) => {
             >
               {previewImage ? (
                 <img
-                  src={previewImage}
+                  src={
+                    previewImage?.startsWith("http") ||
+                    previewImage?.startsWith("data:image")
+                      ? previewImage
+                      : `https://api.sentryspot.co.uk${previewImage}`
+                  }
                   alt="Profile Preview"
                   className="w-full h-full object-cover"
                   onError={handleImageError}
@@ -99,11 +105,11 @@ const ImageUpload = ({ profileData, setValue, register }) => {
               )}
             </label>
           </div>
-          
+
           {previewImage && (
             <button
               onClick={handleRemoveImage}
-              type="button" 
+              type="button"
               className="absolute -top-2 -right-2 bg-red-500 rounded-full p-1 hover:bg-red-600 transition-colors"
               aria-label="Remove image"
             >
@@ -111,12 +117,12 @@ const ImageUpload = ({ profileData, setValue, register }) => {
             </button>
           )}
         </div>
-        {console.log(previewImage,"PIIII")}
+        {console.log(previewImage, "PIIII")}
         <label
           htmlFor="imageUpload"
           className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer text-sm font-medium"
         >
-          {previewImage ? 'Change Picture' : 'Add Picture'}
+          {previewImage ? "Change Picture" : "Add Picture"}
         </label>
       </div>
     </div>

@@ -19,6 +19,13 @@ const candidateMenus = [
     routePath: "/candidates-dashboard/my-profile",
     active: "active",
   },
+  {
+    id: 1,
+    name: "upload Documents",
+    icon: "la-file-upload",
+    routePath: "/candidates-dashboard/upload-documents",
+    active: "active",
+  },
 
   {
     id: 3,
@@ -62,6 +69,13 @@ const candidateMenus = [
     name: "AI Skill Test",
     icon: "la-box",
     routePath: "/candidates-dashboard/skilllistpage",
+    active: "",
+  },
+   {
+    id: 9,
+    name: "Add Referral",
+     icon: "la-user-plus",
+    routePath: "/candidates-dashboard/add-referral",
     active: "",
   },
   {

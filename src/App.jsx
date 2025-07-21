@@ -164,7 +164,9 @@ import CheckoutPage from "./pages/candidates-dashboard/checkout";
 import ProtectedRoute from '@/components/common/ProtectedRoute';
 import SavedCourses from "./pages/candidates-dashboard/saved-courses";
 import CoursesPage from "./pages/courses";
-
+import UserForm from "./components/pages-menu/login/CompleteProfile";
+import UploadDocuments from "./components/dashboard-pages/candidates-dashboard/upload-documents/index.jsx";
+import AddReferral from "./components/dashboard-pages/candidates-dashboard/add-jobs-referral";
 function App() {
   useEffect(() => {
     Aos.init({
@@ -213,6 +215,7 @@ function App() {
 
                   <Route path="gauth" element={<Gauth />} />
                   <Route path="/login/login-code" element={<LoginCode />} />
+                  <Route path="/complete-profile" element={<UserForm />} />
                   {/* <Route path="job-list-v8" element={<JobListPage8 />} />
                 <Route path="job-list-v9" element={<JobListPage9 />} />
                 <Route path="job-list-v10" element={<JobListPage10 />} />
@@ -352,7 +355,7 @@ function App() {
                   <Route path="register" element={<RegisterPage />} />
                   <Route path="404" element={<NotFoundPage />} />
                   <Route path="*" element={<NotFoundPage />} />
-
+                  
                   <Route path="admin-dashboard">
                     <Route
                       path="dashboard"
@@ -415,6 +418,8 @@ function App() {
                       <Route path="saved-companies" element={<SavedCompanies />} />
                       <Route path="messages" element={<MessageesPage />} />
                       <Route path="my-profile" element={<MyProfilePage />} />
+                      <Route path="upload-documents" element={<UploadDocuments />} />
+                      <Route path="add-referral" element={<AddReferral />} />
                       <Route path="settings" element={<SettingsPage />} />
                       <Route path="my-resume" element={<MyResumePage />} />
                       <Route path="packages" element={<PackagePage />} />

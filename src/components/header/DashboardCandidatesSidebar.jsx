@@ -31,8 +31,8 @@ const DashboardCandidatesSidebar = () => {
   };
 
   // const user = JSON.parse(localStorage.getItem(Constant.USER_INFO));
-  console.log(userInfo, "userInfo");
-  const userId = userInfo?.id;
+  console.log(userInfo, "userInfo from side bar");
+  const userId = userInfo?.data?.id;
   console.log(userId, "userId");
   if (userId) {
     localStorage.setItem('USER_ID', userId);
@@ -57,9 +57,9 @@ const DashboardCandidatesSidebar = () => {
             <div className="flex-1  w-auto">
               <img
                 src={
-                  userInfo?.photo
-                    ? `https://api.sentryspot.co.uk${userInfo.photo}`
-                    : "https://ui-avatars.com/api/?name=" + (userInfo?.first_name || "User") + "&background=random"
+                  userInfo.data?.photo
+                    ? `https://api.sentryspot.co.uk${userInfo.data?.photo}`
+                    : "https://ui-avatars.com/api/?name=" + (userInfo.data?.first_name || "User") + "&background=random"
                 }
                 alt="User Avatar"
                 className="rounded-full w-auto h-20 object-cover"
@@ -70,8 +70,8 @@ const DashboardCandidatesSidebar = () => {
               />
             </div>
             <div className="text-white flex-1 flex-col">
-              <p className="text-white">{userInfo?.first_name || "Anonymous"}</p>
-              <p className="text-white">{userInfo?.profile || "Profile"}</p>
+              <p className="text-white">{userInfo.data?.first_name || "Anonymous"}</p>
+              <p className="text-white">{userInfo.data?.profile || "Profile"}</p>
               <Link to={'/public-view'} className="text-white underline">view </Link>
             </div>
           </div>
