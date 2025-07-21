@@ -54,15 +54,21 @@ const LoginCode = () => {
     try {
       // Use the Redux action instead of direct API call
       const result = await dispatch(loginWithOtp({ email, otp })).unwrap();
-      
+
       if (result?.data?.token) {
         // Store token in localStorage
         localStorage.setItem(Constant.USER_TOKEN, result.data.token);
         // Store user info in localStorage
         localStorage.setItem("userInfo", JSON.stringify(result.data));
-        
-        toast.success("Login successful!");
-        navigate("/candidates-dashboard/my-profile");
+        console.log("Login successful:", result.data);
+
+        if(!result.data.first_name || !result.data.last_name || !result.data.email) {
+          toast.success("Please complete your profile.");
+          navigate("/complete-profile");
+        } else {
+          toast.success("Login successful!");
+          navigate("/candidates-dashboard/my-profile");
+        }
       } else {
         toast.error("Invalid response from server. Token not found.");
       }
@@ -83,9 +89,12 @@ const LoginCode = () => {
 
     try {
       setLoading(true);
-      const response = await axiosInstance.post("/jobseeker/auth/send-loginotp", {
-        email,
-      });
+      const response = await axiosInstance.post(
+        "/jobseeker/auth/send-loginotp",
+        {
+          email,
+        }
+      );
 
       if (response.status === 200) {
         toast.success("New OTP sent to your email.");

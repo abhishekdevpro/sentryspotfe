@@ -1,12 +1,11 @@
-
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import { Controller } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import { Constant } from '@/utils/constant/constant';
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import { Controller } from "react-hook-form";
+import { toast } from "react-toastify";
+import { Constant } from "@/utils/constant/constant";
 
 const PreferredLocations = ({ control, setValue, errors, profileData }) => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,14 +19,14 @@ const PreferredLocations = ({ control, setValue, errors, profileData }) => {
     if (profileData?.preferred_location?.length) {
       const initialLocations = Array.isArray(profileData.preferred_location)
         ? profileData.preferred_location
-        : profileData.preferred_location.split(',').map(loc => loc.trim());
+        : profileData.preferred_location.split(",").map((loc) => loc.trim());
       setSelectedLocations(initialLocations);
     }
   }, [profileData]);
 
   // ✅ Keep form value in sync
   useEffect(() => {
-    setValue('preferred_location', selectedLocations);
+    setValue("preferred_location", selectedLocations);
   }, [selectedLocations, setValue]);
 
   // Handle outside click to close dropdown
@@ -42,8 +41,8 @@ const PreferredLocations = ({ control, setValue, errors, profileData }) => {
         setShowSuggestions(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Fetch suggestions
@@ -57,7 +56,9 @@ const PreferredLocations = ({ control, setValue, errors, profileData }) => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          `https://api.sentryspot.co.uk/api/jobseeker/locations?locations=${encodeURIComponent(query)}`,
+          `https://api.sentryspot.co.uk/api/jobseeker/locations?locations=${encodeURIComponent(
+            query
+          )}`,
           {
             headers: { Authorization: token },
           }
@@ -69,8 +70,8 @@ const PreferredLocations = ({ control, setValue, errors, profileData }) => {
 
         setSuggestions(filtered);
       } catch (error) {
-        console.error('Error fetching location suggestions:', error);
-        toast.error('Failed to load location suggestions');
+        console.error("Error fetching location suggestions:", error);
+        toast.error("Failed to load location suggestions");
         setSuggestions([]);
       } finally {
         setIsLoading(false);
@@ -87,17 +88,34 @@ const PreferredLocations = ({ control, setValue, errors, profileData }) => {
 
   const handleSelectLocation = (location) => {
     setSelectedLocations((prev) => [...prev, location]);
-    setQuery('');
+    setQuery("");
     setSuggestions([]);
   };
 
   const handleRemoveLocation = (locationToRemove) => {
-    setSelectedLocations((prev) => prev.filter((loc) => loc !== locationToRemove));
+    setSelectedLocations((prev) =>
+      prev.filter((loc) => loc !== locationToRemove)
+    );
   };
-console.log(selectedLocations,"selectedLocations");
+  // console.log(profileData,selectedLocations, "selectedLocations");
   return (
     <div className="form-group col-lg-8 col-md-12 font-light">
-      <label className="block mb-1 text-gray-700 font-semibold">Preferred Locations</label>
+      <label className="block mb-1 text-gray-700 font-semibold">
+        Preferred Locations
+      </label>
+      {/* {Array.isArray(userInfo?.data?.preferred_location) &&
+        userInfo.data.preferred_location.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-2">
+            {userInfo.data.preferred_location.map((location, index) => (
+              <span
+                key={index}
+                className="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full"
+              >
+                {location}
+              </span>
+            ))}
+          </div>
+        )} */}
       <Controller
         name="preferred_location"
         control={control}
