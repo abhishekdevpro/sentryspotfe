@@ -19,8 +19,8 @@ const CommentSection = ({
 
   const addComment = async () => {
     if (!token) {
-    //   setLoginModal(true);
-      toast.error("You need to login first")
+      setLoginModal(true);
+      // toast.error("You need to login first")
       return;
     }
 

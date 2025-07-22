@@ -9,7 +9,8 @@ const PDFPopupViewer = ({ show, onClose, fileUrl, fileName }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10 backdrop-blur-sm">
+
       <div className="bg-white w-full max-w-4xl rounded-lg shadow-lg overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b">

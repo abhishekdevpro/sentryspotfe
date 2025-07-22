@@ -192,7 +192,7 @@ const JobType = () => {
 
   // Get selected job_type ids from the URL
   const selectedJobTypeIds = useMemo(() => {
-    const ids = searchParams.get("job_type");
+    const ids = searchParams.get("job_type_id");
     return ids ? ids.split("+").map(Number) : [];
   }, [searchParams]);
 
@@ -210,9 +210,9 @@ const JobType = () => {
 
       if (newSelectedIds.length > 0) {
         newSelectedIds.sort((a, b) => a - b);
-        currentParams["job_type"] = newSelectedIds.join("+");
+        currentParams["job_type_id"] = newSelectedIds.join("+");
       } else {
-        delete currentParams["job_type"];
+        delete currentParams["job_type_id"];
       }
 
       setSearchParams(currentParams, { replace: true });

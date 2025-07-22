@@ -19,12 +19,13 @@ export default function UserProfileForm() {
 
   // Load user info into form when available
   useEffect(() => {
-    if (userInfo?.data) {
+    console.log("User Info from store:", userInfo);
+    if (userInfo) {
       reset({
-        first_name: userInfo.data.first_name || "",
-        last_name: userInfo.data.last_name || "",
-        email: userInfo.data.email || "",
-        phone: userInfo.data.phone || "",
+        first_name: userInfo.first_name,
+        last_name:  userInfo.last_name,
+        email:userInfo.email,
+        phone:  userInfo.phone,
       });
     }
   }, [userInfo, reset]);

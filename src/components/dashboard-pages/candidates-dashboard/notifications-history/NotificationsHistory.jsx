@@ -25,7 +25,7 @@ const NotificationsHistory = () => {
         }
       );
       if (response.data.status === "success") {
-        setNotifications(response.data.data);
+        setNotifications(response.data?.data || []);
         setError(null);
       } else {
         setError("Failed to fetch notifications");

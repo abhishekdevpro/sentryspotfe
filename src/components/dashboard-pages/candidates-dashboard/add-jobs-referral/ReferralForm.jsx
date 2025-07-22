@@ -4,7 +4,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Constant } from "@/utils/constant/constant";
 
-
 function Jobreferral() {
   const {
     register,
@@ -42,21 +41,22 @@ function Jobreferral() {
 
   return (
     <>
-     
-
       <div className="page-content bg-white">
         <div className="content-block py-10">
           <div className="container mx-auto px-4">
             <div className="flex flex-col lg:flex-row gap-6">
-             
-
               <div className="flex-1 bg-white rounded-lg shadow p-6">
-                <h2 className="text-xl font-bold uppercase mb-6">Add Referral</h2>
+                <h2 className="text-xl font-bold uppercase mb-6">
+                  Add Referral
+                </h2>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                   {/* Name Field */}
                   <div>
-                    <label htmlFor="name" className="block font-medium text-sm mb-1">
+                    <label
+                      htmlFor="name"
+                      className="block font-medium text-sm mb-1"
+                    >
                       Name
                     </label>
                     <input
@@ -68,13 +68,18 @@ function Jobreferral() {
                       }`}
                     />
                     {errors.name && (
-                      <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.name.message}
+                      </p>
                     )}
                   </div>
 
                   {/* Phone Field */}
                   <div>
-                    <label htmlFor="phone" className="block font-medium text-sm mb-1">
+                    <label
+                      htmlFor="phone"
+                      className="block font-medium text-sm mb-1"
+                    >
                       Phone
                     </label>
                     <input
@@ -94,13 +99,18 @@ function Jobreferral() {
                       }`}
                     />
                     {errors.phone && (
-                      <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.phone.message}
+                      </p>
                     )}
                   </div>
 
                   {/* Email Field */}
                   <div>
-                    <label htmlFor="email" className="block font-medium text-sm mb-1">
+                    <label
+                      htmlFor="email"
+                      className="block font-medium text-sm mb-1"
+                    >
                       Email
                     </label>
                     <input
@@ -118,24 +128,33 @@ function Jobreferral() {
                       }`}
                     />
                     {errors.email && (
-                      <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.email.message}
+                      </p>
                     )}
                   </div>
 
                   {/* Remark Field */}
                   <div>
-                    <label htmlFor="remark" className="block font-medium text-sm mb-1">
+                    <label
+                      htmlFor="remark"
+                      className="block font-medium text-sm mb-1"
+                    >
                       Remark
                     </label>
                     <textarea
                       id="remark"
-                      {...register("remark", { required: "Remark is required" })}
-                      className={`w-full border px-3 py-2 rounded h-24 resize-none ${
+                      {...register("remark", {
+                        required: "Remark is required",
+                      })}
+                      className={`w-full border px-3 py-2 rounded h-24 resize-none overflow-auto ${
                         errors.remark ? "border-red-500" : "border-gray-300"
                       }`}
                     />
                     {errors.remark && (
-                      <p className="text-red-500 text-sm mt-1">{errors.remark.message}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.remark.message}
+                      </p>
                     )}
                   </div>
 
@@ -152,8 +171,6 @@ function Jobreferral() {
           </div>
         </div>
       </div>
-
-     
     </>
   );
 }

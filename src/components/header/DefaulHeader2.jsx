@@ -90,7 +90,7 @@ const DefaulHeader2 = () => {
               </li>
               <li className="px-4">
                 <Link 
-                  to="/careers" 
+                  to="/career-advice" 
                   className="flex items-center gap-2 hover:text-blue-200 transition-colors text-sm font-medium"
                 >
                   <i className="fa-solid fa-medal text-blue-300"></i> 
@@ -149,7 +149,7 @@ const DefaulHeader2 = () => {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/careers" className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-sm">
+                      <Link to="/career-advice" className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-sm">
                         Careers & Training
                       </Link>
                     </li>

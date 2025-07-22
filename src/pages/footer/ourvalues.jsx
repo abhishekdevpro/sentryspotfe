@@ -3,6 +3,7 @@ import DefaulHeader2 from "@/components/header/DefaulHeader2";
 import FooterDefault from "@/components/footer/common-footer/index";
 import React from "react";
 import { FaHandshake } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function OurValues() {
   return (
@@ -72,12 +73,12 @@ export default function OurValues() {
             future.
           </p>
           <div className="flex justify-center">
-            <a
-              href="/signup" // ✅ Update this link to your signup page
+            <Link
+              to="/login" // ✅ Update this link to your signup page
               className="bg-[#051947] text-white px-6 py-3 rounded-md font-semibold hover:bg-[#0b2c70] transition duration-200"
             >
               Get Started Now
-            </a>
+            </Link>
           </div>
         </section>
       </div>
