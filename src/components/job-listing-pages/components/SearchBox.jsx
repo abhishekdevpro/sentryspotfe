@@ -1,64 +1,4 @@
 
-// import { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useSearchParams } from "react-router-dom";
-// import { addKeyword } from "../../../features/filter/filterSlice";
-
-// const SearchBox = () => {
-//   const [searchParams, setSearchParams] = useSearchParams();
-//   const { jobList } = useSelector((state) => state.filter);
-//   const dispatch = useDispatch();
-
-//   // Initialize state from URL or Redux store
-//   const [getKeyWord, setkeyWord] = useState(
-//     searchParams.get('keywords') || jobList.keyword || ''
-//   );
-
-//   // Keyword handler to update both Redux and URL
-//   const keywordHandler = (e) => {
-//     const keyword = e.target.value;
-    
-//     // Update Redux store
-//     dispatch(addKeyword(keyword));
-    
-//     // Update URL parameters
-//     const currentParams = Object.fromEntries(searchParams);
-//     if (keyword) {
-//       currentParams['keywords'] = keyword;
-//     } else {
-//       delete currentParams['keywords'];
-//     }
-//     setSearchParams(currentParams);
-//   };
-
-//   // Synchronize state with URL or Redux changes
-//   useEffect(() => {
-//     // Priority: URL params > Redux store
-//     const urlKeyword = searchParams.get('keywords');
-//     if (urlKeyword !== null) {
-//       setkeyWord(urlKeyword);
-//       dispatch(addKeyword(urlKeyword));
-//     } else {
-//       setkeyWord(jobList.keyword);
-//     }
-//   }, [searchParams, jobList.keyword, dispatch]);
-
-//   return (
-//     <>
-//       <input
-//         type="text"
-//         name="listing-search"
-//         placeholder="Job title, keywords, or company"
-//         value={getKeyWord}
-//         onChange={keywordHandler}
-//       />
-//       <span className="icon flaticon-search-3"></span>
-//     </>
-//   );
-// };
-
-// export default SearchBox;
-
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
@@ -73,7 +13,7 @@ const SearchBox = () => {
 
   // States for autocomplete and search
   const [getKeyWord, setKeyWord] = useState(
-    searchParams.get('keywords') || jobList.keyword || ''
+    searchParams.get('title_keywords') || jobList.keyword || ''
   );
   const [showDropdown, setShowDropdown] = useState(false);
   const [filteredTitles, setFilteredTitles] = useState([]);
@@ -114,9 +54,9 @@ const SearchBox = () => {
     // Update URL parameters
     const currentParams = Object.fromEntries(searchParams);
     if (keyword) {
-      currentParams['keywords'] = keyword;
+      currentParams['title_keywords'] = keyword;
     } else {
-      delete currentParams['keywords'];
+      delete currentParams['title_keywords'];
     }
     setSearchParams(currentParams);
   };
@@ -131,13 +71,13 @@ const SearchBox = () => {
 
     // Update URL parameters
     const currentParams = Object.fromEntries(searchParams);
-    currentParams['keywords'] = title.name;
+    currentParams['title_keywords'] = title.name;
     setSearchParams(currentParams);
   };
 
   // Synchronize state with URL or Redux changes
   useEffect(() => {
-    const urlKeyword = searchParams.get('keywords');
+    const urlKeyword = searchParams.get('title_keywords');
     if (urlKeyword !== null) {
       setKeyWord(urlKeyword);
       dispatch(addKeyword(urlKeyword));
@@ -161,6 +101,7 @@ const SearchBox = () => {
                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
                  transition-colors duration-200"
         autoComplete="off"
+        maxLength={20}
       />
       <Search 
         className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" 

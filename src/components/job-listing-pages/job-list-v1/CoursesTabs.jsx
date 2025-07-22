@@ -195,7 +195,7 @@ const CoursesTabs = () => {
         <Link to="/course" className="block w-auto">
           <button 
             type="button"
-            className="w-48 py-3 px-4 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-all duration-300 text-sm sm:text-base transform hover:scale-105 shadow-md hover:shadow-lg"
+            className="w-64 py-3 px-4 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-all duration-300 text-sm sm:text-base transform hover:scale-105 shadow-md hover:shadow-lg"
           >
             Explore All Courses
           </button>

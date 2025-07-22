@@ -204,6 +204,7 @@ const LocationBox = () => {
                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
                  transition-colors duration-200"
         autoComplete="off"
+        maxLength={20}
       />
       <MapPin 
         className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" 

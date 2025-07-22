@@ -78,7 +78,8 @@ export const updateUserProfile = createAsyncThunk(
         }
       );
       console.log(response.data.data, "updated user from slice");
-      return { status: response.data.status,
+      return {
+        status: response.data.status,
         message: response.data.message,
         code: response.data.code,
         data: response.data.data,
@@ -105,7 +106,8 @@ export const updateUserProfilePatch = createAsyncThunk(
         }
       );
       console.log(response.data.data, "updated user from slice");
-      return { status: response.data.status,
+      return {
+        status: response.data.status,
         message: response.data.message,
         code: response.data.code,
         data: response.data.data,
@@ -180,10 +182,10 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginWithOtp.fulfilled, (state, action) => {
-        console.log(action.payload, "payload");
+        console.log(action.payload.data, "user data from loginWithOtp");
         state.loading = false;
-        state.userInfo = action.payload.data; // ✅ Store user data
-        state.userToken = action.payload.data.token; // ✅ Store token in state
+        state.userInfo = action.payload; 
+        state.userToken = action.payload.data.token || null; 
         state.status = true;
         localStorage.setItem("userInfo", JSON.stringify(action.payload.data));
         localStorage.setItem(Constant.USER_TOKEN, action.payload.data.token);
@@ -234,14 +236,8 @@ const authSlice = createSlice({
       .addCase(updateUserProfile.fulfilled, (state, action) => {
         state.loading = false;
 
-        // Update the userInfo with the new data
-        if (action.payload) {
-          console.log(action.payload,state.userInfo, "Updated user data from slice");
-          state.userInfo = {
-            ...action.payload,
-          };
-
-          // Update localStorage
+        if (action.payload && action.payload.data) {
+          state.userInfo = action.payload.data;
           localStorage.setItem("userInfo", JSON.stringify(state.userInfo));
         }
       })
@@ -256,15 +252,10 @@ const authSlice = createSlice({
       })
       .addCase(updateUserProfilePatch.fulfilled, (state, action) => {
         state.loading = false;
-
+ console.log("Updated user profile from patch",action.payload);
         // Update the userInfo with the new data
-        if (action.payload) {
-          console.log(action.payload,state.userInfo, "Updated user data from slice");
-          state.userInfo = {
-            ...action.payload,
-          };
-
-          // Update localStorage
+       if (action.payload && action.payload.data) {
+          state.userInfo = action.payload.data;
           localStorage.setItem("userInfo", JSON.stringify(state.userInfo));
         }
       })
@@ -275,5 +266,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout,setUserInfo } = authSlice.actions;
+export const { logout, setUserInfo } = authSlice.actions;
 export default authSlice.reducer;

@@ -61,7 +61,7 @@ const DashboardCandidatesHeader = () => {
   const fetchNotifications = async () => {
     try {
       const response = await axios.get(
-        "https://api.sentryspot.co.uk/api/employeer/notifications"
+        "https://api.sentryspot.co.uk/api/jobseeker/notifications"
       );
 
       if (response.data.status === "status" || response.data.code === 200) {
