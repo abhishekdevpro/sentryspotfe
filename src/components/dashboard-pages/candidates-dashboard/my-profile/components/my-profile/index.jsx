@@ -47,7 +47,7 @@ const JobSeekerForm = ({ onNext }) => {
 
   useEffect(() => {
     if (userInfo) {
-      const data = userInfo.data || userInfo; // 
+      const data = userInfo.data || userInfo; //
       console.log("User Info from store:", data);
       reset({
         first_name: data.first_name || "",
@@ -55,6 +55,7 @@ const JobSeekerForm = ({ onNext }) => {
         email: data.email || "",
         phone: data.phone || "",
         job_title: data.job_title || "",
+        photo: data.photo || "",
         proffesional_title: data.proffesional_title || "",
         sector_id: data.sector_id || 0,
         salary: data.current_salary || 0,
@@ -74,35 +75,6 @@ const JobSeekerForm = ({ onNext }) => {
       });
     }
   }, [userInfo, reset]);
-
-  // useEffect(() => {
-  //   console.log("User Info from store:", userInfo);
-  //   if (userInfo || userInfo?.data) {
-  //     reset({
-  //       first_name: userInfo.data?.first_name || "",
-  //       last_name: userInfo.data?.last_name || "",
-  //       email: userInfo.data?.email || "",
-  //       phone: userInfo.data?.phone || "",
-  //       job_title: userInfo.data?.job_title || "",
-  //       proffesional_title: userInfo.data?.proffesional_title || "",
-  //       sector_id: userInfo.data?.sector_id || 0,
-  //       salary: userInfo.data?.current_salary || 0,
-  //       salary_type: userInfo.data?.salary_type || "per month",
-  //       work_experience_id: userInfo.data?.work_experience_id || 0,
-  //       profile_visibility: userInfo.data?.profile_visibility || 0,
-  //       country_id: userInfo.data?.country_id || "",
-  //       state_id: userInfo.data?.state_id || "",
-  //       city_id: userInfo.data?.city_id || "",
-  //       current_location: userInfo.data?.current_location || "",
-  //       preferred_location: Array.isArray(userInfo.data?.preferred_location)
-  //         ? userInfo.data?.preferred_location
-  //         : userInfo.data?.preferred_location?.split(",") || [],
-  //       job_type: Array.isArray(userInfo.data?.job_type)
-  //         ? userInfo.data?.job_type
-  //         : userInfo.data?.job_type?.split(",") || [],
-  //     });
-  //   }
-  // }, [userInfo, reset]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -158,7 +130,7 @@ const JobSeekerForm = ({ onNext }) => {
 
       formData.append("first_name", formValues.first_name);
       formData.append("last_name", formValues.last_name);
-      formData.append("email", formValues.email);
+      formData.append("email", userInfo.email);
       formData.append("phone", formValues.phone);
       formData.append("job_title", formValues.job_title || "");
       formData.append(
@@ -187,8 +159,11 @@ const JobSeekerForm = ({ onNext }) => {
         );
       }
 
-      if (formValues.photo_upload) {
+      if (formValues.photo_upload instanceof File) {
         formData.append("photo_upload", formValues.photo_upload);
+      } else if (userInfo?.photo) {
+        // Send the existing photo URL or name so backend knows to retain it
+        formData.append("photo", userInfo.photo);
       }
 
       setLoading(true);
@@ -196,7 +171,7 @@ const JobSeekerForm = ({ onNext }) => {
       toast.success("Profile updated successfully");
       onNext?.();
     } catch (error) {
-      console.error("❌ Error updating profile:", error);
+      console.error(" Error updating profile:", error);
       toast.error("Failed to update profile");
     } finally {
       setLoading(false);
@@ -204,8 +179,7 @@ const JobSeekerForm = ({ onNext }) => {
   };
 
   // Optional: prevent form rendering if data not ready
-  if (!userInfo || !userInfo.data)
-    return <p className="text-center py-10">Loading profile...</p>;
+  if (!userInfo) return <p className="text-center py-10">Loading profile...</p>;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="default-form">
@@ -265,7 +239,7 @@ const JobSeekerForm = ({ onNext }) => {
           </div>
         </div>
         <ImageUpload
-          profileData={userInfo.data}
+          profileData={userInfo}
           setValue={setValue}
           register={register}
         />
@@ -376,13 +350,13 @@ const JobSeekerForm = ({ onNext }) => {
           control={control}
           setValue={setValue}
           errors={errors}
-          profileData={userInfo.data}
+          profileData={userInfo}
         />{" "}
         <PreferredLocations
           control={control}
           setValue={setValue}
           errors={errors}
-          profileData={userInfo.data}
+          profileData={userInfo}
         />
         {/* Job Preference Components */}
         <JobTypeDropdown
@@ -390,20 +364,20 @@ const JobSeekerForm = ({ onNext }) => {
           control={control}
           setValue={setValue}
           errors={errors}
-          profileData={userInfo.data}
+          profileData={userInfo}
         />
         <TitleDropdown
           control={control}
           setValue={setValue}
           errors={errors}
           className="mb-4"
-          profileData={userInfo.data}
+          profileData={userInfo}
         />
         <SectorDropdown
           sectors={apiData.sectors}
           register={register}
           errors={errors}
-          profileData={userInfo.data}
+          profileData={userInfo}
         />
         {/* Salary Field */}
         <div className="form-group col-lg-6 col-md-12 font-light">
@@ -459,7 +433,7 @@ const JobSeekerForm = ({ onNext }) => {
           register={register}
           errors={errors}
           setValue={setValue}
-          profileData={userInfo.data}
+          profileData={userInfo}
         />
         {/* Submit Button */}
         <div className="form-group ">

@@ -2,7 +2,7 @@ import { Constant } from "@/utils/constant/constant";
 
 // Retrieve the token from local storage
 const token = localStorage.getItem(Constant.USER_TOKEN);
-console.log(token,"token value");
+// console.log(token,"token value");
 
 const candidateMenus = [
   {

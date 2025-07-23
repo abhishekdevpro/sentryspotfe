@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 // import ConfirmationModal from "./ConfirmationModal";
 import PDFPopupViewer from "@/components/ui/PDFPopUpViewer";
 import { Constant } from "@/utils/constant/constant";
 import ConfirmationModal from "@/components/ui/ConfirmationModal";
+import toast from "react-hot-toast";
 
 const getBadgeStyle = (status) => {
   if (status === "Verified") {

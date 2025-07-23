@@ -75,35 +75,35 @@ const DefaulHeader2 = () => {
 
   return (
     <>
-      <div className="TopHeader bg-gradient-to-r from-blue-900 to-blue-800 text-white py-2.5">
+      <div className="TopHeader bg-white text-white py-2.5">
         <div className="container mx-auto px-4">
           <div className="TopMenu">
             <ul className="flex flex-wrap justify-center md:justify-start items-center">
               <li className="px-4">
                 <Link 
-                  to="/job-list-v3" 
+                  // to="/job-list-v3" 
                   className="flex items-center gap-2 hover:text-blue-200 transition-colors text-sm font-medium"
                 >
-                  <i className="fa-solid fa-compass text-blue-300"></i> 
+                  {/* <i className="fa-solid fa-compass text-blue-300"></i>  */}
                   Jobs
                 </Link>
               </li>
               <li className="px-4">
                 <Link 
-                  to="/career-advice" 
+                  // to="/career-advice" 
                   className="flex items-center gap-2 hover:text-blue-200 transition-colors text-sm font-medium"
                 >
-                  <i className="fa-solid fa-medal text-blue-300"></i> 
+                  {/* <i className="fa-solid fa-medal text-blue-300"></i>  */}
                   Careers & Training
                 </Link>
               </li>
-              <li className="border-l border-blue-700/50 mx-2 h-4"></li>
+              {/* <li className="border-l border-blue-700/50 mx-2 h-4"></li> */}
               <li className="px-4">
                 <a 
-                  href="https://employer.sentryspot.co.uk/" 
+                  // href="https://employer.sentryspot.co.uk/" 
                   className="flex items-center gap-2 hover:text-blue-200 transition-colors text-sm font-medium"
                 >
-                  <i className="fa-solid fa-user text-blue-300"></i> 
+                  {/* <i className="fa-solid fa-user text-blue-300"></i>  */}
                   Post Job
                 </a>
               </li>

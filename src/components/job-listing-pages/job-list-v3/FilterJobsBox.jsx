@@ -36,7 +36,7 @@ const FilterJobsBox = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [jobs, setJobs] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState([]);
-  const [sort, setSort] = useState("");
+  const [sort, setSort] = useState("des");
   const [perPage, setPerPage] = useState({ start: 0, end: 0 });
   const [isLoading, setIsLoading] = useState(true);
   // const [showPopup, setShowPopup] = useState(false);
@@ -184,23 +184,24 @@ const FilterJobsBox = () => {
           <div>
             <select
               className="border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              defaultValue=""
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
             >
-              <option value="">Recently Posted</option>
+              {/* <option value="">Recently Posted</option> */}
               <option value="asc">Newest</option>
               <option value="des">Oldest</option>
             </select>
           </div>
         </div>
 
-        {hasFilters() && (
+        {/* {hasFilters() && (
           <button
             onClick={clearFilters}
             className="px-3 py-1 text-sm bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200 transition-colors"
           >
             Clear Filters
           </button>
-        )}
+        )} */}
       </div>
 
       {/* Scrollable Job Listings Container */}

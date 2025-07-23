@@ -314,7 +314,7 @@ const TitleAutocomplete = ({ className, control, setValue, errors, profileData }
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `https://api.sentryspot.co.uk/api/jobseeker/job-title?job-title=${encodeURIComponent(query)}`,
+        `https://api.sentryspot.co.uk/api/jobseeker/job-title?job_title_keyword=${encodeURIComponent(query)}`,
         { headers: { Authorization: token } }
       );
 

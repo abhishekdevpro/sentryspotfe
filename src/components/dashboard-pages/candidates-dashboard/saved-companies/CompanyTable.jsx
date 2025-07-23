@@ -4,6 +4,7 @@ import { Constant } from "@/utils/constant/constant";
 import { BsBriefcase } from "react-icons/bs";
 import toast, { Toaster } from "react-hot-toast";
 import CompanyCard from "@/components/job-listing-pages/job-list-v7/CompanyCard";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const CompaniesTable = () => {
   const token = localStorage.getItem(Constant.USER_TOKEN);
@@ -13,7 +14,7 @@ const CompaniesTable = () => {
   const [error, setError] = useState(null);
   const [isFollowingMap, setIsFollowingMap] = useState({});
   const [showLoginModal, setShowLoginModal] = useState(false);
-
+ const navigate = useNavigate()
   useEffect(() => {
     fetchFavoriteCompanies();
   }, [sortOrder]);
@@ -32,7 +33,7 @@ const CompaniesTable = () => {
 
       if (response.data.status === "success") {
         const data = response.data.data;
-        setCompanies(data);
+        setCompanies(data || []);
         const followState = {};
         data.forEach((company) => {
           followState[company.id] = true;
@@ -128,6 +129,11 @@ const CompaniesTable = () => {
             <BsBriefcase className="h-12 w-12 sm:h-16 sm:w-16 mx-auto text-gray-400 mb-4" />
             <p className="text-lg sm:text-xl mb-2">No Favorite Companies</p>
             <p className="text-sm sm:text-base">Start following companies you like.</p>
+            <button
+             onClick={()=>navigate('/companies-list')}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+              Explore Companies
+              </button>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
