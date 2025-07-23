@@ -122,8 +122,8 @@ const ContactInfoBox = ({ onNext }) => {
       return "Only PDF and DOCX files are allowed";
     }
     
-    if (file.size > 10 * 1024 * 1024) {
-      return "File size should not exceed 10 MB";
+    if (file.size > 2 * 1024 * 1024) {
+      return "File size should not exceed 2 MB";
     }
     
     return true;
@@ -134,8 +134,8 @@ const ContactInfoBox = ({ onNext }) => {
     
     const file = files[0];
     
-    if (file.size > 50 * 1024 * 1024) {
-      return "File size should not exceed 50 MB";
+    if (file.size > 5 * 1024 * 1024) {
+      return "File size should not exceed 5 MB";
     }
     
     return true;
@@ -170,7 +170,7 @@ const ContactInfoBox = ({ onNext }) => {
               <p className="text-green-500">New Upload: {resumeFile[0].name}</p>
             )}
             <p className="text-gray-600">
-              Accepts PDF or DOCX (max size: 10 MB).
+              Accepts PDF or DOCX (max size: 2 MB).
             </p>
           </div>
         </div>
@@ -213,7 +213,7 @@ const ContactInfoBox = ({ onNext }) => {
               View sample here
             </button>
             <p className="text-gray-600">
-              Upload a video file (max size: 50 MB, max length: 60 seconds).
+              Upload a video file (max size: 5 MB, max length: 60 seconds).
             </p>
           </div>
         </div>

@@ -184,7 +184,7 @@ const authSlice = createSlice({
       .addCase(loginWithOtp.fulfilled, (state, action) => {
         console.log(action.payload.data, "user data from loginWithOtp");
         state.loading = false;
-        state.userInfo = action.payload; 
+        state.userInfo = action.payload.data; 
         state.userToken = action.payload.data.token || null; 
         state.status = true;
         localStorage.setItem("userInfo", JSON.stringify(action.payload.data));

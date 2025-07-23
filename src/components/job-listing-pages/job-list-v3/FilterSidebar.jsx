@@ -338,6 +338,16 @@ const FilterSidebar = () => {
 
         {/* Search by Keywords */}
         <div className="filter-section">
+          <button 
+            onClick={() => setSearchParams({})}
+            className={`w-full px-4 py-2 mb-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200 ${searchParams.toString() ? 'bg-red-500 text-white hover:bg-red-400 ' : 'opacity-50 cursor-not-allowed'}`}
+            disabled={!searchParams.toString()}
+          >
+            Clear All Filters
+          </button>
+          <div className="py-2 border-t border-gray-200">
+          
+          </div>
           <h4 className="text-lg font-semibold text-gray-800 mb-3 border-b border-gray-200 pb-2">
             Search by Keywords
           </h4>
@@ -441,14 +451,7 @@ const FilterSidebar = () => {
         </div> */}
 
         {/* Clear Filters Button */}
-        <div className="pt-4 border-t border-gray-200">
-          <button 
-            onClick={() => setSearchParams({})}
-            className="w-full px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200"
-          >
-            Clear All Filters
-          </button>
-        </div>
+        
       </div>
     </div>
   );

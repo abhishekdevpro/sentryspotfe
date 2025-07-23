@@ -31,6 +31,7 @@ const LoginCode = () => {
     const storedEmail = localStorage.getItem("userEmail");
     if (storedEmail) {
       setEmail(storedEmail);
+      
     } else {
       // Redirect to login if no email found
       toast.error("Email not found. Please login again.");
@@ -65,6 +66,7 @@ const LoginCode = () => {
         if(!result.data.first_name || !result.data.last_name || !result.data.email) {
           toast.success("Please complete your profile.");
           navigate("/complete-profile");
+          
         } else {
           toast.success("Login successful!");
           navigate("/candidates-dashboard/my-profile");
@@ -77,6 +79,7 @@ const LoginCode = () => {
       toast.error(error.message || "Invalid OTP. Please try again.");
     } finally {
       setLoading(false);
+      localStorage.removeItem("userEmail")
     }
   };
 

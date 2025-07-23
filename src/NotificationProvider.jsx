@@ -10,7 +10,7 @@ const NotificationProvider = () => {
     const eventSourceUrl = 'https://api.sentryspot.co.uk/api/sse/notifications';
     let eventSource = null;
 
-    console.log(eventSourceUrl, "eventSourceUrl");
+    // console.log(eventSourceUrl, "eventSourceUrl");
 
     try {
       eventSource = new EventSource(eventSourceUrl, {
@@ -19,7 +19,7 @@ const NotificationProvider = () => {
 
       // Log when the connection is successfully opened
       eventSource.onopen = () => {
-        console.log('SSE connection opened');
+        // console.log('SSE connection opened');
         setConnectionStatus('Connected to notifications.');
       };
 
@@ -30,7 +30,7 @@ const NotificationProvider = () => {
           const parsedMessage = JSON.parse(event.data);
           
           // Show toast with just the message
-          console.log(parsedMessage.message);
+          // console.log(parsedMessage.message);
           toast.success(parsedMessage.message);
 
           // Update messages state
@@ -59,7 +59,7 @@ const NotificationProvider = () => {
     return () => {
       if (eventSource) {
         eventSource.close();
-        console.log('SSE connection closed');
+        // console.log('SSE connection closed');
       }
     };
   }, []);

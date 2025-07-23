@@ -12,7 +12,7 @@ import "./index.css";
 if (typeof window !== "undefined") {
   import("bootstrap");
 }
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Home from "./pages";
 import HomePage1 from "./pages/home/home-1";
 import HomePage2 from "./pages/home/home-2";
@@ -161,12 +161,14 @@ import PaymentPlans from "./components/Payments/PaymentPlans";
 import SettingsPage from "./pages/candidates-dashboard/settings";
 import PricingPage from "./pages/candidates-dashboard/pricing";
 import CheckoutPage from "./pages/candidates-dashboard/checkout";
-import ProtectedRoute from '@/components/common/ProtectedRoute';
+import ProtectedRoute from "@/components/common/ProtectedRoute";
 import SavedCourses from "./pages/candidates-dashboard/saved-courses";
 import CoursesPage from "./pages/courses";
 import UserForm from "./components/pages-menu/login/CompleteProfile";
 import UploadDocuments from "./components/dashboard-pages/candidates-dashboard/upload-documents/index.jsx";
 import AddReferral from "./components/dashboard-pages/candidates-dashboard/add-jobs-referral";
+import AuthProtectedRoute from "./components/common/AuthProtectedRoute";
+import PublicRoute from "./components/common/PublicRoute";
 function App() {
   useEffect(() => {
     Aos.init({
@@ -184,45 +186,34 @@ function App() {
               <Routes>
                 <Route path="/">
                   <Route index element={<JobListPage1 />} />
-                  {/* <Route path="home-1" element={<HomePage1 />} />
-                  <Route path="home-2" element={<HomePage2 />} />
-                  <Route path="home-3" element={<HomePage3 />} />
-                  <Route path="home-4" element={<HomePage4 />} />
-                  <Route path="home-5" element={<HomePage5 />} />
-                  <Route path="home-6" element={<HomePage6 />} />
-                  <Route path="home-7" element={<HomePage7 />} />
-                  <Route path="home-8" element={<HomePage8 />} />
-                  <Route path="home-9" element={<HomePage9 />} />
-                  <Route path="home-10" element={<HomePage10 />} />
-                  <Route path="home-11" element={<HomePage11 />} />
-                  <Route path="home-12" element={<HomePage12 />} />
-                  <Route path="home-13" element={<HomePage13 />} />
-                  <Route path="home-14" element={<HomePage14 />} />
-                  <Route path="home-15" element={<HomePage15 />} />
-                  <Route path="home-16" element={<HomePage16 />} />
-                  <Route path="home-17" element={<HomePage17 />} /> */}
-
-                  {/* <Route path="job-list-v1" element={<JobListPage1 />} />
-                <Route path="job-list-v2" element={<JobListPage2 />} /> */}
                   <Route path="job-list-v3" element={<JobListPage3 />} />
                   <Route path="apply/:id" element={<ApplyForm />} />
-                  {/* <Route path="job-list-v4" element={<JobListPage4 />} />
-                  <Route path="job-list-v5" element={<JobListPage5 />} />
-                  <Route path="job-list-v6" element={<JobListPage6 />} /> */}
+
                   <Route path="job-list-v7" element={<JobListPage7 />} />
                   <Route path="companies-list" element={<Companieslist />} />
-                  <Route path="showcase-company/:companyId" element={<Showcase />} />
+                  <Route
+                    path="showcase-company/:companyId"
+                    element={<Showcase />}
+                  />
 
-                  <Route path="gauth" element={<Gauth />} />
-                  <Route path="/login/login-code" element={<LoginCode />} />
+                  <Route
+                    path="gauth"
+                    element={
+                      <PublicRoute>
+                        <Gauth />
+                      </PublicRoute>
+                    }
+                  />
+                  <Route
+                    path="/login/login-code"
+                    element={
+                      <PublicRoute>
+                        <LoginCode />
+                      </PublicRoute>
+                    }
+                  />
                   <Route path="/complete-profile" element={<UserForm />} />
-                  {/* <Route path="job-list-v8" element={<JobListPage8 />} />
-                <Route path="job-list-v9" element={<JobListPage9 />} />
-                <Route path="job-list-v10" element={<JobListPage10 />} />
-                <Route path="job-list-v11" element={<JobListPage11 />} />
-                <Route path="job-list-v12" element={<JobListPage12 />} />
-                <Route path="job-list-v13" element={<JobListPage13 />} />
-                <Route path="job-list-v14" element={<JobListPage14 />} /> */}
+
                   <Route
                     path="job-single-v1/:id"
                     element={<JobSingleDynamicV1 />}
@@ -281,11 +272,16 @@ function App() {
                   {/* <Route path="candidates-single-v2/:id" element={<CandidateSingleDynamicV2 />} />
                   <Route path="candidates-single-v3/:id" element={<CandidateSingleDynamicV3 />} /> */}
 
-
-                     {/* Paymenst */}
-                     <Route path="/payments/subscription" element={<Subscription />} />
-                     <Route path="/payments/plans" element={<PaymentPlans />} />
-                     <Route path="/payments/selected-plan" element={<PaymentPage />} />
+                  {/* Paymenst */}
+                  <Route
+                    path="/payments/subscription"
+                    element={<Subscription />}
+                  />
+                  <Route path="/payments/plans" element={<PaymentPlans />} />
+                  <Route
+                    path="/payments/selected-plan"
+                    element={<PaymentPage />}
+                  />
                   <Route path="blog-list-v1" element={<BlogListpage1 />} />
                   <Route path="skilltest" element={<Skilltestpage />} />
                   <Route path="buildresume" element={<Buildresume />} />
@@ -351,11 +347,18 @@ function App() {
                   <Route path="terms" element={<TermsPage />} />
                   <Route path="invoice" element={<InvoicePage />} />
                   <Route path="contact" element={<ContactPage />} />
-                  <Route path="login" element={<LoginPage />} />
+                  <Route
+                    path="login"
+                    element={
+                      <PublicRoute>
+                        <LoginPage />
+                      </PublicRoute>
+                    }
+                  />
                   <Route path="register" element={<RegisterPage />} />
                   <Route path="404" element={<NotFoundPage />} />
                   <Route path="*" element={<NotFoundPage />} />
-                  
+
                   <Route path="admin-dashboard">
                     <Route
                       path="dashboard"
@@ -398,47 +401,60 @@ function App() {
                     />
                   </Route>
 
-                  <Route path="candidates-dashboard">
-                    <Route element={<ProtectedRoute />}>
-                      <Route index element={<DashboardPage />} />
-                      <Route path="dashboard" element={<DashboardPage />} />
-                      <Route path="applied-jobs" element={<AppliedJobsPage />} />
-                      <Route path="skilllistpage" element={<Skilllistpage />} />
-                      <Route path="saved-courses" element={<SavedCourses />} />
-                      <Route
-                        path="skill-test-history"
-                        element={<SkillHistoryPage />}
-                      />
-                      <Route
-                        path="change-password"
-                        element={<ChangePasswordPage />}
-                      />
-                      <Route path="cv-manager" element={<CVMannagerPage />} />
-                      <Route path="job-alerts" element={<JobAlertPage />} />
-                      <Route path="saved-companies" element={<SavedCompanies />} />
-                      <Route path="messages" element={<MessageesPage />} />
-                      <Route path="my-profile" element={<MyProfilePage />} />
-                      <Route path="upload-documents" element={<UploadDocuments />} />
-                      <Route path="add-referral" element={<AddReferral />} />
-                      <Route path="settings" element={<SettingsPage />} />
-                      <Route path="my-resume" element={<MyResumePage />} />
-                      <Route path="packages" element={<PackagePage />} />
-                      <Route
-                        path="notifications"
-                        element={<NotificationsHistoryPage />}
-                      />
-                      <Route
-                        path="testpaper/:skillId/:skillName"
-                        element={<TestPaper />}
-                      />
-                      <Route
-                        path="short-listed-jobs"
-                        element={<ShortListedJobsPage />}
-                      />
-                      <Route path="courses" element={<CoursePage />} />
-                      <Route path="pricing" element={<PricingPage />} />
-                      <Route path="checkout" element={<CheckoutPage />} />
-                    </Route>
+                  <Route
+                    path="candidates-dashboard"
+                    element={
+                      <AuthProtectedRoute>
+                        <Outlet />
+                      </AuthProtectedRoute>
+                    }
+                  >
+                    {/* <Route element={<ProtectedRoute />}> */}
+                    <Route index element={<DashboardPage />} />
+                    <Route path="dashboard" element={<DashboardPage />} />
+                    <Route path="applied-jobs" element={<AppliedJobsPage />} />
+                    <Route path="skilllistpage" element={<Skilllistpage />} />
+                    <Route path="saved-courses" element={<SavedCourses />} />
+                    <Route
+                      path="skill-test-history"
+                      element={<SkillHistoryPage />}
+                    />
+                    <Route
+                      path="change-password"
+                      element={<ChangePasswordPage />}
+                    />
+                    <Route path="cv-manager" element={<CVMannagerPage />} />
+                    <Route path="job-alerts" element={<JobAlertPage />} />
+                    <Route
+                      path="saved-companies"
+                      element={<SavedCompanies />}
+                    />
+                    <Route path="messages" element={<MessageesPage />} />
+                    <Route path="my-profile" element={<MyProfilePage />} />
+                    <Route
+                      path="upload-documents"
+                      element={<UploadDocuments />}
+                    />
+                    <Route path="add-referral" element={<AddReferral />} />
+                    <Route path="settings" element={<SettingsPage />} />
+                    <Route path="my-resume" element={<MyResumePage />} />
+                    <Route path="packages" element={<PackagePage />} />
+                    <Route
+                      path="notifications"
+                      element={<NotificationsHistoryPage />}
+                    />
+                    <Route
+                      path="testpaper/:skillId/:skillName"
+                      element={<TestPaper />}
+                    />
+                    <Route
+                      path="short-listed-jobs"
+                      element={<ShortListedJobsPage />}
+                    />
+                    <Route path="courses" element={<CoursePage />} />
+                    <Route path="pricing" element={<PricingPage />} />
+                    <Route path="checkout" element={<CheckoutPage />} />
+                    {/* </Route> */}
                   </Route>
 
                   <Route path="shop">
