@@ -198,16 +198,16 @@ const FilterJobsBox = () => {
         />
         {/* join community section */}
         <div className="FAQs py-8 sm:py-10">
-          <div className="container px-4 sm:px-6 lg:px-8">
-            <div className="FaqBox flex flex-col lg:flex-row gap-6">
-              <div className="FaqImage w-full lg:w-1/2">
+          <div className="container">
+            <div className="FaqBox ">
+              <div className="FaqImage ">
                 <img src={faqimge} className="w-full h-auto rounded-lg" />
               </div>
-              <div className="FaqText w-full lg:w-1/2">
-                <p className="font-extrabold text-lg sm:text-xl">
+              <div className="FaqText ">
+                <p className="">
                   SentrySpot Community
                 </p>
-                <h2 className="text-2xl sm:text-3xl mt-2">
+                <h2 className="">
                   Join community to gain the support and resources you need for
                   a smooth transition to a better career.
                 </h2>
@@ -390,13 +390,13 @@ const FilterJobsBox = () => {
           </div>
         </div>
         {/* job Slider */}
-        <div className="Help py-8 sm:py-10">
-          <div className="container px-4 sm:px-6 lg:px-8">
+        <div className="Help ">
+          <div className="container ">
             <div className="StatsBox">
               <div className="HelpBox mb-6">
-                <div className="HelpText text-center sm:text-left">
-                  <p className="text-lg sm:text-xl">Verified Job Listings</p>
-                  <h2 className="text-2xl sm:text-3xl mt-2">
+                <div className="HelpText">
+                  <p className="">Verified Job Listings</p>
+                  <h2 className="mt-2">
                     Creating impact every step of the way
                   </h2>
                   <div className="StatsBtn mt-4">
@@ -509,13 +509,13 @@ const FilterJobsBox = () => {
         <div className="TabSection">
           <div className="container">
             <div className="TabHead">
-              <h2>
-                SentrySpot Careers - Training Programs &amp; Certifications
-              </h2>
               <p>
+                SentrySpot Careers - Training Programs &amp; Certifications
+              </p>
+              <h2 className="">
                 With over 100,000 customers, from individuals to some of the
                 most respected global brands
-              </p>
+              </h2>
             </div>
             <CoursesTabs />
           </div>
@@ -523,12 +523,12 @@ const FilterJobsBox = () => {
         <PricingSection />
 
         {/* Blog section */}
-        <div className="Blog py-8 sm:py-10">
-          <div className="container px-4 sm:px-6 lg:px-8">
-            <div className="BlogHeading text-2xl sm:text-3xl font-bold text-center mb-6">
+        <div className="Blog">
+          <div className="container">
+            <div className="BlogHeading ">
               Career guidance by SentrySpot Editorial
             </div>
-            <div className="BlogsCards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="BlogsCards ">
               <Link
                 to="https://blog.sentryspot.co.uk/"
                 onMouseEnter={() => handleMouseEnter("blogCard1")}
@@ -543,18 +543,18 @@ const FilterJobsBox = () => {
               >
                 <div
                   className="BlogBoxs"
-                  style={{
-                    width: "100%",
-                    backgroundColor: "#fff",
-                    borderRadius: "12px",
-                    boxShadow: hoveredElements["blogCard1"]
-                      ? "0 8px 24px rgba(0, 0, 0, 0.15)"
-                      : "0px 4px 7px 0px #aeaeaf",
-                    transition: "all 0.3s ease",
-                    transform: hoveredElements["blogCard1"]
-                      ? "translateY(-5px)"
-                      : "none",
-                  }}
+                  // style={{
+                  //   width: "100%",
+                  //   backgroundColor: "#fff",
+                  //   borderRadius: "12px",
+                  //   boxShadow: hoveredElements["blogCard1"]
+                  //     ? "0 8px 24px rgba(0, 0, 0, 0.15)"
+                  //     : "0px 4px 7px 0px #aeaeaf",
+                  //   transition: "all 0.3s ease",
+                  //   transform: hoveredElements["blogCard1"]
+                  //     ? "translateY(-5px)"
+                  //     : "none",
+                  // }}
                 >
                   <div className="Blogs-Text">
                     <img src="https://blog.sentryspot.co.uk/wp-content/uploads/2024/08/Untitled-design-5.jpg" />
@@ -628,18 +628,18 @@ const FilterJobsBox = () => {
               >
                 <div
                   className="BlogBoxs"
-                  style={{
-                    width: "100%",
-                    backgroundColor: "#fff",
-                    borderRadius: "12px",
-                    boxShadow: hoveredElements["blogCard3"]
-                      ? "0 8px 24px rgba(0, 0, 0, 0.15)"
-                      : "0px 4px 7px 0px #aeaeaf",
-                    transition: "all 0.3s ease",
-                    transform: hoveredElements["blogCard3"]
-                      ? "translateY(-5px)"
-                      : "none",
-                  }}
+                  // style={{
+                  //   width: "100%",
+                  //   backgroundColor: "#fff",
+                  //   borderRadius: "12px",
+                  //   boxShadow: hoveredElements["blogCard3"]
+                  //     ? "0 8px 24px rgba(0, 0, 0, 0.15)"
+                  //     : "0px 4px 7px 0px #aeaeaf",
+                  //   transition: "all 0.3s ease",
+                  //   transform: hoveredElements["blogCard3"]
+                  //     ? "translateY(-5px)"
+                  //     : "none",
+                  // }}
                 >
                   <div className="Blogs-Text">
                     <img src="https://blog.sentryspot.co.uk/wp-content/uploads/2024/08/Untitled-design.jpg" />
@@ -659,11 +659,11 @@ const FilterJobsBox = () => {
             </div>
             <div
               className="BlogBtn"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "2rem",
-              }}
+              // style={{
+              //   display: "flex",
+              //   justifyContent: "center",
+              //   marginTop: "2rem",
+              // }}
             >
               <Link
                 to={"https://blog.sentryspot.co.uk/"}
@@ -706,13 +706,13 @@ const FilterJobsBox = () => {
           </div>
         </div>
         {/* Talk section */}
-        <div className="Talk">
+        <div className="Talk md:pt-20">
           <div className="container">
-            <div className="Talkbox flex flex-col lg:flex-row items-center gap-6">
+            <div className="Talkbox ">
               <div
-                className=" TalkInfo w-full lg:w-1/2 flex flex-col items-center lg:items-center text-center "
+                className="TalkInfo "
               >
-                <h2 className="text-wrap-balanced text-2xl sm:text-3xl w-full font-bold mb-8" style={{}}>
+                <h2 className="" style={{}}>
                   Interested in becoming a SentrySpot partner?
                 </h2>
                 <div className="TalkBox">

@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 const ServiceProgramCards = ({ handleMouseEnter, handleMouseLeave, hoveredElements }) => {
   return (
     <div className="ServiceCard">
-      <div className="container px-4 sm:px-6 lg:px-8">
+      <div className="container">
         <div className="CardTop text-center">
-          <p className="font-extrabold text-lg sm:text-xl">
+          <p className="">
             How we spot career growth for you
           </p>
-          <h2 className="text-2xl sm:text-3xl mt-2">
+          <h2 className="">
             AI-powered tools to enhance your job search
           </h2>
         </div>

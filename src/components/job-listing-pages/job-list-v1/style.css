@@ -14,25 +14,25 @@
   img{
       width: 100%;
   }
-  ::-webkit-scrollbar {
+  /* ::-webkit-scrollbar {
     width: 10px;
-  }
+  } */
   /* Track */
-  ::-webkit-scrollbar-track {
+  /* ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey; 
     border-radius: 10px;
-  }
+  } */
    
   /* Handle */
-  ::-webkit-scrollbar-thumb {
+  /* ::-webkit-scrollbar-thumb {
     background: #003479; 
     border-radius: 10px;
-  }
+  } */
   
   /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+  /* ::-webkit-scrollbar-thumb:hover {
     background: #b30000; 
-  }
+  } */
   
   button{
       padding:6px 25px;
@@ -288,11 +288,17 @@
       text-align: -webkit-center;
       margin: 50px 0;
   }
+  .CardTop{
+    width: 100%;
+    text-align: left;
+  }
   .CardTop p {
-      font-size: 28px;
+      font-size: 18px;
       color: #e60278;
       margin: 0;
       margin-bottom: 20px;
+ text-wrap: balance;
+      ;
 
   }
   .CardTop h2{
@@ -523,6 +529,7 @@
       color: #fff;
       margin: 0;
       margin-bottom: 50px;
+      line-height: 1;
   }
   .FaqBtn {
       width: 100%;
@@ -574,14 +581,14 @@
   }
   .HelpBox p {
       font-size: 18px;
-      color: #003479;
+      color: #e60278;
       margin: 0;
       margin-bottom: 20px;
       text-transform: uppercase;
   }
   .HelpBox h2{
       font-size: 36px;
-      color: #e60278;
+      color: #545353;
       margin: 0;
       margin-bottom: 20px;
   }
@@ -754,7 +761,7 @@
   .Talk {
       width: 100%;
       text-align: -webkit-center;
-     
+      padding: 0 10px;
   }
   .Talkbox {
       display: flex;
@@ -780,11 +787,13 @@
   .TalkInfo {
       width: 100%;
       text-align: left;
+      text-wrap: balance;
   }
   .TalkInfo h2 {
-      font-size: 40px;
+      font-size: 32px;
       width: 100%;
       color: #fff;
+      margin-bottom: 10px;
   }
   .TalkBox a{
       padding: 16px 32px;
@@ -977,16 +986,17 @@
   }
   .TabHead{
       margin: 20px 0;
+      padding: 0.5rem 0;
   }
   .TabHead h2{
       font-size: 36px;
-      color: #e60278;
+      color: #545353;
       margin: 0;
       margin-bottom: 20px;
   }
   .TabHead p{
       font-size: 18px;
-      color: #545353;
+      color: #e60278;
       margin: 0;
       margin-bottom: 20px;
   }
@@ -1313,6 +1323,7 @@
   }
   
   @media screen and (max-width: 480px) {
+   
     .BannerContent h1 {
       font-size: 1.75rem;
     }
@@ -1322,11 +1333,20 @@
     }
     
     .CardTop h2 {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
+    }
+    .HelpBox h2 {
+      font-size: 1.5rem;
+    }
+    .FaqText h2 {
+      font-size: 1.5rem;
     }
     
     .TalkInfo h2 {
       font-size: 1.5rem;
+    }
+    .TabHead h2 {
+        font-size: 1.25rem;
     }
     
     .NewsletterConatiner h3 {

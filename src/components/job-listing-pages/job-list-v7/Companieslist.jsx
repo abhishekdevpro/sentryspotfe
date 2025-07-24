@@ -31,18 +31,16 @@ const Companieslist = () => {
       try {
         const token = localStorage.getItem(Constant.USER_TOKEN);
 
-        const API = token ? `https://api.sentryspot.co.uk/api/jobseeker/pro/companies`:"https://api.sentryspot.co.uk/api/jobseeker/companies"
-        const response = await axios.get(
-          `${API}`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const API = token
+          ? `https://api.sentryspot.co.uk/api/jobseeker/pro/companies`
+          : "https://api.sentryspot.co.uk/api/jobseeker/companies";
+        const response = await axios.get(`${API}`, {
+          headers: {
+            Authorization: token,
+          },
+        });
         setJobCount(response.data.data.length);
         setJobs(response.data.data);
-        
       } catch (error) {
         setError("Failed to fetch jobs");
         setLoading(false);
@@ -62,12 +60,11 @@ const Companieslist = () => {
 
   // Filter jobs based on search term (case-insensitive)
   const filteredJobs = jobs.filter((job) =>
-
     job.company_name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
   const handleFollowCompany = async (e, company) => {
     e.preventDefault();
-    
+
     if (!token) {
       setShowLoginModal(true);
       return;
@@ -106,7 +103,7 @@ const Companieslist = () => {
         //     ? response.data.data?.company_favorite_id || 1
         //     : 0,
         // }));
-      } 
+      }
     } catch (error) {
       toast.error(
         "An error occurred while following the company. Please try again."
@@ -179,27 +176,32 @@ const Companieslist = () => {
       </div> */}
       {/* Search Bar and Sort */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 py-8">
-        <div className="w-full md:w-3/4 flex">
-          <input
-            type="text"
-            placeholder="Company Name"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 px-4 py-2 rounded-l-xl border border-gray-200 bg-white focus:outline-none text-base shadow-sm"
-          />
-          <button
-            className="bg-[#f43f5e] text-white px-5 py-2 rounded-r-xl flex items-center text-base font-semibold shadow-sm"
-            onClick={() => setSearchTerm(search)}
-          >
-            <i className="fas fa-search mr-2"></i> Search Jobs
-          </button>
+        <div className="w-full px-4 sm:px-6 lg:px-8 my-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center w-full">
+              <input
+                type="text"
+                placeholder="Search by Company Name"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full sm:flex-1 px-4 py-3 text-sm sm:text-base border border-gray-300 rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-sm"
+              />
+              <button
+                onClick={() => setSearchTerm(search)}
+                className="bg-blue-900 text-white px-4 py-3 text-sm sm:text-base font-semibold rounded-b-xl sm:rounded-r-xl sm:rounded-bl-none w-full sm:w-auto flex justify-center items-center gap-2 shadow-sm hover:bg-blue-600 transition-all"
+              >
+                <i className="fas fa-search"></i>
+                <span>Search Jobs</span>
+              </button>
+            </div>
+          </div>
         </div>
-        <div className="mt-6 md:mt-0 md:ml-4 w-full md:w-auto flex justify-end">
+        {/* <div className="mt-6 md:mt-0 md:ml-4 w-full md:w-auto flex justify-end">
           <select className="border border-gray-300 rounded-lg px-4 py-2 text-base focus:outline-none">
             <option>Recently Posted</option>
-            {/* Add more sort options if needed */}
+            {/* Add more sort options if needed 
           </select>
-        </div>
+        </div> */}
       </div>
       {/* Trending Companies Title */}
       <div className="max-w-7xl mx-auto px-4 pb-2">

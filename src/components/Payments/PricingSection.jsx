@@ -31,24 +31,24 @@ const navigate = useNavigate()
   };
 
   return (
-    <section className="py-20 bg-white font-sans">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="">
+      <div className="container">
         {/* Section Heading */}
-        <div className="text-center mb-12">
-          <h2 className="relative inline-block pb-4 text-slate-800 font-bold text-4xl mb-4">
+        <div className="HelpBox">
+          <p className="">
             {pricingData.title}
-            <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-slate-800 rounded-sm"></span>
-          </h2>
-          <p className="text-slate-700 text-lg opacity-80 mb-2">
+            {/* <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-slate-800 rounded-sm"></span> */}
+          </p>
+          <h2 >
             {pricingData.subtitle}
-          </p>
-          <p className="text-slate-600 text-base max-w-2xl mx-auto">
+          </h2>
+          <h2 className="">
             {pricingData.intro}
-          </p>
+          </h2>
         </div>
 
         {/* Pricing Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8 px-2 md:px-0">
           {plansArray.map((plan, index) => {
             const isPopular = plan.bestValue === "true";
             const isFree = plan.price === "0";

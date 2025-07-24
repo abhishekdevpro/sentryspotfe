@@ -14,7 +14,7 @@ const index = () => {
       {/* End Header */}
       {/* End MobileMenu */}
       <DefaulHeader2 />
-      <div className="login-section overflow-hidden min-h-[calc(100vh-80px)] ">
+      <div className="sm:p-2 overflow-hidden w-full min-h-[calc(100vh-80px)] ">
         {/* <div
           className="image-layer"
           style={{ backgroundImage: "url(/images/background/12.jpg)" }}
