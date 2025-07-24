@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 const HeroSection = () => {
   const navigate = useNavigate();
   return (
-    <section className="bg-white py-8 base:px-40 md:px-8 lg:px-20 xl:px-40">
+    <section className="bg-white md:py-8 base:px-40 px-2 md:px-8 lg:px-20 xl:px-40">
       <div>
         <div className="bg-blue-900 rounded-lg p-8 flex flex-col md:flex-row items-center justify-between">
           <div className="w-full md:w-1/2">

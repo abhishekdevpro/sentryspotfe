@@ -36,7 +36,7 @@ const FilterJobsBox = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [jobs, setJobs] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState([]);
-  const [sort, setSort] = useState("des");
+  const [sort, setSort] = useState("asc");
   const [perPage, setPerPage] = useState({ start: 0, end: 0 });
   const [isLoading, setIsLoading] = useState(true);
   // const [showPopup, setShowPopup] = useState(false);

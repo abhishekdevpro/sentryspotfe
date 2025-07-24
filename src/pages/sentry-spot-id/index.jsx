@@ -25,7 +25,7 @@ const SentryPage = () => {
 
       <section className="job-categories py-16 border-none">
         {/* <section className="job-section  v"> */}
-        <div className="auto-container flex justify-center items-center gap-3 p-10 py-14 border w-[95%] bg-gray-200 rounded-lg">
+        <div className="auto-container flex flex-col md:flex-row justify-center items-center gap-3 p-10 py-14 border w-[95%] bg-gray-200 rounded-lg">
           <p className="text-2xl text-gray-800">
             Hiring? Your job ad seen by all the right people
           </p>

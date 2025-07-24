@@ -11,13 +11,20 @@ export default {
   ],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
+   container: {
+        center: true,
+        padding: {
+          DEFAULT: "0rem",  // applies to base (all screens)
+          sm: "0rem",       // optional, same as DEFAULT
+          md: "1rem",       // optional
+          lg: "2rem",       // applies to lg (≥1024px)
+          xl: "2rem",
+          "2xl": "2rem",
+        },
+        screens: {
+          "2xl": "1400px", // max width of container at 2xl
+        },
       },
-    },
     extend: {
       keyframes: {
         "accordion-down": {

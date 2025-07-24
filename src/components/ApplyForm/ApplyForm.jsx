@@ -139,7 +139,7 @@ const ApplyForm = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-4">
+    <div className="max-w-5xl mx-auto md:p-4">
       <ProgressBar currentStep={step} totalSteps={3} />
       <h2 className="text-2xl font-bold mb-4">
         {step === 1 && "Personal Information"}
