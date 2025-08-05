@@ -39,10 +39,7 @@ const FilterJobsBox = () => {
   const [sort, setSort] = useState("asc");
   const [perPage, setPerPage] = useState({ start: 0, end: 0 });
   const [isLoading, setIsLoading] = useState(true);
-  // const [showPopup, setShowPopup] = useState(false);
-  // const [selectedJobId, setSelectedJobId] = useState(null);
-  // const [showLoginModal, setShowLoginModal] = useState(false);
-  // const [actionStatus, setActionStatus] = useState({});
+ 
   const {
     applyToJob,
     saveJob,

@@ -87,6 +87,10 @@ const PreferredLocations = ({ control, setValue, errors, profileData }) => {
   }, [query, token, selectedLocations]);
 
   const handleSelectLocation = (location) => {
+    if (selectedLocations.length >= 3) {
+      toast.warn("You can only select up to 3 locations.");
+      return;
+    }
     setSelectedLocations((prev) => [...prev, location]);
     setQuery("");
     setSuggestions([]);
@@ -146,13 +150,18 @@ const PreferredLocations = ({ control, setValue, errors, profileData }) => {
                 ref={inputRef}
                 type="text"
                 className="w-full px-4 py-3 rounded-lg bg-gray-50 border-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Type to search locations..."
+                placeholder={
+                  selectedLocations.length >= 3
+                    ? "Maximum 3 locations selected"
+                    : "Type to search locations..."
+                }
                 value={query}
                 onChange={(e) => {
                   setQuery(e.target.value);
                   setShowSuggestions(true);
                 }}
                 onFocus={() => setShowSuggestions(true)}
+                 disabled={selectedLocations.length >= 3}
               />
               {isLoading && (
                 <div className="absolute right-3 top-3">
@@ -161,7 +170,7 @@ const PreferredLocations = ({ control, setValue, errors, profileData }) => {
               )}
 
               {/* Suggestions dropdown */}
-              {showSuggestions && suggestions.length > 0 && (
+              {showSuggestions && suggestions.length > 0 && selectedLocations.length < 3 && (
                 <div
                   ref={suggestionsRef}
                   className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base overflow-auto focus:outline-none"
@@ -182,7 +191,7 @@ const PreferredLocations = ({ control, setValue, errors, profileData }) => {
         )}
       />
       <p className="mt-2 text-sm text-gray-500">
-        You can select multiple locations where you'd prefer to work
+        You can select up to 3 locations where you'd prefer to work
       </p>
     </div>
   );
