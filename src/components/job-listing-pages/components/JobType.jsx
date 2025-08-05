@@ -239,7 +239,7 @@ const JobType = () => {
         disabled={isLoading}
       >
         <div className="flex justify-between items-center">
-          <span className="text-sm font-medium text-gray-700 truncate">
+          <span className="text-sm font-normal text-gray-700 truncate">
             {isLoading ? "Loading job types..." : getDropdownHeaderText()}
           </span>
           <svg

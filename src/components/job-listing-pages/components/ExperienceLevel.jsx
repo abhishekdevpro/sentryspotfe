@@ -239,7 +239,7 @@ const ExperienceLevel = () => {
         disabled={isLoading}
       >
         <div className="flex justify-between items-center">
-          <span className="text-sm font-medium text-gray-700 truncate">
+          <span className="text-sm font-normal truncate">
             {isLoading ? "Loading experience levels..." : getDropdownHeaderText()}
           </span>
           <svg

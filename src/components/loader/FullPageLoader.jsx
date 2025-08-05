@@ -51,8 +51,8 @@ const FullPageLoader = ({ loadingText = "Candidates Dashboard" }) => {
 
         {/* Title & Description */}
         <div className="text-center text-gray-500">
-          <h1 className="text-xl font-semibold mb-1">Candidates Dashboard || SentrySpot</h1>
-          <p className="text-sm">Job Board ReactJs Template</p>
+          <h1 className="text-xl font-semibold mb-1"> SentrySpot</h1>
+          {/* <p className="text-sm">Job Board ReactJs Template</p> */}
         </div>
       </div>
     </div>

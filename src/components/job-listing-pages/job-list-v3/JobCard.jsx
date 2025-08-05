@@ -7,6 +7,7 @@ import {
   BsHeartFill,
 } from "react-icons/bs";
 import { FiAward } from "react-icons/fi";
+import { formatDaysAgo } from "@/components/common/DateUtils";
 
 const JobCard = ({
   job,
@@ -122,7 +123,7 @@ const JobCard = ({
           />
           <div>
             <div className="font-semibold text-gray-900">{job_title}</div>
-            {/* <div className="text-gray-500 text-sm">{formatTimeAgo(created_at)}</div> */}
+            <div className="font-light text-sm text-muted">posted on : {formatDaysAgo(created_at)}</div>
           </div>
         </div>
         {showSaveButton && (
@@ -146,16 +147,16 @@ const JobCard = ({
       {/* <div className="text-xl font-bold mb-2 text-gray-900 line-clamp-2">{job_title}</div> */}
 
       {/* Location */}
-      <div className="flex items-center text-gray-600 mb-3">
+      <div className="flex items-center text-gray-600 mb-2">
         <BsGeoAlt className="mr-2 flex-shrink-0" />
-        <span className="truncate">{getLocationText()}</span>
+        <span className="truncate font-normal">{getLocationText()}</span>
       </div>
 
       {/* Salary & Freshers */}
-      <div className="flex items-center mb-3 flex-wrap gap-2">
+      <div className="flex items-center mb-2 flex-wrap gap-2">
         <span className="flex items-center text-gray-600">
           <BsBriefcase className="mr-1 flex-shrink-0" />
-          <span className="text-sm">{formatSalary()}</span>
+          <span className="font-normal text-sm">{formatSalary()}</span>
         </span>
         {freshers_can_apply && (
           <span className="px-2 py-1 bg-green-50 text-green-700 border border-green-200 rounded-full text-xs font-medium">
@@ -207,22 +208,22 @@ const JobCard = ({
 
       {/* Extra Info: Industry, Experience, Functional Area */}
       <div className="mb-3 flex flex-wrap gap-1">
-        <span className="px-2 py-1 bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-full text-xs flex items-center">
+        <span className="px-2 py-1 bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-full text-xs flex items-center font-light">
           <BsBuilding className="mr-1" />
           {industry || "Industry Not Specified"}
         </span>
-        <span className="px-2 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-full text-xs flex items-center">
+        <span className="px-2 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-full text-xs flex items-center font-light">
           <FiAward className="mr-1" />
           Experience: {getExperienceText()}
         </span>
-        <span className="px-2 py-1 bg-gray-50 text-gray-600 border border-gray-200 rounded-full text-xs flex items-center">
+        <span className="px-2 py-1 bg-gray-50 text-gray-600 border border-gray-200 rounded-full text-xs flex items-center font-light">
           <BsBriefcase className="mr-1" />
           {functional_area_name || "Functional Area Not Specified"}
         </span>
       </div>
 
       {/* Posted Date */}
-      <div className="text-gray-500 text-sm mb-4">
+      {/* <div className="text-gray-500 text-sm mb-4">
         {created_at
           ? new Date(created_at).toLocaleDateString("en-US", {
               year: "numeric",
@@ -230,7 +231,7 @@ const JobCard = ({
               day: "numeric",
             })
           : "-"}
-      </div>
+      </div> */}
 
       {/* Action Buttons */}
       <div className="flex justify-end items-center gap-2 mt-auto">

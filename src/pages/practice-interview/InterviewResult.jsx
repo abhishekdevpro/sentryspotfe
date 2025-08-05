@@ -82,7 +82,7 @@ function InterviewResult() {
                     {item.user_transcript || "No answer submitted."}
                   </p>
 
-                  <div className="mt-4 bg-white border rounded p-3">
+                  {/* <div className="mt-4 bg-white border rounded p-3">
                     <h4 className="text-sm font-medium text-gray-500 mb-2">
                       Your Response:
                     </h4>
@@ -93,7 +93,7 @@ function InterviewResult() {
                       Submitted on: {" "}
                       {new Date(item.created_at).toLocaleDateString()}
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ))}

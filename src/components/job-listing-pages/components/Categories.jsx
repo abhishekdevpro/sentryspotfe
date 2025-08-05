@@ -208,7 +208,7 @@ const Industries = () => {
         disabled={isLoading}
       >
         <div className="flex justify-between items-center">
-          <span className="text-sm font-medium text-gray-700 truncate">
+          <span className="text-sm font-normal text-gray-500 truncate">
             {isLoading ? "Loading industries..." : getDropdownHeaderText()}
           </span>
           <svg
