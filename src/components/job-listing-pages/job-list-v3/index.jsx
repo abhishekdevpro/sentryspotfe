@@ -88,7 +88,7 @@ const Index = () => {
                       style={{ width: "100%", height: 150, marginBottom: 24 }}
                     />
                     <h2 className="fw-bold mb-2" style={{ fontSize: "1.5rem" }}>
-                      Find jobs <span className="fst-italic">near</span> you
+                      Find jobs near you
                     </h2>
                     <p className="mb-4 text-center text-light">
                       Find career paths that match your skills and strengths.

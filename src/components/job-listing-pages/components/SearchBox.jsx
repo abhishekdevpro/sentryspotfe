@@ -97,7 +97,7 @@ const SearchBox = () => {
         value={getKeyWord}
         onChange={handleInputChange}
         className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg shadow-sm 
-                 placeholder-gray-400 text-gray-900
+                 placeholder-gray-400 font-normal
                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
                  transition-colors duration-200"
         autoComplete="off"

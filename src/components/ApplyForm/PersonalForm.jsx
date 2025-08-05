@@ -412,7 +412,7 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
             type="text"
             value={formData.firstName}
             onChange={handleChange}
-            className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="font-normal w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.firstName && <p className="text-red-600 mt-1">{errors.firstName}</p>}
         </div>
@@ -425,7 +425,7 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
             type="text"
             value={formData.lastName}
             onChange={handleChange}
-            className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="font-normal w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errors.lastName && <p className="text-red-600 mt-1">{errors.lastName}</p>}
         </div>
@@ -439,7 +439,7 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
             type="email"
             value={formData.email}
             readOnly
-            className="w-full border px-3 py-2 rounded-md bg-gray-100 cursor-not-allowed"
+            className="font-normal w-full border px-3 py-2 rounded-md bg-gray-100 cursor-not-allowed"
           />
         </div>
         <div>
@@ -448,7 +448,7 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
             type="tel"
             value={formData.phone}
             readOnly
-            className="w-full border px-3 py-2 rounded-md bg-gray-100 cursor-not-allowed"
+            className="font-normal w-full border px-3 py-2 rounded-md bg-gray-100 cursor-not-allowed"
           />
         </div>
       </div>
@@ -462,7 +462,7 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
           type="text"
           value={formData.location}
           onChange={handleChange}
-          className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="font-normal w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         {errors.location && <p className="text-red-600 mt-1">{errors.location}</p>}
       </div>
@@ -476,14 +476,14 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
 
         <div className="space-y-2">
           {["upload", "select"].map((option) => (
-            <label key={option} className="flex items-center gap-2 cursor-pointer">
+            <label key={option} className="font-normal flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
                 name="resumeOption"
                 value={option}
                 checked={formData.resumeOption === option}
                 onChange={handleChange}
-                className="accent-blue-600"
+                className="font-normal accent-blue-600"
               />
               <span className="capitalize">{option === "select" ? "Use existing resume" : "Upload a new resume"}</span>
             </label>
@@ -495,7 +495,7 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
                 type="file"
                 accept=".pdf,.doc,.docx"
                 onChange={(e) => handleFileChange(e, "resume")}
-                className="file-input w-full text-sm file:bg-blue-50 file:text-blue-700 file:rounded-md file:border-0 hover:file:bg-blue-100"
+                className="font-normal file-input w-full text-sm file:bg-blue-50 file:text-blue-700 file:rounded-md file:border-0 hover:file:bg-blue-100"
               />
             </div>
           )}
@@ -542,9 +542,9 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
                 value={option}
                 checked={formData.coverLetterOption === option}
                 onChange={handleChange}
-                className="accent-blue-600"
+                className="font-normal accent-blue-600"
               />
-              <span className="capitalize">
+              <span className="capitalize font-normal">
                 {option === "none" ? "Don't include" : "Upload a cover letter"}
               </span>
             </label>

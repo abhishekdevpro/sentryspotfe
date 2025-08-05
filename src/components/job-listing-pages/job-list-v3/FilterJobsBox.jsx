@@ -180,13 +180,13 @@ const FilterJobsBox = () => {
 
           <div>
             <select
-              className="border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-light"
               value={sort}
               onChange={(e) => setSort(e.target.value)}
             >
               {/* <option value="">Recently Posted</option> */}
-              <option value="asc">Newest</option>
-              <option value="des">Oldest</option>
+              <option className="font-light" value="asc">Newest</option>
+              <option className="font-light" value="des">Oldest</option>
             </select>
           </div>
         </div>

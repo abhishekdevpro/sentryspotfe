@@ -29,12 +29,12 @@ const LoginModal = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-        <h3 className="text-xl font-semibold mb-4">Please Login</h3>
+        <h3 className="text-xl font-normal mb-4">Please Login</h3>
         <p className="mb-6">You need to be logged in to perform this action.</p>
         <div className="flex justify-end space-x-4">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800"
+            className="px-4 py-2  hover:text-gray-800"
           >
             Cancel
           </button>
@@ -250,30 +250,30 @@ const JobSingleDynamicV3 = () => {
               <h2 className="text-xl sm:text-2xl font-bold mb-2 text-gray-800">
                 {jobData?.job_title || "Job Title Not Available"}
               </h2>
-              <div className="text-gray-700 font-medium mb-2 flex items-center gap-2">
+              <div className="font-normal mb-2 flex items-center gap-2">
                 <div>
-                  <i className="flaticon-building tex-blue-900" />
+                  <i className="flaticon-building " />
                   {company?.company_name || "Company Not Available"}
                 </div>
                 {"|"}
                 <div>
-                  <i className="flaticon-folder tex-blue-900" />
+                  <i className="flaticon-folder " />
                   {jobData?.job_category_name || "Category Not Available"}
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 text-sm">
-                <span className="flex items-center gap-2 text-gray-600">
-                  <i className="flaticon-briefcase tex-blue-900" />
+              <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 text-sm font-normal">
+                <span className="flex items-center gap-2 ">
+                  <i className="flaticon-briefcase " />
                   {jobData?.job_type_name || "Not Specified"}
                 </span>
-                <span className="flex items-center gap-2 text-gray-600">
-                  <i className="flaticon-money tex-blue-900" />
+                <span className="flex items-center gap-2 ">
+                  <i className="flaticon-money " />
                   {jobData?.offered_salary
                     ? `₹${jobData.offered_salary} / month`
                     : "Not disclosed"}
                 </span>
-                <span className="flex items-center gap-2 text-gray-600">
-                  <i className="flaticon-map-locator tex-blue-900" />
+                <span className="flex items-center gap-2 ">
+                  <i className="flaticon-map-locator " />
                   {jobData?.location || "Location Not Specified"}
                 </span>
               </div>
@@ -282,7 +282,7 @@ const JobSingleDynamicV3 = () => {
           <div className="flex flex-col gap-3 items-stretch sm:items-end w-full sm:w-auto">
             {/* Apply Button */}
             <button
-              className={`w-full flex items-center justify-center gap-2 px-6 sm:px-8 py-3 rounded-lg text-white text-sm font-medium shadow-sm transition ${
+              className={`w-full flex items-center justify-center gap-2 px-6 sm:px-8 py-3 rounded-lg text-white text-sm font-normal shadow-sm transition ${
                 jobData?.is_applied
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-blue-900 hover:bg-blue-700"
@@ -297,7 +297,7 @@ const JobSingleDynamicV3 = () => {
             </button>
             <button 
             onClick={()=>navigate(`/interview/${jobData.id}`)}
-            className="w-full flex items-center justify-center gap-2 px-6 sm:px-8 py-3 rounded-lg text-white text-sm font-medium shadow-sm transition bg-blue-900 hover:bg-blue-700">
+            className="w-full flex items-center justify-center gap-2 px-6 sm:px-8 py-3 rounded-lg text-white text-sm font-normal shadow-sm transition bg-blue-900 hover:bg-blue-700">
               Practice Interview
             </button>
 
@@ -305,7 +305,7 @@ const JobSingleDynamicV3 = () => {
             <div className="flex flex-col sm:flex-row gap-3 w-full">
               {/* Bookmark Button */}
               <button
-                className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm font-medium shadow-sm transition ${
+                className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm font-normal shadow-sm transition ${
                   jobData.is_favorite
                     ? "bg-green-500 hover:bg-green-600"
                     : "bg-[#e63946] hover:bg-[#d62839]"
@@ -318,7 +318,7 @@ const JobSingleDynamicV3 = () => {
 
               {/* Follow Company Button */}
               <button
-                className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm font-medium shadow-sm transition ${
+                className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm font-normal shadow-sm transition ${
                   jobData.is_company_favorite
                     ? "bg-green-500 hover:bg-green-600"
                     : "bg-blue-500 hover:bg-blue-600"
@@ -356,16 +356,16 @@ const JobSingleDynamicV3 = () => {
           <aside className="w-full lg:w-1/3 bg-white rounded-lg shadow p-4 sm:p-6 space-y-4 sm:space-y-6">
             {/* About this role */}
             <div className="border-b border-gray-200 pb-4 sm:pb-6">
-              <h4 className="font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                <i className="flaticon-calendar tex-blue-900 text-lg" />
+              <h4 className="font-normal mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
+                <i className="flaticon-calendar  text-lg" />
                 About this role
               </h4>
-              <div className="flex justify-between text-sm text-gray-600 mb-2">
-                <span className="flex items-center gap-2">
-                  <i className="flaticon-calendar-1 tex-blue-900" />
+              <div className="flex justify-between text-sm  mb-2">
+                <span className="font-normal flex items-center gap-2">
+                  <i className="flaticon-calendar-1 " />
                   Job Posted On
                 </span>
-                <span className="font-medium">
+                <span className="font-normal">
                   {/* {jobData?.created_at
                     ? new Date(jobData.created_at).toLocaleDateString("en-US", {
                         year: "numeric",
@@ -379,8 +379,8 @@ const JobSingleDynamicV3 = () => {
             </div>
             {/* Required Skills */}
             <div>
-              <h4 className="font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                <i className="flaticon-skills tex-blue-900 text-lg" />
+              <h4 className="font-normal mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
+                <i className="flaticon-skills  text-lg" />
                 Required Skills
               </h4>
               <div className="flex flex-wrap gap-2">
@@ -388,36 +388,36 @@ const JobSingleDynamicV3 = () => {
                   jobData?.skills?.map((skill, idx) => (
                     <span
                       key={idx}
-                      className="bg-gray-100 px-3 py-1 rounded-full text-xs font-medium border border-gray-200 flex items-center gap-1"
+                      className="bg-gray-100 px-3 py-1 rounded-full text-xs font-normal border border-gray-200 flex items-center gap-1"
                     >
                       <i className="flaticon-check text-xs text-green-500" />
                       {skill}
                     </span>
                   ))
                 ) : (
-                  <span className=" px-3">No Skills Specified</span>
+                  <span className="font-normal px-3">No Skills Specified</span>
                 )}
               </div>
             </div>
             {/* Education */}
             <div>
-              <h4 className="font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                <i className="flaticon-graduation-cap tex-blue-900 text-lg" />
+              <h4 className="font-normal mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
+                <i className="flaticon-graduation-cap  text-lg" />
                 Education
               </h4>
-              <div className="text-sm px-3 text-gray-700 flex items-center gap-2">
-                <i className="flaticon-graduation-cap tex-blue-900" />
+              <div className="text-sm px-3 font-normal flex items-center gap-2">
+                <i className="flaticon-graduation-cap " />
                 {jobData?.qualification || "Not specified"}
               </div>
             </div>
             {/* Location */}
             <div>
-              <h4 className="font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                <i className="flaticon-map-locator tex-blue-900 text-lg" />
+              <h4 className="font-normal mb-3 sm:mb-4 flex items-center gap-2 ">
+                {/* <i className="flaticon-map-locator  text-lg" /> */}
                 Location
               </h4>
-              <div className="text-sm px-3 text-gray-700 mb-2 flex items-center gap-2">
-                {/* <i className="flaticon-map-locator tex-blue-900" /> */}
+              <div className="text-sm px-3 font-normal mb-2 flex items-center gap-2">
+                {/* <i className="flaticon-map-locator " /> */}
                 {jobData?.location || "Location Not Specified"}
               </div>
               {/* Google Maps Embed */}
@@ -432,15 +432,15 @@ const JobSingleDynamicV3 = () => {
                   loading="lazy"
                 />
               ) : (
-                <div className="rounded-lg overflow-hidden border h-32 w-full bg-gray-100 flex items-center justify-center text-gray-400 text-xs">
+                <div className="rounded-lg overflow-hidden border h-32 w-full bg-gray-100 flex items-center justify-center font-normal text-sm">
                   Map Not Available
                 </div>
               )}
             </div>
             {/* Perks and Benefits */}
             <div>
-              <h4 className="font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                <i className="flaticon-gift tex-blue-900 text-lg" />
+              <h4 className="font-normal mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
+                <i className="flaticon-gift  text-lg" />
                 Perks and Benefits
               </h4>
               <div className="flex flex-wrap gap-2">
@@ -448,7 +448,7 @@ const JobSingleDynamicV3 = () => {
                   jobData?.perks?.map((perk, idx) => (
                     <span
                       key={idx}
-                      className="bg-gray-100 px-3 py-1 rounded-full text-xs font-medium border border-gray-200 flex items-center gap-1"
+                      className="bg-gray-100 px-3 py-1 rounded-full text-xs font-normal border border-gray-200 flex items-center gap-1"
                     >
                       <i className="flaticon-gift text-xs text-pink-400" />
                       {perk}
@@ -467,7 +467,7 @@ const JobSingleDynamicV3 = () => {
             <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-6 ">
               <div className="flex flex-col md:flex-row gap-2 items-start mb-4 overflow-x-auto ">
                 <button
-                  className={`px-4 py-2 font-semibold focus:outline-none whitespace-nowrap ${
+                  className={`px-4 py-2 font-normal focus:outline-none whitespace-nowrap ${
                     activeTab === "description"
                       ? "border-b-2 border-blue-500 text-blue-900"
                       : "text-gray-500"
@@ -477,7 +477,7 @@ const JobSingleDynamicV3 = () => {
                   Job Description
                 </button>
                 <button
-                  className={`px-4 py-2 font-semibold focus:outline-none whitespace-nowrap ${
+                  className={`px-4 py-2 font-normal focus:outline-none whitespace-nowrap ${
                     activeTab === "company"
                       ? "border-b-2 border-blue-500 text-blue-900"
                       : "text-gray-500"
@@ -493,11 +493,11 @@ const JobSingleDynamicV3 = () => {
                   className="max-h-[70vh] min-h-[400px] overflow-y-auto pr-2"
                   style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}
                 >
-                  <h4 className="font-semibold mb-3 sm:mb-4 text-gray-800">
+                  <h4 className="font-normal mb-3 sm:mb-4 text-gray-800">
                     Job Description
                   </h4>
                   <div
-                    className="text-gray-700 text-sm mb-4"
+                    className=" text-sm mb-4"
                     dangerouslySetInnerHTML={{
                       __html: jobData?.job_description,
                     }}
@@ -506,8 +506,8 @@ const JobSingleDynamicV3 = () => {
               )}
               {activeTab === "company" && (
                 <div>
-                  <h4 className="font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                    <i className="flaticon-briefcase tex-blue-900 text-lg" />
+                  <h4 className="font-normal mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
+                    <i className="flaticon-briefcase  text-lg" />
                     About the company
                   </h4>
                   <div className="flex flex-wrap items-center gap-4 mb-3 sm:mb-4">
@@ -517,13 +517,13 @@ const JobSingleDynamicV3 = () => {
                       className="w-12 h-12 rounded-lg border"
                     />
                     <div className="min-w-[150px]">
-                      <div className="font-semibold flex items-center gap-2 text-gray-800">
-                        <i className="flaticon-building tex-blue-900" />
-                        {jobData?.company_name || "Schneider Electrical"}
+                      <div className="font-normal flex items-center gap-2 text-gray-800">
+                        <i className="flaticon-building " />
+                        {company?.company_name || "Schneider Electrical"}
                       </div>
-                      <div className="text-xs text-gray-600 flex items-center gap-2 mt-1">
-                        <i className="flaticon-industry tex-blue-900" />
-                        {company?.industry || "Manufacturing"} &bull;{" "}
+                      <div className="text-xs font-normal flex items-center gap-2 mt-1">
+                        <i className="flaticon-industry " />
+                        {company?.company_industry?.name || "Manufacturing"} &bull;{" "}
                         {company?.size || "700-1000 employees"}
                       </div>
                       {company?.website && (
@@ -531,9 +531,9 @@ const JobSingleDynamicV3 = () => {
                           href={company.website}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-600 text-xs underline flex items-center gap-2 mt-1"
+                          className="text-blue-600 text-sm font-normal underline flex items-center gap-2 mt-1"
                         >
-                          <i className="flaticon-link tex-blue-900" />
+                          <i className="flaticon-link " />
                           {company.website}
                         </a>
                       )}
@@ -547,18 +547,18 @@ const JobSingleDynamicV3 = () => {
                       Explore More
                     </button>
                   </div>
-                  <div className="text-gray-700 text-sm mb-3 sm:mb-4">
+                  <div className="font-normal text-sm mb-3 sm:mb-4">
                     {company?.description || "Description Not Specified"}
                   </div>
                   {company?.address && (
-                    <div className="text-xs text-gray-600 mb-2 flex items-center gap-2">
-                      <i className="flaticon-map-locator tex-blue-900" />
+                    <div className="text-xs  mb-2 flex items-center gap-2">
+                      <i className="flaticon-map-locator " />
                       Address: {company.address}
                     </div>
                   )}
                   {company?.contact_email && (
-                    <div className="text-xs text-gray-600 flex items-center gap-2">
-                      <i className="flaticon-mail tex-blue-900" />
+                    <div className="text-xs  flex items-center gap-2">
+                      <i className="flaticon-mail " />
                       Email: {company.contact_email}
                     </div>
                   )}
@@ -572,7 +572,7 @@ const JobSingleDynamicV3 = () => {
         <div className="mt-8 px-0">
           <div className="bg-white rounded-lg shadow p-4 sm:p-6">
             <div className="mb-4">
-              <h3 className="text-xl font-semibold text-gray-800">
+              <h3 className="text-xl font-normal text-gray-800">
                 Related Jobs
               </h3>
               <div className="text-gray-500 text-sm">
