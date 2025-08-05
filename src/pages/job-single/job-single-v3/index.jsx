@@ -23,6 +23,7 @@ import CompanyInfo from "@/components/job-single-pages/shared-components/Company
 import JobStepsComponent from "./JobSteps";
 import ShareJobModal from "./ShareJobModal";
 import { Share, Share2Icon } from "lucide-react";
+import { formatDaysAgo } from "@/components/common/DateUtils";
 
 const LoginModal = ({ onClose }) => {
   return (
@@ -64,19 +65,21 @@ const JobSingleDynamicV3 = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem(Constant.USER_TOKEN);
 
-  const handleApplyNowClick = (jobId) => {
+  const handleApplyNowClick = (job) => {
     if (!token) {
       setShowLoginModal(true);
       return;
+    } console.log(job,"from apply function")
+
+    setActionStatus((prev) => ({ ...prev, [job.id]: "applying" })); // Set status to "applying"
+    if(job.is_on_demand ===true){
+      navigate(`interview/${job.id}/?on_demand=true`);
     }
-
-    setActionStatus((prev) => ({ ...prev, [jobId]: "applying" })); // Set status to "applying"
-
-    navigate(`/apply/${jobId}`);
-    setSelectedJobId(jobId);
+    else navigate(`/apply/${job.id}`);
+    // setSelectedJobId(job.id);
     setShowPopup(true);
 
-    setActionStatus((prev) => ({ ...prev, [jobId]: "applied" })); // Set status to "applied"
+    setActionStatus((prev) => ({ ...prev, [job.id]: "applied" })); // Set status to "applied"
   };
 
   const handleFollowCompany = async (e) => {
@@ -284,13 +287,18 @@ const JobSingleDynamicV3 = () => {
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-blue-900 hover:bg-blue-700"
               }`}
-              onClick={() => handleApplyNowClick(jobData.id)}
+              onClick={() => handleApplyNowClick(jobData)}
               disabled={jobData?.is_applied}
             >
               <i className="flaticon-send text-lg" />
               <span>
                 {jobData?.is_applied ? "Already Applied" : "Apply For Job"}
               </span>
+            </button>
+            <button 
+            onClick={()=>navigate(`/interview/${jobData.id}`)}
+            className="w-full flex items-center justify-center gap-2 px-6 sm:px-8 py-3 rounded-lg text-white text-sm font-medium shadow-sm transition bg-blue-900 hover:bg-blue-700">
+              Practice Interview
             </button>
 
             {/* Bookmark + Follow + Share */}
@@ -358,13 +366,14 @@ const JobSingleDynamicV3 = () => {
                   Job Posted On
                 </span>
                 <span className="font-medium">
-                  {jobData?.created_at
+                  {/* {jobData?.created_at
                     ? new Date(jobData.created_at).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
                       })
-                    : "not available"}
+                    : "not available"} */}
+                    {formatDaysAgo(jobData?.created_at)}
                 </span>
               </div>
             </div>

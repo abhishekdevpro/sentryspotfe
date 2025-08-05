@@ -58,6 +58,13 @@ const candidateMenus = [
     active: "",
   },
   {
+    id: 6,
+    name: "Interview List",
+    icon: "la-calendar-check",
+    routePath: "/candidates-dashboard/interview-list",
+    active: "",
+  },
+  {
     id: 5,
     name: "Saved Companies",
     icon: "las la-bookmark",

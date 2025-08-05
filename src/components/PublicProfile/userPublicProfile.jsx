@@ -378,7 +378,7 @@ const UserProfilePage = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
                     {userInfo?.job_seeker_uuid && (
                       <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border">
-                        <p className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Job Seeker ID</p>
+                        <p className="text-xs sm:text-sm font-medium text-gray-600 mb-1">SentrySpot ID</p>
                         <p className="font-semibold text-blue-900 text-sm sm:text-base break-all">{userInfo.job_seeker_uuid}</p>
                       </div>
                     )}

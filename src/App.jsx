@@ -169,6 +169,9 @@ import UploadDocuments from "./components/dashboard-pages/candidates-dashboard/u
 import AddReferral from "./components/dashboard-pages/candidates-dashboard/add-jobs-referral";
 import AuthProtectedRoute from "./components/common/AuthProtectedRoute";
 import PublicRoute from "./components/common/PublicRoute";
+import PracticeInterview from "@/pages/practice-interview/index";
+import InterviewList from "./pages/candidates-dashboard/interview-list/index";
+import InterviewResult from "./pages/practice-interview/InterviewResult";
 function App() {
   useEffect(() => {
     Aos.init({
@@ -223,6 +226,11 @@ function App() {
                     path="job-single-v3/:id"
                     element={<JobSingleDynamicV3 />}
                   />
+                  <Route
+                    path="interview/:jobId"
+                    element={<PracticeInterview />}
+                  />
+
                   {/* <Route path="job-single-v4/:id" element={<JobSingleDynamicV4 />} />
                   <Route path="job-single-v5/:id" element={<JobSingleDynamicV5 />} /> */}
 
@@ -415,6 +423,8 @@ function App() {
                     <Route path="applied-jobs" element={<AppliedJobsPage />} />
                     <Route path="skilllistpage" element={<Skilllistpage />} />
                     <Route path="saved-courses" element={<SavedCourses />} />
+                    <Route path="interview-list" element={<InterviewList />} />
+                    <Route path="interview-view-result/:jobId" element={<InterviewResult />} />
                     <Route
                       path="skill-test-history"
                       element={<SkillHistoryPage />}
