@@ -122,14 +122,14 @@ const DocumentList = () => {
 
   return (
     <div className="container mx-auto mt-10 p-6 bg-white rounded-lg shadow">
-      <h2 className="text-xl font-bold uppercase mb-6">Upload Document</h2>
+      {/* <h2 className="text-xl font-bold uppercase mb-6">Upload Document</h2> */}
 
       <div className="mb-4">
-        <label className="block font-medium mb-1">Document Type</label>
+        <label className="">Document Type</label>
         <select
           value={docType}
           onChange={(e) => setDocType(e.target.value)}
-          className="w-full border rounded px-3 py-2"
+          className="form-select font-normal text-sm"
         >
           <option value="">Select Document Type</option>
           {documentTypeOptions.map((doc) => (
@@ -141,13 +141,13 @@ const DocumentList = () => {
       </div>
 
       <div className="mb-4">
-        <label className="block font-medium mb-1">Upload File</label>
+        <label className="">Upload File</label>
         <input
           type="file"
           accept=".pdf"
           ref={fileInputRef}
           onChange={handleFileChange}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded px-3 py-2 font-normal"
         />
       </div>
 

@@ -23,7 +23,7 @@ const ContactInfoBox = ({ onNext }) => {
       cover_letter: "",
       resume_upload: null,
       intro_video_upload: null,
-    }
+    },
   });
 
   const resumeFile = watch("resume_upload");
@@ -37,15 +37,18 @@ const ContactInfoBox = ({ onNext }) => {
           "https://api.sentryspot.co.uk/api/jobseeker/user-profile",
           {
             headers: {
-              Authorization: token
-            }
+              Authorization: token,
+            },
           }
         );
 
         if (response.data.code === 200) {
           setProfileData(response.data.data);
           // Set cover letter from API response
-          setValue("cover_letter", response.data.data.personal_details.cover_letter || "");
+          setValue(
+            "cover_letter",
+            response.data.data.personal_details.cover_letter || ""
+          );
         }
       } catch (error) {
         console.error("Error fetching profile data:", error);
@@ -65,15 +68,15 @@ const ContactInfoBox = ({ onNext }) => {
     try {
       setIsSubmitting(true);
       setUploadProgress(0);
-      
+
       // Create FormData for file uploads
       const formData = new FormData();
       formData.append("cover_letter", data.cover_letter);
-      
+
       if (data.resume_upload && data.resume_upload[0]) {
         formData.append("resume_upload", data.resume_upload[0]);
       }
-      
+
       if (data.intro_video_upload && data.intro_video_upload[0]) {
         formData.append("intro_video_upload", data.intro_video_upload[0]);
       }
@@ -95,15 +98,16 @@ const ContactInfoBox = ({ onNext }) => {
           },
         }
       );
-      if(response.data.status === "success" || response.data.code === 200){
+      if (response.data.status === "success" || response.data.code === 200) {
         toast.success(response.data.message || "Profile updated successfully!");
         onNext();
       }
       // If successful, proceed to next step
-      
     } catch (error) {
       console.error("Error submitting form:", error);
-      toast.error(error?.response?.data?.message ||"Failed to upload. Please try again.");
+      toast.error(
+        error?.response?.data?.message || "Failed to upload. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -111,33 +115,33 @@ const ContactInfoBox = ({ onNext }) => {
 
   const validateResumeFile = (files) => {
     if (!files || !files[0]) return true;
-    
+
     const file = files[0];
     const allowedFormats = [
       "application/pdf",
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     ];
-    
+
     if (!allowedFormats.includes(file.type)) {
       return "Only PDF and DOCX files are allowed";
     }
-    
+
     if (file.size > 2 * 1024 * 1024) {
       return "File size should not exceed 2 MB";
     }
-    
+
     return true;
   };
 
   const validateVideoFile = (files) => {
     if (!files || !files[0]) return true;
-    
+
     const file = files[0];
-    
-    if (file.size > 5 * 1024 * 1024) {
+
+    if (file.size > 10 * 1024 * 1024) {
       return "File size should not exceed 5 MB";
     }
-    
+
     return true;
   };
 
@@ -150,21 +154,23 @@ const ContactInfoBox = ({ onNext }) => {
       <div className="row">
         {/* Resume Upload */}
         <div className="form-group flex flex-col gap-2 col-lg-12 col-md-12 mb-5">
-          <label className="">Attach Resume</label>
-          <div className="w-full">
+          <label className="w-1/4 font-medium">Attach Resume</label>
+          <div className="form-group col-12">
             <input
               type="file"
               accept=".pdf, .docx"
-              className="border h-10 w-full rounded-lg p-2"
+              className="border font-light rounded-none mb-4 w-full p-2"
               {...register("resume_upload", {
-                validate: validateResumeFile
+                validate: validateResumeFile,
               })}
             />
             {errors.resume_upload && (
               <p className="text-red-500">{errors.resume_upload.message}</p>
             )}
             {profileData?.personal_details?.resume && (
-              <p className="text-green-500">Current Resume: {profileData.personal_details.resume}</p>
+              <p className="text-green-500">
+                Current Resume: {profileData.personal_details.resume}
+              </p>
             )}
             {resumeFile && resumeFile[0] && (
               <p className="text-green-500">New Upload: {resumeFile[0].name}</p>
@@ -176,26 +182,34 @@ const ContactInfoBox = ({ onNext }) => {
         </div>
 
         {/* Video Upload */}
-        <div className="form-group flex flex-col gap-2 col-lg-12 col-md-12 my-5">
-          <label className="w-1/4">Upload Video Profile</label>
-          <div className="w-full">
+        <div className="form-group flex flex-col gap-2 col-lg-12 col-md-12">
+          <label className="w-1/4 font-medium">Upload Video Profile</label>
+          <div className="form-group col-12">
             <input
               type="file"
               accept="video/*"
-              className="border h-10 w-full rounded-lg p-2"
+              className="border font-light rounded-none mb-4 w-full p-2"
               {...register("intro_video_upload", {
-                validate: validateVideoFile
+                validate: validateVideoFile,
               })}
             />
             {errors.intro_video_upload && (
-              <p className="text-red-500">{errors.intro_video_upload.message}</p>
+              <p className="text-red-500">
+                {errors.intro_video_upload.message}
+              </p>
             )}
+
             {profileData?.personal_details?.intro_video_url && (
-              <p className="text-green-500">Current Video: {profileData.personal_details.intro_video_url}</p>
+              <p className="text-green-500">
+                Current Video: {profileData.personal_details.intro_video_url}
+              </p>
             )}
-            {videoFile && videoFile[0] && (
+
+            {videoFile?.[0] && (
               <div className="flex items-center mt-2 gap-2">
-                <p className="text-green-500">New Upload: {videoFile[0].name}</p>
+                <p className="text-green-500">
+                  New Upload: {videoFile[0].name}
+                </p>
                 <button
                   type="button"
                   className="text-red-500 underline"
@@ -205,27 +219,38 @@ const ContactInfoBox = ({ onNext }) => {
                 </button>
               </div>
             )}
-            <button
-              type="button"
-              className="text-blue-500 underline mt-2"
-              onClick={() => setShowSampleVideo(true)}
-            >
-              View sample here
-            </button>
+
             <p className="text-gray-600">
-              Upload a video file (max size: 5 MB, max length: 60 seconds).
+              Upload a video file (max size: 10 MB, max length: 60 seconds).
             </p>
+
+            {(videoFile?.[0] ||
+              profileData?.personal_details?.intro_video_url) && (
+              <button
+                type="button"
+                className="text-blue-500 text-start underline mt-2"
+                onClick={() => setShowSampleVideo(true)}
+              >
+                Preview
+              </button>
+            )}
           </div>
         </div>
 
         {/* Video Sample Popup */}
         {showSampleVideo && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-5 max-w-lg">
+            <div className="bg-white rounded-lg p-2 max-w-lg">
               <video controls width="100%">
                 <source
-                  src="/path-to-your-video/Self-Intro-Video.webm"
-                  type="video/webm"
+                  src={
+                    videoFile?.[0]
+                      ? URL.createObjectURL(videoFile[0])
+                      : profileData?.personal_details?.intro_video_url
+                      ? `https://api.sentryspot.co.uk${profileData.personal_details.intro_video_url}`
+                      : ""
+                  }
+                  type={videoFile?.[0]?.type || "video/mp4"}
                 />
                 Your browser does not support the video tag.
               </video>
@@ -241,14 +266,16 @@ const ContactInfoBox = ({ onNext }) => {
 
         {/* Cover Letter */}
         <div className="form-group flex flex-col gap-2 col-lg-12 col-md-12 mt-5">
-          <label className="w-full">Cover Letter</label>
+          <label className="w-full font-medium">Cover Letter</label>
           <div className="flex-col col-lg-10 w-full">
             <textarea
               className="border h-60 w-full rounded-lg p-2"
               placeholder="Enter your cover letter"
-              {...register("cover_letter", { required: "Cover letter is required" })}
-              style={{ overflowY: 'auto', maxHeight: '200px' }}
-               maxLength={500}
+              {...register("cover_letter", {
+                required: "Cover letter is required",
+              })}
+              style={{ overflowY: "auto", maxHeight: "200px" }}
+              maxLength={500}
             />
             {errors.cover_letter && (
               <p className="text-red-500">{errors.cover_letter.message}</p>
@@ -260,8 +287,8 @@ const ContactInfoBox = ({ onNext }) => {
         {isSubmitting && uploadProgress > 0 && (
           <div className="form-group col-lg-12 col-md-12 mt-3">
             <div className="w-full bg-gray-200 rounded-full h-2.5">
-              <div 
-                className="bg-blue-600 h-2.5 rounded-full" 
+              <div
+                className="bg-blue-600 h-2.5 rounded-full"
                 style={{ width: `${uploadProgress}%` }}
               ></div>
             </div>
@@ -270,8 +297,8 @@ const ContactInfoBox = ({ onNext }) => {
         )}
 
         <div className="form-group col-lg-12 col-md-12 mt-5">
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className="theme-btn btn-style-one bg-blue-800 text-white px-6 py-2 rounded"
             disabled={isSubmitting}
           >

@@ -75,11 +75,15 @@ const Post = ({
           />
           <div>
             <div className="flex flex-col">
-              {token?<Link to={`/community/${post.id}`}>
-                <p className="font-semibold text-gray-800">
-                  {post.user_first_name} {post.user_last_name}
-                </p>
-              </Link>:" "}
+              {token ? (
+                <Link to={`/community/${post.id}`}>
+                  <p className="font-semibold text-gray-800">
+                    {post.user_first_name} {post.user_last_name}
+                  </p>
+                </Link>
+              ) : (
+                " "
+              )}
               <p className="text-xs text-gray-500">
                 {new Date(post.created_at).toLocaleDateString()}
               </p>
@@ -88,39 +92,39 @@ const Post = ({
         </div>
 
         <div className="relative">
-          {post.is_edit && editingPostId !== post.id && <button
-            onClick={() => toggleDropdown(post.id)}
-            className="p-2 text-gray-600 hover:text-gray-800 transition-colors"
-          >
-            <FaEllipsisV />
-          </button>}
+          {post.is_edit && editingPostId !== post.id && (
+            <button
+              onClick={() => toggleDropdown(post.id)}
+              className="p-2 text-gray-600 hover:text-gray-800 transition-colors"
+            >
+              <FaEllipsisV />
+            </button>
+          )}
 
           {openDropdownId === post.id && (
             <div className="absolute right-0 mt-2 w-32 bg-white border rounded shadow-lg z-10">
               {post.is_edit && editingPostId !== post.id && (
                 <>
-                <button
-                  onClick={() => {
-                    editPost(post.id, post.content);
-                    setOpenDropdownId(null);
-                  }}
-                  className="flex items-center px-4 py-2 w-full text-left text-blue-600 hover:bg-blue-100"
-                >
-                  <FaEdit className="mr-2" /> Edit
-                </button>
-                <button
-                onClick={() => {
-                  confirmDeletePost(post.id);
-                  setOpenDropdownId(null);
-                }}
-                className="flex items-center px-4 py-2 w-full text-left text-red-600 hover:bg-red-100"
-              >
-                <FaTrash className="mr-2" /> Delete 
-              </button>
+                  <button
+                    onClick={() => {
+                      editPost(post.id, post.content);
+                      setOpenDropdownId(null);
+                    }}
+                    className="flex items-center px-4 py-2 w-full text-left text-blue-600 hover:bg-blue-100"
+                  >
+                    <FaEdit className="mr-2" /> Edit
+                  </button>
+                  <button
+                    onClick={() => {
+                      confirmDeletePost(post.id);
+                      setOpenDropdownId(null);
+                    }}
+                    className="flex items-center px-4 py-2 w-full text-left text-red-600 hover:bg-red-100"
+                  >
+                    <FaTrash className="mr-2" /> Delete
+                  </button>
                 </>
-                
               )}
-             
             </div>
           )}
         </div>
@@ -150,8 +154,10 @@ const Post = ({
           </div>
         </div>
       ) : (
-        <p className="text-gray-700 mb-4 whitespace-pre-wrap">
-          {post.content}
+        <p className="text-gray-700 mb-4 whitespace-pre-wrap truncate">
+          {post.content.length > 500
+            ? `${post.content.slice(0, 500)}...`
+            : post.content}
         </p>
       )}
 
@@ -166,7 +172,12 @@ const Post = ({
 
       {/* Post Actions */}
       <div className="flex items-center justify-between p-2">
-        <LikeButton post={post} token={token} setLoginModal={setLoginModal} fetchPosts={fetchPosts} />
+        <LikeButton
+          post={post}
+          token={token}
+          setLoginModal={setLoginModal}
+          fetchPosts={fetchPosts}
+        />
 
         <button
           className="text-gray-500 hover:text-blue-600 flex items-center"
@@ -198,4 +209,3 @@ const Post = ({
 };
 
 export default Post;
-

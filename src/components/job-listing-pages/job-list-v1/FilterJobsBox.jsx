@@ -93,7 +93,7 @@ const FilterJobsBox = () => {
 
   const PrevArrow = ({ onClick }) => (
     <button
-      className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white px-3 py-2 rounded-full z-10"
+      className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white px-3 py-2 rounded-full z-50"
       onClick={onClick}
     >
       ❮
@@ -102,7 +102,7 @@ const FilterJobsBox = () => {
 
   const NextArrow = ({ onClick }) => (
     <button
-      className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white px-3 py-2 rounded-full z-10"
+      className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white px-3 py-2 rounded-full z-50"
       onClick={onClick}
     >
       ❯
@@ -426,10 +426,10 @@ const FilterJobsBox = () => {
                   {jobs.map((job) => (
                     <div
                       key={job.id}
-                      className="flex-shrink-0 w-full h-96 md:w-1/4 p-2"
+                      className="flex-shrink-0 w-full h-auto md:w-1/4 p-2"
                     >
                       <div
-                        className="relative bg-blue-900 shadow-md rounded-lg p-4 flex flex-col"
+                        className="relative bg-blue-900 shadow-md rounded-lg p-2 flex flex-col"
                         style={{
                           transition: "all 0.3s ease",
                           borderRadius: "12px",
@@ -439,7 +439,7 @@ const FilterJobsBox = () => {
                           },
                         }}
                       >
-                        <div className="absolute top-3 left-3 flex flex-col space-y-1">
+                        <div className="absolute top-3 left-3 flex flex-col gap-2">
                           {/* <span className="bg-green-200 text-green-800 text-xs font-medium px-2 py-1 rounded-md">
                             Private
                           </span> */}

@@ -127,6 +127,13 @@ const candidateMenus = [
     routePath: "/candidates-dashboard/saved-courses",
     active: "",
   },
+  {
+    id: 14,
+    name: "settings",
+    icon: "las la-cog",
+    routePath: "/candidates-dashboard/settings",
+    active: "",
+  },
   // {
   //   id: 14,
   //   name: "Certifications",

@@ -9,6 +9,7 @@ import axios from "axios";
 import { Constant } from "@/utils/constant/constant";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
+import Subscription from "@/components/Payments/Subscription";
 
 const SettingsPage = () => {
   const [selectedTab, setSelectedTab] = useState("notification");
@@ -237,64 +238,9 @@ const SettingsPage = () => {
                 </>
               )}
               {selectedTab === "subscription" && (
-                <div>
-                  <h2 className="text-xl font-semibold mb-4">Subscription</h2>
-                  {/* Help/Contact Box */}
-                  <div className="border rounded-lg p-4 mb-4 flex flex-col gap-4 bg-gray-50">
-                    <div>
-                      <div className="font-semibold mb-1">Need help or want to change your subscription?</div>
-                      <div className="text-sm">Contact us at:</div>
-                      <div className="flex items-center gap-2 mt-1">
-                        <svg xmlns='http://www.w3.org/2000/svg' className='w-4 h-4 text-gray-500' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M16 12H8m8 0a8 8 0 11-16 0 8 8 0 0116 0z' /></svg>
-                        <span className="text-blue-700 text-sm">support@SentrySpot.com</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-semibold mb-1">Available days a week:</div>
-                      <div className="text-sm">• Monday-Friday: 8 AM - 8 PM (IST)</div>
-                      <div className="text-sm">• Saturday: 8 AM - 5 PM (IST)</div>
-                    </div>
-                  </div>
-                  {/* Account ID */}
-                  <div className="mb-2 text-sm font-medium">Account ID: <span className="font-normal">{account?.job_seeker_uuid || "N/A"}</span></div>
-                  {/* Subscription Details */}
-                  <div className="border-t pt-4 mt-4">
-                    <div className="font-semibold mb-2">Subscription details</div>
-                    <div className="flex flex-col gap-4 mb-4">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="font-medium text-sm">Status:</span>
-                        <span className={`text-xs font-semibold px-2 py-0.5 rounded ${account?.is_active_plan ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
-                          {account?.is_active_plan ? 'Active' : 'Inactive'}
-                        </span>
-                      </div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="font-medium text-sm">Current Plan:</span>
-                        <span className={`text-xs font-semibold px-2 py-0.5 rounded ${account?.plan_name ? 'bg-gray-100 text-pink-600' : 'bg-gray-100 text-gray-600'}`}>
-                          {account?.plan_name || 'Free'}
-                        </span>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        <button 
-                          className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded" 
-                          onClick={() => navigate('/candidates-dashboard/pricing')}
-                        >
-                          Upgrade
-                        </button>
-                        <button 
-                          className={`text-sm font-semibold px-4 py-2 rounded bg-gray-200 text-gray-400 cursor-not-allowed`} 
-                          disabled
-                        >
-                          Cancel Subscription
-                        </button>
-                      </div>
-                    </div>
-                    <div className="text-xs text-gray-600 mt-2">
-                      For more information or changes to your subscription, contact us at <a href="mailto:support@SentrySpot.com" className="text-blue-700 underline">support@SentrySpot.com</a>.
-                    </div>
-                  </div>
-                </div>
+                <Subscription />
               )}
-
+            
               {/* Add your Account and Subscription tabs below if needed */}
             </div>
           </div>

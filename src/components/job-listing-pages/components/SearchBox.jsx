@@ -82,8 +82,8 @@ const SearchBox = () => {
       setKeyWord(urlKeyword);
       dispatch(addKeyword(urlKeyword));
     } else {
-      setKeyWord(jobList.keyword);
-    }
+    setKeyWord(""); // ✅ Reset input when URL has no keyword
+  }
   }, [searchParams, jobList.keyword, dispatch]);
 
   return (

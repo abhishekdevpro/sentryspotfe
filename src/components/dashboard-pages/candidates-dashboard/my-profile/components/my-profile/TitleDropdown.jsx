@@ -62,7 +62,7 @@ const TitleAutocomplete = ({ className, control, setValue, errors, profileData,f
 
   return (
     <div className="form-group col-lg-6 col-md-12 font-light">
-      <label className="block mb-1 text-gray-700 font-semibold">Job Title*</label>
+      <label className="block text-gray-700 font-semibold">Job Title*</label>
       <Controller
         name={fieldName || "job_title"}
         control={control}
@@ -72,7 +72,7 @@ const TitleAutocomplete = ({ className, control, setValue, errors, profileData,f
             <input
               ref={inputRef}
               type="text"
-              className={`${className} w-full px-4 py-3 rounded-lg bg-gray-50 border-none focus:ring-2 focus:ring-blue-500`}
+              className={`w-full px-4 py-3 rounded-lg bg-gray-50 border-none focus:ring-2 focus:ring-blue-500`}
               placeholder="Type to search job titles..."
               value={field.value || ''}
               onChange={(e) => {

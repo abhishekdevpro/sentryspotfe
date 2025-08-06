@@ -33,17 +33,7 @@ const FilterSidebar = () => {
       <div className="bg-white rounded-lg p-6 space-y-6 max-h-[600px] overflow-y-auto border border-gray-200 shadow-"
         style={{ scrollbarWidth: "none",scrollBehavior: "smooth", }}
       >
-        {/* Close button for mobile */}
-        {/* <button
-          type="button"
-          className="lg:hidden absolute top-4 right-4 w-8 h-8 flex items-center justify-center  hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors"
-          aria-label="Close"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button> */}
-
+        
         {/* Search by Keywords */}
         <div className="filter-section">
           <button 

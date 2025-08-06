@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   BsBriefcase,
   BsGeoAlt,
@@ -8,6 +8,7 @@ import {
 } from "react-icons/bs";
 import { FiAward } from "react-icons/fi";
 import { formatDaysAgo } from "@/components/common/DateUtils";
+import { Button } from "@/components/ui/button";
 
 const JobCard = ({
   job,
@@ -43,14 +44,7 @@ const JobCard = ({
     is_applied,
   } = job;
 
-  const formatTimeAgo = (dateString) => {
-    if (!dateString) return "";
-    const hours = Math.floor(
-      (Date.now() - new Date(dateString)) / (1000 * 60 * 60)
-    );
-    return `${hours} hours ago`;
-  };
-
+ const navigate = useNavigate()
   const formatSalary = () => {
     if (salary_min && salary_max) {
       return (
@@ -119,11 +113,11 @@ const JobCard = ({
           <img
             src={logo || "/images/resource/company-logo/1-1.png"}
             alt="company logo"
-            className="w-10 h-10 rounded-full border border-gray-200 object-contain mr-3"
+            className="w-12 h-12 rounded-full border border-gray-200 object-contain mr-3"
           />
           <div>
-            <div className="font-semibold text-gray-900">{job_title}</div>
-            <div className="font-light text-sm text-muted">posted on : {formatDaysAgo(created_at)}</div>
+            <div className="font-semibold text-lg">{job_title}</div>
+            <div className="font-light text-md text-muted">posted on : {formatDaysAgo(created_at)}</div>
           </div>
         </div>
         {showSaveButton && (
@@ -149,14 +143,14 @@ const JobCard = ({
       {/* Location */}
       <div className="flex items-center text-gray-600 mb-2">
         <BsGeoAlt className="mr-2 flex-shrink-0" />
-        <span className="truncate font-normal">{getLocationText()}</span>
+        <span className="truncate text-md font-normal">{getLocationText()}</span>
       </div>
 
       {/* Salary & Freshers */}
       <div className="flex items-center mb-2 flex-wrap gap-2">
         <span className="flex items-center text-gray-600">
           <BsBriefcase className="mr-1 flex-shrink-0" />
-          <span className="font-normal text-sm">{formatSalary()}</span>
+          <span className="font-normal text-md">{formatSalary()}</span>
         </span>
         {freshers_can_apply && (
           <span className="px-2 py-1 bg-green-50 text-green-700 border border-green-200 rounded-full text-xs font-medium">
@@ -222,44 +216,32 @@ const JobCard = ({
         </span>
       </div>
 
-      {/* Posted Date */}
-      {/* <div className="text-gray-500 text-sm mb-4">
-        {created_at
-          ? new Date(created_at).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })
-          : "-"}
-      </div> */}
+      
 
       {/* Action Buttons */}
       <div className="flex justify-end items-center gap-2 mt-auto">
-        <Link
-          to={`/job-single-v3/${id}`}
-          className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors font-medium text-sm"
-          onClick={(e) => e.stopPropagation()}
+        <Button
+        variant="link"
+          
+          onClick={()=>navigate(`/job-single-v3/${id}`)}
+          // className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors font-medium text-sm"
+          
         >
           View Job
-        </Link>
+        </Button>
         {showApplyButton && (
-          <button
+          <Button
             onClick={handleApplyClick}
+            variant={ is_applied || actionStatus[id] === "applied"? "success": "default"}
             disabled={is_applied || actionStatus[id] === "applying"}
-            className={`px-4 py-2 rounded-md font-medium text-sm transition-colors ${
-              is_applied || actionStatus[id] === "applied"
-                ? "bg-green-500 text-white cursor-not-allowed"
-                : actionStatus[id] === "applying"
-                ? "bg-gray-400 text-white cursor-not-allowed"
-                : "bg-blue-900 text-white hover:bg-blue-700"
-            }`}
+           
           >
             {is_applied || actionStatus[id] === "applied"
               ? "Applied"
               : actionStatus[id] === "applying"
               ? "Applying..."
               : "Quick Apply"}
-          </button>
+          </Button>
         )}
       </div>
     </div>

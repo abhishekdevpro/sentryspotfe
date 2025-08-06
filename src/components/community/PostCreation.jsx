@@ -34,6 +34,7 @@ const PostCreation = ({ addPost, token, setLoginModal }) => {
         onChange={(e) => setContent(e.target.value)}
         style={{ overflowY: 'auto', maxHeight: '200px' }}
         placeholder="Ask anything (even anonymously)..."
+        maxLength={200}
       />
 
       <div className="mt-4 flex justify-between items-center">

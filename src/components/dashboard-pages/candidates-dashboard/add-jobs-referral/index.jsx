@@ -21,7 +21,7 @@ const AddReferral = () => {
 
       <section className="user-dashboard">
         <div className="dashboard-outer">
-          <BreadCrumb title="Upload Documents" />
+          <BreadCrumb title="Add Job Referral" />
           <MenuToggler />
           <Jobreferral />
 

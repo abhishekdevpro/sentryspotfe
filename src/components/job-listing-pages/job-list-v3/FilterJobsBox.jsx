@@ -6,31 +6,9 @@ import toast from "react-hot-toast";
 import ApplyJobModalContent from "@/components/job-single-pages/shared-components/ApplyJobModalContent";
 import JobCard from "./JobCard";
 import useJobActions from "@/hooks/useJobActions";
+import { LoginModal } from "@/components/ui/LoginModal";
+import { debounce } from "lodash";
 
-const LoginModal = ({ onClose }) => {
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-        <h3 className="text-xl font-semibold mb-4">Please Login</h3>
-        <p className="mb-6">You need to be logged in to perform this action.</p>
-        <div className="flex justify-end space-x-4">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800"
-          >
-            Cancel
-          </button>
-          <Link
-            to="/login"
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Login
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const FilterJobsBox = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -94,9 +72,17 @@ const FilterJobsBox = () => {
     }
   };
 
-  useEffect(() => {
+ useEffect(() => {
+  const debouncedFetch = debounce(() => {
     fetchJobs();
-  }, [searchParams, sort]);
+  }, 500); // waits 500ms after the last change
+
+  debouncedFetch();
+
+  // Cleanup to cancel debounce on unmount or before next run
+  return () => debouncedFetch.cancel();
+}, [searchParams, sort]);
+
 
   const hasFilters = () => {
     return [...searchParams].some(
@@ -170,8 +156,8 @@ const FilterJobsBox = () => {
 
       {/* Job Listings Header */}
       <div className="mb-4 flex justify-between items-center">
-        <div className=" w-full flex flex-col md:flex-row md:items-center justify-between mb-6">
-          <div className="mb-4 md:mb-0">
+        <div className=" w-full flex flex-col md:flex-row md:items-center justify-between mb-2">
+          <div className="">
             <h1 className="text-2xl font-bold mb-1">All Jobs</h1>
             <p className="text-gray-500 text-sm">
               Jobs ({displayedJobs?.length} of {jobs.length})
@@ -191,20 +177,13 @@ const FilterJobsBox = () => {
           </div>
         </div>
 
-        {/* {hasFilters() && (
-          <button
-            onClick={clearFilters}
-            className="px-3 py-1 text-sm bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200 transition-colors"
-          >
-            Clear Filters
-          </button>
-        )} */}
+       
       </div>
 
       {/* Scrollable Job Listings Container */}
       <div className="scroll-container">
         <div
-          className="custom-scrollbar max-h-[70vh] min-h-[400px] overflow-y-auto pr-2"
+          className="custom-scrollbar mb-2 max-h-[70vh] min-h-[400px] overflow-y-auto pr-2"
           style={{
             scrollBehavior: "smooth",
           }}

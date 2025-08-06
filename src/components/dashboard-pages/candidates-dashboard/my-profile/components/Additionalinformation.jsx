@@ -348,7 +348,7 @@ const Additionalinformation = () => {
           {/* Work Permit */}
           <div className="form-group flex flex-col sm:flex-row gap-2 sm:gap-10">
             <label className="w-full sm:w-3/4 text-sm sm:text-base">Do you have a work permit for the UK?</label>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 font-normal">
               <div className="flex items-center">
                 <input
                   type="radio"
@@ -356,7 +356,7 @@ const Additionalinformation = () => {
                   value="true"
                   onChange={handleInputChange}
                   checked={formData.work_permit_usa === true}
-                  className="w-4 h-4"
+                  className="w-4 h-4 "
                 />
                 <label className="ml-2 text-sm sm:text-base">Yes</label>
               </div>
@@ -439,7 +439,7 @@ const Additionalinformation = () => {
         <div className="mt-6">
           <button
             type="submit"
-            className="w-full sm:w-auto bg-blue-800 text-white px-6 py-2 rounded-lg text-sm sm:text-base hover:bg-blue-900 transition-colors"
+            className="font-normal w-full sm:w-auto bg-blue-800 text-white px-6 py-2 rounded-lg text-sm sm:text-base hover:bg-blue-900 transition-colors"
             disabled={loading}
           >
             {loading ? "Saving..." : "Save"}

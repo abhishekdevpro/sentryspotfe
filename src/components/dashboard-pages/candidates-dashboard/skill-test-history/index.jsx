@@ -29,7 +29,7 @@ const SkillHistoryPage = () => {
       {/* <!-- Dashboard --> */}
       <section className="user-dashboard">
         <div className="dashboard-outer">
-          <BreadCrumb title="Skill History" />
+          <BreadCrumb title="Skill Assessment History" />
           {/* breadCrumb */}
 
           <MenuToggler />

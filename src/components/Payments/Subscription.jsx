@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import DashboardCandidatesHeader from "../header/DashboardCandidatesHeader";
+import { useSelector } from "react-redux";
+import { Button } from "../ui/button";
+import { Mail } from "lucide-react";
 // import UserHeader2 from "../../Layout/Header2";
 
 // Styled Components
@@ -104,30 +108,30 @@ const ButtonContainer = styled.div`
   gap: 1rem;
 `;
 
-const Button = styled.button`
-  margin-top: 0.75rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  background-color: ${props => {
-    if (props.disabled) return "#9ca3af";
-    if (props.danger) return "#dc2626";
-    return "#2563eb";
-  }};
-  color: white;
-  cursor: ${props => props.disabled ? "not-allowed" : "pointer"};
+// const Button = styled.button`
+//   margin-top: 0.75rem;
+//   padding: 0.5rem 1rem;
+//   border-radius: 0.375rem;
+//   background-color: ${props => {
+//     if (props.disabled) return "#9ca3af";
+//     if (props.danger) return "#dc2626";
+//     return "#2563eb";
+//   }};
+//   color: white;
+//   cursor: ${props => props.disabled ? "not-allowed" : "pointer"};
   
-  &:hover {
-    background-color: ${props => {
-      if (props.disabled) return "#9ca3af";
-      if (props.danger) return "#b91c1c";
-      return "#1d4ed8";
-    }};
-  }
+//   &:hover {
+//     background-color: ${props => {
+//       if (props.disabled) return "#9ca3af";
+//       if (props.danger) return "#b91c1c";
+//       return "#1d4ed8";
+//     }};
+//   }
   
-  @media (min-width: 768px) {
-    margin-top: 0;
-  }
-`;
+//   @media (min-width: 768px) {
+//     margin-top: 0;
+//   }
+// `;
 
 const Link = styled.a`
   color: #2563eb;
@@ -155,11 +159,11 @@ export default function Subscription() {
   const [status, setStatus] = useState("Inactive");
   const [accountId, setAccountId] = useState();
   const [userData, setUserData] = useState(null);
-
-
+  const {userInfo} = useSelector((state) => state.auth);
+  console.log(userInfo?.plan_id,"from subss")
 
   useEffect(() => {
-    setAccountId(localStorage.getItem("ID"));
+    setAccountId(userInfo.job_seeker_uuid);
   }, []);
 
   const handleCancelSubscription = async () => {
@@ -198,37 +202,38 @@ export default function Subscription() {
     }
   };
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const token = localStorage.getItem("jobSeekerLoginToken");
-        if (!token) return;
+  // useEffect(() => {
+  //   const fetchUserProfile = async () => {
+  //     try {
+  //       const token = localStorage.getItem("jobSeekerLoginToken");
+  //       if (!token) return;
 
-        const response = await axios.get(
-          "https://api.sentryspot.co.uk/api/jobseeker/user-profile",
-          {
-            headers: { Authorization: token },
-          }
-        );
+  //       const response = await axios.get(
+  //         "https://api.sentryspot.co.uk/api/jobseeker/user-profile",
+  //         {
+  //           headers: { Authorization: token },
+  //         }
+  //       );
 
-        if (response.data?.status === "success") {
-          const userData = response.data.data;
-          setUserData(userData);
-          setStatus(userData.is_active_plan ? "Active" : "Inactive");
-        }
-      } catch (err) {
-        console.error("Error fetching user profile:", err);
-        setStatus("Inactive");
-      }
-    };
+  //       if (response.data?.status === "success") {
+  //         const userData = response.data.data;
+  //         setUserData(userData);
+  //         setStatus(userData.is_active_plan ? "Active" : "Inactive");
+  //       }
+  //     } catch (err) {
+  //       console.error("Error fetching user profile:", err);
+  //       setStatus("Inactive");
+  //     }
+  //   };
 
-    fetchUserProfile();
-  }, []);
+  //   fetchUserProfile();
+  // }, []);
 
   return (
     <>
       {/* <Navbar /> */}
       {/* <UserHeader2 /> */}
+      <DashboardCandidatesHeader />
       <Container>
         <Title>Account Settings</Title>
 
@@ -242,7 +247,10 @@ export default function Subscription() {
               </Text>
               <Text style={{ marginTop: "0.5rem" }}>Contact us at:</Text>
               <List>
-                <ListItem small>📧 customersupport@sentryspot.co.uk</ListItem>
+                <div className="flex " small>
+                  <Mail style={{ marginRight: "0.5rem" }} />
+                  <span className="font-normal">customersupport@sentryspot.co.uk</span>
+                </div>
               </List>
             </InfoSection>
 
@@ -251,8 +259,8 @@ export default function Subscription() {
             <InfoSection>
               <Text style={{ fontWeight: 600, color: "#1f2937" }}>Available days a week:</Text>
               <List>
-                <ListItem>Monday-Friday: 8 AM - 8 PM (IST)</ListItem>
-                <ListItem>Saturday: 8 AM - 5 PM (IST)</ListItem>
+                <p>Monday-Friday: 8 AM - 8 PM (IST)</p>
+                <p>Saturday: 8 AM - 5 PM (IST)</p>
               </List>
             </InfoSection>
           </InfoBox>
@@ -261,7 +269,7 @@ export default function Subscription() {
             <Text style={{ fontWeight: 600, color: "#111827" }}>
               Account ID:{" "}
               <span style={{ color: "#4b5563", fontWeight: 500 }}>
-                {accountId || 618744350}
+                {accountId}
               </span>
             </Text>
           </AccountSection>
@@ -278,11 +286,11 @@ export default function Subscription() {
 
               <ButtonContainer>
                 <Link href="/payments/plans">
-                  <Button>Upgrade</Button>
+                  <Button >Upgrade</Button>
                 </Link>
                 <Button
-                  danger
-                  disabled={userData?.plan_id === 1 || !userData?.is_active_plan}
+                  varinat="danger"
+                  disabled={userInfo?.plan_id === 1 || !userInfo?.is_active_plan}
                   onClick={handleCancelSubscription}
                 >
                   Cancel Subscription
@@ -292,15 +300,15 @@ export default function Subscription() {
 
             <Text style={{ marginTop: "0.5rem" }}>
               Current Plan:{" "}
-              {userData?.plan_id ? (
+              {userInfo?.plan_id ? (
                 <span style={{ fontWeight: 500 }}>
-                  {userData.plan_id === 1 && "Free Plan"}
-                  {userData.plan_id === 2 && "Single Pass"}
-                  {userData.plan_id === 3 && "AI Pro Month"}
-                  {userData.plan_id === 4 && "AI Pro Yearly"}
+                  {(userInfo.plan_id ===1 || userInfo.plan_id ===0) && "Free Plan"}
+                  {userInfo.plan_id === 2 && "Single Pass"}
+                  {userInfo.plan_id === 3 && "AI Pro Month"}
+                  {userInfo.plan_id === 4 && "AI Pro Yearly"}
                 </span>
               ) : (
-                "N/A"
+               <span style={{ fontWeight: 500 }}>Free Plan</span>
               )}
             </Text>
 

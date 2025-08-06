@@ -100,36 +100,36 @@ const DashboardCandidatesHeader = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-3">
             <div className="header-logo flex items-center">
-              <a href="/">
+              <Link to={"/"}>
                 <img src={logo} alt="Company Logo" className="h-10 w-auto" />
-              </a>
-              <div className="main-menu ms-4 hidden md:flex">
+              </Link>
+              <div className=" ms-4 hidden md:flex">
                 <ul className="flex space-x-4">
                   <li>
-                    <a href="" className="text-gray-700 hover:text-blue-600">
+                    <Link to={""} className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-sm xl:text-base py-2 px-1">
                       AI Services
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="" className="text-gray-700 hover:text-blue-600">
+                    <Link to={""} className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-sm xl:text-base py-2 px-1">
                       Hiring Advice
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/companies-list"
-                      className="text-gray-700 hover:text-blue-600"
+                    <Link
+                      to={"/companies-list"}
+                      className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-sm xl:text-base py-2 px-1"
                     >
                       Companies
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/job-list-v3"
-                      className="text-gray-700 hover:text-blue-600"
+                    <Link
+                      to={"/job-list-v3"}
+                      className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-sm xl:text-base py-2 px-1"
                     >
                       Jobs
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

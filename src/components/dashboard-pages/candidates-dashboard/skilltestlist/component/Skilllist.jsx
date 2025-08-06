@@ -126,9 +126,9 @@ const Skilltest = () => {
   return (
     <div className="bg-gray-100 min-h-screen py-6 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+        {/* <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl font-bold text-gray-800">My Skills</h2>
-        </div>
+        </div> */}
         
         {loading ? (
           <div className="flex justify-center items-center h-64">

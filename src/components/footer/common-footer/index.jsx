@@ -13,7 +13,7 @@ const Footer = ({ footerStyle = "" }) => {
               <img
                 src="https://htmlsentryspot.vercel.app/img/company_logo_white.png"
                 alt="SentrySpot Logo"
-                className="h-8 w-auto mb-4"
+                className="h-12 w-auto mb-4"
               />
               <div className="flex space-x-4 mt-4">
                 <a href="#" className="hover:text-blue-400 transition-colors">
@@ -62,12 +62,12 @@ const Footer = ({ footerStyle = "" }) => {
 
           {/* Our Services Section */}
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold mb-4">Company</h2>
-            <ul className="space-y-2">
+            <h2 className="text-lg font-medium mb-4">Company</h2>
+            <ul className="space-y-2 font-normal">
               <li>
                 <Link
                   to="/about-us"
-                  className="hover:text-gray-300 transition-colors"
+                  className=" hover:text-gray-300 transition-colors"
                 >
                   About Us
                 </Link>
@@ -106,8 +106,8 @@ const Footer = ({ footerStyle = "" }) => {
 
           {/* Services for Recruiters Section */}
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold mb-4">Job Seekers</h2>
-            <ul className="space-y-2">
+            <h2 className="text-lg font-medium mb-4">Job Seekers</h2>
+            <ul className="space-y-2 font-normal">
               <li>
                 <Link
                   to="/jobsearch"
@@ -153,8 +153,8 @@ const Footer = ({ footerStyle = "" }) => {
 
           {/* Other Services Section */}
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold mb-4">AI Tools</h2>
-            <ul className="space-y-2">
+            <h2 className="text-lg font-medium mb-4">AI Tools</h2>
+            <ul className="space-y-2 font-normal">
               <li>
                 <Link
                   to="/ai-resume-builder"
@@ -192,8 +192,8 @@ const Footer = ({ footerStyle = "" }) => {
 
           {/* Help and Contact Section */}
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold mb-4"> Legal</h2>
-            <ul className="space-y-2">
+            <h2 className="text-lg font-medium mb-4"> Legal</h2>
+            <ul className="space-y-2 font-normal">
               <li>
                 <Link
                   to="/terms-and-conditions"
