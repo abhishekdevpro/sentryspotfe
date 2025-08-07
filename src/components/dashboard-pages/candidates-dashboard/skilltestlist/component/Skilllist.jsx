@@ -9,7 +9,7 @@ const InstructionsModal = ({ isOpen, onClose, onProceed, skillId, skillName }) =
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg w-full max-w-2xl mx-4 relative">
+      <div className="app-light-bg rounded-lg w-full max-w-2xl mx-4 relative">
         <div className="flex justify-between items-center border-b p-4">
           <h2 className="text-xl font-semibold flex items-center gap-2">
             <span className="inline-block">📝</span> Instructions
@@ -55,7 +55,7 @@ const InstructionsModal = ({ isOpen, onClose, onProceed, skillId, skillName }) =
 };
 
 const SkillCard = ({ skill, onTakeTest }) => (
-  <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+  <div className="app-light-bg rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
     <div className="p-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
@@ -124,7 +124,7 @@ const Skilltest = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen py-6 px-4">
+    <div className="app-bg-light min-h-screen py-6 px-4">
       <div className="max-w-7xl mx-auto">
         {/* <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl font-bold text-gray-800">My Skills</h2>
@@ -136,12 +136,12 @@ const Skilltest = () => {
             <p className="ml-4 text-gray-500">Loading...</p>
           </div>
         ) : error ? (
-          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+          <div className="app-light-bg rounded-lg shadow-lg p-8 text-center">
             <GraduationCap className="mx-auto h-12 w-12 text-gray-400 mb-4" />
             <p className="text-gray-500 text-lg mb-4">{error}</p>
           </div>
         ) : skills.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+          <div className="app-light-bg rounded-lg shadow-lg p-8 text-center">
             <GraduationCap className="mx-auto h-12 w-12 text-gray-400 mb-4" />
             <p className="text-gray-500 text-lg">
               No skills available at the moment. Please add skills and check back later.

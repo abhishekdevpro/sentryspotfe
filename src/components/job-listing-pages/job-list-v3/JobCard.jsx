@@ -26,6 +26,7 @@ const JobCard = ({
     logo,
     company_name,
     created_at,
+    job_applied_created_at,
     job_title,
     location,
     complete_address,
@@ -110,7 +111,7 @@ const JobCard = ({
           <div>
             <div className="app-text-h3">{job_title}</div>
             <div className="app-text-muted">
-              {is_applied ? `Applied on : ${formatDaysAgo(created_at)}` : `Posted on : ${formatDaysAgo(created_at)}`}
+              {is_applied ? `Applied on : ${formatDaysAgo(job_applied_created_at)}` : `Posted on : ${formatDaysAgo(created_at)}`}
             </div>
           </div>
         </div>

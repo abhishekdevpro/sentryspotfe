@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 const Index = () => {
   const {userInfo} = useSelector((state)=>state.auth);
   return (
-    <div className="page-wrapper dashboard">
+    <div className="page-wrapper dashboard app-gradient-bg">
       <span className="header-span"></span>
       {/* <!-- Header Span for hight --> */}
 
@@ -46,33 +46,14 @@ const Index = () => {
           </div>
           {/* End .row top card block */}
           <div className="row">
-            {/* <div className="col-xl-7 col-lg-12">
-              {/* <!-- Graph widget --> 
-              <div className="graph-widget ls-widget">
-                <ProfileChart />
-              </div>
-              {/* End profile chart
-            </div>
             
-
-            <div className="col-xl-5 col-lg-12">
-              {/* <!-- Notification Widget --> 
-              <div className="notification-widget ls-widget">
-                <div className="widget-title">
-                  <h4>Notifications</h4>
-                </div>
-                <div className="widget-content">
-                  <Notification />
-                </div>
-              </div>
-            </div> */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="graph-widget ls-widget">
               <ProfileChart />
             </div>
             {/* End profile chart */}
 
-            <div className="notification-widget ls-widget">
+            <div className="notification-widget ls-widget app-light-bg">
               <div className="widget-title">
                 <h4>Notifications</h4>
               </div>
@@ -83,9 +64,9 @@ const Index = () => {
           </div>
             {/* End .col */}
 
-            <div className="col-lg-12">
+            <div className="col-lg-12 ">
               {/* <!-- applicants Widget --> */}
-              <div className="applicants-widget ls-widget">
+              <div className="applicants-widget ls-widget app-light-bg">
                 <div className="widget-title">
                   <h4>Jobs Applied Recently</h4>
                 </div>

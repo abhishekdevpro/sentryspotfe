@@ -43,9 +43,9 @@ const DashboardCandidatesSidebar = () => {
   console.log(k,"usekrId");
 
   return (
-    <div className={`user-sidebar ${menu ? "sidebar_open" : ""}`}>
+    <div className={`user-sidebar ${menu ? "sidebar_open" : ""} app-light-bg`}>
       {/* Sidebar close icon */}
-      <div className="pro-header text-end pb-0 mb-0 show-1023 app-bg-light">
+      <div className="pro-header text-end pb-0 mb-0 show-1023 ">
         <div className="fix-icon" onClick={menuToggleHandler}>
           <span className="flaticon-close"></span>
         </div>
@@ -54,7 +54,7 @@ const DashboardCandidatesSidebar = () => {
       <div className="sidebar-inner ">
         {/* Dynamic User Profile */}
         <Link to="/candidates-dashboard/my-profile">
-          <div className="flex gap-4 justify-center items-center p-4 border border-gray-200 mb-2 rounded-lg app-light-bg text-black ">
+          <div className="flex flex-col gap-4 justify-center items-center p-2 border border-gray-200 mb-2 rounded-lg app-light-bg text-black ">
             <div className="flex-1  w-auto">
               <img
                 src={
@@ -67,10 +67,10 @@ const DashboardCandidatesSidebar = () => {
                
               />
             </div>
-            <div className=" flex-1 flex-col gap-2">
-              <p className="app-text-p">{userInfo?.first_name} </p>
-              <p className="app-text-p">{userInfo?.job_title || "Jobseeker"}</p>
-              <Button onClick={()=>navigate('/public-view')} className="border-none text-start px-0 py-1" variant="link">view </Button>
+            <div className=" flex-1 flex-col justify-center items-center gap-2">
+              <p className="app-text-p text-center">{userInfo?.first_name} </p>
+              <p className="app-text-p text-center">{userInfo?.job_title || "Jobseeker"}</p>
+              <Button onClick={()=>navigate('/public-view')} className="w-full" variant="link">view </Button>
             </div>
           </div>
         </Link>

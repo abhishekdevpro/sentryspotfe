@@ -32,7 +32,8 @@ function InterviewResult() {
   return (
     <>
       <DashboardCandidatesHeader />
-      <div
+      <div className="app-gradient-bg h-screen">
+        <div
         className="max-w-4xl mx-auto py-10 px-4 mt-20"
       >
         <button
@@ -105,6 +106,7 @@ function InterviewResult() {
             </p>
           </div>
         )}
+      </div>
       </div>
       <CopyrightFooter />
     </>

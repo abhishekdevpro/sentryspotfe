@@ -111,7 +111,7 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="page-wrapper dashboard min-h-screen bg-white text-blue-900">
+    <div className="page-wrapper dashboard min-h-screen app-gradient-bg ">
       <DashboardCandidatesHeader />
       <DashboardCandidatesSidebar />
       <div className="pt-20 md:pt-36 px-4 md:px-0 flex justify-center">
@@ -124,7 +124,7 @@ const SettingsPage = () => {
                   key={tab}
                   className={`flex-shrink-0 text-left px-4 py-2 rounded-lg font-medium mb-1 transition-colors ${
                     selectedTab === tab
-                      ? "bg-white text-blue-900"
+                      ? "app-light-bg text-blue-900"
                       : "hover:bg-blue-800 text-white"
                   }`}
                   onClick={() => setSelectedTab(tab)}
@@ -139,7 +139,7 @@ const SettingsPage = () => {
 
           {/* Main Content */}
           <div className="flex-1">
-            <div className="bg-white rounded-xl shadow p-4 md:p-6 min-w-[280px]">
+            <div className="app-light-bg rounded-xl shadow p-4 md:p-6 min-w-[280px]">
               {selectedTab === "notification" && (
                 <>
                   <h2 className="text-xl font-bold mb-4 text-blue-900">Notifications</h2>
@@ -163,7 +163,7 @@ const SettingsPage = () => {
                             }`}
                           >
                             <span
-                              className={`w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ${
+                              className={`w-4 h-4 app-light-bg rounded-full shadow transform transition-transform duration-200 ${
                                 emailNotif ? "translate-x-4" : ""
                               }`}
                             ></span>
@@ -181,7 +181,7 @@ const SettingsPage = () => {
                             }`}
                           >
                             <span
-                              className={`w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ${
+                              className={`w-4 h-4 app-light-bg rounded-full shadow transform transition-transform duration-200 ${
                                 smsNotif ? "translate-x-4" : ""
                               }`}
                             ></span>
@@ -199,7 +199,7 @@ const SettingsPage = () => {
                             className="w-10 h-6 flex items-center rounded-full p-1 bg-gray-300 cursor-not-allowed"
                             disabled
                           >
-                            <span className="w-4 h-4 bg-white rounded-full shadow"></span>
+                            <span className="w-4 h-4 app-light-bg rounded-full shadow"></span>
                           </button>
                           <span className="text-sm text-blue-900">
                             I am open to receive marketing communications.

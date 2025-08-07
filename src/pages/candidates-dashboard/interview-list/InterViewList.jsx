@@ -54,7 +54,7 @@ const InterviewList = () => {
 
   return (
     <>
-      <div className=" min-h-screen ">
+      <div className=" min-h-screen app-light-bg">
         
 
             <div className="col-span-1 md:col-span-3">

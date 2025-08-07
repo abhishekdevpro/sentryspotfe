@@ -69,7 +69,7 @@ export const data = {
 
 const ProfileChart = () => {
   return (
-    <div className="tabs-box">
+    <div className="tabs-box app-light-bg">
       <div className="widget-title">
         <h4>Your Profile Views</h4>
         <div className="chosen-outer">

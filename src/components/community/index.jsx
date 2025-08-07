@@ -7,15 +7,17 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import FilterleftSidebar from "./FilterleftSidebar"
 import '../../../index.css'
 import FeedSection from "./FeedSection";
+import { Constant } from "@/utils/constant/constant";
+import DashboardCandidatesHeader from "../header/DashboardCandidatesHeader";
 
 const Index = () => {
   return (
     <>
       <LoginPopup />
-      <DefaulHeader2 />
+      {localStorage.getItem(Constant.USER_TOKEN)? <DashboardCandidatesHeader />  :<DefaulHeader2 />}
       {/* End Header */}
 
-      <section className="ls-section app-gradient-bg">
+      <section className="ls-section app-gradient-bg mt-20">
         <div className="auto-container px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-4 ">
             {/* Left Sidebar - Hidden on mobile, visible on lg screens */}

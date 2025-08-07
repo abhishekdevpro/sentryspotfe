@@ -58,7 +58,7 @@ const JobListingsTable = () => {
  
 
   return (
-    <div className="bg-white/90 min-h-screen py-4 sm:py-8 px-3 sm:px-4">
+    <div className="app-light-bg min-h-screen py-4 sm:py-8 px-3 sm:px-4">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
           <p className="text-xl sm:text-2xl0">

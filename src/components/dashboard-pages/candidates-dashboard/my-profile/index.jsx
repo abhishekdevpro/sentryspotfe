@@ -51,7 +51,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="page-wrapper dashboard">
+    <div className="page-wrapper dashboard app-gradient-bg">
       <span className="header-span"></span>
 
       <LoginPopup />
