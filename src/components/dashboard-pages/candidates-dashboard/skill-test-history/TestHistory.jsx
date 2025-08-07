@@ -127,7 +127,7 @@
 //   }
 
 //   return (
-//     <div className="w-full bg-white rounded-lg shadow-lg">
+//     <div className="w-full app-light-bg rounded-lg shadow-lg">
 //       {/* Header */}
 //       {/* <div className="p-6 border-b border-gray-200">
 //         <h1 className="text-2xl font-bold text-gray-900">Skill History</h1>
@@ -169,7 +169,7 @@
 //                   </th>
 //                 </tr>
 //               </thead>
-//               <tbody className="bg-white divide-y divide-gray-200">
+//               <tbody className="app-light-bg divide-y divide-gray-200">
 //                 {users.map((user, index) => (
 //                   <tr 
 //                     key={index} 
@@ -275,8 +275,8 @@ const SkillHistory = () => {
   }, []);
 
   return (
-    <div className="bg-gray-100 min-h-screen py-6 px-4">
-      <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-lg">
+    <div className="app-light-bg min-h-screen py-6 px-4">
+      <div className="max-w-7xl mx-auto app-light-bg rounded-xl shadow-lg">
         <div className="p-6">
           {/* <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl font-bold text-gray-800">

@@ -3,7 +3,7 @@ import NotificationProvider from "@/NotificationProvider";
 const Notification = () => {
   return (
     <>
-      <ul className="notification-list">
+      <ul className="notification-list ">
       <li>
         <span className="icon flaticon-briefcase"></span>
         <strong>Henry Wilson</strong> applied for a job

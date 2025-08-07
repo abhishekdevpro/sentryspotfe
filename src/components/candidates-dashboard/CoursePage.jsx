@@ -93,7 +93,7 @@ const CoursePage = () => {
   }, [courses]);
 
   return (
-    <div className="page-wrapper dashboard">
+    <div className="page-wrapper dashboard app-gradient-bg">
       <span className="header-span"></span>
       {/* <LoginPopup /> */}
       <DashboardCandidatesHeader />
@@ -105,7 +105,7 @@ const CoursePage = () => {
 
           <div className="row">
             <div className="col-lg-12">
-              <div className="ls-widget">
+              <div className="ls-widget app-light-bg">
                 <Box sx={{ p: 3 }}>
                   <Box sx={{ mb: 4 }}>
                     <Typography variant="h4" component="h1" gutterBottom>

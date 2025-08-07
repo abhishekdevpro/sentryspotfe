@@ -9,7 +9,7 @@ import NotificationsHistory from "./NotificationsHistory";
 
 const NotificationsHistoryPage = () => {
   return (
-    <div className="page-wrapper dashboard">
+    <div className="page-wrapper dashboard app-gradient-bg">
       <span className="header-span"></span>
       {/* <!-- Header Span for hight --> */}
 
@@ -37,7 +37,7 @@ const NotificationsHistoryPage = () => {
           <div className="row">
             <div className="col-lg-12">
               {/* <!-- Ls widget --> */}
-              <div className="ls-widget h-screen">
+              <div className="ls-widget h-screen app-light-bg">
                 <NotificationsHistory />
               </div>
             </div>

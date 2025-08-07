@@ -121,7 +121,7 @@ const DocumentList = () => {
   };
 
   return (
-    <div className="container mx-auto mt-10 p-6 bg-white rounded-lg shadow">
+    <div className="container mx-auto mt-10 p-6 app-light-bg rounded-lg shadow">
       {/* <h2 className="text-xl font-bold uppercase mb-6">Upload Document</h2> */}
 
       <div className="mb-4">

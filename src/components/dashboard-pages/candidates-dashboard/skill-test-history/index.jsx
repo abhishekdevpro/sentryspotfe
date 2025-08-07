@@ -10,7 +10,7 @@ import SkillHistoryTable from "./TestHistory";
 
 const SkillHistoryPage = () => {
   return (
-    <div className="page-wrapper dashboard">
+    <div className="page-wrapper dashboard app-gradient-bg">
       <span className="header-span"></span>
       {/* <!-- Header Span for hight --> */}
 
@@ -38,7 +38,7 @@ const SkillHistoryPage = () => {
           <div className="row">
             <div className="col-lg-12">
               {/* <!-- Ls widget --> */}
-              <div className="ls-widget">
+              <div className="ls-widget app-light-bg">
                 {/* <Skilltest/> */}
                 <SkillHistoryTable />
               </div>

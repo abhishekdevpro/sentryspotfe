@@ -9,7 +9,7 @@ import InterviewList from "./InterViewList";
 
 const index = () => {
   return (
-    <div className="page-wrapper dashboard">
+    <div className="page-wrapper dashboard app-gradient-bg">
       <span className="header-span"></span>
       {/* <!-- Header Span for hight --> */}
 

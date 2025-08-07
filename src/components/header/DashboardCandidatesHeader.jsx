@@ -94,7 +94,7 @@ const DashboardCandidatesHeader = () => {
   //  console.log(notifications,"notiii");
   return (
     <header
-      className={`main-header header-shadow ${navbar ? "fixed-header" : ""}`}
+      className={`main-header header-shadow  ${navbar ? "fixed-header" : ""}`}
     >
       <div className="header">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -192,7 +192,9 @@ const DashboardCandidatesHeader = () => {
                 )}
               </div>
 
-              <i className="las la-comment hidden md:block text-3xl mx-4 text-blue-900"></i>
+              <Link to="/candidates-dashboard/messages">
+               <i className="las la-comment hidden md:block text-3xl mx-4 text-blue-900"></i>
+              </Link>
 
               {/* Desktop User Dropdown */}
               <div id="user-dropdown-desktop" className="hidden md:block relative me-4">

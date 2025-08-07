@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Constant } from "@/utils/constant/constant.js";
 import { Bell, MessageSquare, Briefcase } from "lucide-react";
+import { formatDate, formatDaysAgo } from "@/components/common/DateUtils";
 
 const NotificationsHistory = () => {
   const token = localStorage.getItem(Constant.USER_TOKEN);
@@ -38,16 +39,7 @@ const NotificationsHistory = () => {
     }
   };
 
-  const formatDate = (dateString) => {
-    if (!dateString) return "N/A";
-    return new Date(dateString).toLocaleString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
+
 
   const getNotificationIcon = (type) => {
     switch (type?.toLowerCase()) {
@@ -82,7 +74,7 @@ const NotificationsHistory = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg">
+    <div className="app-light-bg rounded-lg shadow-lg">
       {/* Header Section */}
       <div className="border-b border-gray-200">
         <div className="px-6 py-4 flex justify-between items-center">
@@ -115,7 +107,7 @@ const NotificationsHistory = () => {
               {currentNotifications.map((notification) => (
                 <div
                   key={notification.id}
-                  className="group flex items-center bg-white rounded-xl border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all duration-300 p-4"
+                  className="group flex items-center app-light-bg rounded-xl border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all duration-300 p-4"
                 >
                   {/* Notification Icon */}
                   <div className="mr-4">
@@ -128,7 +120,7 @@ const NotificationsHistory = () => {
                       {notification.message}
                     </p>
                     <p className="text-sm text-gray-500">
-                      {formatDate(notification.created_at)}
+                      {formatDaysAgo(notification.created_at)}
                     </p>
                   </div>
                 </div>
