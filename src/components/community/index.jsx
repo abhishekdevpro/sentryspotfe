@@ -24,7 +24,7 @@ const Index = () => {
             </div>
 
             {/* Main Content - Full width on mobile, 3/5 on lg screens */}
-            <div className="w-full lg:w-3/5 h-screen">
+            <div className="w-full lg:w-3/5 ">
               <FeedSection />
             </div>
 

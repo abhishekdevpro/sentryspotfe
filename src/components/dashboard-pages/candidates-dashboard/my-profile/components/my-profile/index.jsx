@@ -131,6 +131,7 @@ const JobSeekerForm = ({ onNext }) => {
       formData.append("first_name", formValues.first_name);
       formData.append("last_name", formValues.last_name);
       formData.append("email", userInfo.email);
+      formData.append("job_seeker_uuid", userInfo.job_seeker_uuid);
       formData.append("phone", formValues.phone);
       formData.append("job_title", formValues.job_title || "");
       formData.append(

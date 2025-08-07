@@ -77,14 +77,14 @@ const navigate = useNavigate()
                   </h3>
                   <div className={`flex items-center justify-center gap-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
                     <div className="text-4xl font-bold leading-none">
-                      ${plan.price}
+                      €	{plan.price}
                     </div>
                     <div className={`text-base opacity-70 self-end pb-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
                       {isFree ? '' : `/${plan.billingCycle === 'single' ? 'once' : plan.billingCycle}`}
                     </div>
                   </div>
                   {isFree && (
-                    <div className="text-sm text-green-600 font-medium mt-2">
+                    <div className="text-sm text-green-600 font-normal mt-2">
                       {pricingData.freeLabel}
                     </div>
                   )}
@@ -92,7 +92,7 @@ const navigate = useNavigate()
 
                 {/* Plan Features */}
                 <div className="p-6 flex-1">
-                  <ul className={`space-y-3 ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                  <ul className={`space-y-3 ${isDark ? 'text-white' : 'text-slate-500'}`}>
                     {getFeatures(plan).map((feature, featureIndex) => (
                       <li
                         key={featureIndex}
@@ -101,7 +101,7 @@ const navigate = useNavigate()
                         }`}
                       >
                         <i
-                          className={`fas fa-check mr-3 font-bold ${
+                          className={`fas fa-check mr-3 font-normal ${
                             isDark ? 'text-cyan-400' : 'text-slate-800'
                           }`}
                         ></i>

@@ -4,6 +4,7 @@ import { CheckCircle, RefreshCw, Bell, Clock, DollarSign, Star } from "lucide-re
 // Pricing data
 import { pricingData } from "./Plan";
 import { useNavigate } from "react-router-dom";
+import DashboardCandidatesHeader from "../header/DashboardCandidatesHeader";
 
 // Feature Component
 const Feature = ({ icon, title, description }) => {
@@ -66,11 +67,12 @@ export default function PaymentPlans() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100  overflow-x-hidden">
       {/* Header */}
+      <DashboardCandidatesHeader />
      
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-6 py-8 mt-20">
         {/* Intro Section */}
         <div className="bg-gradient-to-r from-blue-100 to-indigo-100 p-8 rounded-2xl text-center mb-8 border border-blue-200">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">

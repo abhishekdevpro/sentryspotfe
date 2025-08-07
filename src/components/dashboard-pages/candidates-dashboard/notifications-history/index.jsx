@@ -37,7 +37,7 @@ const NotificationsHistoryPage = () => {
           <div className="row">
             <div className="col-lg-12">
               {/* <!-- Ls widget --> */}
-              <div className="ls-widget">
+              <div className="ls-widget h-screen">
                 <NotificationsHistory />
               </div>
             </div>

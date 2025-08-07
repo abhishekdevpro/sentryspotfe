@@ -167,7 +167,7 @@ const DefaulHeader2 = () => {
                       Careers & Training
                     </Link>
                   </li>
-                  <li>
+                 {!localStorage.getItem(Constant.USER_TOKEN) ? <li>
                     <a 
                       href="https://employer.sentryspot.co.uk/" 
                       target="_blank"
@@ -176,7 +176,7 @@ const DefaulHeader2 = () => {
                     >
                       Post Job
                     </a>
-                  </li>
+                  </li>:""}
                   <li>
                     <Link 
                       to="/sentry-spot" 

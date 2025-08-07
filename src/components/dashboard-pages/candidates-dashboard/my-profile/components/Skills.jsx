@@ -193,7 +193,7 @@ const Skills = ({ onNext }) => {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="border-none focus:outline-none flex-grow min-w-[120px] sm:min-w-[200px] text-sm sm:text-base"
+              className="border-none focus:outline-none flex-grow min-w-[120px] sm:min-w-[200px] text-sm sm:text-base font-normal"
               placeholder="Enter a skill and press Enter"
             />
           </div>

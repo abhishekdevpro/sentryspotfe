@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Constant } from "@/utils/constant/constant";
 import axios from "axios";
@@ -22,7 +21,8 @@ const WorkExperienceForm = ({ onNext }) => {
     formState: { errors },
     reset,
     watch,
-    setValue, getValues,
+    setValue,
+    getValues,
   } = useForm({
     defaultValues: {
       experiences: [
@@ -178,7 +178,7 @@ const WorkExperienceForm = ({ onNext }) => {
               </div>
 
               {isExpanded && (
-                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="">
                   {/* <div>
                     <label className="font-medium">Job Title</label>
                     <input
@@ -196,60 +196,62 @@ const WorkExperienceForm = ({ onNext }) => {
                       </span>
                     )}
                   </div> */}
-                  <div>
-                  <TitleAutocomplete
-                    control={control}
-                    setValue={setValue}
-                     className="form-control mt-1"
-                    errors={errors.experiences?.[index] || {}}
-                    profileData={{
-                      job_title: getValues(`experiences.${index}.job_title`),
-                    }}
-                    fieldName={`experiences.${index}.job_title`}
-                  />
-                   {errors.experiences?.[index]?.job_title && (
+                  <div className="row">
+                    <TitleAutocomplete
+                      control={control}
+                      setValue={setValue}
+                      className="w-full col-12"
+                      errors={errors.experiences?.[index] || {}}
+                      profileData={{
+                        job_title: getValues(`experiences.${index}.job_title`),
+                      }}
+                      fieldName={`experiences.${index}.job_title`}
+                    />
+                    {errors.experiences?.[index]?.job_title && (
                       <span className="text-red-500 text-sm">
                         {errors.experiences[index].job_title.message}
                       </span>
                     )}
+
+                    <div className="form-group col-xl-6 col-12">
+                      <label className="font-medium">Organization</label>
+                      <input
+                        type="text"
+                        {...register(`experiences.${index}.organization`, {
+                          required: "Organization is required",
+                        })}
+                        className="border font-light rounded-none mb-4 w-full p-2"
+                        placeholder="Enter organization"
+                        maxLength={70}
+                      />
+                      {errors.experiences?.[index]?.organization && (
+                        <span className="text-red-500 text-sm">
+                          {errors.experiences[index].organization.message}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="font-medium">Organization</label>
-                    <input
-                      type="text"
-                      {...register(`experiences.${index}.organization`, {
-                        required: "Organization is required",
-                      })}
-                      className="form-control mt-1"
-                      placeholder="Enter organization"
-                      maxLength={70}
-                    />
-                    {errors.experiences?.[index]?.organization && (
-                      <span className="text-red-500 text-sm">
-                        {errors.experiences[index].organization.message}
-                      </span>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="font-medium">Start Date</label>
-                    <input
-                      type="month"
-                      {...register(`experiences.${index}.time_period_start`, {
-                        required: "Start date is required",
-                      })}
-                      className="form-control mt-1"
-                    />
-                    {errors.experiences?.[index]?.time_period_start && (
-                      <span className="text-red-500 text-sm">
-                        {errors.experiences[index].time_period_start.message}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="form-group mt-6">
-                    <div className="flex items-center">
+                  <div className="row col-12">
+                   <div className="col-6 flex flex-col ">
+                     {/* start date */}
+                    <div className="form-group col-12">
+                      <label className="font-medium">Start Date</label>
+                      <input
+                        type="month"
+                        {...register(`experiences.${index}.time_period_start`, {
+                          required: "Start date is required",
+                        })}
+                        className="border font-light rounded-none w-full p-2"
+                      />
+                      {errors.experiences?.[index]?.time_period_start && (
+                        <span className="text-red-500 text-sm">
+                          {errors.experiences[index].time_period_start.message}
+                        </span>
+                      )}
+                    </div>
+                    {/* check box */}
+                    <div className="form-group col-12 flex items-center gap-2">
                       <Controller
                         name={`experiences.${index}.is_present`}
                         control={control}
@@ -259,47 +261,49 @@ const WorkExperienceForm = ({ onNext }) => {
                             id={`currently-working-${index}`}
                             checked={field.value}
                             onChange={(e) => field.onChange(e.target.checked)}
-                            className="mt-1 mr-2 text-xl"
+                            className="rounded-none border bg-white cursor-pointer mb-4 h-5 w-5"
                           />
                         )}
                       />
                       <label
                         htmlFor={`currently-working-${index}`}
-                        className="text-gray-700"
+                        className="text-gray-700 select-none"
                       >
                         Currently working here
                       </label>
+                   
+                    </div>
+                   </div>
+                    {/* end date */}
+                    <div className="form-group col-xl-6">
+                      <label className="font-medium">End Date</label>
+                      <input
+                        type="month"
+                        {...register(`experiences.${index}.time_period_end`, {
+                          required: !isPresent ? "End date is required" : false,
+                        })}
+                        className={`border font-light rounded-none mb-4 w-full p-2 ${
+                          isPresent
+                            ? "cursor-not-allowed opacity-50"
+                            : "opacity-100 "
+                        }`}
+                        disabled={isPresent}
+                      />
+                      {errors.experiences?.[index]?.time_period_end && (
+                        <span className="text-red-500 text-sm">
+                          {errors.experiences[index].time_period_end.message}
+                        </span>
+                      )}
                     </div>
                   </div>
-
-                  <div>
-                    <label className="font-medium">End Date</label>
-                    <input
-                      type="month"
-                      {...register(`experiences.${index}.time_period_end`, {
-                        required: !isPresent ? "End date is required" : false,
-                      })}
-                      className={`form-control mt-1 ${
-                        isPresent
-                          ? "cursor-not-allowed opacity-50"
-                          : "opacity-100 "
-                      }`}
-                      disabled={isPresent}
-                    />
-                    {errors.experiences?.[index]?.time_period_end && (
-                      <span className="text-red-500 text-sm">
-                        {errors.experiences[index].time_period_end.message}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="md:col-span-2">
+{/* Job Description */}
+                  <div className="form-group col-12">
                     <label className="font-medium">Job Description</label>
                     <textarea
                       {...register(`experiences.${index}.description`, {
                         required: "Description is required",
                       })}
-                      className="form-control mt-1"
+                      className="border font-light rounded-none mb-4 w-full p-2"
                       placeholder="Enter job description"
                       rows="4"
                       maxLength={200}

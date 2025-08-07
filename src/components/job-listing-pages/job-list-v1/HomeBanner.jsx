@@ -84,10 +84,10 @@ const HomeBanner = () => {
               ))}
             </div>
             <div className="NavigationBtn">
-              <div className="NavPre" onClick={() => plusSlides(-1)}>
+              <div className="NavPre z-50" onClick={() => plusSlides(-1)}>
                 <i className="fa-solid fa-chevron-left" />
               </div>
-              <div className="NavNext" onClick={() => plusSlides(1)}>
+              <div className="NavNext z-50" onClick={() => plusSlides(1)}>
                 <i className="fa-solid fa-chevron-right" />
               </div>
             </div>
