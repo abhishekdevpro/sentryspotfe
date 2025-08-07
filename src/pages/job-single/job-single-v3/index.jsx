@@ -22,33 +22,13 @@ import { toast } from "react-hot-toast";
 import CompanyInfo from "@/components/job-single-pages/shared-components/CompanyInfo";
 import JobStepsComponent from "./JobSteps";
 import ShareJobModal from "./ShareJobModal";
-import { Share, Share2Icon } from "lucide-react";
+import { Briefcase, Building, CalendarRange, CheckCircle, DollarSign, Folder, GraduationCap, Heart, MapPin, Share, Share2Icon } from "lucide-react";
 import { formatDaysAgo } from "@/components/common/DateUtils";
+import { LoginModal } from "@/components/ui/LoginModal";
+import { Button } from "@/components/ui/button";
+// import {parse} from "react-html-parser";
+import parse from "html-react-parser"
 
-const LoginModal = ({ onClose }) => {
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-        <h3 className="text-xl font-normal mb-4">Please Login</h3>
-        <p className="mb-6">You need to be logged in to perform this action.</p>
-        <div className="flex justify-end space-x-4">
-          <button
-            onClick={onClose}
-            className="px-4 py-2  hover:text-gray-800"
-          >
-            Cancel
-          </button>
-          <Link
-            to="/login"
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Login
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const JobSingleDynamicV3 = () => {
   const [jobData, setJobData] = useState(null);
@@ -147,7 +127,7 @@ const JobSingleDynamicV3 = () => {
         setIsFollowing(jobData.company_favorite_id > 0);
 
         // If company_id exists and user is logged in, fetch company details
-        if (jobData.company_id && token) {
+        if (jobData.company_id) {
           const companyResponse = await axios.get(
             `https://api.sentryspot.co.uk/api/jobseeker/companies/${jobData.company_id}`,
             {
@@ -238,42 +218,45 @@ const JobSingleDynamicV3 = () => {
       <DefaulHeader2 />
 
       {/* Header Section */}
-      <div className="container px-4 py-6 sm:px-6">
+      <div className="app-gradient-bg px-4 py-6 sm:px-6 ">
         <section className="job-header-section bg-blue-50 py-4 sm:py-6 px-4 sm:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-lg mb-6 shadow-sm gap-4 sm:gap-0">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 w-full sm:w-auto">
             <img
               src={"/images/resource/company-logo/1-1.png"}
               alt="Company Logo"
-              className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg border-2 border-white shadow-sm"
+              className="w-28 h-28 rounded-lg border-2 border-white shadow-sm"
             />
             <div className="w-full sm:w-auto">
-              <h2 className="text-xl sm:text-2xl font-bold mb-2 text-gray-800">
+              <h2 className="app-text-h2 mb-2">
                 {jobData?.job_title || "Job Title Not Available"}
               </h2>
               <div className="font-normal mb-2 flex items-center gap-2">
-                <div>
-                  <i className="flaticon-building " />
+                <div className="app-text-h3 flex justify-center items-center">
+                 <Building className="mr-2" size={20}/>
                   {company?.company_name || "Company Not Available"}
                 </div>
                 {"|"}
-                <div>
-                  <i className="flaticon-folder " />
+                <div className="app-text-h3 flex justify-center items-center">
+                  <Folder className="mr-2" size={20} />
                   {jobData?.job_category_name || "Category Not Available"}
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 text-sm font-normal">
-                <span className="flex items-center gap-2 ">
-                  <i className="flaticon-briefcase " />
+                <span className="app-text-h3 flex justify-center items-center">
+                  {/* <i className="flaticon-briefcase " /> */}
+                  <Briefcase className="mr-2" size={20}/>
                   {jobData?.job_type_name || "Not Specified"}
                 </span>
-                <span className="flex items-center gap-2 ">
-                  <i className="flaticon-money " />
+                <span className="app-text-h3 flex justify-center items-center">
+                  {/* <i className="flaticon-money " /> */}
+                  <DollarSign className="mr-2" size={20}/>
                   {jobData?.offered_salary
                     ? `₹${jobData.offered_salary} / month`
                     : "Not disclosed"}
                 </span>
-                <span className="flex items-center gap-2 ">
-                  <i className="flaticon-map-locator " />
+                <span className="app-text-h3 flex justify-center items-center ">
+                  
+                  <MapPin className="mr-2" size={20}/>
                   {jobData?.location || "Location Not Specified"}
                 </span>
               </div>
@@ -281,63 +264,55 @@ const JobSingleDynamicV3 = () => {
           </div>
           <div className="flex flex-col gap-3 items-stretch sm:items-end w-full sm:w-auto">
             {/* Apply Button */}
-            <button
-              className={`w-full flex items-center justify-center gap-2 px-6 sm:px-8 py-3 rounded-lg text-white text-sm font-normal shadow-sm transition ${
-                jobData?.is_applied
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-blue-900 hover:bg-blue-700"
-              }`}
+            <Button
+            variant={jobData?.is_applied ? "success" : "default"}
               onClick={() => handleApplyNowClick(jobData)}
+              className="w-full"
               disabled={jobData?.is_applied}
             >
               <i className="flaticon-send text-lg" />
               <span>
                 {jobData?.is_applied ? "Already Applied" : "Apply For Job"}
               </span>
-            </button>
-            <button 
+            </Button>
+            <Button 
             onClick={()=>navigate(`/interview/${jobData.id}`)}
-            className="w-full flex items-center justify-center gap-2 px-6 sm:px-8 py-3 rounded-lg text-white text-sm font-normal shadow-sm transition bg-blue-900 hover:bg-blue-700">
+             className="w-full"
+            >
               Practice Interview
-            </button>
+            </Button>
 
             {/* Bookmark + Follow + Share */}
             <div className="flex flex-col sm:flex-row gap-3 w-full">
               {/* Bookmark Button */}
-              <button
-                className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm font-normal shadow-sm transition ${
-                  jobData.is_favorite
-                    ? "bg-green-500 hover:bg-green-600"
-                    : "bg-[#e63946] hover:bg-[#d62839]"
-                }`}
+              <Button
+              variant={jobData?.is_favorite ? "destructive" : "secondary"}
+               
                 onClick={handleBookmarkClick}
               >
-                <i className="flaticon-bookmark text-lg" />
+               <Heart size={16} />
                 <span>{jobData.is_favorite ? "Saved" : "Save"}</span>
-              </button>
+              </Button>
 
               {/* Follow Company Button */}
-              <button
-                className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm font-normal shadow-sm transition ${
-                  jobData.is_company_favorite
-                    ? "bg-green-500 hover:bg-green-600"
-                    : "bg-blue-500 hover:bg-blue-600"
-                }`}
+              <Button
+              variant={jobData?.is_company_favorite ? "success" : "secondary"}
                 onClick={handleFollowCompany}
               >
                 <i className="flaticon-user text-lg" />
                 <span>
                   {jobData.is_company_favorite ? "Following" : "Follow"}
                 </span>
-              </button>
+              </Button>
 
               {/* Share Button */}
-              <button
-                className="flex items-center justify-center px-4 py-2.5 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 shadow-sm transition"
+              <Button
+              variant="primary"
+                // className="flex items-center justify-center px-4 py-2.5 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 shadow-sm transition"
                 onClick={() => setShowModal(true)}
               >
                 <Share2Icon size={20} />
-              </button>
+              </Button>
             </div>
 
             {/* Modal */}
@@ -353,37 +328,32 @@ const JobSingleDynamicV3 = () => {
 
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           {/* Sidebar (Left Column) */}
-          <aside className="w-full lg:w-1/3 bg-white rounded-lg shadow p-4 sm:p-6 space-y-4 sm:space-y-6">
+          <aside className="w-full lg:w-1/3 bg-blue-50 rounded-lg shadow p-4 sm:p-6 space-y-4 sm:space-y-6">
             {/* About this role */}
-            <div className="border-b border-gray-200 pb-4 sm:pb-6">
-              <h4 className="font-normal mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
+            <div className=" border-b border-gray-200 pb-2 mb-2">
+              <h4 className="app-text-h2 text-center">
                 <i className="flaticon-calendar  text-lg" />
                 About this role
               </h4>
-              <div className="flex justify-between text-sm  mb-2">
-                <span className="font-normal flex items-center gap-2">
-                  <i className="flaticon-calendar-1 " />
+            </div>
+            <div className="flex justify-between text-sm  mb-2">
+                <span className="app-text-h6 flex justify-center items-center">
+                  {/* <i className="flaticon-calendar-1 " /> */}
+                  <CalendarRange className="mr-2" size={20}/>
                   Job Posted On
                 </span>
-                <span className="font-normal">
-                  {/* {jobData?.created_at
-                    ? new Date(jobData.created_at).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })
-                    : "not available"} */}
+                <span className="app-text-p">
                     {formatDaysAgo(jobData?.created_at)}
                 </span>
               </div>
-            </div>
             {/* Required Skills */}
             <div>
-              <h4 className="font-normal mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                <i className="flaticon-skills  text-lg" />
-                Required Skills
+              <h4 className="app-text-h6 flex items-center mb-2">
+                {/* <i className="flaticon-skills  text-lg" /> */}
+                <CheckCircle className="mr-2" size={20} />
+                 Required Skills
               </h4>
-              <div className="flex flex-wrap gap-2">
+              <div className="app-text-p">
                 {jobData?.skills && jobData.skills.length > 0 ? (
                   jobData?.skills?.map((skill, idx) => (
                     <span
@@ -395,30 +365,33 @@ const JobSingleDynamicV3 = () => {
                     </span>
                   ))
                 ) : (
-                  <span className="font-normal px-3">No Skills Specified</span>
+                  <span className="app-text-p px-3">No Skills Specified</span>
                 )}
               </div>
             </div>
             {/* Education */}
             <div>
-              <h4 className="font-normal mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                <i className="flaticon-graduation-cap  text-lg" />
+              <h4 className="app-text-h6 flex items-center gap-2 mb-2">
+              <GraduationCap className="mr-2" size={20} />
                 Education
               </h4>
-              <div className="text-sm px-3 font-normal flex items-center gap-2">
+              <div className="app-text-p flex items-center gap-2 px-3">
                 <i className="flaticon-graduation-cap " />
                 {jobData?.qualification || "Not specified"}
               </div>
             </div>
             {/* Location */}
-            <div>
-              <h4 className="font-normal mb-3 sm:mb-4 flex items-center gap-2 ">
+            <div className="flex flex-col gap-2">
+              <div>
+                <h4 className="app-text-h6 flex items-center gap-2 mb-2 ">
                 {/* <i className="flaticon-map-locator  text-lg" /> */}
+                <MapPin size={20} />
                 Location
               </h4>
-              <div className="text-sm px-3 font-normal mb-2 flex items-center gap-2">
+              <div className="app-text-p px-3">
                 {/* <i className="flaticon-map-locator " /> */}
                 {jobData?.location || "Location Not Specified"}
+              </div>
               </div>
               {/* Google Maps Embed */}
               {jobData?.location ? (
@@ -432,13 +405,13 @@ const JobSingleDynamicV3 = () => {
                   loading="lazy"
                 />
               ) : (
-                <div className="rounded-lg overflow-hidden border h-32 w-full bg-gray-100 flex items-center justify-center font-normal text-sm">
+                <div className="app-text-p">
                   Map Not Available
                 </div>
               )}
             </div>
             {/* Perks and Benefits */}
-            <div>
+            {/* <div>
               <h4 className="font-normal mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
                 <i className="flaticon-gift  text-lg" />
                 Perks and Benefits
@@ -458,16 +431,17 @@ const JobSingleDynamicV3 = () => {
                   <span className="text-gray-500 px-3">No Perks Specified</span>
                 )}
               </div>
-            </div>
+            </div> */}
+
           </aside>
 
           {/* Main Content (Right Column) */}
           <main className="w-full lg:w-2/3">
             {/* Tabs */}
-            <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-6 ">
-              <div className="flex flex-col md:flex-row gap-2 items-start mb-4 overflow-x-auto ">
+            <div className="bg-blue-50 rounded-lg shadow p-4 sm:p-6 mb-6 ">
+              <div className="flex flex-col md:flex-row gap-4 items-start mb-4 overflow-x-auto ">
                 <button
-                  className={`px-4 py-2 font-normal focus:outline-none whitespace-nowrap ${
+                  className={`app-text-h3 ${
                     activeTab === "description"
                       ? "border-b-2 border-blue-500 text-blue-900"
                       : "text-gray-500"
@@ -477,7 +451,7 @@ const JobSingleDynamicV3 = () => {
                   Job Description
                 </button>
                 <button
-                  className={`px-4 py-2 font-normal focus:outline-none whitespace-nowrap ${
+                  className={`app-text-h3 ${
                     activeTab === "company"
                       ? "border-b-2 border-blue-500 text-blue-900"
                       : "text-gray-500"
@@ -490,14 +464,14 @@ const JobSingleDynamicV3 = () => {
               {/* Tab Content */}
               {activeTab === "description" && (
                 <div
-                  className="max-h-[70vh] min-h-[400px] overflow-y-auto pr-2"
+                  className="max-h-[70vh] overflow-y-auto pr-2"
                   style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}
                 >
-                  <h4 className="font-normal mb-3 sm:mb-4 text-gray-800">
+                  {/* <h4 className="app-text-h6">
                     Job Description
-                  </h4>
+                  </h4> */}
                   <div
-                    className=" text-sm mb-4"
+                    className="app-text-p"
                     dangerouslySetInnerHTML={{
                       __html: jobData?.job_description,
                     }}
@@ -505,24 +479,26 @@ const JobSingleDynamicV3 = () => {
                 </div>
               )}
               {activeTab === "company" && (
-                <div>
-                  <h4 className="font-normal mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                    <i className="flaticon-briefcase  text-lg" />
+                <div className="h-[70vh] overflow-y-auto pr-2">
+                  {/* <h4 className="app-text-h6 flex items-center gap-2 mb-2">
+                    {/* <i className="flaticon-briefcase  text-lg" /> 
+                    <Briefcase size={20}/>
                     About the company
-                  </h4>
-                  <div className="flex flex-wrap items-center gap-4 mb-3 sm:mb-4">
-                    <img
+                  </h4> */}
+                  <div className="flex flex-wrap justify-between items-center gap-4 mb-3 sm:mb-4">
+                    <div className="flex gap-4 items-center">
+                      <img
                       src={"/images/resource/company-logo/1-1.png"}
                       alt="Company Logo"
-                      className="w-12 h-12 rounded-lg border"
+                      className="w-20 h-20 rounded-lg border"
                     />
                     <div className="min-w-[150px]">
-                      <div className="font-normal flex items-center gap-2 text-gray-800">
+                      <div className="app-text-h6">
                         <i className="flaticon-building " />
-                        {company?.company_name || "Schneider Electrical"}
+                        {company?.company_name || "N.A"}
                       </div>
-                      <div className="text-xs font-normal flex items-center gap-2 mt-1">
-                        <i className="flaticon-industry " />
+                      <div className="app-text-h6">
+                        <i className="flaticon-industry" />
                         {company?.company_industry?.name || "Manufacturing"} &bull;{" "}
                         {company?.size || "700-1000 employees"}
                       </div>
@@ -538,17 +514,23 @@ const JobSingleDynamicV3 = () => {
                         </a>
                       )}
                     </div>
-                    <button
+                    </div>
+                    <Button
+                    variant="primary"
                       onClick={() =>
                         navigate(`/showcase-company/${jobData.company_id}`)
                       }
-                      className="ml-auto bg-black text-white px-4 py-1.5 rounded-lg hover:bg-gray-800 text-sm"
+                      // className="text-end"
                     >
                       Explore More
-                    </button>
+                    </Button>
                   </div>
                   <div className="font-normal text-sm mb-3 sm:mb-4">
-                    {company?.description || "Description Not Specified"}
+                    {parse(company?.summery) || "Description Not Specified"}
+                     {/* dangerouslySetInnerHTML={{ 
+                                      __html: DOMPurify.sanitize(companyData.summery) 
+                                    }}
+                     */}
                   </div>
                   {company?.address && (
                     <div className="text-xs  mb-2 flex items-center gap-2">
@@ -570,12 +552,12 @@ const JobSingleDynamicV3 = () => {
 
         {/* Related Jobs Section */}
         <div className="mt-8 px-0">
-          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+          <div className="bg-blue-50 rounded-lg shadow p-4 sm:p-6">
             <div className="mb-4">
-              <h3 className="text-xl font-normal text-gray-800">
+              <h3 className="app-text-h3">
                 Related Jobs
               </h3>
-              <div className="text-gray-500 text-sm">
+              <div className="app-text-h6">
                 2020 jobs live - 293 added today.
               </div>
             </div>

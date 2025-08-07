@@ -14,18 +14,11 @@ const index = () => {
       {/* End Header */}
       {/* End MobileMenu */}
       <DefaulHeader2 />
-      <div className="sm:p-2 overflow-hidden w-full min-h-[calc(100vh-80px)] ">
-        {/* <div
-          className="image-layer"
-          style={{ backgroundImage: "url(/images/background/12.jpg)" }}
-        ></div> */}
-        {/* <div className="outer-box "> */}
-          {/* <!-- Login Form --> */}
-          {/* <div className="login-form default-form"> */}
+      <div className="sm:p-2 overflow-hidden app-gradient-bg ">
+        
+       
             <FormContent />
-          {/* </div> */}
-          {/* <!--End Login Form --> */}
-        {/* </div> */}
+         
       </div>
       {/* <!-- End Info Section --> */}
     </>

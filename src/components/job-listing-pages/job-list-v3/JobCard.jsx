@@ -69,15 +69,7 @@ const JobCard = ({
     return text;
   };
 
-  const formatPostedDate = () => {
-    if (!created_at) return "Posted Date Not Available";
-    return `Posted ${new Date(created_at).toLocaleString("en-US", {
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    })}`;
-  };
+
 
   const handleCardClick = () => {
     if (onCardClick) {
@@ -98,10 +90,10 @@ const JobCard = ({
       onApplyJob(id);
     }
   };
-
+ console.log(is_applied,"is_applied")
   return (
     <div
-      className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 h-full flex flex-col transition-all duration-200 hover:shadow-md ${cardClassName} ${
+      className={`bg-blue-50 rounded-lg shadow-sm border border-gray-200 p-6 h-full flex flex-col transition-all duration-200 hover:shadow-md ${cardClassName} ${
         onCardClick ? "cursor-pointer" : ""
       }`}
       style={{ minHeight: "280px" }}
@@ -116,8 +108,10 @@ const JobCard = ({
             className="w-12 h-12 rounded-full border border-gray-200 object-contain mr-3"
           />
           <div>
-            <div className="font-semibold text-lg">{job_title}</div>
-            <div className="font-light text-md text-muted">posted on : {formatDaysAgo(created_at)}</div>
+            <div className="app-text-h3">{job_title}</div>
+            <div className="app-text-muted">
+              {is_applied ? `Applied on : ${formatDaysAgo(created_at)}` : `Posted on : ${formatDaysAgo(created_at)}`}
+            </div>
           </div>
         </div>
         {showSaveButton && (
@@ -141,15 +135,15 @@ const JobCard = ({
       {/* <div className="text-xl font-bold mb-2 text-gray-900 line-clamp-2">{job_title}</div> */}
 
       {/* Location */}
-      <div className="flex items-center text-gray-600 mb-2">
-        <BsGeoAlt className="mr-2 flex-shrink-0" />
+      <div className="app-text-p flex items-center gap-2 mb-2">
+        <BsGeoAlt className="" size={20} />
         <span className="truncate text-md font-normal">{getLocationText()}</span>
       </div>
 
       {/* Salary & Freshers */}
       <div className="flex items-center mb-2 flex-wrap gap-2">
-        <span className="flex items-center text-gray-600">
-          <BsBriefcase className="mr-1 flex-shrink-0" />
+        <span className="app-text-p flex items-center gap-2 ">
+          <BsBriefcase size={20} />
           <span className="font-normal text-md">{formatSalary()}</span>
         </span>
         {freshers_can_apply && (
@@ -202,15 +196,15 @@ const JobCard = ({
 
       {/* Extra Info: Industry, Experience, Functional Area */}
       <div className="mb-3 flex flex-wrap gap-1">
-        <span className="px-2 py-1 bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-full text-xs flex items-center font-light">
-          <BsBuilding className="mr-1" />
+        <span className="px-2 py-1 bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-full flex items-center app-text-sm ">
+          <BsBuilding className="mr-2" />
           {industry || "Industry Not Specified"}
         </span>
-        <span className="px-2 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-full text-xs flex items-center font-light">
+        <span className="px-2 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-full flex items-center app-text-sm">
           <FiAward className="mr-1" />
           Experience: {getExperienceText()}
         </span>
-        <span className="px-2 py-1 bg-gray-50 text-gray-600 border border-gray-200 rounded-full text-xs flex items-center font-light">
+        <span className="px-2 py-1 bg-gray-50 text-gray-600 border border-gray-200 rounded-full flex items-center app-text-sm">
           <BsBriefcase className="mr-1" />
           {functional_area_name || "Functional Area Not Specified"}
         </span>

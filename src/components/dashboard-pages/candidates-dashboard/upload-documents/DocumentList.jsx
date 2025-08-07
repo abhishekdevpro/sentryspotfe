@@ -125,7 +125,7 @@ const DocumentList = () => {
       {/* <h2 className="text-xl font-bold uppercase mb-6">Upload Document</h2> */}
 
       <div className="mb-4">
-        <label className="">Document Type</label>
+        <label className="app-text-label">Document Type</label>
         <select
           value={docType}
           onChange={(e) => setDocType(e.target.value)}
@@ -141,7 +141,7 @@ const DocumentList = () => {
       </div>
 
       <div className="mb-4">
-        <label className="">Upload File</label>
+        <label className="app-text-label">Upload File</label>
         <input
           type="file"
           accept=".pdf"

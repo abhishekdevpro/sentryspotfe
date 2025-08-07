@@ -83,8 +83,8 @@ const CourseDetail = () => {
 
   // Placeholder data for trainer, rating, students, hours, image, level
   const trainer = {
-    name: 'Nova Homecare',
-    title: 'Homecare trainer',
+    name: 'Sentry Spot',
+    title: 'SentrySpot trainer',
     avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
     rating: 5,
     ratingCount: 5,
@@ -143,7 +143,43 @@ const CourseDetail = () => {
               </div>
             </div>
             {/* Sidebar Card */}
-            <div className="w-full md:w-[350px] flex-shrink-0 px-0 md:px-8">
+            
+          </div>
+         <div className='flex flex-col md:flex-row gap-2 justify-center '>
+          {/* Course Content */}
+          <div className="w-full mx-auto ">
+            <div className="bg-white rounded-xl shadow px-4 py-2">
+              <div className="flex items-center justify-between mb-6">
+                <div className="app-text-h3">Course Content</div>
+                <div className="app-text-p">{course.section_response.length} Sections</div>
+              </div>
+              <div className="divide-y divide-gray-200">
+                {course.section_response.map((section, sectionIndex) => (
+                  <div key={section.id}>
+                    <button
+                      className="w-full flex items-center justify-between py-4 text-left focus:outline-none"
+                      onClick={() => toggleSection(section.id)}
+                    >
+                      <span className="app-text-h6">{section.section_name}</span>
+                      <ChevronDown className={`w-6 h-6 text-gray-400 transition-transform ${expandedSections[section.id] ? 'rotate-180' : ''}`} />
+                    </button>
+                    {expandedSections[section.id] && (
+                      <div className="pl-4 pb-4">
+                        {section.lectures.map((lecture, lectureIndex) => (
+                          <div key={lecture.id} className="mb-4">
+                            <div className="app-text-h6">{lecture.lecture_name}</div>
+                            <div className="max-h-[70vh] overflow-y-auto " dangerouslySetInnerHTML={{ __html: lecture.lecture_content }} />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* Sidebar Card */}
+          <div className="w-full md:w-[350px] flex-shrink-0 px-0 md:px-8">
               <div className="bg-white rounded-xl shadow-lg p-4 flex flex-col items-center">
                 <div className="relative w-full h-44 mb-4">
                   <img src={courseImage} alt="Course" className="w-full h-full object-cover rounded-lg" />
@@ -173,39 +209,7 @@ const CourseDetail = () => {
                 </ul>
               </div>
             </div>
-          </div>
-          {/* Course Content */}
-          <div className="max-w-5xl mx-auto mt-8">
-            <div className="bg-white rounded-xl shadow p-6">
-              <div className="flex items-center justify-between mb-6">
-                <div className="text-2xl font-bold text-gray-900">Course Content</div>
-                <div className="text-gray-500 font-medium">{course.section_response.length} Sections</div>
-              </div>
-              <div className="divide-y divide-gray-200">
-                {course.section_response.map((section, sectionIndex) => (
-                  <div key={section.id}>
-                    <button
-                      className="w-full flex items-center justify-between py-4 text-left focus:outline-none"
-                      onClick={() => toggleSection(section.id)}
-                    >
-                      <span className="font-semibold text-lg text-gray-900">{section.section_name}</span>
-                      <ChevronDown className={`w-6 h-6 text-gray-400 transition-transform ${expandedSections[section.id] ? 'rotate-180' : ''}`} />
-                    </button>
-                    {expandedSections[section.id] && (
-                      <div className="pl-4 pb-4">
-                        {section.lectures.map((lecture, lectureIndex) => (
-                          <div key={lecture.id} className="mb-4">
-                            <div className="font-medium text-gray-800 mb-1">{lecture.lecture_name}</div>
-                            <div className="prose prose-sm max-w-none text-gray-700" dangerouslySetInnerHTML={{ __html: lecture.lecture_content }} />
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+         </div>
         </div>
       </div>
       <CopyrightFooter />

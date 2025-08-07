@@ -4,6 +4,7 @@ import React from "react";
 import { pricingData } from "./Plan";
 import { Constant } from "@/utils/constant/constant";
 import { useNavigate } from "react-router-dom";
+import { CheckCircle } from "lucide-react";
 
 const PricingSection = () => {
   // Convert data object to array for mapping
@@ -72,14 +73,14 @@ const navigate = useNavigate()
 
                 {/* Plan Header */}
                 <div className={`p-8 pb-5 text-center border-b ${isDark ? 'border-slate-700' : 'border-slate-100'}`}>
-                  <h3 className={`font-semibold text-xl mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                  <h3 className={`app-text-h2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
                     {plan.title}
                   </h3>
-                  <div className={`flex items-center justify-center gap-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                    <div className="text-4xl font-bold leading-none">
+                  <div className={`flex items-center justify-center gap-1 `}>
+                    <div className={`app-text-h3 ${isDark ? 'text-white' : 'text-slate-800'}` }>
                       €	{plan.price}
                     </div>
-                    <div className={`text-base opacity-70 self-end pb-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                    <div className={`app-text-p ${isDark ? 'text-white' : 'text-slate-800'}`}>
                       {isFree ? '' : `/${plan.billingCycle === 'single' ? 'once' : plan.billingCycle}`}
                     </div>
                   </div>
@@ -96,16 +97,13 @@ const navigate = useNavigate()
                     {getFeatures(plan).map((feature, featureIndex) => (
                       <li
                         key={featureIndex}
-                        className={`flex items-center text-sm py-2 border-b last:border-b-0 ${
+                        className={`flex items-center gap-2 text-sm py-2 border-b last:border-b-0 ${
                           isDark ? 'border-slate-700' : 'border-slate-100'
                         }`}
                       >
-                        <i
-                          className={`fas fa-check mr-3 font-normal ${
-                            isDark ? 'text-cyan-400' : 'text-slate-800'
-                          }`}
-                        ></i>
-                        <span>{feature}</span>
+                       
+                        <CheckCircle className={`${isDark} ? 'text-cyan-400' : 'text-slate-800'`} />
+                        <span className="app-text-p">{feature}</span>
                       </li>
                     ))}
                   </ul>

@@ -158,8 +158,8 @@ const FilterJobsBox = () => {
       <div className="mb-4 flex justify-between items-center">
         <div className=" w-full flex flex-col md:flex-row md:items-center justify-between mb-2">
           <div className="">
-            <h1 className="text-2xl font-bold mb-1">All Jobs</h1>
-            <p className="text-gray-500 text-sm">
+            <h1 className="app-text-h2">All Jobs</h1>
+            <p className="app-text-p">
               Jobs ({displayedJobs?.length} of {jobs.length})
             </p>
           </div>

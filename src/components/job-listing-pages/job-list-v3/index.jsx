@@ -59,7 +59,7 @@ const Index = () => {
         </div>
       )}
 
-      <section className="ls-section style-two">
+      <section className="ls-section style-two app-gradient-bg">
         <div className="container">
           <div className="row no-gutters px-3 px-md-4 px-lg-5">
 
@@ -69,7 +69,7 @@ const Index = () => {
             </div>
 
             {/* Main Content and Right Sidebar */}
-            <div className="content-column col-xl-9 col-lg-8 col-md-12 col-sm-12">
+            <div className="content-column col-xl-9 col-lg-8 col-md-12 col-sm-12 ">
               <div className="row">
                 {/* Main Job List */}
                 <div className="col-lg-8 col-md-12 mt-4">

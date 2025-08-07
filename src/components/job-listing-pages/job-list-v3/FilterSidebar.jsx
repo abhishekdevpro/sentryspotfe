@@ -10,6 +10,7 @@ import LocationBox from "../components/LocationBox";
 import SalaryRangeSlider from "../components/SalaryRangeSlider";
 import SearchBox from "../components/SearchBox";
 import Tag from "../components/Tag";
+import { Button } from '@/components/ui/button';
 
 // FilterSidebar Component with URL Parameter Management
 const FilterSidebar = () => {
@@ -30,23 +31,25 @@ const FilterSidebar = () => {
 
   return (
     <div className="w-full max-w-sm mx-auto mb-4">
-      <div className="bg-white rounded-lg p-6 space-y-6 max-h-[600px] overflow-y-auto border border-gray-200 shadow-"
+      <div className="bg-blue-50 rounded-lg p-6 space-y-6 max-h-[600px] overflow-y-auto border border-gray-200 shadow-"
         style={{ scrollbarWidth: "none",scrollBehavior: "smooth", }}
       >
         
         {/* Search by Keywords */}
         <div className="filter-section">
-          <button 
+          <Button 
             onClick={() => setSearchParams({})}
-            className={`w-full px-4 py-2 mb-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200 ${searchParams.toString() ? 'bg-red-500 text-white hover:bg-red-400 ' : 'opacity-50 cursor-not-allowed'}`}
+            variant={searchParams.toString() ? 'destructive' : 'secondary'}
+            className={"w-full"}
+            // className={`w-full px-4 py-2 mb-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200 ${searchParams.toString() ? 'bg-red-500 text-white hover:bg-red-400 ' : 'opacity-50 cursor-not-allowed'}`}
             disabled={!searchParams.toString()}
           >
             Clear All Filters
-          </button>
+          </Button>
           <div className="py-2 border-t border-gray-200">
           
           </div>
-          <p className=" font-normal  mb-3 border-b border-gray-200 pb-2">
+          <p className=" app-text-p mb-1">
             Search by Keywords
           </p>
           <div className="space-y-2">
@@ -58,7 +61,7 @@ const FilterSidebar = () => {
 
         {/* Location */}
         <div className="filter-section">
-          <p className=" font-normal mb-3 border-b border-gray-200 pb-2">
+          <p className=" app-text-p mb-1">
             Location
           </p>
           <div className="space-y-2">
@@ -78,7 +81,7 @@ const FilterSidebar = () => {
 
         {/* Industries */}
         <div className="filter-section">
-          <p className=" font-normal  mb-3 border-b border-gray-200 pb-2">
+          <p className="app-text-p mb-1">
             Industries
           </p>
           <div className="space-y-2">
@@ -90,7 +93,7 @@ const FilterSidebar = () => {
 
         {/* Job Type */}
         <div className="filter-section">
-          <p className=" font-normal  mb-3 border-b border-gray-200 pb-2">
+          <p className="app-text-p mb-1">
             Job type
           </p>
           <div className="space-y-2">
@@ -114,7 +117,7 @@ const FilterSidebar = () => {
 
         {/* Experience Level */}
         <div className="filter-section">
-          <p className=" font-normal  mb-3 border-b border-gray-200 pb-2">
+          <p className="app-text-p mb-1">
             Experience Level
           </p>
           <div className="space-y-2">

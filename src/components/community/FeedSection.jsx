@@ -159,7 +159,7 @@ const FeedSection = () => {
   };
 
   return (
-    <div className="mx-auto px-4 py-6 bg-gray-50">
+    <div className="mx-auto px-4 py-6 app-light-bg">
       <PostCreation addPost={addPost} token={token} setLoginModal={setLoginModal} />
       <PostList
         posts={posts}

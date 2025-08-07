@@ -26,7 +26,7 @@ const index = () => {
       {/* <!-- End Candidates Sidebar Menu --> */}
 
       {/* <!-- Dashboard --> */}
-      <section className="user-dashboard">
+      <section className="user-dashboard ">
         <div className="dashboard-outer">
           <BreadCrumb title="Interview List" />
           {/* breadCrumb */}
