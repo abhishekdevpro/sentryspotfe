@@ -27,9 +27,9 @@ const PostCreation = ({ addPost, token, setLoginModal }) => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 mb-6 border-t-4 border-blue-900">
+    <div className="app-light-bg shadow-md rounded-lg p-6 mb-6 border-t-4 border-blue-900">
       <textarea
-        className="w-full p-2 text-lg text-gray-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+        className="w-full p-2 app-text-p bg-gray-50 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         style={{ overflowY: 'auto', maxHeight: '200px' }}
@@ -37,14 +37,14 @@ const PostCreation = ({ addPost, token, setLoginModal }) => {
         maxLength={200}
       />
 
-      <div className="mt-4 flex justify-between items-center">
+      <div className="mt-2 flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <label
             htmlFor="file-upload"
             className="flex items-center cursor-pointer text-blue-600 hover:text-blue-800 transition-colors"
           >
             <i className="fas fa-camera mr-2"></i>
-            <span className="text-sm">Upload Image</span>
+            <span className="app-text-sm">Upload Image</span>
             <input
               type="file"
               id="file-upload"

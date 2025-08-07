@@ -15,7 +15,7 @@ const Index = () => {
       <DefaulHeader2 />
       {/* End Header */}
 
-      <section className="ls-section bg-stone-200">
+      <section className="ls-section app-gradient-bg">
         <div className="auto-container px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-4 ">
             {/* Left Sidebar - Hidden on mobile, visible on lg screens */}

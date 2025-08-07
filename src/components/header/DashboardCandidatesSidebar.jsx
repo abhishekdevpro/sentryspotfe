@@ -7,6 +7,7 @@ import candidatesuData from "../../data/candidatesMenuData";
 import { isActiveLink } from "../../utils/linkActiveChecker";
 import { Constant } from "@/utils/constant/constant";
 import { logout } from "@/store/slices/authSlice";
+import { Button } from "../ui/button";
 
 const DashboardCandidatesSidebar = () => {
   const { pathname } = useLocation();
@@ -44,35 +45,32 @@ const DashboardCandidatesSidebar = () => {
   return (
     <div className={`user-sidebar ${menu ? "sidebar_open" : ""}`}>
       {/* Sidebar close icon */}
-      <div className="pro-header text-end pb-0 mb-0 show-1023">
+      <div className="pro-header text-end pb-0 mb-0 show-1023 app-bg-light">
         <div className="fix-icon" onClick={menuToggleHandler}>
           <span className="flaticon-close"></span>
         </div>
       </div>
 
-      <div className="sidebar-inner">
+      <div className="sidebar-inner ">
         {/* Dynamic User Profile */}
         <Link to="/candidates-dashboard/my-profile">
-          <div className="flex gap-4 justify-center items-center p-4 border border-gray-200 mb-2 rounded-lg bg-blue-700 text-white">
+          <div className="flex gap-4 justify-center items-center p-4 border border-gray-200 mb-2 rounded-lg app-light-bg text-black ">
             <div className="flex-1  w-auto">
               <img
                 src={
                   userInfo?.photo
                     ? `https://api.sentryspot.co.uk${userInfo?.photo}`
-                    : "https://ui-avatars.com/api/?name=" + (userInfo.first_name || "User") + "&background=random"
+                    : "https://t4.ftcdn.net/jpg/05/42/36/11/360_F_542361185_VFRJWpR2FH5OiAEVveWO7oZnfSccZfD3.jpg"
                 }
                 alt="User Avatar"
-                className="rounded-full w-auto h-20 object-cover"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "https://ui-avatars.com/api/?name=User&background=random";
-                }}
+                className="rounded-full w-20 h-20 object-cover"
+               
               />
             </div>
-            <div className="text-white flex-1 flex-col">
-              <p className="text-white">{userInfo?.first_name || "Anonymous"}</p>
-              <p className="text-white">{userInfo?.job_title || "Profile"}</p>
-              <Link to={'/public-view'} className="text-white underline">view </Link>
+            <div className=" flex-1 flex-col gap-2">
+              <p className="app-text-p">{userInfo?.first_name} </p>
+              <p className="app-text-p">{userInfo?.job_title || "Jobseeker"}</p>
+              <Button onClick={()=>navigate('/public-view')} className="border-none text-start px-0 py-1" variant="link">view </Button>
             </div>
           </div>
         </Link>

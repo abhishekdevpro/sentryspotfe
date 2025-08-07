@@ -12,6 +12,7 @@ import FooterDefault from "@/components/footer/common-footer";
 import FullPageLoader from "@/components/loader/FullPageLoader";
 import { Briefcase, Building, MapPin, Users } from "lucide-react";
 import CompanyCard from "./CompanyCard";
+import { Button } from "@/components/ui/button";
 
 const Companieslist = () => {
   const [jobs, setJobs] = useState([]);
@@ -145,7 +146,7 @@ const Companieslist = () => {
   };
 
   return (
-    <div className="bg-[#fafbfc] min-h-screen">
+    <div className="app-gradient-bg min-h-screen">
       <style>
         {`
           .company-card {
@@ -161,19 +162,7 @@ const Companieslist = () => {
       </style>
       <DefaulHeader2 />
       {/* Tabs */}
-      {/* <div className="max-w-7xl mx-auto px-4 pt-8">
-        <div className="flex space-x-10 border-b border-gray-200">
-          <button className="pb-3 border-b-4 border-[#f43f5e] text-[#f43f5e] font-semibold text-lg">
-            Trending
-          </button>
-          <button className="pb-3 text-gray-500 font-semibold text-lg hover:text-[#f43f5e]">
-            Following
-          </button>
-          <button className="pb-3 text-gray-500 font-semibold text-lg hover:text-[#f43f5e]">
-            Industry
-          </button>
-        </div>
-      </div> */}
+     
       {/* Search Bar and Sort */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 py-8">
         <div className="w-full px-4 sm:px-6 lg:px-8 my-4">
@@ -184,15 +173,15 @@ const Companieslist = () => {
                 placeholder="Search by Company Name"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full sm:flex-1 px-4 py-3 text-sm sm:text-base border border-gray-300 rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-sm"
+                className="w-full sm:flex-1 px-4 py-2 text-sm sm:text-base border border-gray-300 rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-sm"
               />
-              <button
+              <Button
                 onClick={() => setSearchTerm(search)}
-                className="bg-blue-900 text-white px-4 py-3 text-sm sm:text-base font-semibold rounded-b-xl sm:rounded-r-xl sm:rounded-bl-none w-full sm:w-auto flex justify-center items-center gap-2 shadow-sm hover:bg-blue-600 transition-all"
+                className=" px-4 py-3 "
               >
                 <i className="fas fa-search"></i>
                 <span>Search Jobs</span>
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -214,26 +203,6 @@ const Companieslist = () => {
       <div className="max-w-7xl mx-auto px-4 pb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {filteredJobs.map((job) => (
-            // <div
-            //   key={job.id}
-            //   className="company-card rounded-2xl shadow flex flex-col items-center text-center py-8 px-4 min-h-[230px]"
-            // >
-            //   <img
-            //     src={job.logo || "https://img.freepik.com/premium-photo/intelligent-logo-simple_553012-47516.jpg?size=338&ext=jpg"}
-            //     alt={job.company_name}
-            //     className="w-16 h-16 object-contain mb-4 rounded"
-            //     onError={e => { e.target.onerror = null; e.target.src = "https://img.freepik.com/premium-photo/intelligent-logo-simple_553012-47516.jpg?size=338&ext=jpg"; }}
-            //   />
-            //   <div className="font-semibold text-lg mb-2 min-h-[48px] flex items-center justify-center text-center w-full">
-            //     {job.company_name}
-            //   </div>
-            //   <Link
-            //     to={`/showcase-company/${job.id}`}
-            //     className="text-[#f43f5e] font-bold text-lg mt-2 hover:underline"
-            //   >
-            //   View company
-            //   </Link>
-            // </div>
             <CompanyCard
               key={job.id}
               company={job}

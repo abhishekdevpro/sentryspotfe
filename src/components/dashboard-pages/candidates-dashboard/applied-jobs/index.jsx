@@ -26,7 +26,7 @@ const index = () => {
       {/* <!-- End Candidates Sidebar Menu --> */}
 
       {/* <!-- Dashboard --> */}
-      <section className="user-dashboard">
+      <section className="user-dashboard ">
         <div className="dashboard-outer">
           <BreadCrumb title="Applied jobs!" />
           {/* breadCrumb */}
@@ -34,10 +34,10 @@ const index = () => {
           <MenuToggler />
           {/* Collapsible sidebar button */}
 
-          <div className="row">
+          <div className="row ">
             <div className="col-lg-12">
               {/* <!-- Ls widget --> */}
-              <div className="ls-widget">
+              <div className="ls-widget ">
                 <JobListingsTable />
               </div>
             </div>

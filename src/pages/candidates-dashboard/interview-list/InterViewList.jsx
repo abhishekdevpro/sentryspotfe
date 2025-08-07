@@ -4,6 +4,7 @@ import axios from "axios";
 import { Constant } from "@/utils/constant/constant";
 import toast from "react-hot-toast";
 import { formatDaysAgo } from "@/components/common/DateUtils";
+import { Button } from "@/components/ui/button";
 
 const InterviewList = () => {
   const [interviewList, setInterviewList] = useState([]);
@@ -53,35 +54,29 @@ const InterviewList = () => {
 
   return (
     <>
-      <div className="bg-white min-h-screen ">
+      <div className=" min-h-screen ">
         
 
             <div className="col-span-1 md:col-span-3">
-              <div className="bg-white shadow rounded-lg p-6">
+              <div className=" shadow rounded-lg p-6">
                 
 
                 {/* Tab Toggle Buttons */}
                 <div className="flex space-x-4 mb-6">
-                  <button
-                    className={`px-4 py-2 rounded-lg font-medium transition ${
-                      activeTab === "practice"
-                        ? "bg-blue-600 text-white"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
+                  <Button
+                  variant={activeTab === "practice" ? "default" : "secondary"}
+                    className={`transition`}
                     onClick={() => setActiveTab("practice")}
                   >
                     Practice Interviews
-                  </button>
-                  <button
-                    className={`px-4 py-2 rounded-lg font-medium transition ${
-                      activeTab === "ondemand"
-                        ? "bg-blue-600 text-white"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
+                  </Button>
+                  <Button
+                  variant={activeTab === "ondemand" ? "default" : "secondary"}
+                    className={` transition `}
                     onClick={() => setActiveTab("ondemand")}
                   >
                     Interviews
-                  </button>
+                  </Button>
                 </div>
 
                 {/* Interview List */}
@@ -97,21 +92,21 @@ const InterviewList = () => {
                         className="flex flex-col md:flex-row justify-between items-start md:items-center bg-gray-50 p-4 rounded shadow-sm"
                       >
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-800">
+                          <h3 className="app-text-h3">
                             <span className="text-blue-600 mr-2">#{index + 1}</span>
-                            {activeTab === "practice" ? "Practice" : "Live"} Interview {index + 1}
+                            {activeTab === "practice" ? "Practice" : ""} Interview {index + 1}
                           </h3>
                           <p className="text-sm text-gray-500 mt-1">
                             {formatDaysAgo(item.created_at)}
                           </p>
                         </div>
                         <div className="mt-4 md:mt-0">
-                          <button
+                          <Button
                             onClick={() => handleViewResult(item.id)}
-                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full md:w-auto"
+                            variant="primary"
                           >
                             View Results
-                          </button>
+                          </Button>
                         </div>
                       </div>
                     ))

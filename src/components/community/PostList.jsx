@@ -15,7 +15,7 @@ const PostList = ({
             scrollbarWidth: "none",
           }}>
       {posts.length === 0 ? (
-        <div className="text-center text-gray-500 py-8 bg-white rounded-lg shadow-md">
+        <div className="text-center text-gray-500 py-8 bg-blue-50 rounded-lg shadow-md">
           No posts available. Be the first to post!
         </div>
       ) : (

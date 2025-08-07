@@ -4,6 +4,85 @@
   
 
 /* Hide scrollbar for Chrome, Safari, and Edge */
+@layer utilities {
+  .app-gradient-bg {
+    @apply bg-gradient-to-br from-blue-200 to-blue-100  w-full;
+  }
+  .app-light-bg {
+    @apply bg-blue-50;
+  }
+   .app-text-h1 {
+    @apply text-4xl font-bold text-gray-900 leading-tight;
+  }
+
+  .app-text-h2 {
+    @apply text-2xl font-semibold text-gray-900 leading-snug;
+  }
+
+  .app-text-h3 {
+    @apply text-xl font-normal text-gray-700 leading-snug;
+  }
+
+  .app-text-h4 {
+    @apply text-lg font-medium text-gray-600 leading-normal;
+  }
+
+  .app-text-h5 {
+    @apply text-md font-normal text-gray-700;
+  }
+
+  .app-text-h6 {
+    @apply text-base font-medium text-gray-500;
+  }
+
+  /* Paragraph */
+  .app-text-p {
+    @apply text-base font-normal leading-relaxed;
+  }
+
+  /* Small text */
+  .app-text-sm {
+    @apply text-sm font-light;
+  }
+
+  .app-text-xs {
+    @apply text-xs font-light;
+  }
+
+  /* Muted / Subtle */
+  .app-text-muted {
+    @apply text-sm font-light;
+  }
+
+  .app-text-label {
+    @apply block text-lg font-semibold text-gray-700;
+    @apply mb-1;
+  }
+
+  /* Lead paragraph */
+  .app-text-lead {
+    @apply text-lg font-light text-gray-700;
+  }
+
+  /* Label */
+  .app-text-label {
+    @apply text-sm font-medium text-gray-700;
+  }
+
+  /* Gradient Heading */
+  .app-text-gradient {
+    @apply text-4xl font-bold;
+    background-image: linear-gradient(to right, #3b82f6, #1e3a8a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Blockquote */
+  .app-blockquote {
+    @apply text-lg italic text-gray-600 border-l-4 border-blue-300 pl-4;
+  }
+}
+
 .custom-scrollbar::-webkit-scrollbar {
     width: 0px;
     height: 0px;

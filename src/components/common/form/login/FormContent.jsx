@@ -51,7 +51,7 @@ const FormContent = () => {
   };
 
   return (
-    <div className="overflow-y-hidden w-full flex items-center justify-center">
+    <div className="overflow-y-hidden w-full flex items-center justify-center min-h-[calc(100vh-80px)]">
       <div className="bg-gray-50 rounded-xl shadow-mb border-2 border-gray-50 w-full max-w-md p-6 sm:p-8">
         {/* Logo */}
         <div className="flex justify-center mb-6">

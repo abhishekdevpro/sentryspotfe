@@ -18,7 +18,7 @@ const FullPageLoader = ({ loadingText = "Candidates Dashboard" }) => {
   }, []);
 
   return (
-    <div className="fixed inset-0 flex flex-col items-center justify-center bg-gray-50 z-50">
+    <div className="fixed inset-0 flex flex-col items-center justify-center app-gradient-bg z-50">
       <div className="w-full max-w-md px-6 py-8">
         {/* Logo */}
         <div className="flex items-center justify-center mb-8">
@@ -74,7 +74,7 @@ export default function LoaderExample() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen app-gradient-bg">
       {loading ? (
         <FullPageLoader loadingText={loadingText} />
       ) : (
