@@ -29,10 +29,10 @@ import CompanyBenefits from "./CompanyBenefits";
 import JobListings from "./HiringSection";
 import { useSelector } from "react-redux";
 import SocialFooter from "./Footer";
-import AboutSection from "./AboutSection";
 import ReactPlayer from 'react-player'
 import CompanyCard from "../ui/CompanyCard";
 import NavigationBar from "./NavigationBar";
+import AboutSection from "./AboutSection";
 // import AboutSection from "./AboutSection";
 
 const ShowcaseComponent = ({ companyId }) => {

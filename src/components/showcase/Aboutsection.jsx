@@ -211,7 +211,7 @@ import DOMPurify from "dompurify";
 import CompanyCard from "../ui/CompanyCard";
 import { useEffect, useState } from "react";
 
-export default function WhyChooseUsSection({ companyData }) {
+export default function AboutSection({ companyData }) {
   const navigate = useNavigate();
 
   const images =
