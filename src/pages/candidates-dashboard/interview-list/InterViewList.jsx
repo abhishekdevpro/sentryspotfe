@@ -62,7 +62,9 @@ const InterviewList = () => {
                 
 
                 {/* Tab Toggle Buttons */}
-                <div className="flex space-x-4 mb-6">
+                <div className="flex space-x-4 mb-6 overflow-x-auto py-2"
+                 style={{scrollbarWidth:"thin"}}
+                >
                   <Button
                   variant={activeTab === "practice" ? "default" : "secondary"}
                     className={`transition`}

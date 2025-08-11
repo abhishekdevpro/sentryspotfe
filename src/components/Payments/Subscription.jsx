@@ -12,6 +12,7 @@ import { Mail } from "lucide-react";
 const Container = styled.div`
   padding: 1rem;
   max-width: 64rem;
+  max-height:100vh;
   margin: 0 auto;
 
   @media (min-width: 768px) {
@@ -233,9 +234,10 @@ export default function Subscription() {
     <>
       {/* <Navbar /> */}
       {/* <UserHeader2 /> */}
-      <DashboardCandidatesHeader />
-      <Container>
-        <Title>Account Settings</Title>
+      {/* <div className="flex justify-center items-center min-h-screen app-gradient-bg"> */}
+        {/* <DashboardCandidatesHeader /> */}
+      <div className="max-w-6xl mx-auto px-4 py-8 app-light-bg">
+        {/* <Title>Account Settings</Title> */}
 
         <Card>
           <SubTitle>Subscription</SubTitle>
@@ -248,8 +250,8 @@ export default function Subscription() {
               <Text style={{ marginTop: "0.5rem" }}>Contact us at:</Text>
               <List>
                 <div className="flex " small>
-                  <Mail style={{ marginRight: "0.5rem" }} />
-                  <span className="font-normal">customersupport@sentryspot.co.uk</span>
+                  <Mail  />
+                  <span className="text-sm break-words text-wrap whitespace-pre-wrap font-normal block sm:inline">customersupport@sentryspot.co.uk</span>
                 </div>
               </List>
             </InfoSection>
@@ -284,7 +286,7 @@ export default function Subscription() {
                 </StatusText>
               </Text>
 
-              <ButtonContainer>
+              <div className="flex flex-col md:flex-row gap-2 justify-center items-center">
                 <Link href="/payments/plans">
                   <Button >Upgrade</Button>
                 </Link>
@@ -295,7 +297,7 @@ export default function Subscription() {
                 >
                   Cancel Subscription
                 </Button>
-              </ButtonContainer>
+              </div>
             </FlexContainer>
 
             <Text style={{ marginTop: "0.5rem" }}>
@@ -322,7 +324,8 @@ export default function Subscription() {
             </Text>
           </DetailsContainer>
         </Card>
-      </Container>
+      </div>
+      {/* </div> */}
     </>
   );
 }

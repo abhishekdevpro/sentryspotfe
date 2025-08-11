@@ -88,7 +88,9 @@ const Index = () => {
               ))}
             </div>
           </div> */}
-          <div className="w-full bg-blue-800 rounded-t-lg px-2 sm:px-4 py-2 overflow-x-hidden">
+          <div className="w-full bg-blue-800 rounded-t-lg px-2 sm:px-4 py-2 overflow-x-auto"
+           style={{scrollbarWidth:"thin"}}
+          >
             <div className="flex gap-2 justify-start sm:justify-center w-max min-w-full">
               {steps.map((step, index) => (
                 <div

@@ -29,9 +29,13 @@ import CompanyBenefits from "./CompanyBenefits";
 import JobListings from "./HiringSection";
 import { useSelector } from "react-redux";
 import SocialFooter from "./Footer";
+import AboutSection from "./AboutSection";
+import ReactPlayer from 'react-player'
+import CompanyCard from "../ui/CompanyCard";
+import NavigationBar from "./NavigationBar";
 // import AboutSection from "./AboutSection";
 
-const ShowcaseComponent = ({companyId}) => {
+const ShowcaseComponent = ({ companyId }) => {
   const [companyData, setCompanyData] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
   const [openImageGallery, setOpenImageGallery] = useState(false);
@@ -49,8 +53,8 @@ const ShowcaseComponent = ({companyId}) => {
   const token = localStorage.getItem(Constant.USER_TOKEN);
   const BASE_IMAGE_URL = "https://api.sentryspot.co.uk";
   const navigate = useNavigate();
-  const {userInfo} = useSelector((state)=>state.auth)
-  
+  const { userInfo } = useSelector((state) => state.auth);
+
   // console.log(userInfo,"user hu main");
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -235,58 +239,81 @@ const ShowcaseComponent = ({companyId}) => {
     <>
       {/* <AboutSection companyData={companyData} userInfo={userInfo} /> */}
 
-      <WhyChooseUsSection companyData={companyData} userInfo={userInfo} />
+      {/* <div className="app-gradient-bg w-full">
+        <WhyChooseUsSection companyData={companyData} userInfo={userInfo} />
 
       <section id="inside-cognizant">
         <InsideCognizant companyData={companyData} userInfo={userInfo} />
       </section>
       <CompanyBenefits companyData={companyData} />
       <LeadershipTeam companyId={companyId} />
-      {/* <JobListings companyData={companyData} userInfo={userInfo} /> */}
-
-      {/* <div className="items-center justify-center text-center bg-gray-500 h-60">
-        <h3 className="text-white font-semibold text-3xl pt-5 mb-6">
-          Follow us
-        </h3>
-        <div className="flex items-center justify-center gap-3 ">
-          <a
-            href={companyData.linkedin_link}
-            aria-label="Find us on LinkedIn"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaLinkedin className="h-10 w-10 text-white" />
-          </a>
-          <a
-            href={companyData.twitter_link}
-            aria-label="Find us on Twitter"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaTwitter className="h-10 w-10 text-white" />
-          </a>
-          <a
-            href={companyData.facebook_link}
-            aria-label="Find us on Facebook"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaFacebook className="h-10 w-10 text-white" />
-          </a>
-          <a
-            href={companyData.website_link}
-            aria-label="Visit our website"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaGlobe className="h-10 w-10 text-white" />
-          </a>
-        </div>
-        <h3 className="text-white font-semibold text-sm pt-5 ">
-          All rights reserved © {companyData.company_name}
-        </h3>
-      </div> */}
+      <JobListings companyData={companyData} userInfo={userInfo} />
       <SocialFooter companyData={companyData} />
+      </div> */}
+
+      {/* <div className="app-gradient-bg w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+          <AboutSection companyData={companyData} userInfo={userInfo}/>
+          <WhyChooseUsSection companyData={companyData} userInfo={userInfo} />
+
+          <section id="inside-cognizant">
+            <InsideCognizant companyData={companyData} userInfo={userInfo} />
+          </section>
+
+          <CompanyBenefits companyData={companyData} />
+
+          <LeadershipTeam companyId={companyId} />
+
+          <JobListings companyData={companyData} userInfo={userInfo} />
+
+          <SocialFooter companyData={companyData} />
+        </div>
+      </div> */}
+
+      <div className="app-gradient-bg w-full">
+        <div className="max-w-7xl mx-auto px-2 space-y-4 py-4">
+          {/* About Section */}
+          <AboutSection companyData={companyData} userInfo={userInfo} />
+
+          {/* Navigation Bar */}
+          <NavigationBar />
+
+          {/* Other Sections */}
+          <WhyChooseUsSection companyData={companyData} userInfo={userInfo} />
+
+          <section id="inside-cognizant">
+            <InsideCognizant companyData={companyData} userInfo={userInfo} />
+          </section>
+
+          {companyData?.video_urls?.[0] && (
+            <CompanyCard >
+              <ReactPlayer
+                url={companyData?.video_urls?.[0] || "https://youtu.be/zAeQAiP8PwA"}
+                controls
+                width="100%"
+                height={window.innerWidth <= 768 ? "250px" : "500px"}
+                style={{ borderRadius: "8px", overflow: "hidden" }}
+              />
+            </CompanyCard>
+          )}
+
+          <section id="company-benefits">
+            <CompanyBenefits companyData={companyData} />
+          </section>
+
+          <section id="leadership-team">
+            <LeadershipTeam companyId={companyId} />
+          </section>
+
+          <section id="job-listings">
+            <JobListings companyData={companyData} userInfo={userInfo} />
+          </section>
+
+          <section id="social-footer">
+            <SocialFooter companyData={companyData} />
+          </section>
+        </div>
+      </div>
     </>
   );
 };

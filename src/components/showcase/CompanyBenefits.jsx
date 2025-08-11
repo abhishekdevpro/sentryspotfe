@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Gift, Heart, Coffee, Baby, Gamepad, Shield, AlertTriangle } from 'lucide-react';
+import CompanyCard from '../ui/CompanyCard';
 
 const CompanyBenefits = ({ companyData }) => {
   console.log(companyData, "companyData");
@@ -54,14 +55,14 @@ const CompanyBenefits = ({ companyData }) => {
   const activeBenefits = allBenefits.filter(item => item.isShow === true);
 
   return (
-    <div className="bg-gray-50 py-8 px-4">
-      <div className="max-w-6xl mx-auto">
+    <CompanyCard>
+      
         {/* <h2 className="text-2xl font-bold mb-8 text-center text-gray-800">What Makes Us Unique</h2> */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="app-text-h1 !text-blue-800">
           What Makes Us Unique
           </h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mt-4"></div>
+          {/* <div className="w-24 h-1 bg-blue-600 mx-auto mt-4"></div> */}
 
         </div>
         
@@ -75,9 +76,9 @@ const CompanyBenefits = ({ companyData }) => {
                 <div className="mb-3 rounded-full bg-gray-50 p-3">
                   {item.icon}
                 </div>
-                <h3 className="font-medium text-gray-800 mb-2 text-center">{item.name}</h3>
+                <h3 className="app-text-h2 text-center">{item.name}</h3>
                 {item.description && (
-                  <p className="text-sm text-gray-600 text-center mt-1">{item.description}</p>
+                  <p className="app-text-p line-clamp-3 mt-1">{item.description}</p>
                 )}
               </div>
             ))}
@@ -85,8 +86,7 @@ const CompanyBenefits = ({ companyData }) => {
         ) : (
           <p className="text-center text-gray-500">No benefits information available.</p>
         )}
-      </div>
-    </div>
+    </CompanyCard>
   );
 };
 

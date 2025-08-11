@@ -7,6 +7,14 @@
       padding: 0;
       font-family: 'Ubuntu', sans-serif; /* Sets Ubuntu as the default font for the body */
       color: #545353;
+      background-image: linear-gradient(
+    to bottom right,
+    #dbeafe, /* blue-100 */
+    #93c5fd, /* blue-300 */
+    #dbeafe  /* blue-100 */
+  );
+  background-attachment: fixed; /* keeps gradient in place */
+  background-size: cover;
       /* font-weight: 700; */
       letter-spacing: 1px;
       width:100%;
@@ -45,6 +53,7 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 1rem;
+    /* background-color: #eff6ff; */
   }
   .TopHeader {
       width: 100%;
