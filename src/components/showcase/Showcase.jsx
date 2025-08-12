@@ -32,8 +32,8 @@ import SocialFooter from "./Footer";
 import ReactPlayer from 'react-player'
 import CompanyCard from "../ui/CompanyCard";
 import NavigationBar from "./NavigationBar";
-import AboutSection from "./AboutSection";
-// import AboutSection from "./AboutSection";
+import AboutSection from "./AboutSection.jsx"
+
 
 const ShowcaseComponent = ({ companyId }) => {
   const [companyData, setCompanyData] = useState(null);
