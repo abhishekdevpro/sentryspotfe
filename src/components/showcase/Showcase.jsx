@@ -12,7 +12,8 @@ import SocialFooter from "./Footer";
 import ReactPlayer from 'react-player'
 import CompanyCard from "../ui/CompanyCard";
 import NavigationBar from "./NavigationBar";
-import AboutSection from "./AboutSection.jsx"
+// import AboutSection from "./AboutSection.jsx";
+import AboutSection2 from "./AboutSection2";
 
 
 const ShowcaseComponent = ({ companyId }) => {
@@ -103,7 +104,7 @@ const ShowcaseComponent = ({ companyId }) => {
       <div className="app-gradient-bg w-full">
         <div className="max-w-7xl mx-auto px-2 space-y-4 py-4">
           {/* About Section */}
-          {/* <AboutSection companyData={companyData} userInfo={userInfo} /> */}
+          <AboutSection2 companyData={companyData} userInfo={userInfo} />
 
           {/* Navigation Bar */}
           <NavigationBar />
