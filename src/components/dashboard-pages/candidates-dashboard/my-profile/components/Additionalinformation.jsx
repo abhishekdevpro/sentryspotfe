@@ -3,6 +3,7 @@ import axios from "axios";
 import { Constant } from "@/utils/constant/constant";
 import { Trash, X } from "lucide-react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 // import LanguageSelector from "../LanguageSelector";
 
 const Additionalinformation = () => {
@@ -23,7 +24,7 @@ const Additionalinformation = () => {
   const [languageInput, setLanguageInput] = useState("");
   const [proficiency, setProficiency] = useState("");
   const token = localStorage.getItem(Constant.USER_TOKEN);
-
+  const navigate = useNavigate();
   // Fetch additional information data
   useEffect(() => {
     const fetchAdditionalInfo = async () => {
@@ -129,6 +130,9 @@ const Additionalinformation = () => {
 
       if (response.data.code === 200 || response.data.status === "success") {
         toast.success( response.data.message ||"Additional information saved successfully!");
+        setTimeout(()=>{
+          navigate("/public-view")
+        },500)
       }
     } catch (error) {
       console.error("Error submitting additional details:", error);

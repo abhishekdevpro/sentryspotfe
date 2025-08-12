@@ -53,8 +53,8 @@ const DashboardCandidatesSidebar = () => {
 
       <div className="sidebar-inner ">
         {/* Dynamic User Profile */}
-        <Link to="/candidates-dashboard/my-profile">
-          <div className="flex flex-col gap-4 justify-center items-center p-2 border border-gray-200 mb-2 rounded-lg app-light-bg text-black ">
+        {/* <Link to="/candidates-dashboard/my-profile"> */}
+          <div className="app-gradient-bg flex flex-col gap-4 justify-center items-center p-2 border border-gray-200 mb-2 rounded-lg app-light-bg text-black ">
             <div className="flex-1  w-auto">
               <img
                 src={
@@ -73,7 +73,7 @@ const DashboardCandidatesSidebar = () => {
               <Button onClick={()=>navigate('/public-view')} className="w-full" variant="link">view </Button>
             </div>
           </div>
-        </Link>
+        {/* </Link> */}
 
         {/* Navigation Menu */}
         <ul className="navigation">

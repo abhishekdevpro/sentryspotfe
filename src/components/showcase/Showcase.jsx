@@ -1,26 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { IoBagHandleOutline, IoPlay } from "react-icons/io5";
-import { CiLocationOn } from "react-icons/ci";
-import {
-  MdOutlineHealthAndSafety,
-  MdPhoto,
-  MdLocalCafe,
-  MdEdit,
-} from "react-icons/md";
-import {
-  FaHospital,
-  FaHeart,
-  FaCalendarAlt,
-  FaLinkedin,
-  FaTwitter,
-  FaFacebook,
-  FaGlobe,
-} from "react-icons/fa";
-import { TbTargetArrow } from "react-icons/tb";
-import { FaCarBurst } from "react-icons/fa6";
-import DOMPurify from "dompurify";
 import InsideCognizant from "./InsideCognizant ";
 import { Constant } from "@/utils/constant/constant";
 import LeadershipTeam from "./LeaderShipTeams";
@@ -29,12 +9,16 @@ import CompanyBenefits from "./CompanyBenefits";
 import JobListings from "./HiringSection";
 import { useSelector } from "react-redux";
 import SocialFooter from "./Footer";
-// import AboutSection from "./AboutSection";
+import ReactPlayer from 'react-player'
+import CompanyCard from "../ui/CompanyCard";
+import NavigationBar from "./NavigationBar";
+// import AboutSection from "./AboutSection.jsx";
+import AboutSection2 from "./AboutSection2";
 
-const ShowcaseComponent = ({companyId}) => {
+
+const ShowcaseComponent = ({ companyId }) => {
   const [companyData, setCompanyData] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
-  const [openImageGallery, setOpenImageGallery] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
@@ -49,9 +33,8 @@ const ShowcaseComponent = ({companyId}) => {
   const token = localStorage.getItem(Constant.USER_TOKEN);
   const BASE_IMAGE_URL = "https://api.sentryspot.co.uk";
   const navigate = useNavigate();
-  const {userInfo} = useSelector((state)=>state.auth)
-  
-  // console.log(userInfo,"user hu main");
+  const { userInfo } = useSelector((state) => state.auth);
+
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
@@ -84,121 +67,6 @@ const ShowcaseComponent = ({companyId}) => {
     fetchCompanyData();
   }, []);
 
-  const handleEditClick = () => {
-    setIsPopupOpen(true);
-  };
-
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({ ...prevState, [name]: value }));
-  };
-
-  const handleImageChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      image: URL.createObjectURL(e.target.files[0]),
-    }));
-  };
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem(Constant.USER_TOKEN);
-      const response = await axios.put(
-        "https://api.sentryspot.co.uk/api/employeer/company",
-        formData,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      console.log("Update Successful", response.data);
-      setIsPopupOpen(false);
-    } catch (error) {
-      console.error("Error updating data", error);
-    }
-  };
-
-  const handleImageChange2 = (e) => {
-    const files = Array.from(e.target.files);
-    if (files.length > 3) {
-      alert("You can upload a maximum of 3 images.");
-    } else {
-      setSelectedImages(files);
-    }
-  };
-
-  const handleSave2 = async () => {
-    if (selectedImages.length > 3) {
-      alert("Please ensure only 3 images are selected.");
-      return;
-    }
-
-    const formData = new FormData();
-
-    formData.append("title", companyData.title);
-    formData.append("about", companyData.about);
-    selectedImages.forEach((image) =>
-      formData.append("about_images_upload", image)
-    );
-
-    try {
-      const response = await axios.patch(
-        "https://api.sentryspot.co.uk/api/employeer/company-about",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: token,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        toast.success("Content updated successfully!");
-        setIsPopupOpen(false);
-      } else {
-        alert("Failed to update content. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error updating content:", error);
-      toast.error("An error occurred. Please try again.");
-    }
-  };
-  const handleSave3 = async () => {
-    const formData = new FormData();
-
-    // formData.append("title", companyData.title)
-    formData.append("summery", companyData.summery);
-
-    try {
-      const response = await axios.patch(
-        "https://api.sentryspot.co.uk/api/employeer/company-about",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: token,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        toast.success("Content updated successfully!");
-        setIsPopupOpen(false);
-      } else {
-        alert("Failed to update content. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error updating content:", error);
-      toast.error("An error occurred. Please try again.");
-    }
-  };
 
   if (!companyData) {
     return (
@@ -233,60 +101,50 @@ const ShowcaseComponent = ({companyId}) => {
 
   return (
     <>
-      {/* <AboutSection companyData={companyData} userInfo={userInfo} /> */}
+      <div className="app-gradient-bg w-full">
+        <div className="max-w-7xl mx-auto px-2 space-y-4 py-4">
+          {/* About Section */}
+          <AboutSection2 companyData={companyData} userInfo={userInfo} />
 
-      <WhyChooseUsSection companyData={companyData} userInfo={userInfo} />
+          {/* Navigation Bar */}
+          <NavigationBar />
 
-      <section id="inside-cognizant">
-        <InsideCognizant companyData={companyData} userInfo={userInfo} />
-      </section>
-      <CompanyBenefits companyData={companyData} />
-      <LeadershipTeam companyId={companyId} />
-      {/* <JobListings companyData={companyData} userInfo={userInfo} /> */}
+          {/* Other Sections */}
+          <WhyChooseUsSection companyData={companyData} userInfo={userInfo} />
 
-      {/* <div className="items-center justify-center text-center bg-gray-500 h-60">
-        <h3 className="text-white font-semibold text-3xl pt-5 mb-6">
-          Follow us
-        </h3>
-        <div className="flex items-center justify-center gap-3 ">
-          <a
-            href={companyData.linkedin_link}
-            aria-label="Find us on LinkedIn"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaLinkedin className="h-10 w-10 text-white" />
-          </a>
-          <a
-            href={companyData.twitter_link}
-            aria-label="Find us on Twitter"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaTwitter className="h-10 w-10 text-white" />
-          </a>
-          <a
-            href={companyData.facebook_link}
-            aria-label="Find us on Facebook"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaFacebook className="h-10 w-10 text-white" />
-          </a>
-          <a
-            href={companyData.website_link}
-            aria-label="Visit our website"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaGlobe className="h-10 w-10 text-white" />
-          </a>
+          <section id="inside-cognizant">
+            <InsideCognizant companyData={companyData} userInfo={userInfo} />
+          </section>
+
+          {companyData?.video_urls?.[0] && (
+            <CompanyCard >
+              <ReactPlayer
+                url={companyData?.video_urls?.[0] || "https://youtu.be/zAeQAiP8PwA"}
+                controls
+                width="100%"
+                height={window.innerWidth <= 768 ? "250px" : "500px"}
+                style={{ borderRadius: "8px", overflow: "hidden" }}
+              />
+            </CompanyCard>
+          )}
+
+          <section id="company-benefits">
+            <CompanyBenefits companyData={companyData} />
+          </section>
+
+          <section id="leadership-team">
+            <LeadershipTeam companyId={companyId} />
+          </section>
+
+          <section id="job-listings">
+            <JobListings companyData={companyData} userInfo={userInfo} />
+          </section>
+
+          <section id="social-footer">
+            <SocialFooter companyData={companyData} />
+          </section>
         </div>
-        <h3 className="text-white font-semibold text-sm pt-5 ">
-          All rights reserved © {companyData.company_name}
-        </h3>
-      </div> */}
-      <SocialFooter companyData={companyData} />
+      </div>
     </>
   );
 };

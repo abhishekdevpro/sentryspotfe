@@ -13,7 +13,7 @@ const PublicProfile = () => {
       <DefaulHeader2 />
       {/* End Header */}
 
-      <section className="ls-section bg-stone-200">
+      <section className="ls-section app-gradient-bg">
         <div className="auto-container">
           <div className="row">
           <UserProfilePage />

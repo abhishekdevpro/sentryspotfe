@@ -7,14 +7,15 @@ import ReactQuill from 'react-quill';
 import { Card, CardContent } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
 import { Edit } from 'lucide-react';
-
+import CompanyCard from '../ui/CompanyCard';
+import parse from "html-react-parser"
 const LeadershipTeam = ({companyId}) => {
   const [teamMembers, setTeamMembers] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editSelectedFile, setEditSelectedFile] = useState(null);
   const [error, setError] = useState(null);
   const [actionLoading, setActionLoading] = useState({});
-
+  
   const baseUrl = "https://api.sentryspot.co.uk/api/jobseeker";
   const baseImageUrl = "https://api.sentryspot.co.uk";  
   const token = localStorage.getItem(Constant.USER_TOKEN); 
@@ -146,18 +147,71 @@ const LeadershipTeam = ({companyId}) => {
   );
 
   return (
-    <section className="py-12 bg-gray-50" id="leadership">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+    <section className="" id="leadership">
+      <CompanyCard>
+        <div className="text-center mb-8">
+          <h2 className="app-text-h1 !text-blue-800">
             Meet our team
           </h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mt-4"></div>
+          
 
         </div>
-       
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 ">
+          {teamMembers.length > 0 ? (
+            teamMembers.map((member) => (
+              <div
+                key={member.id}
+                className="bg-white/50 rounded-2xl shadow-lg overflow-hidden border border-blue-100 transition-all hover:shadow-xl"
+              >
+                <div className="flex flex-col items-center p-6">
+                  {/* Image */}
+                  <div className="relative mb-6">
+                    <img
+                      src={
+                        member.media
+                          ? `${baseImageUrl}${member.media}`
+                          : "https://picsum.photos/200/300"
+                      }
+                      alt={member.name}
+                      className="h-48 w-48 rounded-full object-cover shadow-lg"
+                    />
+                  </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                  {/* Content */}
+                  {editingId === member.id ? (
+                    <EditForm member={member} />
+                  ) : (
+                    <div className="text-center space-y-3">
+                      <h3 className="app-text-h3 !text-blue-500">
+                        {member.name}
+                      </h3>
+                      <p
+                       className='line-clamp-3 app-text-p '
+                      >
+                      {parse(member.description || "")}
+                    </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="col-span-3 text-center text-gray-500">
+              <p>No team members found.</p>
+            </div>
+          )}
+        </div>
+
+        {/* See More Button */}
+        {teamMembers.length > 6 && (
+          <div className="text-center mt-12">
+            <button className="inline-flex items-center px-6 py-3 text-base font-medium text-blue-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
+              See More
+            </button>
+          </div>
+        )}
+
+        {/* <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {
             teamMembers.length > 0 ? (
               teamMembers?.map((member) => (
@@ -205,8 +259,8 @@ const LeadershipTeam = ({companyId}) => {
               See More
             </button>
           </div>
-        )}
-      </div>
+        )} */}
+      </CompanyCard>
 
       {error && (
         <div className="fixed bottom-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">

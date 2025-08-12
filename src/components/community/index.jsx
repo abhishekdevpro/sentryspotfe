@@ -17,8 +17,8 @@ const Index = () => {
       {localStorage.getItem(Constant.USER_TOKEN)? <DashboardCandidatesHeader />  :<DefaulHeader2 />}
       {/* End Header */}
 
-      <section className="ls-section app-gradient-bg mt-20">
-        <div className="auto-container px-4 sm:px-6 lg:px-8">
+      <section className="ls-section app-gradient-bg mt-10 md:20">
+        <div className="auto-container px-2 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-4 ">
             {/* Left Sidebar - Hidden on mobile, visible on lg screens */}
             <div className="hidden lg:block w-1/5">
