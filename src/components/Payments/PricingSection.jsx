@@ -5,6 +5,7 @@ import { pricingData } from "./Plan";
 import { Constant } from "@/utils/constant/constant";
 import { useNavigate } from "react-router-dom";
 import { CheckCircle } from "lucide-react";
+import { Button } from "../ui/button";
 
 const PricingSection = () => {
   // Convert data object to array for mapping
@@ -35,13 +36,13 @@ const PricingSection = () => {
     <section className="">
       <div className="container">
         {/* Section Heading */}
-        <div className="HelpBox">
-          <p className="">
+        <div className=" text-center">
+          <p className="app-text-h2 !text-blue-500 mb-2">
             {pricingData.title}
             {/* <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-slate-800 rounded-sm"></span> */}
           </p>
-          <h2>{pricingData.subtitle}</h2>
-          <h2 className="">{pricingData.intro}</h2>
+          <h2 className="app-text-h1 !text-blue-900 mb-2">{pricingData.subtitle}</h2>
+          <h2 className="app-text-h2 !text-blue-900 mb-4">{pricingData.intro}</h2>
         </div>
 
         {/* Pricing Cards Grid */}
@@ -142,22 +143,13 @@ const PricingSection = () => {
 
                 {/* CTA Button */}
                 <div className="p-6 pt-0">
-                  <button
-                    onClick={()=>handleClick(plan.planId)}
-                    className={`
-                      w-full py-4 px-5 rounded-lg font-semibold text-base text-white border-none cursor-pointer
-                      transition-all duration-300 shadow-lg hover:shadow-xl hover:transform hover:-translate-y-1
-                      ${
-                        isDark
-                          ? "bg-slate-900 hover:bg-slate-950"
-                          : isPopular
-                          ? "bg-slate-700 hover:bg-slate-800"
-                          : "bg-slate-800 hover:bg-slate-900"
-                      }
-                    `}
+                  <Button
+                    onClick={() => handleClick(plan.planId)}
+                    variant={isDark ? "secondary" : "primary"}
+                    className="w-full"
                   >
                     {plan.buttonText}
-                  </button>
+                  </Button>
                 </div>
               </div>
             );

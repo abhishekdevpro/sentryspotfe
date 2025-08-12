@@ -498,20 +498,6 @@ function App() {
 
               <ScrollTopBehaviour />
             </BrowserRouter>
-
-            {/* Toastify */}
-            {/* <ToastContainer
-            position="bottom-right"
-            autoClose={500}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-          /> */}
             <Toaster />
             <NotificationProvider />
             {/* <!-- Scroll To Top --> */}

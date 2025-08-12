@@ -7,7 +7,7 @@ import home3 from "./img/home-3.webp";
 import tab1 from "./img/Tab1.webp";
 import tab2 from "./img/InnerSlider.webp";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -17,6 +17,8 @@ import toast from "react-hot-toast";
 import HomeBanner from "./HomeBanner";
 import PricingSection from "@/components/Payments/PricingSection";
 import ServiceProgramCards from "./ServiceProgramCards";
+import JobCard from "../job-list-v3/JobCard";
+import { Button } from "@/components/ui/button";
 
 const FilterJobsBox = () => {
   const [jobs, setJobs] = useState([]);
@@ -26,7 +28,7 @@ const FilterJobsBox = () => {
   const jobsPerSlide = 8; // Number of jobs to display per slide
   const [email, setEmail] = useState("");
   const categories = ["App", "Design", "Digital", "More"];
-
+  const navigate = useNavigate();
   const extraCategories = categories.length > 3 ? categories.length - 3 : 0;
 
   const handleSubmit = (e) => {
@@ -48,7 +50,7 @@ const FilterJobsBox = () => {
           response.data?.code === 200
         ) {
           toast.success(response.data.message || "Subscribed successfully!"); // Show toast
-          setEmail("")
+          setEmail("");
         } else {
           toast.error(response.data?.message || "Subscription failed.");
         }
@@ -186,7 +188,7 @@ const FilterJobsBox = () => {
 
   return (
     <>
-      <div className="">
+      <div className="app-gradient-bg">
         <div className="">
           <HomeBanner />
         </div>
@@ -199,15 +201,15 @@ const FilterJobsBox = () => {
         {/* join community section */}
         <div className="FAQs py-8 sm:py-10">
           <div className="container">
-            <div className="FaqBox ">
-              <div className="FaqImage ">
+            <div className="FaqBox flex  ">
+              <div className="FaqImage flex-1 ">
                 <img src={faqimge} className="w-full h-auto rounded-lg" />
               </div>
-              <div className="FaqText ">
-                <p className="">
+              <div className="flex-1 ">
+                <p className="app-text-h2 text-left !text-white mb-2">
                   SentrySpot Community
                 </p>
-                <h2 className="">
+                <h2 className="app-text-h2 text-left !text-white mb-2">
                   Join community to gain the support and resources you need for
                   a smooth transition to a better career.
                 </h2>
@@ -356,33 +358,15 @@ const FilterJobsBox = () => {
                     </p>
                   </div>
                 </details>
-                <div className="FaqBtn">
+                <div className="my-2">
                   <Link to={"/login"}>
-                    <button
+                    <Button
                       type="button"
-                      onMouseEnter={() => handleMouseEnter("button1")}
-                      onMouseLeave={() => handleMouseLeave("button1")}
-                      style={{
-                        padding: "16px 32px",
-                        border: "none",
-                        backgroundColor: hoveredElements["button1"]
-                          ? "#d1026a"
-                          : "#e60278",
-                        borderRadius: "12px",
-                        cursor: "pointer",
-                        fontSize: "14px",
-                        color: "#fff",
-                        transition: "all 0.3s ease",
-                        transform: hoveredElements["button1"]
-                          ? "translateY(-2px)"
-                          : "none",
-                        boxShadow: hoveredElements["button1"]
-                          ? "0 4px 12px rgba(230, 2, 120, 0.3)"
-                          : "none",
-                      }}
+                      variant="primary"
+                      className="w-full"
                     >
                       Signin to view our community
-                    </button>
+                    </Button>
                   </Link>
                 </div>
               </div>
@@ -393,18 +377,20 @@ const FilterJobsBox = () => {
         <div className="Help ">
           <div className="container ">
             <div className="StatsBox">
-              <div className="HelpBox mb-6">
-                <div className="HelpText">
-                  <p className="">Verified Job Listings</p>
-                  <h2 className="mt-2">
+              <div className="mb-6">
+                <div className="">
+                  <p className="app-text-h2 !text-blue-700 mb-2">
+                    Verified Job Listings
+                  </p>
+                  <h2 className="app-text-h1 !text-blue-900 mb-2">
                     Creating impact every step of the way
                   </h2>
                   <div className="StatsBtn mt-4">
-                    <Link to={"/job-list-v3"}>
-                      <button type="button" className="w-full sm:w-auto">
+                    {/* <Link to={"/job-list-v3"}> */}
+                      <Button onClick={() => {navigate('/job-list-v3')}} type="button" className="w-full sm:w-auto">
                         View All Jobs
-                      </button>
-                    </Link>
+                      </Button>
+                    {/* </Link> */}
                   </div>
                 </div>
                 {/* <div className="HelpNavigationBtn">
@@ -418,7 +404,7 @@ const FilterJobsBox = () => {
               </div>
 
               <div className="relative w-full">
-                {/* Slick Slider */}
+                
                 <Slider
                   {...settings}
                   className="overflow-hidden shadow-lg rounded-lg"
@@ -426,77 +412,17 @@ const FilterJobsBox = () => {
                   {jobs.map((job) => (
                     <div
                       key={job.id}
-                      className="flex-shrink-0 w-full h-auto md:w-1/4 p-2"
+                      className="flex-shrink-0 w-full md:w-1/4 p-2"
                     >
-                      <div
-                        className="relative bg-blue-900 shadow-md rounded-lg p-2 flex flex-col"
-                        style={{
-                          transition: "all 0.3s ease",
-                          borderRadius: "12px",
-                          ":hover": {
-                            transform: "translateY(-5px)",
-                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.15)",
-                          },
-                        }}
-                      >
-                        <div className="absolute top-3 left-3 flex flex-col gap-2">
-                          {/* <span className="bg-green-200 text-green-800 text-xs font-medium px-2 py-1 rounded-md">
-                            Private
-                          </span> */}
-
-                          {/* <span className="bg-yellow-200 text-yellow-800 text-xs font-medium px-2 py-1 rounded-md">
-                            Urgent
-                          </span> */}
-                        </div>
-                        <span className="absolute top-3 right-3  text-white text-xs font-medium px-2 py-1 rounded-md">
-                          {job?.job_type_name || "Full Time"}
-                        </span>
-
-                        <i className="fa-brands fa-dropbox text-white text-6xl mb-2"></i>
-                        <Link to={`/job-single-v3/${job.id}`}>
-                          <h2 className="text-xl font-semibold text-white">
-                            {job.job_title || "Job Title"}
-                          </h2>
-                          <div className="Location text-white mb-4 mt-4">
-                            <i className="fa-solid fa-location-dot text-white mr-2"></i>
-                            {job.location
-                              ? `${job.location}`
-                              : "Location Not Available"}
-                          </div>
-                          <div className="Location text-white mb-4 mt-4">
-                            {/* <i className="fa-solid fa-location-dot text-white mr-2"></i> */}
-                            {job.functional_area_name
-                              ? `${job.functional_area_name}`
-                              : "Functional Area Not Available"}
-                          </div>
-                        </Link>
-                        <div className="Job-Tab flex gap-2 mt-auto">
-                          <a
-                            href="#"
-                            className="bg-gray-200 text-sm px-2 py-1 rounded"
-                          >
-                            App
-                          </a>
-                          <a
-                            href="#"
-                            className="bg-gray-200 text-sm px-2 py-1 rounded"
-                          >
-                            Design
-                          </a>
-                          <a
-                            href="#"
-                            className="bg-gray-200 text-sm px-2 py-1 rounded"
-                          >
-                            Digital
-                          </a>
-                        </div>
-                        {/* <div className="flex justify-center flex-wrap gap-2 mt-2">
-                          {extraCategories > 0 && (
-                            <span className="bg-blue-600 text-white text-xs px-3 py-1 rounded-full">
-                              +{extraCategories}
-                            </span>
-                          )}
-                        </div> */}
+                      <div className="relative shadow-md rounded-lg flex flex-col h-[480px] bg-white hover:translate-y-[-5px] hover:shadow-xl transition-all duration-300">
+                        <JobCard
+                          key={job.id}
+                          job={job}
+                          onApplyJob={() => applyToJob(job.id)}
+                          showApplyButton={false}
+                          showSaveButton={false}
+                          className="flex flex-col flex-1"
+                        />
                       </div>
                     </div>
                   ))}
@@ -508,11 +434,9 @@ const FilterJobsBox = () => {
         {/* courses section */}
         <div className="TabSection">
           <div className="container">
-            <div className="TabHead">
-              <p>
-                SentrySpot Careers - Training Programs &amp; Certifications
-              </p>
-              <h2 className="">
+            <div className="">
+              <p className="app-text-h2 !text-blue-700 mb-2">SentrySpot Careers - Training Programs &amp; Certifications</p>
+              <h2 className="app-text-h1 !text-blue-900 mb-2">
                 With over 100,000 customers, from individuals to some of the
                 most respected global brands
               </h2>
@@ -523,10 +447,11 @@ const FilterJobsBox = () => {
         <PricingSection />
 
         {/* Blog section */}
-        <div className="Blog">
+        <div className="Blog py-20">
           <div className="container">
-            <div className="BlogHeading ">
-              Career guidance by SentrySpot Editorial
+            <div className=" ">
+              <p className="app-text-h2 !text-blue-700 mb-2">Discover the latest insights from the SentrySpot Editorial Team</p>
+             <h2 className="app-text-h1 !text-blue-900 mb-4"> Career guidance by SentrySpot Editorial</h2>
             </div>
             <div className="BlogsCards ">
               <Link
@@ -543,25 +468,14 @@ const FilterJobsBox = () => {
               >
                 <div
                   className="BlogBoxs"
-                  // style={{
-                  //   width: "100%",
-                  //   backgroundColor: "#fff",
-                  //   borderRadius: "12px",
-                  //   boxShadow: hoveredElements["blogCard1"]
-                  //     ? "0 8px 24px rgba(0, 0, 0, 0.15)"
-                  //     : "0px 4px 7px 0px #aeaeaf",
-                  //   transition: "all 0.3s ease",
-                  //   transform: hoveredElements["blogCard1"]
-                  //     ? "translateY(-5px)"
-                  //     : "none",
-                  // }}
+                 
                 >
                   <div className="Blogs-Text">
-                    <img src="https://blog.sentryspot.co.uk/wp-content/uploads/2024/08/Untitled-design-5.jpg" />
+                    <img src="https://blog.sentryspot.co.uk/wp-content/uploads/2024/08/Untitled-design-5.jpg" className="p-2" />
                     <div className="BlogInfoContainer">
-                      <div className="Category w-full text-center ">
+                      <Button variant="primary" className="w-full text-center mb-4">
                         Career Discovery
-                      </div>
+                      </Button>
                       <div className="CardInfo">
                         <div className="Heading">
                           Key Features to Look for in an AI Resume Builder
@@ -599,11 +513,11 @@ const FilterJobsBox = () => {
                   }}
                 >
                   <div className="Blogs-Text">
-                    <img src="https://blog.sentryspot.co.uk/wp-content/uploads/2024/08/Untitled-design-4.jpg" />
+                    <img src="https://blog.sentryspot.co.uk/wp-content/uploads/2024/08/Untitled-design-4.jpg" className="p-2" />
                     <div className="BlogInfoContainer">
-                      <div className="Category w-full text-center ">
+                      <Button variant="primary" className="w-full text-center mb-4">
                         Career Discovery
-                      </div>
+                      </Button>
                       <div className="CardInfo">
                         <div className="Heading">
                           Exploring How AI Can Perpetuate or Reduce Bias in the
@@ -628,25 +542,14 @@ const FilterJobsBox = () => {
               >
                 <div
                   className="BlogBoxs"
-                  // style={{
-                  //   width: "100%",
-                  //   backgroundColor: "#fff",
-                  //   borderRadius: "12px",
-                  //   boxShadow: hoveredElements["blogCard3"]
-                  //     ? "0 8px 24px rgba(0, 0, 0, 0.15)"
-                  //     : "0px 4px 7px 0px #aeaeaf",
-                  //   transition: "all 0.3s ease",
-                  //   transform: hoveredElements["blogCard3"]
-                  //     ? "translateY(-5px)"
-                  //     : "none",
-                  // }}
+                  
                 >
                   <div className="Blogs-Text">
-                    <img src="https://blog.sentryspot.co.uk/wp-content/uploads/2024/08/Untitled-design.jpg" />
+                    <img src="https://blog.sentryspot.co.uk/wp-content/uploads/2024/08/Untitled-design.jpg" className="p-2" />
                     <div className="BlogInfoContainer">
-                      <div className="w-full text-center Category">
+                      <Button variant="primary" className="w-full text-center mb-4">
                         Career Discovery
-                      </div>
+                      </Button>
                       <div className="CardInfo">
                         <div className="Heading">
                           Most Common Resume Mistakes and How to Avoid Them
@@ -658,50 +561,19 @@ const FilterJobsBox = () => {
               </Link>
             </div>
             <div
-              className="BlogBtn"
-              // style={{
-              //   display: "flex",
-              //   justifyContent: "center",
-              //   marginTop: "2rem",
-              // }}
+              
+            
             >
-              <Link
-                to={"https://blog.sentryspot.co.uk/"}
-                style={{
-                  textDecoration: "none",
-                  transition: "all 0.3s ease",
-                  display: "inline-block",
-                }}
-              >
-                <button
+              
+                <Button
+                  onClick={() => (window.location.href = "https://blog.sentryspot.co.uk/")}
                   type="button"
-                  onMouseEnter={() => handleMouseEnter("blogButton")}
-                  onMouseLeave={() => handleMouseLeave("blogButton")}
-                  style={{
-                    padding: "12px 32px",
-                    backgroundColor: hoveredElements["blogButton"]
-                      ? "#003479"
-                      : "#0046a8",
-                    color: "#ffffff",
-                    border: "none",
-                    borderRadius: "8px",
-                    fontSize: "16px",
-                    fontWeight: "500",
-                    cursor: "pointer",
-                    transition: "all 0.3s ease",
-                    transform: hoveredElements["blogButton"]
-                      ? "translateY(-2px)"
-                      : "none",
-                    boxShadow: hoveredElements["blogButton"]
-                      ? "0 4px 12px rgba(0, 52, 121, 0.2)"
-                      : "0 2px 4px rgba(0, 0, 0, 0.1)",
-                    minWidth: "200px",
-                    maxWidth: "250px",
-                  }}
+                  size="lg"
+                 
                 >
                   Visit our Blog Section
-                </button>
-              </Link>
+                </Button>
+              {/* </Link> */}
             </div>
           </div>
         </div>
@@ -709,46 +581,20 @@ const FilterJobsBox = () => {
         <div className="Talk md:pt-20">
           <div className="container">
             <div className="Talkbox ">
-              <div
-                className="TalkInfo "
-              >
-                <h2 className="" style={{}}>
+              <div className="TalkInfo ">
+                <h2 className="app-text-h1 !text-white " style={{}}>
                   Interested in becoming a SentrySpot partner?
                 </h2>
                 <div className="TalkBox">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      (window.location.href =
-                        "mailto:Partners@sentryspot.co.uk")
-                    }
-                    onMouseEnter={() => handleMouseEnter("talkButton")}
-                    onMouseLeave={() => handleMouseLeave("talkButton")}
-                    style={{
-                      textDecoration: "none",
-                      padding: "14px 32px",
-                      backgroundColor: hoveredElements["talkButton"]
-                        ? "#0055cc"
-                        : "#0046a8", // lighter hover
-                      color: "#ffffff",
-                      borderRadius: "8px",
-                      fontSize: "16px",
-                      fontWeight: "500",
-                      transition: "all 0.3s ease",
-                      transform: hoveredElements["talkButton"]
-                        ? "translateY(-2px)"
-                        : "none",
-                      boxShadow: hoveredElements["talkButton"]
-                        ? "0 4px 12px rgba(0, 52, 121, 0.1)"
-                        : "0 2px 4px rgba(0, 0, 0, 0.2)",
-                      display: "inline-block",
-                      minWidth: "160px",
-                      cursor: "pointer",
-                      border: "none",
-                    }}
+                  <Button
+                   onClick={() =>
+                     (window.location.href = "mailto:Partners@sentryspot.co.uk")
+                   }
+                   size="lg"
+                   variant="primary"
                   >
                     Let's Talk
-                  </button>
+                  </Button>
                 </div>
               </div>
               <div className="w-full lg:w-1/2">

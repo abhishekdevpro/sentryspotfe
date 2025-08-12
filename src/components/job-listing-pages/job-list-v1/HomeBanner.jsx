@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import home2 from "./img/home-2.webp";
 import home1 from "./img/home-1.webp";
 import home3 from "./img/home-3.webp";
+import { Button } from "@/components/ui/button";
 
 const HomeBanner = () => {
   const [slideIndex, setSlideIndex] = useState(0);
-
+  const navigate = useNavigate()
   const slides = [
     {
       image: home1,
@@ -37,18 +38,19 @@ const HomeBanner = () => {
     <div className="">
       <div className="container">
         <div className="HomeBannerContent">
-          <div className="BannerContent">
-            <h2>One Stop AI Enabled Career Portal</h2>
-            <h1>Your Career Journey Starts at SentrySpot</h1>
-            <p>
+          <div className="">
+            <h2 className="app-text-h2 !text-blue-700 mb-2">One Stop AI Enabled Career Portal</h2>
+            <h1 className="app-text-h1 !text-blue-900 mb-2">Your Career Journey Starts at SentrySpot</h1>
+            <p className="app-text-p !text-blue-900 mb-2">
               Your AI-powered gateway to a successful career in security
               services. Start your journey with smart tools for job
               searching, resume building, and more.
             </p>
-            <div className="BannerBtn">
-              <Link to={"/sentry-spot"}>
-                <button type="button">Get Started Now</button>
-              </Link>
+            <div >
+              {/* <Link to={"/sentry-spot"}> */}
+                <Button onClick={() => {navigate('/sentry-spot')}} size="lg"
+                 type="button">Get Started Now</Button>
+              {/* </Link> */}
             </div>
           </div>
           <div className="HomeHeroMedia">

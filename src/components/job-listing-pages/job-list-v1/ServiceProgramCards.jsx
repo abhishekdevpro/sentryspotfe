@@ -5,11 +5,11 @@ const ServiceProgramCards = ({ handleMouseEnter, handleMouseLeave, hoveredElemen
   return (
     <div className="ServiceCard">
       <div className="container">
-        <div className="CardTop text-center">
-          <p className="">
+        <div className=" text-center">
+          <p className="app-text-h2 !text-blue-700 mb-2">
             How we spot career growth for you
           </p>
-          <h2 className="">
+          <h2 className="app-text-h1 !text-blue-900 mb-2">
             AI-powered tools to enhance your job search
           </h2>
         </div>

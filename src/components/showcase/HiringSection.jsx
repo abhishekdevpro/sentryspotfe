@@ -18,7 +18,7 @@ const JobListings = ({ companyData }) => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `https://api.sentryspot.co.uk/api/jobseeker/job-list?company_id=${companyData?.id}`,
+          `https://api.sentryspot.co.uk/api/jobseeker/public/job-list?company_id=${companyData?.id}`,
           {
             headers: {
               Authorization: token,
@@ -102,9 +102,7 @@ const JobListings = ({ companyData }) => {
                       <JobCard
                         key={job.id}
                         job={job}
-                        // onSaveJob={() => saveJob(job.id)}
-                        onApplyJob={() => applyToJob(job.id)}
-                        // actionStatus={actionStatus}
+                        onApplyJob={() => applyToJob(job.id)} 
                         showApplyButton={false}
                         showSaveButton={false}
                       />
