@@ -65,7 +65,6 @@ const DefaulHeader2 = () => {
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
-    console.log('Mobile menu state changed:', isMobileMenuOpen); // Debug log
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {

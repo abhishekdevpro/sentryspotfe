@@ -13,7 +13,7 @@ const PreferredLocations = ({ control, setValue, errors, profileData }) => {
   const token = localStorage.getItem(Constant.USER_TOKEN);
   const inputRef = useRef(null);
   const suggestionsRef = useRef(null);
-
+  
   // ✅ Load previously selected locations
   useEffect(() => {
     if (profileData?.preferred_location?.length) {
@@ -120,13 +120,14 @@ const PreferredLocations = ({ control, setValue, errors, profileData }) => {
             ))}
           </div>
         )} */}
+        {/* {console.log("selectedLocations", selectedLocations)} */}
       <Controller
         name="preferred_location"
         control={control}
         render={({ field }) => (
           <div className="relative">
             {/* Selected location tags */}
-            <div className="flex flex-wrap gap-2 mb-2">
+            <div className="flex flex-wrap gap-2">
               {selectedLocations.map((location, index) => (
                 <div
                   key={index}

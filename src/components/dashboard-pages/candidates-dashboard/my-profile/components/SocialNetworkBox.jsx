@@ -271,7 +271,7 @@ import {
   Trash2,
 } from "lucide-react";
 
-const EducationForm = ({ onNext }) => {
+const EducationForm = ({ onNext, onPrevious }) => {
   const token = localStorage.getItem(Constant.USER_TOKEN);
   const baseurl = "https://api.sentryspot.co.uk/api/jobseeker/";
 
@@ -353,40 +353,124 @@ const EducationForm = ({ onNext }) => {
     fetchData();
   }, []);
 
+  // const onSubmit = async (data) => {
+  //   try {
+  //     const formatted = data.educations.map((edu) => ({
+  //       institute_name: edu.institute_name,
+  //       education_level_id: parseInt(edu.education_level_id, 10),
+  //       course_type_id: parseInt(edu.course_type_id, 10),
+  //       graduation_year_id: parseInt(edu.graduation_year_id, 10),
+  //     }));
+
+  //     console.log("educationalDetails", educationalDetails)
+  //     console.log("formatted", formatted)
+
+  //     const payload = [];
+  //     // const payload = [...educationalDetails, ...formatted];
+
+  //     // await axios.put(`${baseurl}user-profile-education`, payload, {
+  //     //   headers: {
+  //     //     Authorization: token,
+  //     //     "Content-Type": "application/json",
+  //     //   },
+  //     // });
+
+  //     toast.success("Education details saved!");
+  //     // onNext();
+  //   } catch (error) {
+  //     toast.error("Failed to save education.");
+  //   }
+  // };
   const onSubmit = async (data) => {
     try {
-      const formatted = data.educations.map((edu) => ({
-        institute_name: edu.institute_name,
-        education_level_id: parseInt(edu.education_level_id, 10),
-        course_type_id: parseInt(edu.course_type_id, 10),
-        graduation_year_id: parseInt(edu.graduation_year_id, 10),
-      }));
+      // Filter out only complete user-filled entries
+      const formatted = data.educations
+        .filter((edu) => (
+          edu.institute_name &&
+          edu.education_level_id &&
+          edu.course_type_id &&
+          edu.graduation_year_id
+        ))
+        .filter((edu) => {
+          // Check if this entry already exists in educationalDetails
+          return !educationalDetails.some((existing) =>
+            existing.institute_name === edu.institute_name &&
+            String(existing.education_level_id) === String(edu.education_level_id) &&
+            String(existing.course_type_id) === String(edu.course_type_id) &&
+            String(existing.graduation_year_id) === String(edu.graduation_year_id)
+          );
+        })
+        .map((edu) => ({
+          institute_name: edu.institute_name.trim(),
+          education_level_id: parseInt(edu.education_level_id, 10),
+          course_type_id: parseInt(edu.course_type_id, 10),
+          graduation_year_id: parseInt(edu.graduation_year_id, 10),
+        }));
+
+      // Log the details for debugging
+      console.log("educationalDetails", educationalDetails);
+      console.log("fields", fields);
+
+      // Array to store matching details
+      const matchingDetails = [];
+
+      // Find matching items between fields and educationalDetails
+      fields.forEach(field => {
+        educationalDetails.forEach(edu_detail => {
+          if (
+            field.institute_name === edu_detail.institute_name &&
+            String(field.education_level_id) === String(edu_detail.education_level_id) &&
+            String(field.course_type_id) === String(edu_detail.course_type_id) &&
+            String(field.graduation_year_id) === String(edu_detail.graduation_year_id)
+          ) {
+            matchingDetails.push(edu_detail);
+          }
+        });
+      });
+
+      console.log("Matching Details", matchingDetails);
 
       const payload = [...educationalDetails, ...formatted];
 
-      await axios.put(`${baseurl}user-profile-education`, payload, {
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-      });
+      if (formatted.length > 0) {
+        await axios.put(`${baseurl}user-profile-education`, payload, {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        });
+      } else {
+        await axios.put(`${baseurl}user-profile-education`, matchingDetails, {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        });
+      }
 
       toast.success("Education details saved!");
       onNext();
     } catch (error) {
+      console.error(error);
       toast.error("Failed to save education.");
     }
   };
 
+
   const addEducation = () => {
     const newIndex = fields.length;
-    append({
-      institute_name: "",
-      education_level_id: "",
-      course_type_id: "",
-      graduation_year_id: "",
-    });
-    setExpandedSections((prev) => [...prev, newIndex]);
+    console.log("fields", fields);
+    if (newIndex <= 4) {
+      append({
+        institute_name: "",
+        education_level_id: "",
+        course_type_id: "",
+        graduation_year_id: "",
+      });
+      setExpandedSections((prev) => [...prev, newIndex]);
+    } else {
+      alert("You can add up to 5 educational qualifications only.");
+    }
   };
 
   const toggleSection = (index) => {
@@ -412,7 +496,7 @@ const EducationForm = ({ onNext }) => {
               className="education-entry border rounded-lg p-4 mb-6 shadow-sm bg-white"
             >
               <div className="flex items-center justify-between">
-                <h4 className="text-lg font-semibold">{field.institute_name || `Education ${index+1}`}</h4>
+                <h4 className="text-lg font-semibold">{field.institute_name || `Education ${index + 1}`}</h4>
                 <div className="flex items-center gap-3 ">
                   <button
                     type="button"
@@ -421,7 +505,7 @@ const EducationForm = ({ onNext }) => {
                   >
                     {isExpanded ? (
                       <>
-                        <ChevronDown   />
+                        <ChevronDown />
                       </>
                     ) : (
                       <>
@@ -540,8 +624,18 @@ const EducationForm = ({ onNext }) => {
           );
         })}
 
-        <div className="row mb-2">
-          <div className="form-group col-12">
+        <div className="row mb-2 flex-wrap flex justify-between">
+          <div className="form-group md:w-1/2 w-full">
+            <button
+              type="button"
+              onClick={onPrevious}
+              className="theme-btn btn-style-one bg-gray-500"
+            >
+              ◀ Back
+            </button>
+
+          </div>
+          <div className="form-group md:w-1/2 w-full text-end">
             <button
               type="button"
               className="theme-btn btn-style-one bg-blue-950 mr-4 mb-2"
@@ -557,6 +651,7 @@ const EducationForm = ({ onNext }) => {
               Save & Next ➤
             </button>
           </div>
+
         </div>
       </form>
     </div>

@@ -27,7 +27,7 @@ const FilterJobsBox = () => {
     showLoginModal,
     closeLoginModal,
     actionStatus,
-  } = useJobActions({ setFilteredJobs });
+  } = useJobActions({ setFilteredJobs , filteredJobs });
 
   const token = localStorage.getItem(Constant.USER_TOKEN);
   const navigate = useNavigate();
@@ -71,6 +71,8 @@ const FilterJobsBox = () => {
       setIsLoading(false);
     }
   };
+
+  // console.log("filteredJobs", filteredJobs);
 
  useEffect(() => {
   const debouncedFetch = debounce(() => {

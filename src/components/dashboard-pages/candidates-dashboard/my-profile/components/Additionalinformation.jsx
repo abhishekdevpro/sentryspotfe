@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 // import LanguageSelector from "../LanguageSelector";
 
-const Additionalinformation = () => {
+const Additionalinformation = ({ onPrevious }) => {
   const [formData, setFormData] = useState({
     is_veteran_or_ex_military: false,
     is_reasonable_adjustments: false,
@@ -108,16 +108,17 @@ const Additionalinformation = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       // Transform languages array to match required format
       const languageNames = languages.map(lang => lang.name);
-
+      const updatedLanguages = [languageInput];
+      const AllLanguage = [...languageNames, ...updatedLanguages]
       const payload = {
         ...formData,
-        languages: languageNames
+        languages: AllLanguage
       };
 
+      // console.log("AllLanguage", AllLanguage)
       const response = await axios.post(
         "https://api.sentryspot.co.uk/api/jobseeker/additional-details",
         payload,
@@ -129,6 +130,10 @@ const Additionalinformation = () => {
       );
 
       if (response.data.code === 200 || response.data.status === "success") {
+        toast.success(response.data.message || "Additional information saved successfully!");
+        setTimeout(() => {
+          navigate("/public-view")
+        }, 500)
         toast.success( response.data.message ||"Additional information saved successfully!");
         setTimeout(()=>{
           navigate("/public-view")
@@ -136,7 +141,7 @@ const Additionalinformation = () => {
       }
     } catch (error) {
       console.error("Error submitting additional details:", error);
-      toast.error( error?.response?.data?.message || "Failed to save additional information. Please try again.");
+      toast.error(error?.response?.data?.message || "Failed to save additional information. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -413,7 +418,7 @@ const Additionalinformation = () => {
                   onChange={(e) => setLanguageInput(e.target.value)}
                   className="flex-grow border rounded-lg px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter a language"
-                   maxLength={20}
+                  maxLength={20}
                 />
                 <select
                   value={proficiency}
@@ -440,7 +445,7 @@ const Additionalinformation = () => {
         </div>
 
         {/* Submit Button */}
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <button
             type="submit"
             className="font-normal w-full sm:w-auto bg-blue-800 text-white px-6 py-2 rounded-lg text-sm sm:text-base hover:bg-blue-900 transition-colors"
@@ -448,6 +453,27 @@ const Additionalinformation = () => {
           >
             {loading ? "Saving..." : "Save"}
           </button>
+        </div> */}
+        <div className="row mb-2 flex-wrap flex justify-between">
+          <div className="form-group md:w-1/2 w-full">
+            <button
+              type="button"
+              onClick={onPrevious}
+              className="theme-btn btn-style-one bg-gray-500"
+            >
+              ◀ Back
+            </button>
+          </div>
+          <div className="form-group md:w-1/2 w-full text-end">
+            <button
+              type="submit"
+              className="theme-btn btn-style-one bg-blue-950"
+              disabled={loading}
+            >
+              {loading ? "Saving..." : "Save"}
+            </button>
+          </div>
+
         </div>
       </div>
     </form>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -12,17 +12,19 @@ import {
 import { toast } from 'react-toastify';
 
 const ShareJobModal = ({ show, onClose, shareUrl }) => {
+  const [copied, setCopied] = useState(false);
+
   const handleCopy = () => {
     navigator.clipboard.writeText(shareUrl).then(() => {
-      toast.success("Link copied to clipboard!");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     });
   };
 
   return (
     <div
-      className={`fixed inset-0 z-50 transition-all duration-300 ${
-        show ? 'flex items-center justify-center bg-black bg-opacity-50' : 'hidden'
-      }`}
+      className={`fixed inset-0 z-50 transition-all duration-300 ${show ? 'flex items-center justify-center bg-black bg-opacity-50' : 'hidden'
+        }`}
     >
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-6 relative">
         <div className="flex items-center justify-between mb-4">
@@ -67,6 +69,11 @@ const ShareJobModal = ({ show, onClose, shareUrl }) => {
               Copy Link
             </button>
           </div>
+          {copied && (
+            <p className="text-green-600 text-sm mt-2">
+              ✅ Link copied to clipboard!
+            </p>
+          )}
         </div>
       </div>
     </div>

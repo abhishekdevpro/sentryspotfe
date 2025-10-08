@@ -29,24 +29,29 @@ const Index = () => {
     {
       id: 2,
       title: "Education ",
-      component: <SocialNetworkBox onNext={() => setCurrentStep(3)} />,
+      component: <SocialNetworkBox
+        onNext={() => setCurrentStep(3)}
+        onPrevious={() => setCurrentStep(1)} />,
     },
     {
       id: 3,
       title: "Work Experience",
-      component: <ProfileVisalbilty onNext={() => setCurrentStep(4)} />,
+      component: <ProfileVisalbilty onNext={() => setCurrentStep(4)} 
+      onPrevious={() => setCurrentStep(2)} />,
     },
     {
       id: 4,
       title: "Resume",
-      component: <ContactInfoBox onNext={() => setCurrentStep(5)} />,
+      component: <ContactInfoBox onNext={() => setCurrentStep(5)}
+       onPrevious={() => setCurrentStep(3)}  />,
     },
     {
       id: 5,
       title: "Skills",
-      component: <Skills onNext={() => setCurrentStep(6)} />,
+      component: <Skills onNext={() => setCurrentStep(6)}
+      onPrevious={() => setCurrentStep(4)}  />,
     },
-    { id: 6, title: "Additional", component: <Additionalinformation /> },
+    { id: 6, title: "Additional", component: <Additionalinformation   onPrevious={() => setCurrentStep(4)}  /> },
     // { id: 7, title: "Languages", component: <LanguageSection /> },
   ];
 
@@ -89,6 +94,7 @@ const Index = () => {
             </div>
           </div> */}
           <div className="w-full bg-blue-800 rounded-t-lg px-2 sm:px-4 py-2 overflow-x-auto"
+            style={{ scrollbarWidth: "thin" }}
            style={{scrollbarWidth:"thin"}}
           >
             <div className="flex gap-2 justify-start sm:justify-center w-max min-w-full">
@@ -97,20 +103,18 @@ const Index = () => {
                   key={step.id}
                   onClick={() => setCurrentStep(step.id)}
                   className={`relative cursor-pointer py-2 px-4 text-center font-medium transition-all duration-300 text-sm sm:text-base rounded-md whitespace-nowrap
-          ${
-            currentStep === step.id
-              ? "text-blue-900 bg-white border border-blue-800 shadow-sm"
-              : "text-white bg-blue-700 hover:bg-blue-600"
-          }`}
+          ${currentStep === step.id
+                      ? "text-blue-900 bg-white border border-blue-800 shadow-sm"
+                      : "text-white bg-blue-700 hover:bg-blue-600"
+                    }`}
                 >
                   {step.title}
 
                   {/* Optional: arrow indicator between steps on larger screens */}
                   {index < steps.length - 1 && (
                     <span
-                      className={`hidden sm:block absolute top-1/2 right-[-16px] transform -translate-y-1/2 w-4 h-1 bg-white ${
-                        currentStep === step.id ? "bg-blue-800" : ""
-                      }`}
+                      className={`hidden sm:block absolute top-1/2 right-[-16px] transform -translate-y-1/2 w-4 h-1 bg-white ${currentStep === step.id ? "bg-blue-800" : ""
+                        }`}
                     />
                   )}
                 </div>
@@ -143,11 +147,10 @@ const Index = () => {
                           />
                           <div className="w-10 sm:w-12 h-5 sm:h-6 bg-gray-300 rounded-2xl shadow-inner peer-checked:bg-blue-500 transition-colors duration-300 cursor-pointer">
                             <div
-                              className={`absolute top-0 left-0 w-5 sm:w-6 h-5 sm:h-6 bg-white rounded-full shadow transform transition-transform duration-300 ${
-                                isToggled
-                                  ? "translate-x-5 sm:translate-x-6"
-                                  : "translate-x-0"
-                              }`}
+                              className={`absolute top-0 left-0 w-5 sm:w-6 h-5 sm:h-6 bg-white rounded-full shadow transform transition-transform duration-300 ${isToggled
+                                ? "translate-x-5 sm:translate-x-6"
+                                : "translate-x-0"
+                                }`}
                             />
                           </div>
                         </div>

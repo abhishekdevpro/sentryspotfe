@@ -4,7 +4,7 @@ import { Constant } from "@/utils/constant/constant";
 import { Loader2 } from 'lucide-react';
 import toast, { ToastBar } from 'react-hot-toast';
 
-const Skills = ({ onNext }) => {
+const Skills = ({ onNext, onPrevious }) => {
   const [skills, setSkills] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ const Skills = ({ onNext }) => {
             Authorization: token,
           },
         });
-        
+
         if (response.data.status === 'success') {
           setAllSkills(response.data.data);
         }
@@ -54,7 +54,7 @@ const Skills = ({ onNext }) => {
             Authorization: token,
           },
         });
-        
+
         if (response.data.status === 'success' && response.data.data) {
           const fetchedSkills = response.data.data.personal_details?.job_applyer_skills || [];
           setSkills(fetchedSkills);
@@ -70,7 +70,7 @@ const Skills = ({ onNext }) => {
   // Filter suggestions based on input
   useEffect(() => {
     if (inputValue.trim()) {
-      const filtered = allSkills.filter(skill => 
+      const filtered = allSkills.filter(skill =>
         skill.name.toLowerCase().includes(inputValue.toLowerCase()) &&
         !skills.includes(skill.name)
       );
@@ -106,7 +106,7 @@ const Skills = ({ onNext }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (skills.length === 0) {
       setError("Please add at least one skill");
       return;
@@ -122,7 +122,7 @@ const Skills = ({ onNext }) => {
         setLoading(false);
         return;
       }
-      
+
       // Format the payload according to the API requirements
       const payload = {
         skills: skills
@@ -138,7 +138,7 @@ const Skills = ({ onNext }) => {
           },
         }
       );
-      
+
       if (response.data.status === 'success' || response.data.code === 200) {
         toast.success(response.data.message || "profile updated successfully")
         onNext();
@@ -160,7 +160,7 @@ const Skills = ({ onNext }) => {
         <h5 className="text-lg sm:text-xl font-semibold mb-2">Skills</h5>
         <div className="form-group w-full my-4">
           <p className="text-sm sm:text-base text-gray-600 mb-2">Add Skills (Maximum 15):</p>
-          
+
           {error && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-3 sm:px-4 py-2 rounded mb-4 text-sm sm:text-base">
               {error}
@@ -197,7 +197,7 @@ const Skills = ({ onNext }) => {
               placeholder="Enter a skill and press Enter"
             />
           </div>
-          
+
           <div className="text-right mt-1">
             <span className="text-gray-500 text-xs sm:text-sm">{skills.length}/15 skills added</span>
           </div>
@@ -223,7 +223,7 @@ const Skills = ({ onNext }) => {
           )}
         </div>
 
-        <div className="form-group w-full mt-6">
+        {/* <div className="form-group w-full mt-6">
           <button
             type="submit"
             className="w-full sm:w-auto theme-btn btn-style-one bg-blue-800 text-white px-4 sm:px-6 py-2 rounded flex items-center justify-center gap-2 text-sm sm:text-base"
@@ -238,6 +238,35 @@ const Skills = ({ onNext }) => {
               <>Save & Next ➤</>
             )}
           </button>
+        </div> */}
+        <div className="row mb-2 flex-wrap flex justify-between">
+          <div className="form-group md:w-1/2 w-full">
+            <button
+              type="button"
+              onClick={onPrevious}
+              className="theme-btn btn-style-one bg-gray-500"
+            >
+              ◀ Back
+            </button>
+
+          </div>
+          <div className="form-group md:w-1/2 w-full text-end">
+            <button
+              type="submit"
+              className="theme-btn btn-style-one bg-blue-950"
+              disabled={loading || skills.length === 0}
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
+                  <span>Saving...</span>
+                </>
+              ) : (
+                <>Save & Next ➤</>
+              )}
+            </button>
+          </div>
+
         </div>
       </div>
     </form>

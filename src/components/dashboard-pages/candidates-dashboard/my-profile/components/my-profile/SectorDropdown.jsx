@@ -93,7 +93,7 @@ const SectorDropdown = ({ sectors = [], register, errors, setValue, profileData 
             })}
             value={selectedSector}
             onChange={handleSectorChange}
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 border rounded-md mt-2"
           >
             <option value="">Select a sector</option>
             {sectors.map((sector) => (
