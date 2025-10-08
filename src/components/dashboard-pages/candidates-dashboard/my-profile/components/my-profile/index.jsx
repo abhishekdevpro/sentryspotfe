@@ -273,6 +273,7 @@ const JobSeekerForm = ({ onNext }) => {
           )}
         </div>
         {/* Phone Number with Controller */}
+        
         <div className="form-group col-lg-6 col-md-12 font-light">
           <label className="block mb-1 text-gray-700 font-semibold">
             Phone Number*
@@ -317,7 +318,7 @@ const JobSeekerForm = ({ onNext }) => {
               )}
             />
             {isPhoneValid && (
-              <i className="fas fa-check absolute right-3 top-1/2 -translate-y-1/2 bg-green-500 text-white p-1.5 rounded-full text-sm shadow-md"></i>
+              <i className="fa-solid fa-circle-check absolute right-3 top-1/2 text-2xl -translate-y-1/2 text-green-500 rounded-full"></i>
             )}
           </div>
           {errors.phone && (
@@ -342,7 +343,7 @@ const JobSeekerForm = ({ onNext }) => {
               readOnly
               disabled
             />
-            <i className="fas fa-check absolute right-3 top-1/2 -translate-y-1/2 bg-green-500 text-white p-1.5 rounded-full text-sm shadow-md"></i>
+            <i className="fa-solid fa-circle-check absolute right-3 top-1/2 text-2xl -translate-y-1/2 text-green-500 rounded-full"></i>
           </div>
         </div>
         {/* Location Components */}

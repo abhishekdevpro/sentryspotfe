@@ -4,7 +4,7 @@ import axios from "axios";
 import { Constant } from "@/utils/constant/constant";
 import toast from "react-hot-toast";
 
-const ContactInfoBox = ({ onNext }) => {
+const ContactInfoBox = ({ onNext, onPrevious }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSampleVideo, setShowSampleVideo] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -226,14 +226,14 @@ const ContactInfoBox = ({ onNext }) => {
 
             {(videoFile?.[0] ||
               profileData?.personal_details?.intro_video_url) && (
-              <button
-                type="button"
-                className="text-blue-500 text-start underline mt-2"
-                onClick={() => setShowSampleVideo(true)}
-              >
-                Preview
-              </button>
-            )}
+                <button
+                  type="button"
+                  className="text-blue-500 text-start underline mt-2"
+                  onClick={() => setShowSampleVideo(true)}
+                >
+                  Preview
+                </button>
+              )}
           </div>
         </div>
 
@@ -247,8 +247,8 @@ const ContactInfoBox = ({ onNext }) => {
                     videoFile?.[0]
                       ? URL.createObjectURL(videoFile[0])
                       : profileData?.personal_details?.intro_video_url
-                      ? `https://api.sentryspot.co.uk${profileData.personal_details.intro_video_url}`
-                      : ""
+                        ? `https://api.sentryspot.co.uk${profileData.personal_details.intro_video_url}`
+                        : ""
                   }
                   type={videoFile?.[0]?.type || "video/mp4"}
                 />
@@ -296,14 +296,36 @@ const ContactInfoBox = ({ onNext }) => {
           </div>
         )}
 
-        <div className="form-group col-lg-12 col-md-12 mt-5">
+        {/* <div className="form-group col-lg-12 col-md-12 mt-5">
           <button
             type="submit"
             className="theme-btn btn-style-one bg-blue-800 text-white px-6 py-2 rounded"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Submitting..." : "Save & Next ➤"}
+            {isSubmitting ? "Submitting..." : "Save & Next  adsasd➤"}
           </button>
+        </div> */}
+        <div className="row mb-2 flex-wrap flex justify-between">
+          <div className="form-group md:w-1/2 w-full">
+            <button
+              type="button"
+              onClick={onPrevious}
+              className="theme-btn btn-style-one bg-gray-500"
+            >
+              ◀ Back
+            </button>
+
+          </div>
+          <div className="form-group md:w-1/2 w-full text-end">
+            <button
+              type="submit"
+              className="theme-btn btn-style-one bg-blue-950"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Save & Next ➤"}
+            </button>
+          </div>
+
         </div>
       </div>
     </form>

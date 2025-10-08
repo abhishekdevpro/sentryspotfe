@@ -49,10 +49,10 @@ const JobSingleDynamicV3 = () => {
     if (!token) {
       setShowLoginModal(true);
       return;
-    } console.log(job,"from apply function")
+    } console.log(job, "from apply function")
 
     setActionStatus((prev) => ({ ...prev, [job.id]: "applying" })); // Set status to "applying"
-    if(job.is_on_demand ===true){
+    if (job.is_on_demand === true) {
       navigate(`interview/${job.id}/?on_demand=true`);
     }
     else navigate(`/apply/${job.id}`);
@@ -179,7 +179,11 @@ const JobSingleDynamicV3 = () => {
         }
       );
       if (response.data.status === "status" || response.data.code === 200) {
-        toast.success(response.message || "Your job was successfully saved!");
+        toast.success(response.message ||
+          (jobData?.is_favorite
+            ? "job has been removed from your favorites successfully."
+            : "job has been added to your favorites successfully."
+          ));
         setJobData((prevData) => ({
           ...prevData,
           is_favorite: !prevData.is_favorite,
@@ -232,7 +236,7 @@ const JobSingleDynamicV3 = () => {
               </h2>
               <div className="font-normal mb-2 flex items-center gap-2">
                 <div className="app-text-h3 flex justify-center items-center">
-                 <Building className="mr-2" size={20}/>
+                  <Building className="mr-2" size={20} />
                   {company?.company_name || "Company Not Available"}
                 </div>
                 {"|"}
@@ -244,19 +248,19 @@ const JobSingleDynamicV3 = () => {
               <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 text-sm font-normal">
                 <span className="app-text-h3 flex justify-center items-center">
                   {/* <i className="flaticon-briefcase " /> */}
-                  <Briefcase className="mr-2" size={20}/>
+                  <Briefcase className="mr-2" size={20} />
                   {jobData?.job_type_name || "Not Specified"}
                 </span>
                 <span className="app-text-h3 flex justify-center items-center">
                   {/* <i className="flaticon-money " /> */}
-                  <DollarSign className="mr-2" size={20}/>
+                  <DollarSign className="mr-2" size={20} />
                   {jobData?.offered_salary
                     ? `₹${jobData.offered_salary} / month`
                     : "Not disclosed"}
                 </span>
                 <span className="app-text-h3 flex justify-center items-center ">
-                  
-                  <MapPin className="mr-2" size={20}/>
+
+                  <MapPin className="mr-2" size={20} />
                   {jobData?.location || "Location Not Specified"}
                 </span>
               </div>
@@ -265,7 +269,7 @@ const JobSingleDynamicV3 = () => {
           <div className="flex flex-col gap-3 items-stretch sm:items-end w-full sm:w-auto">
             {/* Apply Button */}
             <Button
-            variant={jobData?.is_applied ? "success" : "default"}
+              variant={jobData?.is_applied ? "success" : "default"}
               onClick={() => handleApplyNowClick(jobData)}
               className="w-full"
               disabled={jobData?.is_applied}
@@ -275,9 +279,9 @@ const JobSingleDynamicV3 = () => {
                 {jobData?.is_applied ? "Already Applied" : "Apply For Job"}
               </span>
             </Button>
-            <Button 
-            onClick={()=>navigate(`/interview/${jobData.id}`)}
-             className="w-full"
+            <Button
+              onClick={() => navigate(`/interview/${jobData.id}`)}
+              className="w-full"
             >
               Practice Interview
             </Button>
@@ -286,17 +290,17 @@ const JobSingleDynamicV3 = () => {
             <div className="flex flex-col sm:flex-row gap-3 w-full">
               {/* Bookmark Button */}
               <Button
-              variant={jobData?.is_favorite ? "destructive" : "secondary"}
-               
+                variant={jobData?.is_favorite ? "success" : "secondary"}
+
                 onClick={handleBookmarkClick}
               >
-               <Heart size={16} />
+                <Heart size={16} />
                 <span>{jobData.is_favorite ? "Saved" : "Save"}</span>
               </Button>
 
               {/* Follow Company Button */}
               <Button
-              variant={jobData?.is_company_favorite ? "success" : "secondary"}
+                variant={jobData?.is_company_favorite ? "success" : "secondary"}
                 onClick={handleFollowCompany}
               >
                 <i className="flaticon-user text-lg" />
@@ -307,7 +311,7 @@ const JobSingleDynamicV3 = () => {
 
               {/* Share Button */}
               <Button
-              variant="primary"
+                variant="primary"
                 // className="flex items-center justify-center px-4 py-2.5 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 shadow-sm transition"
                 onClick={() => setShowModal(true)}
               >
@@ -337,21 +341,21 @@ const JobSingleDynamicV3 = () => {
               </h4>
             </div>
             <div className="flex justify-between text-sm  mb-2">
-                <span className="app-text-h6 flex justify-center items-center">
-                  {/* <i className="flaticon-calendar-1 " /> */}
-                  <CalendarRange className="mr-2" size={20}/>
-                  Job Posted On
-                </span>
-                <span className="app-text-p">
-                    {formatDaysAgo(jobData?.created_at)}
-                </span>
-              </div>
+              <span className="app-text-h6 flex justify-center items-center">
+                {/* <i className="flaticon-calendar-1 " /> */}
+                <CalendarRange className="mr-2" size={20} />
+                Job Posted On
+              </span>
+              <span className="app-text-p">
+                {formatDaysAgo(jobData?.created_at)}
+              </span>
+            </div>
             {/* Required Skills */}
             <div>
               <h4 className="app-text-h6 flex items-center mb-2">
                 {/* <i className="flaticon-skills  text-lg" /> */}
                 <CheckCircle className="mr-2" size={20} />
-                 Required Skills
+                Required Skills
               </h4>
               <div className="app-text-p">
                 {jobData?.skills && jobData.skills.length > 0 ? (
@@ -372,7 +376,7 @@ const JobSingleDynamicV3 = () => {
             {/* Education */}
             <div>
               <h4 className="app-text-h6 flex items-center gap-2 mb-2">
-              <GraduationCap className="mr-2" size={20} />
+                <GraduationCap className="mr-2" size={20} />
                 Education
               </h4>
               <div className="app-text-p flex items-center gap-2 px-3">
@@ -384,14 +388,14 @@ const JobSingleDynamicV3 = () => {
             <div className="flex flex-col gap-2">
               <div>
                 <h4 className="app-text-h6 flex items-center gap-2 mb-2 ">
-                {/* <i className="flaticon-map-locator  text-lg" /> */}
-                <MapPin size={20} />
-                Location
-              </h4>
-              <div className="app-text-p px-3">
-                {/* <i className="flaticon-map-locator " /> */}
-                {jobData?.location || "Location Not Specified"}
-              </div>
+                  {/* <i className="flaticon-map-locator  text-lg" /> */}
+                  <MapPin size={20} />
+                  Location
+                </h4>
+                <div className="app-text-p px-3">
+                  {/* <i className="flaticon-map-locator " /> */}
+                  {jobData?.location || "Location Not Specified"}
+                </div>
               </div>
               {/* Google Maps Embed */}
               {jobData?.location ? (
@@ -441,21 +445,19 @@ const JobSingleDynamicV3 = () => {
             <div className="bg-blue-50 rounded-lg shadow p-4 sm:p-6 mb-6 ">
               <div className="flex flex-col md:flex-row gap-4 items-start mb-4 overflow-x-auto ">
                 <button
-                  className={`app-text-h3 ${
-                    activeTab === "description"
+                  className={`app-text-h3 ${activeTab === "description"
                       ? "border-b-2 border-blue-500 text-blue-900"
                       : "text-gray-500"
-                  }`}
+                    }`}
                   onClick={() => setActiveTab("description")}
                 >
                   Job Description
                 </button>
                 <button
-                  className={`app-text-h3 ${
-                    activeTab === "company"
+                  className={`app-text-h3 ${activeTab === "company"
                       ? "border-b-2 border-blue-500 text-blue-900"
                       : "text-gray-500"
-                  }`}
+                    }`}
                   onClick={() => setActiveTab("company")}
                 >
                   About the company
@@ -488,46 +490,46 @@ const JobSingleDynamicV3 = () => {
                   <div className="flex flex-wrap justify-between items-center gap-4 mb-3 sm:mb-4">
                     <div className="flex gap-4 items-center">
                       <img
-                      src={"/images/resource/company-logo/1-1.png"}
-                      alt="Company Logo"
-                      className="w-20 h-20 rounded-lg border"
-                    />
-                    <div className="min-w-[150px]">
-                      <div className="app-text-h6">
-                        <i className="flaticon-building " />
-                        {company?.company_name || "N.A"}
+                        src={"/images/resource/company-logo/1-1.png"}
+                        alt="Company Logo"
+                        className="w-20 h-20 rounded-lg border"
+                      />
+                      <div className="min-w-[150px]">
+                        <div className="app-text-h6">
+                          <i className="flaticon-building " />
+                          {company?.company_name || "N.A"}
+                        </div>
+                        <div className="app-text-h6">
+                          <i className="flaticon-industry" />
+                          {company?.company_industry?.name || "Manufacturing"} &bull;{" "}
+                          {company?.size || "700-1000 employees"}
+                        </div>
+                        {company?.website && (
+                          <a
+                            href={company.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 text-sm font-normal underline flex items-center gap-2 mt-1"
+                          >
+                            <i className="flaticon-link " />
+                            {company.website}
+                          </a>
+                        )}
                       </div>
-                      <div className="app-text-h6">
-                        <i className="flaticon-industry" />
-                        {company?.company_industry?.name || "Manufacturing"} &bull;{" "}
-                        {company?.size || "700-1000 employees"}
-                      </div>
-                      {company?.website && (
-                        <a
-                          href={company.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 text-sm font-normal underline flex items-center gap-2 mt-1"
-                        >
-                          <i className="flaticon-link " />
-                          {company.website}
-                        </a>
-                      )}
-                    </div>
                     </div>
                     <Button
-                    variant="primary"
+                      variant="primary"
                       onClick={() =>
                         navigate(`/showcase-company/${jobData.company_id}`)
                       }
-                      // className="text-end"
+                    // className="text-end"
                     >
                       Explore More
                     </Button>
                   </div>
                   <div className="font-normal text-sm mb-3 sm:mb-4">
                     {parse(company?.summery) || "Description Not Specified"}
-                     {/* dangerouslySetInnerHTML={{ 
+                    {/* dangerouslySetInnerHTML={{ 
                                       __html: DOMPurify.sanitize(companyData.summery) 
                                     }}
                      */}

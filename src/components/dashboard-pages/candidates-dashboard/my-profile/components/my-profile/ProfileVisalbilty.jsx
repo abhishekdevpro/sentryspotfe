@@ -7,7 +7,7 @@ import { ChevronRight, ChevronDown, Trash2 } from "lucide-react";
 
 import TitleAutocomplete from "./TitleDropdown";
 
-const WorkExperienceForm = ({ onNext }) => {
+const WorkExperienceForm = ({ onNext, onPrevious }) => {
   const token = localStorage.getItem(Constant.USER_TOKEN);
   const baseurl = "https://api.sentryspot.co.uk/api/jobseeker/";
 
@@ -233,47 +233,47 @@ const WorkExperienceForm = ({ onNext }) => {
                   </div>
 
                   <div className="row col-12">
-                   <div className="col-6 flex flex-col ">
-                     {/* start date */}
-                    <div className="form-group col-12">
-                      <label className="font-medium">Start Date</label>
-                      <input
-                        type="month"
-                        {...register(`experiences.${index}.time_period_start`, {
-                          required: "Start date is required",
-                        })}
-                        className="border font-light rounded-none w-full p-2"
-                      />
-                      {errors.experiences?.[index]?.time_period_start && (
-                        <span className="text-red-500 text-sm">
-                          {errors.experiences[index].time_period_start.message}
-                        </span>
-                      )}
-                    </div>
-                    {/* check box */}
-                    <div className="form-group col-12 flex items-center gap-2">
-                      <Controller
-                        name={`experiences.${index}.is_present`}
-                        control={control}
-                        render={({ field }) => (
-                          <input
-                            type="checkbox"
-                            id={`currently-working-${index}`}
-                            checked={field.value}
-                            onChange={(e) => field.onChange(e.target.checked)}
-                            className="rounded-none border bg-white cursor-pointer mb-4 h-5 w-5"
-                          />
+                    <div className="col-6 flex flex-col ">
+                      {/* start date */}
+                      <div className="form-group col-12">
+                        <label className="font-medium">Start Date</label>
+                        <input
+                          type="month"
+                          {...register(`experiences.${index}.time_period_start`, {
+                            required: "Start date is required",
+                          })}
+                          className="border font-light rounded-none w-full p-2"
+                        />
+                        {errors.experiences?.[index]?.time_period_start && (
+                          <span className="text-red-500 text-sm">
+                            {errors.experiences[index].time_period_start.message}
+                          </span>
                         )}
-                      />
-                      <label
-                        htmlFor={`currently-working-${index}`}
-                        className="text-gray-700 select-none"
-                      >
-                        Currently working here
-                      </label>
-                   
+                      </div>
+                      {/* check box */}
+                      <div className="form-group col-12 flex items-center gap-2">
+                        <Controller
+                          name={`experiences.${index}.is_present`}
+                          control={control}
+                          render={({ field }) => (
+                            <input
+                              type="checkbox"
+                              id={`currently-working-${index}`}
+                              checked={field.value}
+                              onChange={(e) => field.onChange(e.target.checked)}
+                              className="rounded-none border bg-white cursor-pointer mb-2 h-5 w-5"
+                            />
+                          )}
+                        />
+                        <label
+                          htmlFor={`currently-working-${index}`}
+                          className="text-gray-700 select-none"
+                        >
+                          Currently working here
+                        </label>
+
+                      </div>
                     </div>
-                   </div>
                     {/* end date */}
                     <div className="form-group col-xl-6">
                       <label className="font-medium">End Date</label>
@@ -282,11 +282,10 @@ const WorkExperienceForm = ({ onNext }) => {
                         {...register(`experiences.${index}.time_period_end`, {
                           required: !isPresent ? "End date is required" : false,
                         })}
-                        className={`border font-light rounded-none mb-4 w-full p-2 ${
-                          isPresent
-                            ? "cursor-not-allowed opacity-50"
-                            : "opacity-100 "
-                        }`}
+                        className={`border font-light rounded-none mb-4 w-full p-2 ${isPresent
+                          ? "cursor-not-allowed opacity-50"
+                          : "opacity-100 "
+                          }`}
                         disabled={isPresent}
                       />
                       {errors.experiences?.[index]?.time_period_end && (
@@ -296,7 +295,7 @@ const WorkExperienceForm = ({ onNext }) => {
                       )}
                     </div>
                   </div>
-{/* Job Description */}
+                  {/* Job Description */}
                   <div className="form-group col-12">
                     <label className="font-medium">Job Description</label>
                     <textarea
@@ -320,20 +319,61 @@ const WorkExperienceForm = ({ onNext }) => {
           );
         })}
 
-        <div className="flex gap-4 flex-wrap">
-          <button
-            type="button"
-            className="theme-btn btn-style-one bg-blue-950 text-white px-4 py-2 rounded"
-            onClick={addExperience}
-          >
-            + Add Another Experience
-          </button>
-          <button
-            type="submit"
-            className="theme-btn btn-style-one bg-blue-950 text-white px-4 py-2 rounded"
-          >
-            Save & Next ➤
-          </button>
+        {/* <div className="flex gap-4 flex-wrap  justify-between">
+          <div className="form-group md:w-1/2 w-full">
+            <button
+              type="button"
+              onClick={onPrevious}
+              className="theme-btn btn-style-one bg-gray-500"
+            >
+              ◀ Back
+            </button>
+
+          </div>
+          <div className="form-group md:w-1/2 w-full text-end">
+            <button
+              type="button"
+              className="theme-btn btn-style-one bg-blue-950 text-white px-4 py-2 rounded"
+              onClick={addExperience}
+            >
+              + Add Another Experience
+            </button>
+            <button
+              type="submit"
+              className="theme-btn btn-style-one bg-blue-950 text-white px-4 py-2 rounded"
+            >
+              Save & Next ➤
+            </button>
+          </div>
+        </div> */}
+        <div className="row mb-2 flex-wrap flex justify-between">
+          <div className="form-group md:w-1/2 w-full">
+            <button
+              type="button"
+              onClick={onPrevious}
+              className="theme-btn btn-style-one bg-gray-500"
+            >
+              ◀ Back
+            </button>
+
+          </div>
+          <div className="form-group md:w-1/2 w-full text-end">
+            <button
+              type="button"
+              className="theme-btn btn-style-one bg-blue-950 mr-4 mb-2"
+              onClick={addExperience}
+            >
+              + Add Another Experience
+            </button>
+
+            <button
+              type="submit"
+              className="theme-btn btn-style-one bg-blue-950"
+            >
+              Save & Next ➤
+            </button>
+          </div>
+
         </div>
       </form>
     </div>

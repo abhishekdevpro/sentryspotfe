@@ -345,18 +345,43 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { FileIcon } from "lucide-react";
 import { Constant } from "@/utils/constant/constant";
+import axios from "axios";
 
 const PersonalInfoForm = ({ formData, setFormData, errors }) => {
   const [loading, setLoading] = useState(true);
   const [existingResume, setExistingResume] = useState(null);
+  const [existingResume1, setExistingResume1] = useState(null);
   const [error, setError] = useState(null);
   const [showResumePreview, setShowResumePreview] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
   const token = localStorage.getItem(Constant.USER_TOKEN);
 
+
+  const fetchProfile = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.sentryspot.co.uk/api/jobseeker/user-profile",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.data.status === "success" || response.data.code === 200) {
+        setExistingResume(response?.data?.data?.personal_details?.resume);
+      } else {
+        console.error("Unable to fetch user profile");
+      }
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    } finally {
+      console.error("Error fetching user profile:");
+    }
+  };
+
   useEffect(() => {
     if (userInfo) {
-      setExistingResume(userInfo.resume);
+      fetchProfile()
       setFormData((prev) => ({
         ...prev,
         firstName: userInfo.first_name || "",
@@ -364,7 +389,9 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
         email: userInfo.email || "",
         phone: userInfo.phone || "",
         location: userInfo.current_location || "",
-        resumeOption: "",
+        // resumeOption: "select",
+        resume: prev.resume || "",
+        resumeOption: prev.resumeOption || "select",
         coverLetterOption: "",
       }));
       setLoading(false);
@@ -379,10 +406,44 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+
   const handleFileChange = (e, type) => {
     const file = e.target.files[0];
+    console.log("file", file.name)
     setFormData((prev) => ({ ...prev, [type]: file }));
   };
+
+  useEffect(() => {
+    const loadExistingResume = async () => {
+      if (existingResume && typeof existingResume === "string") {
+        try {
+          const response = await fetch(existingResume);
+          const blob = await response.blob();
+
+          const file = new File(
+            [blob],
+            existingResume.split("/").pop() || "resume.pdf",
+            { type: blob.type || "application/pdf" }
+          );
+
+          // Update formData
+          setFormData((prev) => ({
+            ...prev,
+            resume: file,
+            resumeOption: "select",
+          }));
+        } catch (error) {
+          console.error("Error loading existing resume:", error);
+        }
+      }
+    };
+    if (formData?.resumeOption == "select") {
+      loadExistingResume();
+    }
+  }, [formData?.resumeOption, existingResume]);
+
+
+
 
   if (loading) {
     return (
@@ -399,6 +460,9 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
       </div>
     );
   }
+
+  // console.log("userInfo", userInfo)
+  console.log("formData", formData)
 
   return (
     <div className="bg-white shadow-md rounded-xl p-2 md:p-6 space-y-8 text-sm sm:text-base">
@@ -497,6 +561,11 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
                 onChange={(e) => handleFileChange(e, "resume")}
                 className="font-normal file-input w-full text-sm file:bg-blue-50 file:text-blue-700 file:rounded-md file:border-0 hover:file:bg-blue-100"
               />
+              {/* {formData.resume && formData.resume.name && (
+                <p className="mt-2 text-sm text-gray-600">
+                  Selected file: <span className="font-medium">{formData.resume.name}</span>
+                </p>
+              )} */}
             </div>
           )}
 
@@ -513,13 +582,13 @@ const PersonalInfoForm = ({ formData, setFormData, errors }) => {
                   </button> */}
 
                   {/* {showResumePreview && ( */}
-                    <div className="mt-3 border rounded-md overflow-hidden shadow-sm">
-                      <iframe
-                        src={`https://api.sentryspot.co.uk${existingResume}`}
-                        title="Resume Preview"
-                        className="w-full h-96"
-                      />
-                    </div>
+                  <div className="mt-3 border rounded-md overflow-hidden shadow-sm">
+                    <iframe
+                      src={`https://api.sentryspot.co.uk${existingResume}`}
+                      title="Resume Preview"
+                      className="w-full h-96"
+                    />
+                  </div>
                   {/* )} */}
                 </>
               ) : (

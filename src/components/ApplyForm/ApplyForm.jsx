@@ -11,7 +11,7 @@ const ApplyForm = () => {
   const { id } = useParams(); // Get the job ID from the URL
   const navigate = useNavigate(); // Initialize the navigate function
   const [step, setStep] = useState(1);
-  
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -31,6 +31,7 @@ const ApplyForm = () => {
     certifications: [],
     skills: "",
   });
+  
   const [errors, setErrors] = useState({});
   const [questions, setQuestions] = useState([]); // State to store questions
 
@@ -127,8 +128,8 @@ const ApplyForm = () => {
             formData={formData}
             setFormData={setFormData}
             errors={errors}
-            questions={questions} // Pass questions to EmployeeQuestionsForm
-            setQuestions={setQuestions} // Pass setQuestions to update questions state
+            questions={questions}
+            setQuestions={setQuestions}
           />
         );
       case 3:
@@ -147,7 +148,7 @@ const ApplyForm = () => {
         {step === 3 && "Review & Submit"}
       </h2>
       {renderForm()}
-      <div className="mt-6 flex justify-between">
+      <div className={`mt-6 flex  ${step == 1 ? "w-full justify-end" : "justify-between"}`}>
         {step > 1 && (
           <button
             onClick={prevStep}

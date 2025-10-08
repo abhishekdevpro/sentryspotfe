@@ -71,7 +71,6 @@ const JobCard = ({
   };
 
 
-
   const handleCardClick = () => {
     if (onCardClick) {
       onCardClick(job);
@@ -91,7 +90,8 @@ const JobCard = ({
       onApplyJob(id);
     }
   };
- console.log(is_applied,"is_applied")
+//  console.log(is_applied,"is_applied")
+//  console.log(is_favorite,"is_favorite")
   return (
     <div
       className={`bg-blue-50 rounded-lg shadow-sm border border-gray-200 p-6 h-full flex flex-col transition-all duration-200 hover:shadow-md ${cardClassName} ${
@@ -124,7 +124,7 @@ const JobCard = ({
             disabled={actionStatus[id] === "saving"}
           >
             {is_favorite ? (
-              <BsHeartFill className="text-red-500 text-xl" />
+              <BsHeartFill className="text-green-500 text-xl" />
             ) : (
               <BsHeart className="text-gray-400 text-xl hover:text-red-500 transition-colors" />
             )}

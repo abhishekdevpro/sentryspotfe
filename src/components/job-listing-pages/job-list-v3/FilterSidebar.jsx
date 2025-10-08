@@ -15,29 +15,29 @@ import { Button } from '@/components/ui/button';
 // FilterSidebar Component with URL Parameter Management
 const FilterSidebar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-     
+
   // Handler functions for each filter type
   const updateSearchParams = (key, value) => {
     const currentParams = Object.fromEntries(searchParams);
-        
+
     if (value) {
       currentParams[key] = value;
     } else {
       delete currentParams[key];
     }
-        
+
     setSearchParams(currentParams);
   };
 
   return (
     <div className="w-full max-w-sm mx-auto mb-4">
       <div className="bg-blue-50 rounded-lg p-6 space-y-6 max-h-[600px] overflow-y-auto border border-gray-200 shadow-"
-        style={{ scrollbarWidth: "none",scrollBehavior: "smooth", }}
+        style={{ scrollbarWidth: "none", scrollBehavior: "smooth", }}
       >
-        
+
         {/* Search by Keywords */}
         <div className="filter-section">
-          <Button 
+          <Button
             onClick={() => setSearchParams({})}
             variant={searchParams.toString() ? 'destructive' : 'secondary'}
             className={"w-full"}
@@ -47,13 +47,13 @@ const FilterSidebar = () => {
             Clear All Filters
           </Button>
           <div className="py-2 border-t border-gray-200">
-          
+
           </div>
           <p className=" app-text-p mb-1">
             Search by Keywords
           </p>
           <div className="space-y-2">
-            <SearchBox 
+            <SearchBox
               onSearch={(query) => updateSearchParams('keywords', query)}
             />
           </div>
@@ -65,11 +65,11 @@ const FilterSidebar = () => {
             Location
           </p>
           <div className="space-y-2">
-            <LocationBox 
+            <LocationBox
               onLocationChange={(location) => updateSearchParams('location', location)}
             />
           </div>
-          
+
           {/* Commented out radius slider */}
           {/* <div className="mt-4">
             <p className="text-sm text-gray-600 mb-2">Radius around selected destination</p>
@@ -85,9 +85,9 @@ const FilterSidebar = () => {
             Industries
           </p>
           <div className="space-y-2">
-            <Categories 
+            <Categories
               onCategorySelect={(category) => updateSearchParams('category', category)}
-            />
+            />  
           </div>
         </div>
 
@@ -97,7 +97,7 @@ const FilterSidebar = () => {
             Job type
           </p>
           <div className="space-y-2">
-            <JobType 
+            <JobType
               onJobTypeChange={(jobType) => updateSearchParams('jobType', jobType)}
             />
           </div>
@@ -121,7 +121,7 @@ const FilterSidebar = () => {
             Experience Level
           </p>
           <div className="space-y-2">
-            <ExperienceLevel 
+            <ExperienceLevel
               onExperienceLevelChange={(level) => updateSearchParams('experienceLevel', level)}
             />
           </div>
@@ -152,7 +152,7 @@ const FilterSidebar = () => {
         </div> */}
 
         {/* Clear Filters Button */}
-        
+
       </div>
     </div>
   );

@@ -1,961 +1,1157 @@
 @font-face {
     font-family: myFirstFont;
     src: url(Ubuntu/Ubuntu-Medium.ttf);
-  }
-  body{
-      margin: 0;
-      padding: 0;
-      font-family: 'Ubuntu', sans-serif; /* Sets Ubuntu as the default font for the body */
-      color: #545353;
-      /* font-weight: 700; */
-      letter-spacing: 1px;
-      width:100%;
-  }
-  img{
-      width: 100%;
-  }
-  /* ::-webkit-scrollbar {
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Ubuntu', sans-serif;
+    /* Sets Ubuntu as the default font for the body */
+    color: #545353;
+    background-image: linear-gradient(to bottom right,
+            #dbeafe,
+            /* blue-100 */
+            #93c5fd,
+            /* blue-300 */
+            #dbeafe
+            /* blue-100 */
+        );
+    background-attachment: fixed;
+    /* keeps gradient in place */
+    background-size: cover;
+    /* font-weight: 700; */
+    letter-spacing: 1px;
+    width: 100%;
+}
+
+img {
+    width: 100%;
+}
+
+/* ::-webkit-scrollbar {
     width: 10px;
   } */
-  /* Track */
-  /* ::-webkit-scrollbar-track {
+/* Track */
+/* ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey; 
     border-radius: 10px;
   } */
-   
-  /* Handle */
-  /* ::-webkit-scrollbar-thumb {
+
+/* Handle */
+/* ::-webkit-scrollbar-thumb {
     background: #003479; 
     border-radius: 10px;
   } */
-  
-  /* Handle on hover */
-  /* ::-webkit-scrollbar-thumb:hover {
+
+/* Handle on hover */
+/* ::-webkit-scrollbar-thumb:hover {
     background: #b30000; 
   } */
-  
-  button{
-      padding:6px 25px;
-  }
-  /* button:hover{
+
+button {
+    padding: 6px 25px;
+}
+
+/* button:hover{
       background: #433487;
   } */
-  .container {
+.container {
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 1rem;
-  }
-  .TopHeader {
-      width: 100%;
-      background: #003479;
-      text-align: -webkit-center;
-  }
-  .TopMenu {
-      display: flex;
-      align-items: center;
-      justify-content: end;
-      padding: 10px 0;
-  }
-  .TopSocial i {
-      background: #e60278;
-      color: #fff;
-      font-size: 18px;
-      padding: 10px;
-      border-radius: 20px;
-      margin-right: 5px;
-      cursor: pointer;
-  }
-  .TopMenu ul{
-      display: flex;
-  }
-  .main-menu ul {
-      display: flex;
-      list-style: none;
-      gap: 20px;
-      font-size: 16px;
-      letter-spacing: 1px;
-  }
-  .main-menu a{
-      color: #003479;
-      text-decoration: none;
-  }
-  .main-menu a:hover{
-      color: #e60278;
-  }
-  .profile-dropdown a {
-    margin-right: 0px !important;
-  }
-  .profile-dropdown a:hover {
-   color: #1967d2 !important;
-  }
-    .side-menu a {
-      margin-right: 20px;
-      color: #003479;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-  }
-  .side-menu a:hover{
-      color: #e60278;
-  }
-  .side-menu button {
-      background-color: #003479;
-      border-radius: 10px;
-      color: #fff;
-      font-size: 14px;
-      letter-spacing: 1px;
-      padding: 15px 44px;
-      border: none;
-      cursor: pointer;
-  }
-  .side-menu button:hover{
-      background-color: #e60278;
-  }
-  button.register-btn {
-      background: transparent;
-      border: 1px solid #003479;
-      color: #003479;
-  }
-  button.register-btn:hover {
-      border: 1px solid #e60278;
-      background: transparent;
-      color: #e60278;
-  }
-  .dropdown:hover .dropdown-content {
-      display: block;
-  }
-  
-  .header {
-      width: 100%;
-      text-align: -webkit-center;
-      background: #fff;
-      box-shadow: 0 10px 30px 0 rgba(0, 0, 0, .05);
-  }
-  .header-menu {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px;
-  }
-  .header-logo {
-      display: flex;
-      align-items: center;
-  }
-  .header-logo img{
-      width: 200px;
-      margin-right: 10px;
-  }
-  .HomeBanner {
-      width: 100%;
-      text-align: -webkit-center;
-      background: #f8f8f8;
-  }
-  .HomeBannerContent {
-      width: 100%;
-      gap: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-  }
-  .HomeHeroMedia{
-      position: relative;
-      margin: auto;
-  }
-  .HeroSliderone{
-      display: none;
-  }
-  .HeroSliderone.active {
-  display: block;
+    /* background-color: #eff6ff; */
 }
-  .HeroSliderone img{
-      vertical-align: middle;
-      width: 100%;
-      border-radius: 50px;
-  }
-  .BannerText {
-      background: #fff;
-      border-radius: 0px 50px;
-      box-shadow: 0px 4px 24px #aeaeaf;
-      position: absolute;
-      bottom: 11%;
-      left: 0;
-  }
-  .BannerTextUpper {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-bottom: 1px dotted;
-      padding: 16px;
-  }
-  
-  .BannerTextUpper h2 {
-      margin: 0;
-      font-size: 14px;
-      font-weight: 500;
-  }
-  .BannerTextDowe{
-      border-radius: 20px;
-      text-align:left;
-      padding: 24px;
-  }
-  .BannerTextDowe h2 {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 500;
-      color: #003479;
-  }
-  .BannerTextDowe p{
-      margin: 10px 0;
-      color: #e60278;
-      text-transform: uppercase;
-  
-  }
-  .NavigationBtn {
-      display: flex;
-      align-items: center;
-      justify-content: end;
-      margin-top: 16px;
-      gap:12px;
-  }
-  .NavPre {
-      font-size: 16px;
-      background: #e60278;
-      color: #fff;
-      width: 40px;
-      height: 40px;
-      border-radius: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-  }
-  .NavNext {
-      font-size: 16px;
-      background: #e60278;
-      color: #fff;
-      width: 40px;
-      height: 40px;
-      border-radius: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-  }
-  .BannerContent {
-      width: auto;
-      text-align: left;
-  }
-  .BannerContent h2 {
-      font-size: 18px;
-      text-transform: uppercase;
-      color: #e60278;
-      margin: 0;
-      font-weight: lighter;
-      margin-bottom: 10px;
-  }
-  .BannerContent h1 {
-      font-size: 48px;
-      color: #003479;
-      margin: 0;
-      margin-bottom: 10px;
-  }
-  .BannerContent p {
-      font-size: 18px;
-      width: 80%;
-      margin: 0;
-      margin-bottom: 10px;
-  }
-  .BannerBtn {
-      width: 100%;
-      margin: 20px 0;
-  }
-  .BannerBtn button {
-      background: #003479;
-      color: #fff;
-      padding: 16px 32px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 14px;
-      border: none;
-  }
-  .BannerBtn button:hover {
-      background:#e60278;
-  }
-  .ServiceCard {
-      width: 100%;
-      text-align: -webkit-center;
-      margin: 50px 0;
-  }
-  .CardTop{
+
+.TopHeader {
+    width: 100%;
+    background: #003479;
+    text-align: -webkit-center;
+}
+
+.TopMenu {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 10px 0;
+}
+
+.TopSocial i {
+    background: #e60278;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 20px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.TopMenu ul {
+    display: flex;
+}
+
+.main-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.main-menu a {
+    color: #003479;
+    text-decoration: none;
+}
+
+.main-menu a:hover {
+    color: #e60278;
+}
+
+.profile-dropdown a {
+    margin-right: 0px !important;
+}
+
+.profile-dropdown a:hover {
+    color: #1967d2 !important;
+}
+
+.side-menu a {
+    margin-right: 20px;
+    color: #003479;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.side-menu a:hover {
+    color: #e60278;
+}
+
+.side-menu button {
+    background-color: #003479;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 15px 44px;
+    border: none;
+    cursor: pointer;
+}
+
+.side-menu button:hover {
+    background-color: #e60278;
+}
+
+button.register-btn {
+    background: transparent;
+    border: 1px solid #003479;
+    color: #003479;
+}
+
+button.register-btn:hover {
+    border: 1px solid #e60278;
+    background: transparent;
+    color: #e60278;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.header {
+    width: 100%;
+    text-align: -webkit-center;
+    background: #fff;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, .05);
+}
+
+.header-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo img {
+    width: 200px;
+    margin-right: 10px;
+}
+
+.HomeBanner {
+    width: 100%;
+    text-align: -webkit-center;
+    background: #f8f8f8;
+}
+
+.HomeBannerContent {
+    width: 100%;
+    gap: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.HomeHeroMedia {
+    position: relative;
+    margin: auto;
+}
+
+.HeroSliderone {
+    display: none;
+}
+
+.HeroSliderone.active {
+    display: block;
+}
+
+.HeroSliderone img {
+    vertical-align: middle;
+    width: 100%;
+    border-radius: 50px;
+}
+
+.BannerText {
+    background: #fff;
+    border-radius: 0px 50px;
+    box-shadow: 0px 4px 24px #aeaeaf;
+    position: absolute;
+    bottom: 11%;
+    left: 0;
+}
+
+.BannerTextUpper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px dotted;
+    padding: 16px;
+}
+
+.BannerTextUpper h2 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.BannerTextDowe {
+    border-radius: 20px;
+    text-align: left;
+    padding: 24px;
+}
+
+.BannerTextDowe h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #003479;
+}
+
+.BannerTextDowe p {
+    margin: 10px 0;
+    color: #e60278;
+    text-transform: uppercase;
+
+}
+
+.NavigationBtn {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-top: 16px;
+    gap: 12px;
+}
+
+.NavPre {
+    font-size: 16px;
+    background: #e60278;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.NavNext {
+    font-size: 16px;
+    background: #e60278;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.BannerContent {
+    width: auto;
+    text-align: left;
+}
+
+.BannerContent h2 {
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #e60278;
+    margin: 0;
+    font-weight: lighter;
+    margin-bottom: 10px;
+}
+
+.BannerContent h1 {
+    font-size: 48px;
+    color: #003479;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.BannerContent p {
+    font-size: 18px;
+    width: 80%;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.BannerBtn {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.BannerBtn button {
+    background: #003479;
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+}
+
+.BannerBtn button:hover {
+    background: #e60278;
+}
+
+.ServiceCard {
+    width: 100%;
+    text-align: -webkit-center;
+    margin: 50px 0;
+}
+
+.CardTop {
     width: 100%;
     text-align: left;
-  }
-  .CardTop p {
-      font-size: 18px;
-      color: #e60278;
-      margin: 0;
-      margin-bottom: 20px;
- text-wrap: balance;
-      ;
+}
 
-  }
-  .CardTop h2{
-      font-size: 36px;
-      color: #003479;
-      margin: 0;
-  }
-  .ProgramCards {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin: 50px 0;
-     
-  }
-  .ProgramCards a{
-      text-decoration: none;
-  }
-  .program-card {
-      width: 200px;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-      background-color: #fff;
-      border-radius: 24px;
-      padding: 40px 24px;
-      box-shadow: 0px 4px 14px #afaeae5c;
-      transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;
-      transition-timing-function:cubic-bezier(.4,0,.2,1);
-      transition-duration: .3s;
-  }
-  .slick-prev:before, .slick-next:before {
-      font-family: 'slick';
-      font-size: 20px;
-      line-height: 1;
-      opacity: 1;
-      color: white;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      background: #e60278;
-      padding: 20px;
-      border-radius: 100%;
-  }
-  button.slick-prev{
-      background-color: transparent !important;
-  }
-  .slick-prev{
-      left: 0 !important;
-  }
-  button.slick-next{
-      background-color: transparent !important;
-  }
-  .slick-next {
-      right: 25px !important;
-  }
-  
-  .tomato i{
-      font-size: 44px;
-      color: #ff6969;
-  }
-  .berry i{
-      font-size: 44px;
-      color: #c59ed8;
-  }
-  .teal i{
-      font-size: 44px;
-      color: #009da8;
-  }
-  .pear i{
-      font-size: 44px;
-      color: #85b769;
-  }
-  .marigold i{
-      font-size: 44px;
-      color: #feca67;
-  }
-  .program-card .program-card-info {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-      text-align: center;
-  }
-  .heading-md{
-      font-size: 20px;
-      color: #003479;
-  }
-  .button-tertiary {
-      font-size: 16px;
-      background-color: transparent;
-      border: none;
-      padding: 0;
-      cursor: pointer;
-  }
-  .button-tertiary.tomato {
-      border-bottom: 2px solid #ff696980;
-  }
-  .button-tertiary.berry {
-      border-bottom: 2px solid #c59ed880;
-  }
-  .button-tertiary.teal {
-      border-bottom: 2px solid #009da880;
-  }
-  .button-tertiary.pear {
-      border-bottom: 2px solid #85b76980;
-  }
-  .button-tertiary.marigold {
-      border-bottom: 2px solid #feca6780;
-  }
-  
-  .button-tertiary.tomato:hover{
-      border-color: #ff6969;
-  }
-  .button-tertiary.berry:hover{
-      border-color: #c59ed8;
-  }
-  .button-tertiary.teal:hover{
-      border-color: #009da8;
-  }
-  .button-tertiary.pear:hover{
-      border-color: #85b769;
-  }
-  .button-tertiary.marigold:hover{
-      border-color: #feca67;
-  }
-  
-  
-  .program-card-info button:hover{
-      background-color: transparent;
-  }
-  .program-card:hover.tomato{
-      border: 1px solid #ff6969;
-      background-color: #ff69691a;
-  }
-  .program-card:hover.berry{
-      border: 1px solid #c59ed8;
-      background-color: #c59ed81a;
-  }
-  .program-card:hover.teal{
-      border: 1px solid #009da8;
-      background-color: #009da81a;
-  }
-  .program-card:hover.pear{
-      border: 1px solid #85b769;
-      background-color: #85b7691a;
-  }
-  .program-card:hover.marigold{
-      border: 1px solid #feca67;
-      background-color: #feca671a;
-  }
-  .ProgramCards a:nth-child(2n) {
-      padding-top: 2rem;
-  }
-  details {
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      overflow: hidden;
-  }
-  
-  summary {
-      padding: 1.25rem 1.5rem;
-      background-color: #f0f0f0;
-      cursor: pointer;
-      position: relative;
-      list-style: none;
-      border: none;
-      font-size: 1.125rem;
-  }
-  
-  summary::-webkit-details-marker {
-      display: none;
-  }
-  
-  summary::after {
-      font-family: "Font Awesome";
-      content: '\f062';
-      position: absolute;
-      right: 10px;
-      transition: transform 0.3s ease;
-  }
-  
-  details[open] summary::after {
-      transform: rotate(180deg);
-  }
-  
-  .content {
-      
-     
-  }
-  .content p {
-      font-size: 16px !important;
-      color: #ffffff !important;
-      padding: 1rem;
-      text-transform: capitalize !important;
-  }
-  .FAQs {
-      width: 100%;
-      background: #003479;
-      margin-top: 30px;
-      text-align: -webkit-center;
-  }
-  .FaqBox {
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      gap: 8rem;
-      padding: 100px 0;
-  }
-  .FaqImage{
-      width: 50%;
-  }
-  .FaqImage img {
-      border-radius: 3rem;
-  }
-  .FaqText {
-      width: 50%;
-      text-align: left;
-  }
-  .FaqText p{
-      font-size: 18px;
-      color: #e60278;
-      margin: 0;
-      margin-bottom: 20px;
-      text-transform: uppercase;   
-  }
-  .FaqText h2{
-      font-size: 36px;
-      color: #fff;
-      margin: 0;
-      margin-bottom: 50px;
-      line-height: 1;
-  }
-  .FaqBtn {
-      width: 100%;
-      margin-top: 16px;
-  }
-  .FaqBtn button{
-      padding: 16px 32px;
-      border:none;
-      background-color: #e60278;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 14px;
-      color: #fff;
-  }
-  .Help {
-      width: 100%;
-      text-align: -webkit-center;
-      margin: 50px 0;
-  }
-  .StatsBox {
-      padding: 50px 0;
-      overflow: hidden;
-  }
-  .owl-nav span {
-      background: #003479;
-      font-size: 20px;
-      margin: 30px 0;
-      color: #fff;
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      border-radius: 100%;
-      width: 20px;
-      height: 20px;
-      justify-content: center;
-  }
-  .owl-theme .owl-nav [class*=owl-]:hover{
-      background-color: transparent !important;
-  }
-  .HelpSlider {
-      width: 100%;
-      display: flex;
-      column-gap: 20px;
-  }
-  .HelpBox {
-      width: 100%;
-      margin-bottom: 50px;
-      text-align: center;
-  }
-  .HelpBox p {
-      font-size: 18px;
-      color: #e60278;
-      margin: 0;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-  }
-  .HelpBox h2{
-      font-size: 36px;
-      color: #545353;
-      margin: 0;
-      margin-bottom: 20px;
-  }
-  .HelpNavigationBtn {
-      display: flex;
-      align-items: center;
-      margin: 30px 0;
-      gap: 30px;
-      justify-content: center;
-  }
-  .HelpNavPre{
-      background-color: #003479;
-      font-size: 20px;
-      color: #fff;
-      width: 50px;
-      height: 50px;
-      border-radius: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-  }
-  .HelpNavNext{
-      background-color: #003479;
-      font-size: 20px;
-      color: #fff;
-      width: 50px;
-      height: 50px;
-      border-radius: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-  }
-  .StatsBtn button{
-      padding: 16px 32px;
-      border:none;
-      background-color: #003479;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 14px;
-      color: #fff;
-  }
-  .StatsCard{
-      display: block;
-  }
-  .StatsSlider {
-    
-      overflow: hidden;
-      padding: 36px;
-      border-radius: 36px;
-      background: #003479;
-      width: 200px;
-      height:250px;
-      text-align: center;
-  }
-  .StatsSlider h2{
-      font-size: 18px;
-      color: #e60278;
-      margin: 0;
-      margin-bottom: 10px;
-  }
-  .StatsSlider p{
-      font-size: 14px;
-      color: #fff;
-      margin: 0;
-      margin-bottom: 10px;
-  }
-  .JobCards {
-      width: 100%;
-      position: relative;
-      display: inline-block;
-  }
-  .JobCards i{
-      color: #fff;
-      font-size: 80px;
-      margin-bottom: 20px;
-  }
-  .Location i{
-      font-size: 14px;
-  }
-  .Job-Tab {
-      margin: 15px 0;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: center;
-  }
-  .Job-Tab a{
-      padding: 5px;
-      color: #fff;
-  }
-  .Blog {
-      width: 100%;
-      text-align: -webkit-center;
-      margin: 50px 0;
-  }
-  .Job-Tab a {
-      padding: 5px 10px;
-      color: #fff;
-      background: #e60278;
-      text-decoration: none;
-      border-radius: 20px;
-      font-size: 14px;
-  }
-  .BlogHeading{
-      font-size: 36px;
-      color: #003479;
-      margin-bottom: 50px;
-  }
-  .BlogsCards {
-      display: flex;
-      gap: 30px;
-      margin-bottom: 20px;
-  }
-  .BlogsCards a{
-      text-decoration: none;
-  }
-  .BlogBoxs {
-      width: 100%;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0px 4px 7px 0px #aeaeaf;
-  }
-  .Blogs-Text img{
-      border-radius: 20px;
-  }
-  .BlogInfoContainer {
-      padding: 20px;
-      text-align: left;
-  }
-  .Category {
-      width: 150px;
-      text-align: left;
-      background: #e60278;
-      padding: 10px 20px;
-      margin-bottom: 20px;
-      border-radius: 20px;
-      color: #fff;
-      font-size: 14px;
-  }
-  .Date {
-      width: 100%;
-      color: #545353;
-      margin-bottom: 20px;
-      font-size: 14px;
-  }
-  .Heading {
-      font-size: 18px;
-      color: #003479;
-  }
-  .Para p{
-      color: #545353;
-  }
-  .BlogBtn {
-      margin: 30px 0;
-  }
-  .BlogBtn button{
-      padding: 16px 32px;
-      border: none;
-      background-color: #e60278;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 14px;
-      color: #fff;
-  }
-  .BlogBtn button:hover{
-      background-color: #003479;
-  }
-  .Talk {
-      width: 100%;
-      text-align: -webkit-center;
-      padding: 0 10px;
-  }
-  .Talkbox {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      align-items: center;
-      gap: 50px;
-      background: #003479;
-      border-radius: 50px;
-      background-image: url(img/talkbg.webp);
-      background-size: 60%;
-      background-position: 100% 100%;
-      background-repeat: no-repeat;
-      padding: 80px 72px;
-  }
-  .Talkbox img {
-      width: 500px;
-      right: 0%;
-      max-height: 500px;
-      position: absolute;
-      bottom: 0;
-  }
-  .TalkInfo {
-      width: 100%;
-      text-align: left;
-      text-wrap: balance;
-  }
-  .TalkInfo h2 {
-      font-size: 32px;
-      width: 100%;
-      color: #fff;
-      margin-bottom: 10px;
-  }
-  .TalkBox a{
-      padding: 16px 32px;
-      background-color: #e60278;
-      font-size: 14px;
-      text-decoration: none;
-      color: #fff;
-      border-radius: 10px;
-  }
-  .NewsLetter {
-      width: 100%;
-      text-align: -webkit-center;
-      margin: 50px 0;
-  }
-  .NewsletterConatiner {
-      text-align: left;
-  }
-  .NewsletterConatiner h3 {
-      color: #003479;
-      font-size: 24px;
-      margin: 20px 0;
-      width: 100%;
-  }
-  .LetterForm {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      flex-direction: column;
-  }
-  .From_Section {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-  }
-  input[type="email"] {
-      width: 100%;
-      background: #fff;
-      border: none;
-      padding: 15px;
-      border-radius: 20px;
-  }
-  ::placeholder {
+.CardTop p {
+    font-size: 18px;
+    color: #e60278;
+    margin: 0;
+    margin-bottom: 20px;
+    text-wrap: balance;
+    ;
+
+}
+
+.CardTop h2 {
+    font-size: 36px;
+    color: #003479;
+    margin: 0;
+}
+
+.ProgramCards {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 50px 0;
+
+}
+
+.ProgramCards a {
+    text-decoration: none;
+}
+
+.program-card {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    background-color: #fff;
+    border-radius: 24px;
+    padding: 40px 24px;
+    box-shadow: 0px 4px 14px #afaeae5c;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .3s;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-family: 'slick';
+    font-size: 20px;
+    line-height: 1;
+    opacity: 1;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #e60278;
+    padding: 20px;
+    border-radius: 100%;
+}
+
+button.slick-prev {
+    background-color: transparent !important;
+}
+
+.slick-prev {
+    left: 0 !important;
+}
+
+button.slick-next {
+    background-color: transparent !important;
+}
+
+.slick-next {
+    right: 25px !important;
+}
+
+.tomato i {
+    font-size: 44px;
+    color: #ff6969;
+}
+
+.berry i {
+    font-size: 44px;
+    color: #c59ed8;
+}
+
+.teal i {
+    font-size: 44px;
+    color: #009da8;
+}
+
+.pear i {
+    font-size: 44px;
+    color: #85b769;
+}
+
+.marigold i {
+    font-size: 44px;
+    color: #feca67;
+}
+
+.program-card .program-card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+}
+
+.heading-md {
+    font-size: 20px;
+    color: #003479;
+}
+
+.button-tertiary {
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.button-tertiary.tomato {
+    border-bottom: 2px solid #ff696980;
+}
+
+.button-tertiary.berry {
+    border-bottom: 2px solid #c59ed880;
+}
+
+.button-tertiary.teal {
+    border-bottom: 2px solid #009da880;
+}
+
+.button-tertiary.pear {
+    border-bottom: 2px solid #85b76980;
+}
+
+.button-tertiary.marigold {
+    border-bottom: 2px solid #feca6780;
+}
+
+.button-tertiary.tomato:hover {
+    border-color: #ff6969;
+}
+
+.button-tertiary.berry:hover {
+    border-color: #c59ed8;
+}
+
+.button-tertiary.teal:hover {
+    border-color: #009da8;
+}
+
+.button-tertiary.pear:hover {
+    border-color: #85b769;
+}
+
+.button-tertiary.marigold:hover {
+    border-color: #feca67;
+}
+
+
+.program-card-info button:hover {
+    background-color: transparent;
+}
+
+.program-card:hover.tomato {
+    border: 1px solid #ff6969;
+    background-color: #ff69691a;
+}
+
+.program-card:hover.berry {
+    border: 1px solid #c59ed8;
+    background-color: #c59ed81a;
+}
+
+.program-card:hover.teal {
+    border: 1px solid #009da8;
+    background-color: #009da81a;
+}
+
+.program-card:hover.pear {
+    border: 1px solid #85b769;
+    background-color: #85b7691a;
+}
+
+.program-card:hover.marigold {
+    border: 1px solid #feca67;
+    background-color: #feca671a;
+}
+
+.ProgramCards a:nth-child(2n) {
+    padding-top: 2rem;
+}
+
+details {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+summary {
+    padding: 1.25rem 1.5rem;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    position: relative;
+    list-style: none;
+    border: none;
+    font-size: 1.125rem;
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+summary::after {
+    font-family: "Font Awesome";
+    content: '\f062';
+    position: absolute;
+    right: 10px;
+    transition: transform 0.3s ease;
+}
+
+details[open] summary::after {
+    transform: rotate(180deg);
+}
+
+.content {}
+
+.content p {
+    font-size: 16px !important;
+    color: #ffffff !important;
+    padding: 1rem;
+    text-transform: capitalize !important;
+}
+
+.FAQs {
+    width: 100%;
+    background: #003479;
+    margin-top: 30px;
+    text-align: -webkit-center;
+}
+
+.FaqBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 8rem;
+    padding: 100px 0;
+}
+
+.FaqImage {
+    width: 50%;
+}
+
+.FaqImage img {
+    border-radius: 3rem;
+}
+
+.FaqText {
+    width: 50%;
+    text-align: left;
+}
+
+.FaqText p {
+    font-size: 18px;
+    color: #e60278;
+    margin: 0;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.FaqText h2 {
+    font-size: 36px;
+    color: #fff;
+    margin: 0;
+    margin-bottom: 50px;
+    line-height: 1;
+}
+
+.FaqBtn {
+    width: 100%;
+    margin-top: 16px;
+}
+
+.FaqBtn button {
+    padding: 16px 32px;
+    border: none;
+    background-color: #e60278;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+}
+
+.Help {
+    width: 100%;
+    text-align: -webkit-center;
+    margin: 50px 0;
+}
+
+.StatsBox {
+    padding: 50px 0;
+    overflow: hidden;
+}
+
+.owl-nav span {
+    background: #003479;
+    font-size: 20px;
+    margin: 30px 0;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    justify-content: center;
+}
+
+.owl-theme .owl-nav [class*=owl-]:hover {
+    background-color: transparent !important;
+}
+
+.HelpSlider {
+    width: 100%;
+    display: flex;
+    column-gap: 20px;
+}
+
+.HelpBox {
+    width: 100%;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.HelpBox p {
+    font-size: 18px;
+    color: #e60278;
+    margin: 0;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.HelpBox h2 {
+    font-size: 36px;
+    color: #545353;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.HelpNavigationBtn {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+    gap: 30px;
+    justify-content: center;
+}
+
+.HelpNavPre {
+    background-color: #003479;
+    font-size: 20px;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.HelpNavNext {
+    background-color: #003479;
+    font-size: 20px;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.StatsBtn button {
+    padding: 16px 32px;
+    border: none;
+    background-color: #003479;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+}
+
+.StatsCard {
+    display: block;
+}
+
+.StatsSlider {
+
+    overflow: hidden;
+    padding: 36px;
+    border-radius: 36px;
+    background: #003479;
+    width: 200px;
+    height: 250px;
+    text-align: center;
+}
+
+.StatsSlider h2 {
+    font-size: 18px;
+    color: #e60278;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.StatsSlider p {
+    font-size: 14px;
+    color: #fff;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.JobCards {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+}
+
+.JobCards i {
+    color: #fff;
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+.Location i {
+    font-size: 14px;
+}
+
+.Job-Tab {
+    margin: 15px 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.Job-Tab a {
+    padding: 5px;
+    color: #fff;
+}
+
+.Blog {
+    width: 100%;
+    text-align: -webkit-center;
+    margin: 50px 0;
+}
+
+.Job-Tab a {
+    padding: 5px 10px;
+    color: #fff;
+    background: #e60278;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.BlogHeading {
+    font-size: 36px;
+    color: #003479;
+    margin-bottom: 50px;
+}
+
+.BlogsCards {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.BlogsCards a {
+    text-decoration: none;
+}
+
+.BlogBoxs {
+    width: 100%;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0px 4px 7px 0px #aeaeaf;
+}
+
+.Blogs-Text img {
+    border-radius: 20px;
+}
+
+.BlogInfoContainer {
+    padding: 20px;
+    text-align: left;
+}
+
+.Category {
+    width: 150px;
+    text-align: left;
+    background: #e60278;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.Date {
+    width: 100%;
+    color: #545353;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.Heading {
+    font-size: 18px;
+    color: #003479;
+}
+
+.Para p {
+    color: #545353;
+}
+
+.BlogBtn {
+    margin: 30px 0;
+}
+
+.BlogBtn button {
+    padding: 16px 32px;
+    border: none;
+    background-color: #e60278;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+}
+
+.BlogBtn button:hover {
+    background-color: #003479;
+}
+
+.Talk {
+    width: 100%;
+    text-align: -webkit-center;
+    padding: 0 10px;
+}
+
+.Talkbox {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    gap: 50px;
+    background: #003479;
+    border-radius: 50px;
+    background-image: url(img/talkbg.webp);
+    background-size: 60%;
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 80px 72px;
+}
+
+.Talkbox img {
+    width: 500px;
+    right: 0%;
+    max-height: 500px;
+    position: absolute;
+    bottom: 0;
+}
+
+.TalkInfo {
+    width: 100%;
+    text-align: left;
+    text-wrap: balance;
+}
+
+.TalkInfo h2 {
+    font-size: 32px;
+    width: 100%;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.TalkBox a {
+    padding: 16px 32px;
+    background-color: #e60278;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.NewsLetter {
+    width: 100%;
+    text-align: -webkit-center;
+    margin: 50px 0;
+}
+
+.NewsletterConatiner {
+    text-align: left;
+}
+
+.NewsletterConatiner h3 {
+    color: #003479;
+    font-size: 24px;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.LetterForm {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.From_Section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+input[type="email"] {
+    width: 100%;
+    background: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.cmpprofile input[type="email"] {
+    width: 100%;
+    background: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.cmpprofile .react-tel-input .flag-dropdown {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    padding: 0;
+    background-color: unset !important;
+    border: 1px solid #cacaca;
+    border-radius: 3px 0 0 3px;
+}
+
+.cmpprofile .react-tel-input .form-control {
+    height: 38px !important;
+}
+
+.cmpprofile .react-tel-input .selected-flag:hover {
+    background-color: unset !important;
+}
+
+::placeholder {
     color: #000;
-    opacity: 1; /* Firefox */
-  }
-  .FormBTn button {
-      padding: 16px 32px;
-      background: #003479;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-  }
-  .LetterForm p{
-      color: #ffff;
-      font-size: 10px;
-  }
-  .FooterSection {
-      width: 100%;
-      text-align: -webkit-center;
-      margin-top: 100px;
-      background: #e60278;
-  }
-  .FooterCTA {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px;
-  }
-  .CtaInfo {
-      display: block;
-      text-align: left;
-  }
-  .CtaInfo span{
-      display: flex;
-      align-items: center;
-      grid-gap: 10px;
-  }
-  .CtaInfo i{
-      font-size: 40px;
-      color: #003479;
-  }
-  .CtaInfo h3{
-      font-size: 24px;
-      color: #003479;
-  }
-  .Footerbtn button {
-      padding: 16px 32px;
-      background: #003479;
-      color: #fff;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-  }
-  .footer {
-      width: 100%;
-      padding: 40px 0;
-      background: #003479;
-      text-align: -webkit-center;
-  }
-  .menu-section {
-      display: flex;
-      align-items: flex-start;
-      padding-top: 20px;
-      text-align: left;
-  }
-  .footer-one {
-      width: 25%;
-      padding: 10px 0;
-      margin: 0 20px;
-  }
-  .social-mdeai {
-      width: 100%;
-      margin: 20px 0;
-  }
-  .social-mdeai i {
-      background: #fff;
-      padding: 10px;
-      font-size: 20px;
-      color: #000;
-      border-radius: 100%;
-      margin-right: 10px;
-      cursor: pointer;
-  }
-  .footer-menu h2 {
-      margin: 0;
-      font-size: 16px;
-      margin-bottom: 20px;
-      color: #fff;
-      font-weight: 700;
-      letter-spacing: 1px;
-  }
-  .footer-menu ul {
-      display: contents;
-      list-style: none;
-  }
-  .footer-menu li{
-      margin-bottom: 20px;
-  }
-  .footer-menu li a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 14px;
-      letter-spacing: 1px;
-  }
-  .footer-menu p {
-      color: #fff;
-      margin: 0;
-      margin-bottom: 20px;
-  }
-  .footer-one img{
-      width: 200px;
-  }
-  
-  
-  .tab {
+    opacity: 1;
+    /* Firefox */
+}
+
+.FormBTn button {
+    padding: 16px 32px;
+    background: #003479;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+}
+
+.LetterForm p {
+    color: #ffff;
+    font-size: 10px;
+}
+
+.FooterSection {
+    width: 100%;
+    text-align: -webkit-center;
+    margin-top: 100px;
+    background: #e60278;
+}
+
+.FooterCTA {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.CtaInfo {
+    display: block;
+    text-align: left;
+}
+
+.CtaInfo span {
+    display: flex;
+    align-items: center;
+    grid-gap: 10px;
+}
+
+.CtaInfo i {
+    font-size: 40px;
+    color: #003479;
+}
+
+.CtaInfo h3 {
+    font-size: 24px;
+    color: #003479;
+}
+
+.Footerbtn button {
+    padding: 16px 32px;
+    background: #003479;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.footer {
+    width: 100%;
+    padding: 40px 0;
+    background: #003479;
+    text-align: -webkit-center;
+}
+
+.menu-section {
+    display: flex;
+    align-items: flex-start;
+    padding-top: 20px;
+    text-align: left;
+}
+
+.footer-one {
+    width: 25%;
+    padding: 10px 0;
+    margin: 0 20px;
+}
+
+.social-mdeai {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.social-mdeai i {
+    background: #fff;
+    padding: 10px;
+    font-size: 20px;
+    color: #000;
+    border-radius: 100%;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.footer-menu h2 {
+    margin: 0;
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.footer-menu ul {
+    display: contents;
+    list-style: none;
+}
+
+.footer-menu li {
+    margin-bottom: 20px;
+}
+
+.footer-menu li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.footer-menu p {
+    color: #fff;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.footer-one img {
+    width: 200px;
+}
+
+
+.tab {
     overflow: hidden;
     border-bottom: 1px solid #ccc;
     margin-top: 50px;
-  }
-  
-  /* Style the buttons inside the tab */
-  .tab button {
+}
+
+/* Style the buttons inside the tab */
+.tab button {
     background-color: inherit;
     float: left;
     border: none;
@@ -964,392 +1160,412 @@
     padding: 14px 16px;
     transition: 0.3s;
     font-size: 17px;
-  }
-  
-  
-  
-  /* Create an active/current tablink class */
-  .tab button.active {
-      border-bottom: 2px solid #000;
-  }
-  
-  /* Style the tab content */
-  .tabcontent {
+}
+
+
+
+/* Create an active/current tablink class */
+.tab button.active {
+    border-bottom: 2px solid #000;
+}
+
+/* Style the tab content */
+.tabcontent {
     display: none;
     padding: 6px 12px;
     border-top: none;
-  }
-  .TabSection {
-      width: 100%;
-      margin: 50px 0;
-      text-align: -webkit-center;
-  }
-  .TabHead{
-      margin: 20px 0;
-      padding: 0.5rem 0;
-  }
-  .TabHead h2{
-      font-size: 36px;
-      color: #545353;
-      margin: 0;
-      margin-bottom: 20px;
-  }
-  .TabHead p{
-      font-size: 18px;
-      color: #e60278;
-      margin: 0;
-      margin-bottom: 20px;
-  }
-  
-  .TabContentHeadr {
-      width: 100%;
-      margin: 50px 0;
-      position: relative;
-  }
-  .TabIMgContent {
-      position: absolute;
-      text-align: left;
-      top: 30%;
-      left: 50px;
-  }
-  .TabIMgContent h4{
-      margin: 0;
-      font-size: 30px;
-      color: #000;
-      margin-bottom: 10px;
-  }
-  .TabIMgContent p{
-      margin: 0;
-      font-size: 16px;
-      color: #000;
-      margin-bottom: 15px;
-  }
-  .TabIMgContent a{
-      font-size: 20px;
-      background-color: #000;
-      color: #fff;
-      padding: 6px 10px;
-      margin-top: 10px;
-      text-decoration: none;
-      border-radius: 10px; 
-  }
-  .InnerSlider{
-      background-color: #fff;
-      border-radius: 20px;
-      box-shadow: 0px 0px 6px 0px #afaeae40;
-      margin: 0 20px;
-  }
-  .InnerSlider h6{
-      font-size: 18px;
-      margin: 0;
-      margin-bottom: 10px;
-      color: #003479;
-      padding: 10px;
-  }
-  .InnerSlider p{
-      font-size: 16px;
-      color: #545353;
-      margin-bottom: 10px;
-      margin:0;
-  }
-  .InnerSlider h5{
-      font-size: 14px;
-      margin: 0;
-      margin-bottom: 10px;
-      padding: 10px;
-  }   
-  button.slick-next {
-      background: #000;
-      color: #fff;
-      margin-right: 20px;
-      border-radius: 20px;
-      margin: 20px;
-      cursor: pointer;
-  }
-  button.slick-prev {
-      background: #000;
-      color: #fff;
-      margin-right: 20px;
-      border-radius: 20px;
-      margin: 20px;
-      cursor: pointer;
-  }
-  .TopMenu ul {
-      display: flex;
-      margin-block-start: 0;
-      padding-inline-start: 0;
-      list-style-type: none;
-      gap: 20px;
-      margin-bottom: 0;
-  }
-  .TopMenu ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 14px;
-      letter-spacing: 1px;
-  }
-  .TopMenu ul li a:hover{
-      color: #e60278;
-  }
-  
-  
-  
-  
-  
-  @media screen and (max-width: 1024px) {
+}
+
+.TabSection {
+    width: 100%;
+    margin: 50px 0;
+    text-align: -webkit-center;
+}
+
+.TabHead {
+    margin: 20px 0;
+    padding: 0.5rem 0;
+}
+
+.TabHead h2 {
+    font-size: 36px;
+    color: #545353;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.TabHead p {
+    font-size: 18px;
+    color: #e60278;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.TabContentHeadr {
+    width: 100%;
+    margin: 50px 0;
+    position: relative;
+}
+
+.TabIMgContent {
+    position: absolute;
+    text-align: left;
+    top: 30%;
+    left: 50px;
+}
+
+.TabIMgContent h4 {
+    margin: 0;
+    font-size: 30px;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.TabIMgContent p {
+    margin: 0;
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 15px;
+}
+
+.TabIMgContent a {
+    font-size: 20px;
+    background-color: #000;
+    color: #fff;
+    padding: 6px 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.InnerSlider {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0px 0px 6px 0px #afaeae40;
+    margin: 0 20px;
+}
+
+.InnerSlider h6 {
+    font-size: 18px;
+    margin: 0;
+    margin-bottom: 10px;
+    color: #003479;
+    padding: 10px;
+}
+
+.InnerSlider p {
+    font-size: 16px;
+    color: #545353;
+    margin-bottom: 10px;
+    margin: 0;
+}
+
+.InnerSlider h5 {
+    font-size: 14px;
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+button.slick-next {
+    background: #000;
+    color: #fff;
+    margin-right: 20px;
+    border-radius: 20px;
+    margin: 20px;
+    cursor: pointer;
+}
+
+button.slick-prev {
+    background: #000;
+    color: #fff;
+    margin-right: 20px;
+    border-radius: 20px;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.TopMenu ul {
+    display: flex;
+    margin-block-start: 0;
+    padding-inline-start: 0;
+    list-style-type: none;
+    gap: 20px;
+    margin-bottom: 0;
+}
+
+.TopMenu ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.TopMenu ul li a:hover {
+    color: #e60278;
+}
+
+
+
+
+
+@media screen and (max-width: 1024px) {
     .container {
-      padding: 0 1.5rem;
+        padding: 0 1.5rem;
     }
-    
+
     .NavBar {
-      padding: 0.5rem 1rem;
+        padding: 0.5rem 1rem;
     }
-    
+
     .HomeBannerContent {
-      padding: 2rem 1rem;
+        padding: 2rem 1rem;
     }
-    
+
     .BannerContent {
-      padding: 1.5rem;
+        padding: 1.5rem;
     }
-    
+
     .BannerContent h1 {
-      font-size: 2.5rem;
-      line-height: 1.2;
+        font-size: 2.5rem;
+        line-height: 1.2;
     }
-    
+
     .ProgramCards {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
     }
-  }
-  
-  @media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 768px) {
     .container {
-      padding: 0 1rem;
+        padding: 0 1rem;
     }
-    
+
     .NavBar {
-      display: none;
+        display: none;
     }
-    
+
     .HomeBannerContent {
-      display: block;
+        display: block;
     }
-    
+
     .BannerContent {
-      text-align: left;
-      padding: 1rem;
+        text-align: left;
+        padding: 1rem;
     }
-    
+
     .BannerContent h1 {
-      font-size: 2rem;
+        font-size: 2rem;
     }
-    
+
     .BannerContent p {
-      width: 100%;
-      font-size: 1rem;
+        width: 100%;
+        font-size: 1rem;
     }
-    
+
     .ProgramCards {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
-    
+
     .BannerBtn button {
-      width: 100%;
+        width: 100%;
     }
-    
+
     .HomeHeroMedia {
-      padding: 1rem;
+        padding: 1rem;
     }
-    
+
     .BannerText {
-      bottom: 10%;
-      left: 5%;
+        bottom: 10%;
+        left: 5%;
     }
-    
+
     .BannerTextUpper {
-      padding: 0.5rem;
+        padding: 0.5rem;
     }
-    
+
     .BannerTextUpper h2 {
-      font-size: 0.875rem;
+        font-size: 0.875rem;
     }
-    
+
     .BannerTextDowe {
-      left: auto;
-      bottom: 15%;
-      padding: 1rem;
+        left: auto;
+        bottom: 15%;
+        padding: 1rem;
     }
-    
+
     .BannerTextDowe h2 {
-      font-size: 1rem;
+        font-size: 1rem;
     }
-    
+
     .BannerTextDowe p {
-      font-size: 0.875rem;
+        font-size: 0.875rem;
     }
-    
+
     .CardTop h2 {
-      font-size: 1.5rem;
-      padding: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
     }
-    
+
     .program-card {
-      margin-bottom: 1rem;
+        margin-bottom: 1rem;
     }
-    
+
     .FaqBox {
-      display: block;
-      padding: 1rem;
+        display: block;
+        padding: 1rem;
     }
-    
+
     .FaqImage {
-      margin-bottom: 1rem;
-      width: 100%;
+        margin-bottom: 1rem;
+        width: 100%;
     }
-    
+
     .FaqText {
-      width: 100%;
+        width: 100%;
     }
-    
+
     .FaqBtn button {
-      width: 100%;
+        width: 100%;
     }
-    
+
     .StatsBox {
-      display: block;
-      padding: 1rem;
+        display: block;
+        padding: 1rem;
     }
-    
+
     .HelpBox {
-      width: 100%;
+        width: 100%;
     }
-    
+
     .StatsBtn button {
-      width: 100%;
+        width: 100%;
     }
-    
+
     .HelpSlider {
-      width: 100%;
+        width: 100%;
     }
-    
+
     .BlogsCards {
-      display: block;
-      padding: 1rem;
+        display: block;
+        padding: 1rem;
     }
-    
+
     .BlogBoxs {
-      margin-bottom: 1rem;
+        margin-bottom: 1rem;
     }
-    
+
     .BlogBtn button {
-      width: 100%;
+        width: 100%;
     }
-    
+
     .BlogBtn {
-      padding: 1rem;
+        padding: 1rem;
     }
-    
+
     .Talk {
-      margin-top: 0;
+        margin-top: 0;
     }
-    
+
     .Talkbox {
-      display: block;
-      padding: 1rem;
-      background-size: cover;
-      border-radius: 1rem;
+        display: block;
+        padding: 1rem;
+        background-size: cover;
+        border-radius: 1rem;
     }
-    
+
     .Talkbox img {
-      position: initial;
-      width: 100%;
-      margin-bottom: -1.5rem;
+        position: initial;
+        width: 100%;
+        margin-bottom: -1.5rem;
     }
-    
+
     .TalkInfo h2 {
-      width: 100%;
-      font-size: 2rem;
+        width: 100%;
+        font-size: 2rem;
     }
-    
+
     .NewsletterConatiner {
-      display: block;
-      padding: 1rem;
-      border-radius: 1rem;
+        display: block;
+        padding: 1rem;
+        border-radius: 1rem;
     }
-    
+
     .NewsletterConatiner h3 {
-      width: 100%;
+        width: 100%;
     }
-    
+
     .LetterForm {
-      display: block;
-      margin: 1rem 0;
-      width: 100%;
+        display: block;
+        margin: 1rem 0;
+        width: 100%;
     }
-    
+
     .From_Section {
-      display: block;
+        display: block;
     }
-    
+
     input[type="email"] {
-      width: 100%;
-      margin-bottom: 1rem;
-      border-radius: 0.625rem;
+        width: 100%;
+        margin-bottom: 1rem;
+        border-radius: 0.625rem;
     }
-    
+
     .FormBTn button {
-      width: 100%;
+        width: 100%;
     }
-    
+
     .FooterCTA {
-      display: block;
+        display: block;
     }
-    
+
     .CtaInfo i {
-      display: none;
+        display: none;
     }
-    
+
     .Footerbtn button {
-      width: 100%;
+        width: 100%;
     }
-    
+
     .footerMenu {
-      display: block;
+        display: block;
     }
-  }
-  
-  @media screen and (max-width: 480px) {
-   
+}
+
+@media screen and (max-width: 480px) {
+
     .BannerContent h1 {
-      font-size: 1.75rem;
+        font-size: 1.75rem;
     }
-    
+
     .BannerContent p {
-      font-size: 0.875rem;
+        font-size: 0.875rem;
     }
-    
+
     .CardTop h2 {
-      font-size: 1.5rem;
+        font-size: 1.5rem;
     }
+
     .HelpBox h2 {
-      font-size: 1.5rem;
+        font-size: 1.5rem;
     }
+
     .FaqText h2 {
-      font-size: 1.5rem;
+        font-size: 1.5rem;
     }
-    
+
     .TalkInfo h2 {
-      font-size: 1.5rem;
+        font-size: 1.5rem;
     }
+
     .TabHead h2 {
         font-size: 1.25rem;
     }
-    
+
     .NewsletterConatiner h3 {
-      font-size: 1.25rem;
+        font-size: 1.25rem;
     }
-  }	
+}

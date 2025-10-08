@@ -6,7 +6,7 @@ import axios from "axios";
 import { Constant } from "@/utils/constant/constant";
 import toast from "react-hot-toast";
 
-const useJobActions = ({ setFilteredJobs }) => {
+const useJobActions = ({ setFilteredJobs, filteredJobs }) => {
   const [selectedJobId, setSelectedJobId] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -55,9 +55,13 @@ const useJobActions = ({ setFilteredJobs }) => {
           },
         }
       );
-
       if (response.data.status === "status" || response.data.code === 200) {
-        toast.success(response.message || "Job saved successfully!");
+        // console.log("filteredJobs", filteredJobs);
+        const currentJob = filteredJobs.find((job) => job.id === jobId);
+        const wasFavorite = currentJob?.is_favorite;
+        // console.log("wasFavorite", wasFavorite);
+        // toast.success(response.message || "Job saved successfully!");
+        toast.success(response.message || (wasFavorite ? "Job removed from saved jobs." : "Job saved successfully!"));
         setActionStatus((prev) => ({ ...prev, [jobId]: "saved" }));
 
         setFilteredJobs?.((prevJobs) =>
