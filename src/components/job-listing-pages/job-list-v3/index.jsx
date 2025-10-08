@@ -6,6 +6,7 @@ import DefaulHeader2 from "../../header/DefaulHeader2";
 import MobileMenu from "../../header/MobileMenu";
 import FilterSidebar from "./FilterSidebar";
 import FilterJobsBox from "./FilterJobsBox";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
@@ -79,7 +80,7 @@ const Index = () => {
                 {/* Right Sidebar Box */}
                 <div className="col-lg-4 d-none d-lg-block mt-4">
                   <div
-                    className="bg-dark text-white rounded-4 p-4 d-flex flex-column align-items-center"
+                    className="app-light-bg  rounded-4 p-4 d-flex flex-column align-items-center"
                     style={{ minHeight: 300 }}
                   >
                     <img
@@ -87,18 +88,18 @@ const Index = () => {
                       alt="Find jobs"
                       style={{ width: "100%", height: 150, marginBottom: 24 }}
                     />
-                    <h2 className="fw-bold mb-2" style={{ fontSize: "1.5rem" }}>
+                    <h2 className="text-black app-text-h2" >
                       Find jobs near you
                     </h2>
-                    <p className="mb-4 text-center text-light">
+                    <p className="mb-4 app-text-p text-center text-black">
                       Find career paths that match your skills and strengths.
                     </p>
-                    <button
-                      className="btn btn-danger px-4 py-2 fw-semibold"
-                      style={{ backgroundColor: "#e51b3e", borderColor: "#e51b3e" }}
+                    <Button
+                      variant="destructive"
+                      className="w-full"
                     >
                       Find Jobs
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </div>

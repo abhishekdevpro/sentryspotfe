@@ -186,7 +186,7 @@ const FilterJobsBox = () => {
 
   return (
     <>
-      <div>
+      <div className="">
         <div className="">
           <HomeBanner />
         </div>

@@ -41,14 +41,14 @@ function Jobreferral() {
 
   return (
     <>
-      <div className="page-content bg-white">
+      <div className=" app-light-bg">
         <div className="content-block py-10">
           <div className="container mx-auto px-4">
             <div className="flex flex-col lg:flex-row gap-6">
-              <div className="flex-1 bg-white rounded-lg shadow p-6">
-                <h2 className="text-xl font-bold uppercase mb-6">
+              <div className="flex-1  rounded-lg shadow p-6">
+                {/* <h2 className="text-xl font-bold uppercase mb-6">
                   Add Referral
-                </h2>
+                </h2> */}
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                   {/* Name Field */}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Linkedin, Twitter, Facebook, Globe } from "lucide-react";
+import CompanyCard from "../ui/CompanyCard";
 
 export default function SocialFooter({
   companyData = {
@@ -46,11 +47,11 @@ export default function SocialFooter({
   ];
 
   return (
-    <footer
-      className="w-full px-4 sm:px-6 md:px-12 py-10 flex flex-col items-center justify-center text-center"
-      style={{ backgroundColor: companyData.footer_color || "#4B5563" }}
+    <CompanyCard
+      // className="w-full px-4 sm:px-6 md:px-12 py-10 flex flex-col items-center justify-center text-center"
+      // style={{ backgroundColor: companyData.footer_color || "#4B5563" }}
     >
-      <h3 className="text-white font-semibold text-xl sm:text-2xl mb-4 sm:mb-6">
+      <h3 className="app-text-h1 !text-blue-900 text-center mb-8">
         Follow Us
       </h3>
 
@@ -62,15 +63,18 @@ export default function SocialFooter({
             aria-label={social.label}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-3 sm:p-3.5 rounded-full bg-white bg-opacity-10 transition-all duration-300 hover:bg-opacity-20 transform hover:scale-110"
+            style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      textDecoration: "none",
+                    }}
             onMouseEnter={() => setHoveredIcon(social.name)}
             onMouseLeave={() => setHoveredIcon(null)}
           >
             <div
-              style={{
-                color:
-                  hoveredIcon === social.name ? social.hoverColor : "white",
-              }}
+              className={` ${hoveredIcon === social.name} ? text-blue-500 : "text-blue-900"` }
             >
               {social.icon}
             </div>
@@ -78,9 +82,9 @@ export default function SocialFooter({
         ))}
       </div>
 
-      <div className="text-white text-xs sm:text-sm font-medium">
+      <div className="!text-blue-900 text-center app-text-p">
         All rights reserved © {companyData.company_name} {currentYear}
       </div>
-    </footer>
+    </CompanyCard>
   );
 }

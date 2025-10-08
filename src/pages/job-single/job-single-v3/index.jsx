@@ -222,27 +222,31 @@ const JobSingleDynamicV3 = () => {
       <DefaulHeader2 />
 
       {/* Header Section */}
-      <div className="app-gradient-bg px-4 py-6 sm:px-6 ">
-        <section className="job-header-section bg-blue-50 py-4 sm:py-6 px-4 sm:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-lg mb-6 shadow-sm gap-4 sm:gap-0">
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 w-full sm:w-auto">
+      <div className="app-gradient-bg px-2 py-4 md:px-4 ">
+        <div className="max-w-7xl mx-auto">
+          <section className="job-header-section bg-blue-50 py-4 sm:py-6 px-4 sm:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-lg mb-6 shadow-sm gap-4 sm:gap-0">
+          <div className="flex flex-col sm:flex-row justify-center md:justify-start md:items-center gap-4 sm:gap-6 w-full sm:w-auto ">
             <img
               src={"/images/resource/company-logo/1-1.png"}
               alt="Company Logo"
               className="w-28 h-28 rounded-lg border-2 border-white shadow-sm"
             />
-            <div className="w-full sm:w-auto">
+            <div className="w-full sm:w-auto ">
               <h2 className="app-text-h2 mb-2">
-                {jobData?.job_title || "Job Title Not Available"}
+                {jobData?.job_title}
               </h2>
               <div className="font-normal mb-2 flex items-center gap-2">
                 <div className="app-text-h3 flex justify-center items-center">
                   <Building className="mr-2" size={20} />
+              <div className="font-normal gap-2 flex flex-col md:flex-row items-center">
+                <div className="app-text-h3 flex  justify-start items-start ">
+                 <Building className="mr-2" size={20}/>
                   {company?.company_name || "Company Not Available"}
                 </div>
-                {"|"}
+                
                 <div className="app-text-h3 flex justify-center items-center">
                   <Folder className="mr-2" size={20} />
-                  {jobData?.job_category_name || "Category Not Available"}
+                  {jobData?.job_category_name || "Category"}
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 text-sm font-normal">
@@ -414,36 +418,15 @@ const JobSingleDynamicV3 = () => {
                 </div>
               )}
             </div>
-            {/* Perks and Benefits */}
-            {/* <div>
-              <h4 className="font-normal mb-3 sm:mb-4 flex items-center gap-2 text-gray-800">
-                <i className="flaticon-gift  text-lg" />
-                Perks and Benefits
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {jobData?.perks && jobData.perks.length > 0 ? (
-                  jobData?.perks?.map((perk, idx) => (
-                    <span
-                      key={idx}
-                      className="bg-gray-100 px-3 py-1 rounded-full text-xs font-normal border border-gray-200 flex items-center gap-1"
-                    >
-                      <i className="flaticon-gift text-xs text-pink-400" />
-                      {perk}
-                    </span>
-                  ))
-                ) : (
-                  <span className="text-gray-500 px-3">No Perks Specified</span>
-                )}
-              </div>
-            </div> */}
+           
 
           </aside>
 
           {/* Main Content (Right Column) */}
-          <main className="w-full lg:w-2/3">
+          <main className="w-full ">
             {/* Tabs */}
             <div className="bg-blue-50 rounded-lg shadow p-4 sm:p-6 mb-6 ">
-              <div className="flex flex-col md:flex-row gap-4 items-start mb-4 overflow-x-auto ">
+              <div className="flex flex-row gap-4 items-start mb-4 overflow-x-auto  ">
                 <button
                   className={`app-text-h3 ${activeTab === "description"
                       ? "border-b-2 border-blue-500 text-blue-900"
@@ -467,7 +450,7 @@ const JobSingleDynamicV3 = () => {
               {activeTab === "description" && (
                 <div
                   className="max-h-[70vh] overflow-y-auto pr-2"
-                  style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}
+                  // style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}
                 >
                   {/* <h4 className="app-text-h6">
                     Job Description
@@ -482,11 +465,7 @@ const JobSingleDynamicV3 = () => {
               )}
               {activeTab === "company" && (
                 <div className="h-[70vh] overflow-y-auto pr-2">
-                  {/* <h4 className="app-text-h6 flex items-center gap-2 mb-2">
-                    {/* <i className="flaticon-briefcase  text-lg" /> 
-                    <Briefcase size={20}/>
-                    About the company
-                  </h4> */}
+                  
                   <div className="flex flex-wrap justify-between items-center gap-4 mb-3 sm:mb-4">
                     <div className="flex gap-4 items-center">
                       <img
@@ -565,6 +544,7 @@ const JobSingleDynamicV3 = () => {
             </div>
             <RelatedJobs2 />
           </div>
+        </div>
         </div>
       </div>
 

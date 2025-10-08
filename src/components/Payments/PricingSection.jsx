@@ -18,17 +18,17 @@ const PricingSection = () => {
   // Get features as array from object
   const getFeatures = (plan) => {
     return Object.keys(plan)
-      .filter(key => key.startsWith('feature'))
-      .map(key => plan[key]);
+      .filter((key) => key.startsWith("feature"))
+      .map((key) => plan[key]);
   };
-const navigate = useNavigate()
-  const handleClick = () => {
+  const navigate = useNavigate();
+  const handleClick = (planID) => {
     // Demo functionality - replace with your actual navigation logic
-    const token = localStorage.getItem(Constant.USER_TOKEN)
-    if(!token){
-      navigate('/')
+    const token = localStorage.getItem(Constant.USER_TOKEN);
+    if (!token) {
+      navigate("/");
     }
-    navigate('/payments/subscription')
+    navigate(`/payments/selected-plan?selectedPlan=${planID}`);
   };
 
   return (
@@ -40,12 +40,8 @@ const navigate = useNavigate()
             {pricingData.title}
             {/* <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-slate-800 rounded-sm"></span> */}
           </p>
-          <h2 >
-            {pricingData.subtitle}
-          </h2>
-          <h2 className="">
-            {pricingData.intro}
-          </h2>
+          <h2>{pricingData.subtitle}</h2>
+          <h2 className="">{pricingData.intro}</h2>
         </div>
 
         {/* Pricing Cards Grid */}
@@ -54,14 +50,22 @@ const navigate = useNavigate()
             const isPopular = plan.bestValue === "true";
             const isFree = plan.price === "0";
             const isDark = index === 2; // AI Pro Month gets dark theme
-            
+
             return (
               <div
                 key={plan.planId}
                 className={`
                   flex flex-col h-full rounded-2xl overflow-hidden transition-all duration-300
-                  ${isPopular ? 'transform -translate-y-3 border-2 border-slate-800' : 'border border-slate-200'}
-                  ${isDark ? 'bg-slate-800 shadow-xl' : 'bg-white shadow-lg hover:shadow-xl'}
+                  ${
+                    isPopular
+                      ? "transform -translate-y-3 border-2 border-slate-800"
+                      : "border border-slate-200"
+                  }
+                  ${
+                    isDark
+                      ? "bg-slate-800 shadow-xl"
+                      : "bg-white shadow-lg hover:shadow-xl"
+                  }
                 `}
               >
                 {/* Popular Badge */}
@@ -72,16 +76,38 @@ const navigate = useNavigate()
                 )}
 
                 {/* Plan Header */}
-                <div className={`p-8 pb-5 text-center border-b ${isDark ? 'border-slate-700' : 'border-slate-100'}`}>
-                  <h3 className={`app-text-h2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                <div
+                  className={`p-8 pb-5 text-center border-b ${
+                    isDark ? "border-slate-700" : "border-slate-100"
+                  }`}
+                >
+                  <h3
+                    className={`app-text-h2 ${
+                      isDark ? "text-white" : "text-slate-800"
+                    }`}
+                  >
                     {plan.title}
                   </h3>
                   <div className={`flex items-center justify-center gap-1 `}>
-                    <div className={`app-text-h3 ${isDark ? 'text-white' : 'text-slate-800'}` }>
-                      €	{plan.price}
+                    <div
+                      className={`app-text-h3 ${
+                        isDark ? "text-white" : "text-slate-800"
+                      }`}
+                    >
+                      € {plan.price}
                     </div>
-                    <div className={`app-text-p ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                      {isFree ? '' : `/${plan.billingCycle === 'single' ? 'once' : plan.billingCycle}`}
+                    <div
+                      className={`app-text-p ${
+                        isDark ? "text-white" : "text-slate-800"
+                      }`}
+                    >
+                      {isFree
+                        ? ""
+                        : `/${
+                            plan.billingCycle === "single"
+                              ? "once"
+                              : plan.billingCycle
+                          }`}
                     </div>
                   </div>
                   {isFree && (
@@ -93,16 +119,21 @@ const navigate = useNavigate()
 
                 {/* Plan Features */}
                 <div className="p-6 flex-1">
-                  <ul className={`space-y-3 ${isDark ? 'text-white' : 'text-slate-500'}`}>
+                  <ul
+                    className={`space-y-3 ${
+                      isDark ? "text-white" : "text-slate-500"
+                    }`}
+                  >
                     {getFeatures(plan).map((feature, featureIndex) => (
                       <li
                         key={featureIndex}
                         className={`flex items-center gap-2 text-sm py-2 border-b last:border-b-0 ${
-                          isDark ? 'border-slate-700' : 'border-slate-100'
+                          isDark ? "border-slate-700" : "border-slate-100"
                         }`}
                       >
-                       
-                        <CheckCircle className={`${isDark} ? 'text-cyan-400' : 'text-slate-800'`} />
+                        <CheckCircle
+                          className={`${isDark} ? 'text-cyan-400' : 'text-slate-800'`}
+                        />
                         <span className="app-text-p">{feature}</span>
                       </li>
                     ))}
@@ -112,15 +143,16 @@ const navigate = useNavigate()
                 {/* CTA Button */}
                 <div className="p-6 pt-0">
                   <button
-                    onClick={handleClick}
+                    onClick={()=>handleClick(plan.planId)}
                     className={`
                       w-full py-4 px-5 rounded-lg font-semibold text-base text-white border-none cursor-pointer
                       transition-all duration-300 shadow-lg hover:shadow-xl hover:transform hover:-translate-y-1
-                      ${isDark 
-                        ? 'bg-slate-900 hover:bg-slate-950' 
-                        : isPopular 
-                        ? 'bg-slate-700 hover:bg-slate-800' 
-                        : 'bg-slate-800 hover:bg-slate-900'
+                      ${
+                        isDark
+                          ? "bg-slate-900 hover:bg-slate-950"
+                          : isPopular
+                          ? "bg-slate-700 hover:bg-slate-800"
+                          : "bg-slate-800 hover:bg-slate-900"
                       }
                     `}
                   >

@@ -38,7 +38,16 @@ body {
   color: #363636;
   line-height: 28px;
   font-weight: 300;
-  background: #ffffff;
+  // background: #ffffff;
+
+  background-image: linear-gradient(
+    to bottom right,
+    #dbeafe, /* blue-100 */
+    #93c5fd, /* blue-300 */
+    #dbeafe  /* blue-100 */
+  );
+  background-attachment: fixed; /* keeps gradient in place */
+  background-size: cover;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-family: "Chivo", sans-serif;

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Constant } from "@/utils/constant/constant";
 import { useNavigate } from "react-router-dom";
 import { Edit } from "lucide-react";
+import CompanyCard from "../ui/CompanyCard";
 
 const InsideCompany = ({ companyData }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -173,22 +174,12 @@ const InsideCompany = ({ companyData }) => {
 
   return (
     <section className="inside-company py-12">
-      <div className="auto-container w-[90%] mx-auto">
+      <CompanyCard>
         <div className="sec-title text-center mb-6">
-          <p className="font-bold text-xl sm:text-3xl text-black">
+          <p className="app-text-h1 !text-blue-800">
             Inside {companyData?.company_name || "Company"}
           </p>
         </div>
-
-        {/* <div className="flex justify-end mb-4">
-          <button
-            className="text-white bg-blue-700 hover:bg-blue-800 transition-colors duration-200 font-medium rounded-md px-5 py-2.5 flex items-center gap-2"
-            onClick={() => handleEditClick()}
-          >
-            <Edit />
-            Edit 
-          </button>
-        </div> */}
 
         {tabsToShow.length > 0 && (
           <div className="w-full flex flex-col justify-center align-middle">
@@ -415,7 +406,7 @@ const InsideCompany = ({ companyData }) => {
             </div>
           </div>
         )}
-      </div>
+      </CompanyCard>
     </section>
   );
 };

@@ -134,6 +134,10 @@ const Additionalinformation = ({ onPrevious }) => {
         setTimeout(() => {
           navigate("/public-view")
         }, 500)
+        toast.success( response.data.message ||"Additional information saved successfully!");
+        setTimeout(()=>{
+          navigate("/public-view")
+        },500)
       }
     } catch (error) {
       console.error("Error submitting additional details:", error);
