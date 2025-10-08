@@ -225,114 +225,109 @@ const JobSingleDynamicV3 = () => {
       <div className="app-gradient-bg px-2 py-4 md:px-4 ">
         <div className="max-w-7xl mx-auto">
           <section className="job-header-section bg-blue-50 py-4 sm:py-6 px-4 sm:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-lg mb-6 shadow-sm gap-4 sm:gap-0">
-            <div className="flex flex-col sm:flex-row justify-center md:justify-start md:items-center gap-4 sm:gap-6 w-full sm:w-auto ">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 w-full sm:w-auto">
               <img
                 src={"/images/resource/company-logo/1-1.png"}
                 alt="Company Logo"
                 className="w-28 h-28 rounded-lg border-2 border-white shadow-sm"
               />
-              <div className="w-full sm:w-auto ">
+              <div className="w-full sm:w-auto">
                 <h2 className="app-text-h2 mb-2">
-                  {jobData?.job_title}
+                  {jobData?.job_title || "Job Title Not Available"}
                 </h2>
                 <div className="font-normal mb-2 flex items-center gap-2">
                   <div className="app-text-h3 flex justify-center items-center">
                     <Building className="mr-2" size={20} />
-                    <div className="font-normal gap-2 flex flex-col md:flex-row items-center">
-                      <div className="app-text-h3 flex  justify-start items-start ">
-                        <Building className="mr-2" size={20} />
-                        {company?.company_name || "Company Not Available"}
-                      </div>
-
-                      <div className="app-text-h3 flex justify-center items-center">
-                        <Folder className="mr-2" size={20} />
-                        {jobData?.job_category_name || "Category"}
-                      </div>
-                    </div>
-                    <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 text-sm font-normal">
-                      <span className="app-text-h3 flex justify-center items-center">
-                        {/* <i className="flaticon-briefcase " /> */}
-                        <Briefcase className="mr-2" size={20} />
-                        {jobData?.job_type_name || "Not Specified"}
-                      </span>
-                      <span className="app-text-h3 flex justify-center items-center">
-                        {/* <i className="flaticon-money " /> */}
-                        <DollarSign className="mr-2" size={20} />
-                        {jobData?.offered_salary
-                          ? `₹${jobData.offered_salary} / month`
-                          : "Not disclosed"}
-                      </span>
-                      <span className="app-text-h3 flex justify-center items-center ">
-
-                        <MapPin className="mr-2" size={20} />
-                        {jobData?.location || "Location Not Specified"}
-                      </span>
-                    </div>
+                    {company?.company_name || "Company Not Available"}
+                  </div>
+                  {"|"}
+                  <div className="app-text-h3 flex justify-center items-center">
+                    <Folder className="mr-2" size={20} />
+                    {jobData?.job_category_name || "Category Not Available"}
                   </div>
                 </div>
-                <div className="flex flex-col gap-3 items-stretch sm:items-end w-full sm:w-auto">
-                  {/* Apply Button */}
-                  <Button
-                    variant={jobData?.is_applied ? "success" : "default"}
-                    onClick={() => handleApplyNowClick(jobData)}
-                    className="w-full"
-                    disabled={jobData?.is_applied}
-                  >
-                    <i className="flaticon-send text-lg" />
-                    <span>
-                      {jobData?.is_applied ? "Already Applied" : "Apply For Job"}
-                    </span>
-                  </Button>
-                  <Button
-                    onClick={() => navigate(`/interview/${jobData.id}`)}
-                    className="w-full"
-                  >
-                    Practice Interview
-                  </Button>
+                <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 text-sm font-normal">
+                  <span className="app-text-h3 flex justify-center items-center">
+                    {/* <i className="flaticon-briefcase " /> */}
+                    <Briefcase className="mr-2" size={20} />
+                    {jobData?.job_type_name || "Not Specified"}
+                  </span>
+                  <span className="app-text-h3 flex justify-center items-center">
+                    {/* <i className="flaticon-money " /> */}
+                    <DollarSign className="mr-2" size={20} />
+                    {jobData?.offered_salary
+                      ? `₹${jobData.offered_salary} / month`
+                      : "Not disclosed"}
+                  </span>
+                  <span className="app-text-h3 flex justify-center items-center ">
 
-                  {/* Bookmark + Follow + Share */}
-                  <div className="flex flex-col sm:flex-row gap-3 w-full">
-                    {/* Bookmark Button */}
-                    <Button
-                      variant={jobData?.is_favorite ? "success" : "secondary"}
-
-                      onClick={handleBookmarkClick}
-                    >
-                      <Heart size={16} />
-                      <span>{jobData.is_favorite ? "Saved" : "Save"}</span>
-                    </Button>
-
-                    {/* Follow Company Button */}
-                    <Button
-                      variant={jobData?.is_company_favorite ? "success" : "secondary"}
-                      onClick={handleFollowCompany}
-                    >
-                      <i className="flaticon-user text-lg" />
-                      <span>
-                        {jobData.is_company_favorite ? "Following" : "Follow"}
-                      </span>
-                    </Button>
-
-                    {/* Share Button */}
-                    <Button
-                      variant="primary"
-                      // className="flex items-center justify-center px-4 py-2.5 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 shadow-sm transition"
-                      onClick={() => setShowModal(true)}
-                    >
-                      <Share2Icon size={20} />
-                    </Button>
-                  </div>
-
-                  {/* Modal */}
-                  {showModal && (
-                    <ShareJobModal
-                      show={showModal}
-                      onClose={() => setShowModal(false)}
-                      shareUrl={shareUrl}
-                    />
-                  )}
+                    <MapPin className="mr-2" size={20} />
+                    {jobData?.location || "Location Not Specified"}
+                  </span>
                 </div>
               </div>
+            </div>
+            <div className="flex flex-col gap-3 items-stretch sm:items-end w-full sm:w-auto">
+              {/* Apply Button */}
+              <Button
+                variant={jobData?.is_applied ? "success" : "default"}
+                onClick={() => handleApplyNowClick(jobData)}
+                className="w-full"
+                disabled={jobData?.is_applied}
+              >
+                <i className="flaticon-send text-lg" />
+                <span>
+                  {jobData?.is_applied ? "Already Applied" : "Apply For Job"}
+                </span>
+              </Button>
+              <Button
+                onClick={() => navigate(`/interview/${jobData.id}`)}
+                className="w-full"
+              >
+                Practice Interview
+              </Button>
+
+              {/* Bookmark + Follow + Share */}
+              <div className="flex flex-col sm:flex-row gap-3 w-full">
+                {/* Bookmark Button */}
+                <Button
+                  variant={jobData?.is_favorite ? "success" : "secondary"}
+
+                  onClick={handleBookmarkClick}
+                >
+                  <Heart size={16} />
+                  <span>{jobData.is_favorite ? "Saved" : "Save"}</span>
+                </Button>
+
+                {/* Follow Company Button */}
+                <Button
+                  variant={jobData?.is_company_favorite ? "success" : "secondary"}
+                  onClick={handleFollowCompany}
+                >
+                  <i className="flaticon-user text-lg" />
+                  <span>
+                    {jobData.is_company_favorite ? "Following" : "Follow"}
+                  </span>
+                </Button>
+
+                {/* Share Button */}
+                <Button
+                  variant="primary"
+                  // className="flex items-center justify-center px-4 py-2.5 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 shadow-sm transition"
+                  onClick={() => setShowModal(true)}
+                >
+                  <Share2Icon size={20} />
+                </Button>
+              </div>
+
+              {/* Modal */}
+              {showModal && (
+                <ShareJobModal
+                  show={showModal}
+                  onClose={() => setShowModal(false)}
+                  shareUrl={shareUrl}
+                />
+              )}
             </div>
           </section>
 
